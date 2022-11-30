@@ -12,7 +12,7 @@ in
     enable = true;
     matchBlocks = {
       home = {
-        host = concatSTringsSep " " hostnames;
+        host = concatStringsSep " " hostnames;
         forwaredAgent = true;
         remoteForwareds = [
           {
