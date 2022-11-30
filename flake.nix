@@ -9,7 +9,7 @@
     nix-colors.url = "github:misterio77/nix-colors";
 
     firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pks/firefox-addons";
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
@@ -18,10 +18,13 @@
     };
   };
 
-  outputs = inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-      lib = import ./lib { inherit inputs; };
-      inherit (lib) mkSystem mkHome importAttrset forAllSystems;
+      inherit (self) outputs;
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+    in
+    rec {
       mkHost = { hostname, architecture }: {
         pkgs = legacyPackages.${architecture};
         extraSpecialArgs = { inherit inputs outputs; };
@@ -32,10 +35,19 @@
         extraSpecialArgs = { inherit inputs outputs; };
         modules = [ ./home/lubsch/${hostname} ];
       };
-    in
-    {
 
       templates = import ./templates;
+      nixosModules = import ./modules/nixos;
+      homeManagerModules = import ./modules/home-manager;
+      overlays = import ./overlays;
+
+      legacyPackages = forAllSystems(system:
+        import nixpkgs {
+          inherit system;
+          overlays = with overlays; [ additions wallpapers modifications ];
+          config.allowUnfree = true;
+        }
+      );
 
       devShells = forAllSystems (system: {
         default = inputs.nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };

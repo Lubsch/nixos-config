@@ -1,5 +1,59 @@
 {
   "nodes": {
+    "base16-schemes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1665690101,
+        "narHash": "sha256-J2ZvNaVFkqaTXzYO5L+jyRORfIOavFPKvWItP6UTMKs=",
+        "owner": "tinted-theming",
+        "repo": "base16-schemes",
+        "rev": "a3dc916cf90471a422c0bfe1bb4b1bdd12185ced",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tinted-theming",
+        "repo": "base16-schemes",
+        "type": "github"
+      }
+    },
+    "firefox-addons": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1669825348,
+        "narHash": "sha256-kLZydzNNa1r+a+t7Aao2ch1rnr9mhTdje7+NiUrKqT4=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "7a0d6b3c693bb5ac5ed5899c28e0b3b97f2ae067",
+        "type": "gitlab"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "type": "gitlab"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1629284811,
+        "narHash": "sha256-JHgasjPR0/J1J3DRm4KxM4zTyAj4IOJY8vIl75v/kPI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c5d161cc0af116a2e17f54316f0bf43f0819785c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "hardware": {
       "locked": {
         "lastModified": 1659356074,
@@ -51,6 +105,25 @@
         "type": "github"
       }
     },
+    "nix-colors": {
+      "inputs": {
+        "base16-schemes": "base16-schemes",
+        "nixpkgs-lib": "nixpkgs-lib"
+      },
+      "locked": {
+        "lastModified": 1669296560,
+        "narHash": "sha256-W7Hqq1gWlPO54M79+olt+cl2wodq8/B9K9gDHXl99jc=",
+        "owner": "misterio77",
+        "repo": "nix-colors",
+        "rev": "01c5aea7d6724723f3deca4dfde6d916b7bdbe50",
+        "type": "github"
+      },
+      "original": {
+        "owner": "misterio77",
+        "repo": "nix-colors",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1659889440,
@@ -67,28 +140,29 @@
         "type": "github"
       }
     },
-    "nur": {
+    "nixpkgs-lib": {
       "locked": {
-        "lastModified": 1659987762,
-        "narHash": "sha256-vVY7XgKYnm48Xbwsx3Q+FJyFo93DKqXnhIuDKhj7j7c=",
+        "lastModified": 1655599917,
+        "narHash": "sha256-kjZbt5WdTrnjMxL79okg9TCoRUdADG50x/TWozbyTsE=",
         "owner": "nix-community",
-        "repo": "NUR",
-        "rev": "0929bb3683ebcecd25a524f5793a7e07d6cab32f",
+        "repo": "nixpkgs.lib",
+        "rev": "5fb55578aa2f1a502d636a8ac71aece57cb730bb",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "repo": "NUR",
+        "repo": "nixpkgs.lib",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
+        "firefox-addons": "firefox-addons",
         "hardware": "hardware",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "nixpkgs": "nixpkgs",
-        "nur": "nur"
+        "nix-colors": "nix-colors",
+        "nixpkgs": "nixpkgs"
       }
     },
     "utils": {
