@@ -25,16 +25,16 @@
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     in
     rec {
-      mkHost = { hostname, architecture }: {
+      mkHost = { hostname, architecture }: nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.${architecture};
-        extraSpecialArgs = { inherit inputs outputs; };
+        specialArgs = { inherit inputs outputs; };
         modules = [ ./hosts/${hostname} ];
       };
-      mkHome = { hostname, architecture }: {
-        pkgs = legacyPackages.${architecture};
-        extraSpecialArgs = { inherit inputs outputs; };
-        modules = [ ./home/lubsch/${hostname} ];
-      };
+      mkHome = { username, hostname, architecture }: home-manager.lib.homeManagerConfiguration {
+          pkgs = legacyPackages.${architecture};
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./home/${username}/${hostname} ];
+        };
 
       templates = import ./templates;
       nixosModules = import ./modules/nixos;
@@ -44,7 +44,7 @@
       legacyPackages = forAllSystems(system:
         import nixpkgs {
           inherit system;
-          overlays = with overlays; [ additions wallpapers modifications ];
+          overlays = with overlays; [  ];
           config.allowUnfree = true;
         }
       );
@@ -69,16 +69,16 @@
 
       homeConfigurations = {
         # Laptop
-        "lubsch@duke" = mkHome { hostname = "duke"; architecture = "x86_64-linux"; };
+        "lubsch@duke" = mkHome { username = "lubsch"; hostname = "duke"; architecture = "x86_64-linux"; };
 
         # Desktop
-        "lubsch@king" = mkHome { hostname = "king"; architecture = "x86_64-linux"; };
+        /* "lubsch@king" = mkHome { username= "lubsch"; hostname = "king"; architecture = "x86_64-linux"; }; */
 
-        # Server
-        "lubsch@serf" = mkHome { hostname = "serf"; architecture = "aarch64-linux"; };
+        /* # Server */
+        /* "lubsch@serf" = mkHome { username = "lubsch"; hostname = "serf"; architecture = "aarch64-linux"; }; */
 
-        # Phone
-        "lubsch@earl" = mkHome { hostname = "earl"; architecture = "aarch64-linux"; };
+        /* # Phone */
+        /* "lubsch@earl" = mkHome { username = "lubsch"; hostname = "earl"; architecture = "aarch64-linux"; }; */
       };
     };
 }
