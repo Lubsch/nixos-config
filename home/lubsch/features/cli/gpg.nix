@@ -1,6 +1,5 @@
 { pkgs
 , config
-, persistence
 , lib
 , ...
 }:
@@ -36,7 +35,7 @@ in
 
   programs.zsh.profileExtra = "gpgconf --launch gpg-agent";
 
-  environment.persistence."/persist".users.lubsch.directores = mkIf persistence [ "${config.xdg.dataHome}/gnupg" ];
+  environment.persistence."/persist".users.lubsch.directores = [ "${config.xdg.dataHome}/gnupg" ];
 
   programs.gpg = {
     enable = true;

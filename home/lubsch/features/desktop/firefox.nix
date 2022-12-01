@@ -1,4 +1,4 @@
-{ pkgs, lib, persistence, ... }:
+{ pkgs, lib, ... }:
 let
   addons = pkgs.nur.repos.rycee.firefox-addons;
 in
@@ -22,6 +22,6 @@ in
         "browser.uiCustomization.state" = ''{"placements":{"widget-overflow-fixed-list":["ublock0_raymondhill_net-browser-action","sponsorblocker_ajay_app-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action"],"nav-bar":["back-button","forward-button","stop-reload-button","urlbar-container","save-to-pocket-button","downloads-button","fxa-toolbar-menu-button","wayback_machine_mozilla_org-browser-action"],"toolbar-menubar":["menubar-items"],"TabsToolbar":["tabbrowser-tabs","new-tab-button","alltabs-button"],"PersonalToolbar":["import-button","personal-bookmarks"]},"seen":["developer-button","ublock0_raymondhill_net-browser-action","sponsorblocker_ajay_app-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action"],"dirtyAreaCache":["nav-bar","PersonalToolbar","toolbar-menubar","TabsToolbar","widget-overflow-fixed-list"],"currentVersion":17,"newElementCount":6}'';
       };
     };
-    environment.persistence."/persist".directories = lib.mkIf persistence [ "${home.homeDir}/.mozilla/firefox" ];
+    environment.persistence."/persist".directories = [ "${home.homeDir}/.mozilla/firefox" ];
   };
 }

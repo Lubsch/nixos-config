@@ -1,7 +1,6 @@
 { inputs
 , lib
 , username
-, persistence
 , features
 , ...
 }:
@@ -38,7 +37,7 @@ in
     };
   };
 
-  environment.persistence."/persist" = mkIf persistence {
+  environment.persistence."/persist" = {
     users.lubsch = {
       directories = [
         "audio"

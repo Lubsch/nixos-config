@@ -2,7 +2,6 @@
 { lib
 , inputs
 , hostname
-, persistence
 , config
 , ...
 }: {
@@ -19,7 +18,7 @@
   programs.zsh.enable = true;
 
   # Persist logs etc.
-  environment.persistence."/persist" = lib.mkIf persistence {
+  environment.persistence."/persist" = {
     hideMounts = true;
     directories = [ "/var/lib/systemd" "/var/log" ];
   };

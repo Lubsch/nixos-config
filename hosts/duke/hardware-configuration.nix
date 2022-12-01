@@ -1,6 +1,6 @@
 {
   imports = [
-    ../common/optional/btfs-optin-persistence.nix
+    ../common/optional/btrfs-optin-persistence.nix
     ../common/optional/encrypted-root.nix
   ];
 
