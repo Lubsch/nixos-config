@@ -17,6 +17,11 @@
     ../common/optional/steam.nix
   ];
 
+  networking = {
+    hostName = "duke";
+    useDHCP = false;
+  };
+
   programs.adb.enable = true;
 
   virtualisation.libvirtd = {

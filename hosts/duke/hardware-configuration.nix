@@ -17,7 +17,7 @@
   fileSystems = {
     "/boot" = {
       device = "/dev/disk/by-label/ESP";
-      fstype = "vfat";
+      fsType = "vfat";
     };
   };
 

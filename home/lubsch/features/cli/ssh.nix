@@ -1,26 +1,26 @@
 { outputs
-, hostname
+, lib
 , ...
 }:
 let
-  inherit (builtins) attrNames concatStringsSep filter;
-  notSelf = n: n != hostName;
-  hostNames = filter notSelf (attrNames outputs.nixosConfigurations);
+  hostnames = builtins.attrNames outputs.nixosConfigurations;
 in
 {
   programs.ssh = {
     enable = true;
     matchBlocks = {
-      home = {
-        host = concatStringsSep " " hostnames;
+      net = {
+        host = builtins.concatStringsSep " " hostnames;
         forwaredAgent = true;
-        remoteForwareds = [
-          {
+        remoteForwareds = [{
             bind.address = "/run/user/1000/gnupg/S.gpg-agent";
             host.address = "/run/user/1000/gnupg/S.gpg-agent.extra";
-          }
-        ];
+          }];
       };
     };
+  };
+
+  home.persistence = {
+    "/persist/home/lubsch".directories = [ ".ssh" ];
   };
 }

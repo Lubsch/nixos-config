@@ -28,12 +28,12 @@
       mkHost = { hostname, architecture }: nixpkgs.lib.nixosSystem {
         pkgs = legacyPackages.${architecture};
         specialArgs = { inherit inputs outputs; };
-        modules = [ ./hosts/${hostname} ];
+        modules = [ (./hosts + "/${hostname}") ];
       };
       mkHome = { username, hostname, architecture }: home-manager.lib.homeManagerConfiguration {
           pkgs = legacyPackages.${architecture};
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./home/${username}/${hostname} ];
+          modules = [ (./home + "/${username}/${hostname}") ];
         };
 
       templates = import ./templates;
@@ -58,13 +58,13 @@
         duke = mkHost { hostname = "duke"; architecture = "x86_64-linux"; };
 
         # Desktop
-        king = mkHost { hostname = "king"; architecture = "x86_64-linux"; };
+        /* king = mkHost { hostname = "king"; architecture = "x86_64-linux"; }; */
 
-        # Server
-        serf = mkHost { hostname = "serf"; architecture = "aarch64-linux"; };
+        /* # Server */
+        /* serf = mkHost { hostname = "serf"; architecture = "aarch64-linux"; }; */
 
-        # Phone
-        earl = mkHost { hostname = "earl"; architecture = "aarch64-linux"; };
+        /* # Phone */
+        /* earl = mkHost { hostname = "earl"; architecture = "aarch64-linux"; }; */
       };
 
       homeConfigurations = {

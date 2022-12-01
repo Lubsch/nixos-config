@@ -1,8 +1,7 @@
 # This file and the global directory as a whole apply to all hosts
 { lib
 , inputs
-, hostname
-, config
+, outputs
 , ...
 }: {
   imports = [
@@ -13,18 +12,13 @@
     ./users.nix
   ];
 
-  networking.hostName = hostname;
-
   programs.zsh.enable = true;
 
   # Persist logs etc.
-  environment.persistence."/persist" = {
-    hideMounts = true;
-    directories = [ "/var/lib/systemd" "/var/log" ];
-  };
+  environment.persistence."/persist".directories = [ "/var/lib/systemd" "/var/log" ];
 
-  nixpkgs.config.allowUnfree = true;
-  hardware.enableAllFirmware = true;
+  # Allows users to allow others on their binds (fuse binds are used by persistence)
+  programs.fuse.userAllowOther = true;
 
-  system.stateVersion = lib.mkDefault "22.05";
+  hardware.enableRedistributableFirmware = true;
 }
