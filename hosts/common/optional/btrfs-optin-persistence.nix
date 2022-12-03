@@ -35,7 +35,7 @@ in
         serviceConfig.Type = "oneshot";
         unitConfig.DefaultDependencies = "no";
 
-        requires = [ "initrd-root-deice.target" ];
+        requires = [ "initrd-root-device.target" ];
         before = [ "sysroot.mount" ];
         wantedBy = [ "initrd-root-fs.target" ];
       };
@@ -54,7 +54,7 @@ in
     "/nix" = {
       device = "/dev/disk/by-label/${hostname}";
       fsType = "btrfs";
-      options = [ "subvol=nix" "noatime" "compress=zstd" "noatime" ];
+      options = [ "subvol=nix" "noatime" "compress=zstd" ];
     };
 
     "/persist" = {
