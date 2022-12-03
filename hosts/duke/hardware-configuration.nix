@@ -6,7 +6,7 @@
 
   boot = {
     initrd = {
-      availableKernelModules = [ "xhcpi_pci" "ahci" "sd_mod" "rtsx_usb_sdmmc" ];
+      availableKernelModules = [ "xhci_pci" "ahci" "sd_mod" "rtsx_usb_sdmmc" ];
       kernelModules = [ "kvm-intel" ];
     };
     loader = {
