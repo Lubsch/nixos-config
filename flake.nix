@@ -49,8 +49,12 @@
         }
       );
 
+      packages = forAllSystems (system:
+        import ./pkgs { pkgs = legacyPackages.${system}; }
+      );
+
       devShells = forAllSystems (system: {
-        default = inputs.nixpkgs.legacyPackages.${system}.callPackage ./shell.nix { };
+        default = import ./shell.nix { pkgs = legacyPackages.${system}; };
       });
 
       nixosConfigurations = {
