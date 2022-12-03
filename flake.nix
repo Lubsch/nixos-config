@@ -33,7 +33,7 @@
       mkHome = { username, hostname, architecture }: home-manager.lib.homeManagerConfiguration {
           pkgs = legacyPackages.${architecture};
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ (./home + "/${username}/${hostname}") ];
+          modules = [ (./home + "/${username}/${hostname}.nix") ];
         };
 
       templates = import ./templates;
