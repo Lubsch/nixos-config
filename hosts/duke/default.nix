@@ -14,6 +14,7 @@
     ../common/optional/pipewire.nix
     ../common/optional/encrypted-root.nix
     ../common/optional/systemd-boot.nix
+    ../common/optional/wireless.nix
     ../common/optional/steam.nix
   ];
 

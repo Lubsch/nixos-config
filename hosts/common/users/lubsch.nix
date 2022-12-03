@@ -9,7 +9,7 @@ in
     extraGroups = [
       "video"
       "audio"
-    ] ++ ifTheyExis [
+    ] ++ ifTheyExist [
       "network"
       "libvirtd"
       "git"
