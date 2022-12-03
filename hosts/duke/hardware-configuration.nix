@@ -5,6 +5,10 @@
   ];
 
   boot = {
+    initrd = {
+      availableKernelModules = [ "xhcpi_pci" "ahci" "sd_mod" "rtsx_usb_sdmmc" ];
+      boot.kernelModules = [ "kvm-intel" ];
+    };
     loader = {
       systemd-boot = {
         enable = true;
