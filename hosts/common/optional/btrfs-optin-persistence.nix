@@ -12,7 +12,7 @@ let
       echo "Cleaning subvolume"
       btrfs subvolume list -o /btrfs/root | cut -f9 -d ' ' |
       while read subvolume; do
-        btrfs subvolume delete "/btrfs$subvolume"
+        btrfs subvolume delete "/btrfs/$subvolume"
       done && btrfs subvolume delete /btrfs/root
 
       echo "Restoring blank subvolume"
@@ -30,7 +30,7 @@ in
       emergencyAccess = true;
       initrdBin = with pkgs; [ coreutils btrfs-progs ];
       services.initrd-btrfs-root-wipe = {
-        desription = "Wipe ephemeral btrfs root";
+        description = "Wipe ephemeral btrfs root";
         script = wipeScript;
         serviceConfig.Type = "oneshot";
         unitConfig.DefaultDependencies = "no";
