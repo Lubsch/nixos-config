@@ -14,6 +14,9 @@ pkgs.mkShell {
     nix
     home-manager
     git
+
     gnupg
+    gnupg
+    age
   ];
 }
