@@ -1,9 +1,3 @@
-{ outputs, lib, config, ... }:
-let
-  hosts = outputs.nixosConfigurations;
-  hostname = config.networking.hostName;
-  pubKey = host: ../../${host}/ssh_host_ed25519_key.pub;
-in
 {
   services.openssh = {
     enable = true;
@@ -21,15 +15,6 @@ in
       path = "/persist/etc/ssh/ssh_host_ed25519_key";
       type = "ed25519";
     }];
-  };
-
-
-  programs.ssh = {
-    # Get known hosts from each hosts public key file
-    knownHosts = builtins.mapAttrs (name: _: {
-      publicKeyFile = pubKey name;
-      extraHostNames = lib.optional (name == hostname) "localhost";
-    }) hosts;
   };
 
   # Passwordless sudo when SSHing with keys

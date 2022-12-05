@@ -5,9 +5,9 @@
   ];
 
   boot = {
+    kernelModules = [ "kvm-intel" ];
     initrd = {
-      availableKernelModules = [ "xhci_pci" "ahci" "sd_mod" "rtsx_usb_sdmmc" ];
-      kernelModules = [ "kvm-intel" ];
+      availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
     };
     loader = {
       systemd-boot = {
@@ -27,4 +27,5 @@
 
   nixpkgs.hostPlatform.system = "x86_64-linux";
   powerManagement.cpuFreqGovernor = "powersave";
+  hardware.cpu.intel.updateMicrocode = true;
 }
