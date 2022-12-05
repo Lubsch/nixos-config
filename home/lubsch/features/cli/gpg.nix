@@ -33,9 +33,9 @@ in
     enableExtraSocket = true;
   };
 
-  programs.zsh.profileExtra = "gpgconf --launch gpg-agent";
+  programs.zsh.loginExtra = "gpgconf --launch gpg-agent";
 
-  environment.persistence."/persist".users.lubsch.directores = [ "${config.xdg.dataHome}/gnupg" ];
+  home.persistence = { "persist/home/lubsch".directories = [ ".gnupg" ]; };
 
   programs.gpg = {
     enable = true;
