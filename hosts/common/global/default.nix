@@ -9,6 +9,7 @@
     ./locale.nix
     ./nix.nix
     ./openssh.nix
+    ./sops.nix
   ];
 
   programs.zsh.enable = true;
