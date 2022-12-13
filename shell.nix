@@ -17,6 +17,5 @@ pkgs.mkShell {
 
     gnupg
     gnupg
-    age
   ];
 }

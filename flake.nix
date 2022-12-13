@@ -16,6 +16,10 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,7 +49,7 @@
       homeManagerModules = import ./modules/home-manager;
       overlays = import ./overlays;
 
-      legacyPackages = forAllSystems(system:
+      legacyPackages = forAllSystems (system:
         import nixpkgs {
           inherit system;
           overlays = with overlays; [  ];
