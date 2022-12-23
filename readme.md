@@ -6,11 +6,16 @@ This is my NixOS-config. It is heavily inspired by [Misterio77's config](https:/
 
 ### Secrets
 
-GPG is avoided as best as possible.
+GPG is avoided like the plague it probably is.
 
 Each host has its own private hostkey, saved in `/persist/etc/ssh/ssh_host_ed25519_key` (as configured in `./hosts/common/global/openssh.nix`).
 
-This hostkey is used to decrypt secrets (such as user and wifi passwords) stored in `./hosts/common/global/secrets.yaml` (as configured in `./hosts/common/global/sops.nix`)
+This hostkey is used to decrypt secrets (such as user and wifi passwords) stored in `./hosts/common/global/secrets` and the module is imported in `./hosts/common/global/agenix.nix`)
+
+To edit secrets, go in the `./hosts/common/global/secrets` directory and use:
+```
+agenix -e <secret>.age -i <ssh-private-key-path>
+```
 
 ### SSH remote access
 
@@ -46,13 +51,12 @@ sudo fdisk /dev/<drive>
 Create the ESP-partition with an offset of `+500M` and has the type `EFI System`.
 Create the encrypted filesystem partition which fills the rest of the drive with the type `Linux filesystem`.
 
-### Run the setup script
-
 Clone the repository into `~/nixos-config`:
 ```
 git clone https://github.com/Lubsch/nixos-config
 ```
-Execute the script:
+
+### Run the setup script
 ```
 ./setup.sh <hostname> /dev/<ESP-partition> /dev/<encrypted-partition>
 ```
@@ -64,12 +68,8 @@ It will do the following:
 - Create the BTRFS subvolumes
 - Mount the BTRFS subvolumes and boot partition under `/mnt`
 - Generate an ssh-hostkey and put it in the `/mnt/persist/etc/ssh` directory
-- Generate `system-info.nix` which contains the auto-generated hardware-configuration and the public ssh-hostkey
+- Send auto-generated hardware-configuration and ssh-hostkey via `wormhole`
 
-Copy the file using the command:
-```
-wormhole send system-info.nix
-```
 On another computer with access to this repo, use:
 ```
 wormhole receive

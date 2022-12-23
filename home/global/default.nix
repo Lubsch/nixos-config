@@ -1,7 +1,9 @@
 # Default config of lubsch user on all hosts
-{ inputs, lib, pkgs, config, outputs, ... }:
+{ inputs, lib, pkgs, outputs, ... }:
 let
-  inherit (inputs.nix-colors) colorSchems;
+  inherit (inputs.nix-colors) colorSchemes;
+  username = "lubsch";
+  homeDirectory = "/home/lubsch";
 in
 {
   # Default features for all a
@@ -31,19 +33,19 @@ in
   };
 
   home = {
-    username = lib.mkDefault "lubsch";
-    homeDirectory = lib.mkDefault "/home/${config.home.username}";
+    inherit username;
+    inherit homeDirectory;
     stateVersion = lib.mkDefault "22.05";
 
     xdg = {
       userDirs = {
         enable = true;
         createDirectories = true;
-        documents = "${config.home.homeDirectory}/documents";
-        downloads = "${config.home.homeDirectory}/loads";
-        music = "${config.home.homeDirectory}/music";
-        pictures = "${config.home.homeDirectory}/pictures";
-        videos = "${config.home.homeDirectory}/videos";
+        documents = "${homedirectory}/documents";
+        downloads = "${homedirectory}/loads";
+        music = "${homedirectory}/music";
+        pictures = "${homedirectory}/pictures";
+        videos = "${homedirectory}/videos";
       };
     };
 

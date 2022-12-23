@@ -4,8 +4,8 @@ let
   inherit (inputs.nix-colors) colorSchemes;
 in
 {
-  imports = [ ./global
-    ./features/cli
+  imports = [
+    ./global
   ];
 
   wallpaper = wallpapers.aenami-serenity;

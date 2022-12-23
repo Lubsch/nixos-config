@@ -12,6 +12,7 @@ nixos-generators.nixosGenerate {
       age
       ssh-to-age
       sops
+      magic-wormhole
     ];
     nix.settings.extraOptions = ''
       experimental-features = nix-command flakes

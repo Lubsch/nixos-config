@@ -1,18 +1,14 @@
 { pkgs
 , inputs
 , lib
+, config
 , ...
 }:
-let
-  inherit (lib) mapAttrs' nameValuePair;
-  toRegistry = mapAttrs' (n: v: nameValuePair n { flake = v; });
-in
 {
   nix = {
     settings = {
       auto-optimise-store = true;
     };
-    package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -20,7 +16,11 @@ in
       automatic = true;
       dates = "weekly";
     };
-    # Map flakes to system registries (the features that enables nixpkgs#hello)
-    registry = toRegistry inputs;
+    # Map each flake input as a registry, making nix commands consistent with the flake
+    # (where it is defined what 'nixpkgs' means)
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+
+    # Map registry to channel (useful when using legacy commands)
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
   };
 }

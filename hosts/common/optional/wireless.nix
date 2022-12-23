@@ -9,10 +9,10 @@
     enable = true;
     fallbackToWPA2 = false;
     # Declarative networking config
-    environmentFile = config.sops.secrets.wireless.path;
+    environmentFile = config.age.secrets.wireless.path;
     networks = {
-      "FRITZ!Box 7590 TC" = {
-        psk = "@FRITZ@";
+      "@SSID_HOME@" = {
+        psk = "@PSK_HOME@";
       };
     };
 

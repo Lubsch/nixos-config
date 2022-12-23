@@ -33,13 +33,8 @@
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     in
     rec {
-      mkHost = { hostname, architecture }: nixpkgs.lib.nixosSystem {
-        pkgs = legacyPackages.${architecture};
-        specialArgs = { inherit inputs outputs; };
-        modules = [ (./hosts + "/${hostname}") ];
-      };
       mkHome = { username, hostname, architecture }: home-manager.lib.homeManagerConfiguration {
-          pkgs = legacyPackages.${architecture};
+          pkgs = nixpkgs.legacyPackages.${architecture};
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ (./home + "/${username}/${hostname}.nix") ];
         };
@@ -49,48 +44,24 @@
       homeManagerModules = import ./modules/home-manager;
       overlays = import ./overlays;
 
-      legacyPackages = forAllSystems (system:
-        import nixpkgs {
-          inherit system;
-          overlays = with overlays; [  ];
-          config.allowUnfree = true;
-        }
-      );
-
-      packages = forAllSystems (system:
-        import ./pkgs { pkgs = legacyPackages.${system}; }
-      );
-
-      devShells = forAllSystems (system: {
-        default = import ./shell.nix { pkgs = legacyPackages.${system}; };
-      });
+      /* packages = forAllSystems (system: */
+      /*   import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; } */
+      /* ); */
 
       nixosConfigurations = {
         # Laptop
-        duke = mkHost { hostname = "duke"; architecture = "x86_64-linux"; };
-
-        # Desktop
-        /* king = mkHost { hostname = "king"; architecture = "x86_64-linux"; }; */
-
-        /* # Server */
-        /* serf = mkHost { hostname = "serf"; architecture = "aarch64-linux"; }; */
-
-        /* # Phone */
-        /* earl = mkHost { hostname = "earl"; architecture = "aarch64-linux"; }; */
+        duke = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; };
+          modules = [ ./hosts/duke ];
+        };
       };
 
       homeConfigurations = {
         # Laptop
-        "lubsch@duke" = mkHome { username = "lubsch"; hostname = "duke"; architecture = "x86_64-linux"; };
-
-        # Desktop
-        /* "lubsch@king" = mkHome { username= "lubsch"; hostname = "king"; architecture = "x86_64-linux"; }; */
-
-        /* # Server */
-        /* "lubsch@serf" = mkHome { username = "lubsch"; hostname = "serf"; architecture = "aarch64-linux"; }; */
-
-        /* # Phone */
-        /* "lubsch@earl" = mkHome { username = "lubsch"; hostname = "earl"; architecture = "aarch64-linux"; }; */
+        "lubsch@duke" = home-manager.lib.homeManagerConfiguration {
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [ ./home/lubsch/duke.nix ];
+        };
       };
     };
 }
