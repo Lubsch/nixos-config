@@ -1,6 +1,6 @@
-{ nixpkgs } {
-home.packages = [trash]
-programs.zsh.shellAliases = {
-rm = "trash";
-};
+{ pkgs, ... }: {
+  home.packages = with pkgs; [ trash-cli ];
+  programs.zsh.shellAliases = {
+    rm = "trash";
+  };
 }

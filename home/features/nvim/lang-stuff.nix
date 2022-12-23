@@ -1,51 +1,21 @@
 { pkgs, ... }: {
   programs.neovim.plugins = with pkgs.vimPlugins; [
     {
-      plugin = mkdnflow.nvim;
-      config = ''
-        lua >> EOF
-        -- ** DEFAULT SETTINGS; TO USE THESE, PASS NO ARGUMENTS TO THE SETUP FUNCTION **
-        require('mkdnflow').setup({
-            modules = {
-                folds = false,
-            },
-            perspective = {
-                priority = 'root',
-                root_tell = 'index.md',
-            },    
-            wrap = false,
-            silent = true,
-            links = {
-                conceal = true,
-            },
-            to_do = {
-                symbols = {' ', 'X'},
-            },
-            mappings = {
-              MkdnTableNewRowBelow = {{'n', 'i'}, '<leader>ir'},
-              MkdnTableNewRowAbove = {{'n', 'i'}, '<leader>iR'},
-              MkdnTableNewColAfter = {{'n', 'i'}, '<leader>ic'},
-              MkdnTableNewColBefore = {{'n', 'i'}, '<leader>iC'},
-            }
-        })
-        EOF
-      '';
-    }
-    {
-      plugin = tex-conceal.vim;
+      plugin = tex-conceal-vim;
       config = ''
         set conceallevel=2
         let g:tex_conceal="abdmg"
       '';
     }
     {
-      plugin = nvim-treesitter.withPlugins (p: attrValues (removeAttrs p [ "tree-sitter-nix" ]));
-      config = "lua require'nvim-treesitter.configs'.setup{highlight.enable=true,indent.enable=true;}";
+      plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
+      type = "lua";
+      config = "require'nvim-treesitter.configs'.setup{highlight.enable=true,indent.enable=true;}";
     }
     {
       plugin = nvim-lspconfig;
+      type = "lua";
       config = ''
-        lua >> EOF
         local opts = { noremap=true, silent=true }
         vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
         vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -79,7 +49,6 @@
         end
 
         require'lspconfig'.rnix.setup{} -- nix
-        EOF
       '';
     }
   ];

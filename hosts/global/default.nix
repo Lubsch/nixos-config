@@ -1,4 +1,4 @@
-# This file and the global directory as a whole apply to all hosts
+# This file applies to all hosts
 { lib
 , inputs
 , outputs
@@ -10,7 +10,7 @@
     ./locale.nix
     ./nix.nix
     ./openssh.nix
-    ./sops.nix
+    ./agenix.nix
   ];
 
   home-manager = {

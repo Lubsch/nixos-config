@@ -1,4 +1,4 @@
-{ inputs, li }: {
+{ inputs, ... }: {
   imports = [
     inputs.agenix.nixosModule
   ];

@@ -4,7 +4,7 @@
 }:
 let
   mkFontOption = kind: {
-    family = Lib.mkOption {
+    family = lib.mkOption {
       type = lib.types.str;
       default = null;
       description = "Family name for ${kind} font profile";
@@ -22,12 +22,12 @@ in
 {
   options.fontProfiles = {
     enable = lib.mkEnableOption "Wheteher to enable font profiles";
-    monospace = mkFonOption "monospace";
+    monospace = mkFontOption "monospace";
     regular = mkFontOption "regular";
   };
 
   config = lib.mkIf cfg.enable {
     fonts.fontconfig.enable = true;
-    home.packages = [ cgf.monospace.package cfg.regular.package ];
+    home.packages = [ cfg.monospace.package cfg.regular.package ];
   };
 }

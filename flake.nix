@@ -12,8 +12,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sops-nix = {
-      url = "github:mic92/sops-nix";
+    agenix= {
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-generators = {
@@ -33,12 +33,6 @@
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     in
     rec {
-      mkHome = { username, hostname, architecture }: home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${architecture};
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ (./home + "/${username}/${hostname}.nix") ];
-        };
-
       templates = import ./templates;
       nixosModules = import ./modules/nixos;
       homeManagerModules = import ./modules/home-manager;
@@ -52,15 +46,16 @@
         # Laptop
         duke = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs outputs; };
-          modules = [ ./hosts/duke ];
+          modules = [ ./hosts/duke.nix ];
         };
       };
 
       homeConfigurations = {
         # Laptop
         "lubsch@duke" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."x86_64-linux";
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./home/lubsch/duke.nix ];
+          modules = [ ./home/duke.nix ];
         };
       };
     };

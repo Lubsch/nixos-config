@@ -10,9 +10,9 @@ GPG is avoided like the plague it probably is.
 
 Each host has its own private hostkey, saved in `/persist/etc/ssh/ssh_host_ed25519_key` (as configured in `./hosts/common/global/openssh.nix`).
 
-This hostkey is used to decrypt secrets (such as user and wifi passwords) stored in `./hosts/common/global/secrets` and the module is imported in `./hosts/common/global/agenix.nix`)
+This hostkey is used to decrypt secrets (such as user and wifi passwords) stored in `./hosts/common/secrets` and the module is imported in `./hosts/common/global/agenix.nix`)
 
-To edit secrets, go in the `./hosts/common/global/secrets` directory and use:
+To edit secrets, go in the `./hosts/common/secrets` directory and use:
 ```
 agenix -e <secret>.age -i <ssh-private-key-path>
 ```

@@ -1,9 +1,6 @@
-{ config, lib, ... }: {
+{ config, ... }: {
   # Secrets stored with sops
-  sops.secrets.wireless = {
-    sopsFile = ../secrets.yaml;
-    neededForUsers = true;
-  };
+  age.secrets.wireless.file = ../secrets/wireless.age;
 
   networking.wireless = {
     enable = true;

@@ -2,7 +2,7 @@
   programs.git = {
     enable = true;
     userName = "lubsch";
-    extraconfig = {
+    extraConfig = {
       init.defaultBranch = "main";
     };
   };

@@ -1,5 +1,5 @@
-{
-  progams.zsh = {
+{ lib, config, pkgs, ... }: {
+  programs.zsh = {
     enable = true;
     autocd = true;
     enableSyntaxHighlighting = true;
@@ -15,19 +15,9 @@
         jctl = "journalctl -p 3 -xb";
       };
     defaultKeymap = "viins";
-    initExtra =
-      ''
-        # Prompt
-        PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-
-
-        # Use vim keys in tab complete menu:
-        bindkey -M menuselect 'h' vi-backward-char
-        bindkey -M menuselect 'k' vi-up-line-or-history
-        bindkey -M menuselect 'l' vi-forward-char
-        bindkey -M menuselect 'j' vi-down-line-or-history
-        bindkey -v '^?' backward-delete-char
-
+    initExtra = ''
+        prompt off
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevl10k.zsh-theme
         # Archive extraction
         ex ()
         {
@@ -53,23 +43,9 @@
             echo "'$1' is not a valid file"
           fi
         }
-
         # Edit line in vim with ctrl-e:
         autoload edit-command-line; zle -N edit-command-line
         bindkey '^e' edit-command-line
-      ''
-      ++ mkIf builtins.elem "zoxide" home.packages ''
-        # Initialize Zoxide
-        eval "$(zoxide init zsh --cmd zx)"
-
-        # j as alternative to cd and z (zoxide)
-        function j() {
-            if [[ "$argv[1]" == "-"* ]]; then
-                zx "$@"
-            else
-                cd "$@" 2> /dev/null || zx "$@"
-            fi
-        }
       '';
   };
 }

@@ -1,12 +1,9 @@
 { config, pkgs, ... }: {
-  import = [ ./lsp.nix ./syntax.nix ];
+  imports = [
+    ./lang-stuff.nix
+  ];
 
-  home = {
-    sessionVariables.EDITOR = "nvim";
-    preferredPrograms.editor = {
-      cmd = config.home.preferredPrograms.terminal.cmd-spawn "nvim";
-    };
-  };
+  home.sessionVariables.EDITOR = "nvim";
 
   programs.neovim = {
     enable = true;
@@ -106,20 +103,19 @@
 
     plugins = with pkgs.vimPlugins; [
       vim-commentary
-      asyncrun.vim
+      asyncrun-vim
       vim-startuptime
-      impatient.nvim
-      filetype.nvim
+      impatient-nvim
       {
-        plugin = smart-pairs;
+        plugin = smartpairs-vim;
         config = "lua require 'pairs':setup(opts)";
       }
       {
-        plugin = gruvbox.nvim;
+        plugin = gruvbox-nvim;
         config = "colorscheme gruvbox";
       }
       {
-        plugin = telescope;
+        plugin = telescope-nvim;
         config = ''
           nnoremap <silent> <leader>f :Telescope find_files<cr>
           nnoremap <silent> <leader>b :Telescope buffers<cr>
