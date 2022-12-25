@@ -48,7 +48,8 @@
           vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
         end
 
-        require'lspconfig'.rnix.setup{} -- nix
+        local 'lspconfig' = require('lspconfig')
+        lspconfig.rnix.setup { on_attach = an_attach }
       '';
     }
   ];
