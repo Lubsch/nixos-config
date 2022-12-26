@@ -1,6 +1,6 @@
 {
   description = "Lubsch's NixOS and Home-Manager configuration";
-  
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -12,7 +12,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agenix= {
+    agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -28,35 +28,25 @@
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-      inherit (self) outputs;
-      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+      hosts = import ./hosts.nix;
+      lib = import ./lib.nix { inherit nixpkgs home-manager; };
+
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
     in
     rec {
       templates = import ./templates;
-      nixosModules = import ./modules/nixos;
-      homeManagerModules = import ./modules/home-manager;
       overlays = import ./overlays;
 
-      /* packages = forAllSystems (system: */
-      /*   import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; } */
-      /* ); */
+      packages = forAllSystems (system:
+        import ./pkgs {
+          pkgs = nixpkgs.legacyPackages.${system};
+          inherit inputs system;
+        }
+      );
 
-      nixosConfigurations = {
-        # Laptop
-        duke = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
-          modules = [ ./hosts/duke.nix ];
-        };
-      };
+      nixosConfigurations = lib.makeNixosConfigurations hosts;
+      homeConfigurations = lib.makeHomeConfigurations hosts;
 
-      homeConfigurations = {
-        # Laptop
-        "lubsch@duke" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./home/duke.nix ];
-        };
-      };
     };
 }

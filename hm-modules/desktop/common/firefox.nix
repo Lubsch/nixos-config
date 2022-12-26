@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ username, config, pkgs, lib, ... }:
 let
   addons = inputs.firefox-addons.packages.${pkgs.system};
 in
@@ -10,7 +10,7 @@ in
       vimium
       sponsorblock
     ];
-    profiles.lubsch = {
+    profiles.${username} = {
       settings = {
         "browser.startup.homepage" = "about:blank";
         "identity.fxaccounts.enabled" = false;
@@ -23,7 +23,7 @@ in
       };
     };
     home.persistence = {
-      "/persistence/home/lubsch".directories = [ ".mozilla/firefox" ];
+      "/persistence/home/{username}".directories = [ ".mozilla/firefox" ];
     };
   };
 }

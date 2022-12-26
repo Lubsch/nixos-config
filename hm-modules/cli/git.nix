@@ -1,7 +1,8 @@
+{ username, ... }:
 {
   programs.git = {
     enable = true;
-    userName = "lubsch";
+    userName = username;
     extraConfig = {
       init.defaultBranch = "main";
     };

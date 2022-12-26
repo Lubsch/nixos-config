@@ -4,22 +4,33 @@ This is my NixOS-config. It is heavily inspired by [Misterio77's config](https:/
 
 ## How it works
 
+The different system and user configurations are defined as sets in `./hosts.nix`. Configurations are defined with the following structure:
+
+- host (for nixos-modules)
+    - user (for nixos-modules and hm-modules)
+    - ...
+- ...
+
+This structure seems to make sense since users are really bound to hosts. Now, the artificial distinction between users configured on the host and the hm-config is abstracted away.
+
+This file is read in the `flake.nix` where the keys of the set are turned into arguments for the NixOS- and HM-configurations using `_module.args`. This acutally consitutes an antipattern I think, because it is recommended to use module options. But this is my config and this way I can avoid a lot of boilerplate.
+
 ### Secrets
 
 GPG is avoided like the plague it probably is.
 
-Each host has its own private hostkey, saved in `/persist/etc/ssh/ssh_host_ed25519_key` (as configured in `./hosts/common/global/openssh.nix`).
+Each host has its own private hostkey, saved in `/persist/etc/ssh/ssh_host_ed25519_key` (as configured in `./nixos-modules/common/openssh.nix`).
 
-This hostkey is used to decrypt secrets (such as user and wifi passwords) stored in `./hosts/common/secrets` and the module is imported in `./hosts/common/global/agenix.nix`)
+This hostkey is used to decrypt secrets (such as user and wifi passwords) stored in `./nixos-modules/common/secrets` and the module is imported in `./nixos-modules/agenix.nix`).
 
-To edit secrets, go in the `./hosts/common/secrets` directory and use:
+To edit secrets, in the `./nixos-modules/common/secrets` directory run:
 ```
 agenix -e <secret>.age -i <ssh-private-key-path>
 ```
 
 ### SSH remote access
 
-The file `./hosts/common/users/lubsch.nix` defines `openssh.authorizedKeys.keys`, which are the public keys of keypairs that can access the lubsch user over ssh. All ssh private keys are of course stored locally and always live on one device only (in the `~/.shh` folder, except for hostkeys)
+The file `./nixos-modules/common/user.nix` defines `openssh.authorizedKeys.keys`, which are the public keys of keypairs that can access the user over ssh. All ssh private keys are of course stored locally and always live on one device only (in the `~/.shh` folder, except for hostkeys)
 
 ### Colors
 

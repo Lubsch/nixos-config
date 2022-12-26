@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }: {
+{ lib, pkgs, ... }: {
   programs.zsh = {
     enable = true;
     autocd = true;

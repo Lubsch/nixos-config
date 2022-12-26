@@ -1,7 +1,6 @@
 # This file applies to all hosts
 { lib
 , inputs
-, outputs
 , ...
 }: {
   imports = [
@@ -18,11 +17,10 @@
     useUserPackages = true;
     # Use the same nixpkgs as the whole system
     useGlobalPkgs = true;
-    extraSpecialArgs = { inherit inputs outputs; };
   };
 
   nixpkgs = {
-    overlays = builtins.attrValues outputs.overlays;
+    overlays = import ../../overlays;
     config = {
       allowUnfree = true;
     };
