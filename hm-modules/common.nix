@@ -1,7 +1,6 @@
 # Global user config on all hosts
-{ inputs, lib, pkgs, username, ... }:
+{ colorSchemes, inputs, lib, pkgs, username, ... }:
 let
-  inherit (inputs.nix-colors) colorSchemes;
   inherit username;
   homeDirectory = "/home/${username}";
 in

@@ -1,11 +1,8 @@
-{ username, config, pkgs, lib, ... }:
-let
-  addons = inputs.firefox-addons.packages.${pkgs.system};
-in
+{ firefox-addons, username, config, pkgs, lib, ... }:
 {
   programs.firefox = {
     enable = true;
-    extensions = with addons; [
+    extensions = with firefox-addons; [
       ublok-origin
       vimium
       sponsorblock

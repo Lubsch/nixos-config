@@ -26,27 +26,28 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, ... }@inputs:
     let
-      hosts = import ./hosts.nix;
-      lib = import ./lib.nix { inherit nixpkgs home-manager; };
-
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
     in
     rec {
+      nixos-modules = import ./nixos-modules;
+      hm-modules = import ./hm-modules;
+      lib = import ./lib.nix { inherit inputs; };
+      hosts = import ./hosts.nix { inherit nixos-modules hm-modules; };
+
       templates = import ./templates;
       overlays = import ./overlays;
 
-      packages = forAllSystems (system:
-        import ./pkgs {
-          pkgs = nixpkgs.legacyPackages.${system};
-          inherit inputs system;
-        }
-      );
+      /* packages = forAllSystems (system: */
+      /*   import ./pkgs { */
+      /*     pkgs = nixpkgs.legacyPackages.${system}; */
+      /*     inherit inputs system; */
+      /*   } */
+      /* ); */
 
       nixosConfigurations = lib.makeNixosConfigurations hosts;
       homeConfigurations = lib.makeHomeConfigurations hosts;
-
     };
 }

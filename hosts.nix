@@ -6,9 +6,11 @@ let
 in
 {
   duke = {
-    system = "x86_64-linux";
-    kernelModules = [ "kvm-intel" ];
-    initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
+    arguments = {
+      system = "x86_64-linux";
+      kernelModules = [ "kvm-intel" ];
+      initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
+    };
     modules = with nixos-modules; [
       common
       users
@@ -19,7 +21,9 @@ in
     ];
     users = {
       lubsch = {
-        inherit authorizedKeys;
+        config = {
+          inherit authorizedKeys;
+        };
         modules = with hm-modules; [
           common
           cli

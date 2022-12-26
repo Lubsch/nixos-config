@@ -4,20 +4,11 @@
 , ...
 }: {
   imports = [
-    inputs.impermanence.nixosModules.impermanence
-    inputs.home-manager.nixosModules.home-manager
     ./locale.nix
     ./nix.nix
     ./openssh.nix
     ./agenix.nix
   ];
-
-  home-manager = {
-    # Safe profiles to /etc/profiles instead of ~/.nix-profile
-    useUserPackages = true;
-    # Use the same nixpkgs as the whole system
-    useGlobalPkgs = true;
-  };
 
   nixpkgs = {
     overlays = import ../../overlays;
