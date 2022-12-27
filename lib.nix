@@ -10,8 +10,8 @@ rec {
     nixpkgs.lib.nixosSystem {
       pkgs = nixpkgs.legacyPackages.${host.arguments.system};
       modules = host.modules ++ [
-        impermanence.nixoModules.impermanence
-        agenix.nixosModules
+        impermanence.nixosModules.impermanence
+        agenix.nixosModule
         { config._module.args = host.arguments // { inherit hostname; }; }
       ];
     };
@@ -38,6 +38,6 @@ rec {
     builtins.mapAttrs
       (hostname: host: builtins.mapAttrs
         (username: user: makeHomeConfiguration { inherit hostname host username user; })
-        host.users)
+        host.arguments.users)
       hosts;
 }

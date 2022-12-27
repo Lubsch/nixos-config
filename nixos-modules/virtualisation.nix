@@ -1,4 +1,4 @@
 { pkgs, ... }: {
   virtualisation.libvirtd.enable = true;
-  envronment.systemPackages = with pkgs; [ virt-manager ];
+  environment.systemPackages = with pkgs; [ virt-manager ];
 }

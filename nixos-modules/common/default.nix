@@ -1,17 +1,23 @@
 # This file applies to all hosts
 { lib
 , inputs
+, system
 , ...
 }: {
   imports = [
+    ./btrfs-optin-persistence.nix
+    ./doas.nix
+    ./encrypted-root.nix
     ./locale.nix
     ./nix.nix
     ./openssh.nix
-    ./agenix.nix
+    ./systemd-boot.nix
+    ./users.nix
   ];
 
   nixpkgs = {
-    overlays = import ../../overlays;
+    hostPlatform = system;
+    overlays = builtins.attrValues (import ../../overlays);
     config = {
       allowUnfree = true;
     };

@@ -26,17 +26,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, hardware, ... }@inputs:
     let
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
-    in
-    rec {
-      nixos-modules = import ./nixos-modules;
-      hm-modules = import ./hm-modules;
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
       lib = import ./lib.nix { inherit inputs; };
-      hosts = import ./hosts.nix { inherit nixos-modules hm-modules; };
-
+      hosts = import ./hosts.nix { inherit hardware; };
+    in {
       templates = import ./templates;
       overlays = import ./overlays;
 
