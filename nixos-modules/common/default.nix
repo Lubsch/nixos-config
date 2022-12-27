@@ -1,6 +1,5 @@
 # This file applies to all hosts
 { lib
-, inputs
 , system
 , ...
 }: {
@@ -35,4 +34,5 @@
   programs.fuse.userAllowOther = true;
 
   hardware.enableRedistributableFirmware = true;
+  system.stateVersion = "23.05";
 }

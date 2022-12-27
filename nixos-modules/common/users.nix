@@ -1,19 +1,19 @@
 { pkgs, config, users, ... }:
 let
-  makeUser = user: {
+  makeUser = username: user: {
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [
       "wheel"
       "video"
       "audio"
-    ] ++ builtins.filter (group: builtins.hasAttr group config.users.group) [
+    ] ++ builtins.filter (group: builtins.hasAttr group config.users.groups) [
       "network"
       "libvirtd"
       "git"
     ];
 
-    openssh = { inherit (user.arguments) authorizedKeys; };
+    openssh = { authorizedKeys.keys = user.arguments.authorizedKeys; };
     /* passwordFile = user.arguments.passwordPath; */
   };
 in

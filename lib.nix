@@ -1,10 +1,7 @@
 { inputs }:
 let
+  # Flake input modules are always imported because why not
   inherit (inputs) nixpkgs home-manager agenix impermanence firefox-addons nix-colors;
-in
-rec {
-
-  # Flake input modules are alway imported (because the performance impact is small)
 
   makeNixosConfiguration = { hostname, host }:
     nixpkgs.lib.nixosSystem {
@@ -20,7 +17,6 @@ rec {
     home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${host.arguments.system};
       modules = user.modules ++ [
-
         { config._module.args = host.arguments // user.arguments // {
           inherit hostname username;
           firefox-addons = firefox-addons.packages.${host.arguments.system};
@@ -29,6 +25,7 @@ rec {
       ];
     };
 
+in {
   makeNixosConfigurations = hosts:
     builtins.mapAttrs
       (hostname: host: makeNixosConfiguration { inherit hostname host; })
