@@ -34,9 +34,9 @@
     let
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+    in rec {
       lib = import ./lib.nix { inherit inputs; };
       hosts = import ./hosts.nix { inherit hardware; };
-    in {
       templates = import ./templates;
       overlays = import ./overlays;
 
