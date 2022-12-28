@@ -24,9 +24,13 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, hardware, ... }@inputs:
+  outputs = { self, nixpkgs, hardware, agenix, ... }@inputs:
     let
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
@@ -36,10 +40,17 @@
       templates = import ./templates;
       overlays = import ./overlays;
 
-      packages = forAllSystems (system:
-        import ./pkgs {
-          pkgs = nixpkgs.legacyPackages.${system};
-          inherit inputs system;
+      devShells = forAllSystems (system:
+        let pkgs = nixpkgs.legacyPackages.${system}; in {
+          default = pkgs.mkShell {
+            packages = with pkgs;[
+              nix
+              home-manager
+              git
+              rage
+              agenix.defaultPackage.${system}
+            ];
+          };
         }
       );
 
