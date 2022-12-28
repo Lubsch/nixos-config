@@ -15,19 +15,19 @@ in
           arguments = {
             inherit authorizedKeys;
           };
-          modules = map (module: import ./hm-modules/${module}) [
-            "common"
-            "nvim"
-            "desktop"
+          modules = [
+            ./home/common
+            ./home/nvim
+            ./home/desktop
           ];
         };
       };
     };
-    modules = map (module: import ./nixos-modules/${module}) [
-      "common"
-      "wireless.nix"
-      "virtualisation.nix"
-      "pipewire.nix"
+    modules = [
+      ./nixos/common
+      ./nixos/wireless.nix
+      ./nixos/virtualisation.nix
+      ./nixos/pipewire.nix
     ];
   };
 }

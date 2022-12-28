@@ -36,12 +36,12 @@
       templates = import ./templates;
       overlays = import ./overlays;
 
-      /* packages = forAllSystems (system: */
-      /*   import ./pkgs { */
-      /*     pkgs = nixpkgs.legacyPackages.${system}; */
-      /*     inherit inputs system; */
-      /*   } */
-      /* ); */
+      packages = forAllSystems (system:
+        import ./pkgs {
+          pkgs = nixpkgs.legacyPackages.${system};
+          inherit inputs system;
+        }
+      );
 
       nixosConfigurations = lib.makeNixosConfigurations hosts;
       homeConfigurations = lib.makeHomeConfigurations hosts;
