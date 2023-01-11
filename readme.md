@@ -58,7 +58,13 @@ sudo loadkeys de-latin1
 
 Optionally, login to a wireless network:
 ```
-wpa_passphase <ESSID> | sudo tee /etc/wpa_supplicant.conf
+sudo systemctl start wpa_supplicant
+wpa_cli
+> add_network
+> set_network 0 ssid "<ssid>"
+> set_network 0 psk "<password>"
+> set_network 0 key_mgmt WPA-EAP
+> enable_network 0
 ```
 Enter the password and restart the systemd service:
 ```
