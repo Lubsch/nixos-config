@@ -51,13 +51,18 @@ doas dd if=./path/to/file.iso of=/dev/<usb_drive> status=progress
 
 Boot from the USB drive.
 
+Change the keyboard layout:
+```
+sudo loadkeys de-latin1
+```
+
 Optionally, login to a wireless network:
 ```
 wpa_passphase <ESSID> | sudo tee /etc/wpa_supplicant.conf
 ```
 Enter the password and restart the systemd service:
 ```
-systemctl restart wpa_supplicant
+sudo systemctl restart wpa_supplicant
 ```
 Partition your drive:
 ```

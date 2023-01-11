@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/bin/sh
 
 # Exit on error
 set -e
@@ -10,11 +10,11 @@ if [ "$#" -ne 3 ]; then
 fi
 
 # Create ESP file system
-mkfs.vfat -n ESP "$1"
+mkfs.vfat -n ESP "$2"
 
 # Setup encryption and temporarily unencrypt
-cryptsetup --verify-passphrase -v luksFormat "$2" --label "$0"_crypt
-cryptsetup open "$2" enc
+cryptsetup --verify-passphrase -v luksFormat "$3" --label "$1"_crypt
+cryptsetup open "$3" enc
 mkfs.btrfs /dev/mapper/enc
 
 # Create subvolumes and snapshot empty root subvolume
@@ -39,7 +39,7 @@ mount /dev/disk/by-label/ESP /mnt/boot
 
 # Generate ssh-hostkeys
 mkdir -p /mnt/etc/ssh
-ssh-keygen -A -f /mnt -C "root@$0"
+ssh-keygen -A -f /mnt -C "root@$1"
 
 # Output host keys and auto generated config to magic-wormhole
 printf "%s\n%s" "$(nixos-generate-config --root /mnt --show-hardware-config)" "$(cat /mnt/etc/ssh)" | wormhole send
