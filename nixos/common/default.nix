@@ -14,6 +14,11 @@
     ./users.nix
   ];
 
+  networking = {
+    useDHCP = false;
+    hostName = hostname;
+  };
+
   nixpkgs = {
     hostPlatform = system;
     overlays = builtins.attrValues (import ../../overlays);
