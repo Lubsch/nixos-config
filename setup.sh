@@ -43,4 +43,4 @@ mkdir -p /mnt/etc/ssh
 ssh-keygen -A -f /mnt -C "root@$1"
 
 # Output host keys and auto generated config to magic-wormhole
-printf "%s\n%s" "$(nixos-generate-config --root /mnt --show-hardware-config)" "$(cat /mnt/etc/ssh)" | wormhole send
+printf "%s\n%s" "$(nixos-generate-config --root /mnt --show-hardware-config)" "$(cat /mnt/etc/ssh/ssh_host_ed25519_key.pub)" | wormhole send

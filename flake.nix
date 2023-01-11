@@ -49,6 +49,7 @@
               git
               rage
               agenix.defaultPackage.${system}
+              magic-wormhole
             ];
           };
         }
