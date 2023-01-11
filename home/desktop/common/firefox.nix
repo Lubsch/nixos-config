@@ -3,7 +3,7 @@
   programs.firefox = {
     enable = true;
     extensions = with firefox-addons; [
-      ublok-origin
+      ublock-origin
       vimium
       sponsorblock
     ];
@@ -19,8 +19,9 @@
         "browser.uiCustomization.state" = ''{"placements":{"widget-overflow-fixed-list":["ublock0_raymondhill_net-browser-action","sponsorblocker_ajay_app-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action"],"nav-bar":["back-button","forward-button","stop-reload-button","urlbar-container","save-to-pocket-button","downloads-button","fxa-toolbar-menu-button","wayback_machine_mozilla_org-browser-action"],"toolbar-menubar":["menubar-items"],"TabsToolbar":["tabbrowser-tabs","new-tab-button","alltabs-button"],"PersonalToolbar":["import-button","personal-bookmarks"]},"seen":["developer-button","ublock0_raymondhill_net-browser-action","sponsorblocker_ajay_app-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action"],"dirtyAreaCache":["nav-bar","PersonalToolbar","toolbar-menubar","TabsToolbar","widget-overflow-fixed-list"],"currentVersion":17,"newElementCount":6}'';
       };
     };
-    home.persistence = {
-      "/persistence/home/{username}".directories = [ ".mozilla/firefox" ];
-    };
+  };
+
+  home.persistence = {
+    "/persist/home/${username}".directories = [ ".mozilla/firefox" ];
   };
 }

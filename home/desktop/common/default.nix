@@ -1,15 +1,16 @@
 { pkgs, ... }: {
   imports = [
-    ./discord
-    ./spotify
-    ./librewolf.nix
-    ./font.nix
+    /* ./discord */
+    /* ./spotify */
+    /* ./librewolf.nix */
+    /* ./font.nix */
     ./gtk.nix
     ./qt.nix
-    ./shotcut.nix
-    ./tor.nix
-    ./calibre.nix
-    ./abiword.nix
+    ./firefox.nix
+    /* ./shotcut.nix */
+    /* ./tor.nix */
+    /* ./calibre.nix */
+    /* ./abiword.nix */
   ];
 
   home.packages = with pkgs; [

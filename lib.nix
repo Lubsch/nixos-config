@@ -20,17 +20,18 @@ let
     home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${host.arguments.system};
       modules = user.modules ++ [
+        impermanence.nixosModules.home-manager.impermanence
         { config._module.args = host.arguments // user.arguments // {
           inherit hostname username;
-          firefox-addons = firefox-addons.packages.${host.arguments.system};
           inherit (nix-colors) colorSchemes;
+          firefox-addons = firefox-addons.packages.${host.arguments.system};
         }; }
       ];
     };
 
 	makeUsersOnHost = (hostname: host:
 		map
-			(hmConfig: { name = "${hmConfig.config.home.username}@${hostname}"; inherit hmConfig; })
+			(hmConfig: { name = "${hmConfig.config.home.username}@${hostname}"; value = hmConfig; })
 			(attrValues
 				(mapAttrs
 					(username: user: makeHomeConfiguration { inherit hostname host username user; })
