@@ -42,20 +42,24 @@ This guide should include each and every step to get up and running on a new mac
 
 ### Prepare the USB drive
 
-Build the install-iso using the command:
+Download the [minimal iso](https://nixos.org/download.html#nixos-iso) and burn it to an empty usb-stick:
 ```
-nix build .#install-iso
-```
-Burn the ISO to a USB drive (unmounted and e.g. `sdc` instead of `sdc1`) using the following command which will show the progress:
-```
-doas dd if=./result/iso/*.iso of=/dev/<usb_drive> status=progress
+doas dd if=./path/to/file.iso of=/dev/<usb_drive> status=progress
 ```
 
 ### Prepare the machine
 
-Boot from the USB drive and (optionally) login to a wireless network using `nmtui`.
+Boot from the USB drive.
 
-Partitioning:
+Optionally, login to a wireless network:
+```
+wpa_passphase <ESSID> | sudo tee /etc/wpa_supplicant.conf
+```
+Enter the password and restart the systemd service:
+```
+systemctl restart wpa_supplicant
+```
+Partition your drive:
 ```
 sudo fdisk /dev/<drive>
 ```
@@ -96,5 +100,5 @@ nixos-install --flake .#<hostname>
 ```
 Shutdown and boot without the USB drive. Check if everything works, login as the user and install home-manager:
 ```
-home-manager switch --flake .#lubsch@<hostname>
+home-manager switch --flake .#"lubsch@<hostname>"
 ```
