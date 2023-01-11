@@ -1,5 +1,5 @@
 { config, ... }: {
-  age.secrets.wireless.file = ../common/secrets/wireless.age;
+  age.secrets.wireless.file = ../secrets/wireless.age;
 
   networking.wireless = {
     enable = true;
