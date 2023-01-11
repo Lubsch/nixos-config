@@ -1,6 +1,7 @@
 # This file applies to all hosts
 { lib
 , system
+, hostname
 , ...
 }: {
   imports = [
