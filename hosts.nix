@@ -18,7 +18,7 @@ in
           modules = [
             ./home/common
             ./home/nvim
-            ./home/desktop
+            ./home/desktop/common
           ];
         };
       };
