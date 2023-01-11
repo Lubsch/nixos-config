@@ -1,5 +1,5 @@
 # Global user config on all hosts
-{ colorSchemes, inputs, lib, pkgs, username, ... }:
+{ colorSchemes, lib, pkgs, username, ... }:
 let
   inherit username;
   homeDirectory = "/home/${username}";
