@@ -78,7 +78,7 @@ git clone https://github.com/Lubsch/nixos-config
 
 ### Run the setup script
 ```
-./setup.sh <hostname> /dev/<ESP-partition> /dev/<encrypted-partition>
+sudo ./setup.sh <hostname> /dev/<ESP-partition> /dev/<encrypted-partition>
 ```
 It will do the following:
 - Format the ESP-partition and label it `/dev/disk/by-label/ESP`

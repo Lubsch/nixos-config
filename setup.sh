@@ -18,6 +18,7 @@ cryptsetup open "$3" enc
 mkfs.btrfs /dev/mapper/enc
 
 # Create subvolumes and snapshot empty root subvolume
+mkdir /btrfs
 mount -t btrfs /dev/mapper/enc /btrfs
 btrfs subvolume create /btrfs/root
 btrfs subvolume create /btrfs/nix
@@ -30,9 +31,9 @@ umount /btrfs
 mount -o subvol=root,compress=zstd,noatime /dev/mapper/enc /mnt
 mkdir /mnt/nix
 mount -o subvol=root,compress=zstd,noatime /dev/mapper/enc /mnt/nix
-mkdir /mnt/nix
+mkdir /mnt/persist
 mount -o subvol=root,compress=zstd,noatime /dev/mapper/enc /mnt/persist
-mkdir /mnt/nix
+mkdir /mnt/swap
 mount -o subvol=root,noatime /dev/mapper/enc /mnt/swap
 mkdir /mnt/boot
 mount /dev/disk/by-label/ESP /mnt/boot
