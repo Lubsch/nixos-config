@@ -11,16 +11,16 @@ fi
 
 # Partition the drive
 parted $2 mklabel gpt
-parted $2 mkpart esp_part fat32 1MiB 513MiB
-parted $2 set esp_part esp on
-parted $2 mkpart $1_part btrfs 513MB 100%
+parted $2 mkpart ESP fat32 1MiB 513MiB
+parted $2 set ESP esp on
+parted $2 mkpart $1_crypt btrfs 513MB 100%
 
 # Create ESP file system
-mkfs.vfat -n ESP /dev/disk
+mkfs.vfat /dev/disk/by-partlabel/ESP
 
 # Setup encryption and temporarily unencrypt
-cryptsetup --verify-passphrase -v luksFormat "$3" --label "$1"_crypt
-cryptsetup open "$3" enc
+cryptsetup --verify-passphrase -v luksFormat /dev/disk/by-partlabel/$1_crypt
+cryptsetup open /dev/disk/by-partlabel/$1_crypt enc
 mkfs.btrfs /dev/mapper/enc
 
 # Create subvolumes and snapshot empty root subvolume
