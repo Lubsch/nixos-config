@@ -4,13 +4,19 @@
 set -e
 
 # Exit when argument count is wrong
-if [ "$#" -ne 3 ]; then
-    echo "./setup.sh <hostname> <ESP-partition> <encrypted-partition>"
+if [ "$#" -ne 2 ]; then
+    echo "./setup.sh <hostname> <drive_device>"
     exit 1
 fi
 
+# Partition the drive
+parted $2 mklabel gpt
+parted $2 mkpart esp_part fat32 1MiB 513MiB
+parted $2 set esp_part esp on
+parted $2 mkpart $1_part btrfs 513MB 100%
+
 # Create ESP file system
-mkfs.vfat -n ESP "$2"
+mkfs.vfat -n ESP /dev/disk
 
 # Setup encryption and temporarily unencrypt
 cryptsetup --verify-passphrase -v luksFormat "$3" --label "$1"_crypt
