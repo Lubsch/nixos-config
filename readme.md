@@ -63,12 +63,7 @@ wpa_cli
 > add_network
 > set_network 0 ssid "<ssid>"
 > set_network 0 psk "<password>"
-> set_network 0 key_mgmt WPA-EAP
 > enable_network 0
-```
-Enter the password and restart the systemd service:
-```
-sudo systemctl restart wpa_supplicant
 ```
 Partition your drive:
 ```
