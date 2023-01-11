@@ -74,6 +74,7 @@ Create the encrypted filesystem partition which fills the rest of the drive with
 
 Clone the repository into `~/nixos-config`:
 ```
+nix-shell -p git
 git clone https://github.com/Lubsch/nixos-config
 ```
 
