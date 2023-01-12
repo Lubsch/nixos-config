@@ -14,10 +14,11 @@ let
     ];
 
     openssh = { authorizedKeys.keys = user.arguments.authorizedKeys; };
-    /* passwordFile = user.arguments.passwordPath; */
+    passwordFile = config.age.secrets.userPassword.path;
   };
 in
 {
+  age.secrets.userPassword.file = ../../secrets/userPassword.age;
   users.mutableUsers = false;
   users.users = builtins.mapAttrs makeUser users;
 }
