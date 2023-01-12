@@ -65,30 +65,30 @@ wpa_cli
 > set_network 0 psk "<password>"
 > enable_network 0
 ```
-Partition your drive:
-```
-sudo fdisk /dev/<drive>
-```
-Create the ESP-partition with an offset of `+500M` and has the type `EFI System`.
-Create the encrypted filesystem partition which fills the rest of the drive with the type `Linux filesystem`.
-
-Clone the repository into `~/nixos-config`:
+Clone the repository:
 ```
 nix-shell -p git
 git clone https://github.com/Lubsch/nixos-config
+cd nixos-config
+```
+Get into the dev-shell:
+```
+nix-shell
 ```
 
 ### Run the setup script
 ```
-sudo ./setup.sh <hostname> /dev/<ESP-partition> /dev/<encrypted-partition>
+sudo ./setup.sh <hostname> <drive>
 ```
 It will do the following:
+- Partition your drive
 - Format the ESP-partition and label it `/dev/disk/by-label/ESP`
 - Create luks-encryption on the encrypted-partition and label it `/dev/disk/by-label/<hostname>_crypt`
 - Prompt you to create an encryption password
-- Format the BTRFS partition which will be accessible under `/dev/disk/by-label/duke`
+- Format the BTRFS partition which will be accessible under `/dev/mapper/<hostname>`
 - Create the BTRFS subvolumes
 - Mount the BTRFS subvolumes and boot partition under `/mnt`
+- Create the `/mnt/persist/var/log` directory
 - Generate an ssh-hostkey and put it in the `/mnt/persist/etc/ssh` directory
 - Send auto-generated hardware-configuration and ssh-hostkey via `wormhole`
 
@@ -96,7 +96,13 @@ On another computer with access to this repo, use:
 ```
 wormhole receive
 ```
-Add the key to `./hosts/common/secrets.yaml` and modify the hosts hardware-configuration in `./hosts/<hostname>/default.nix`
+Add the key to `./secrets/secrets.nix` and rekey the secrets:
+```
+cd secrets
+agenix -r -i <ssh-private-key>
+```
+Modify the hosts hardware-configuration in `./hosts.nix`.
+
 Commit and push your changes to git.
 
 ### Installation
