@@ -17,10 +17,7 @@
     ./optional/steam.nix
   ];
 
-  networking = {
-    hostName = "duke";
-    useDHCP = false;
-  };
+  networking.hostName = "duke";
 
   programs.adb.enable = true;
 
