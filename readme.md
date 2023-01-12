@@ -113,7 +113,7 @@ git pull
 Back on the new machine, pull the repo. Verify that you can edit `./hosts/common/global/secrets.yml`
 Install NixOS to the `/mnt`:
 ```
-nixos-install --flake .#<hostname>
+sudo nixos-install --flake .#<hostname>
 ```
 Shutdown and boot without the USB drive. Check if everything works, login as the user and install home-manager:
 ```
