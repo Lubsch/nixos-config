@@ -98,12 +98,16 @@ wormhole receive
 ```
 Add the key to `./secrets/secrets.nix` and rekey the secrets:
 ```
+nix develop
 cd secrets
 agenix -r -i <ssh-private-key>
 ```
-Modify the hosts hardware-configuration in `./hosts.nix`.
+Modify the hosts hardware-configuration in `./hosts.nix`. Commit and push your changes to git.
 
-Commit and push your changes to git.
+On the new device run:
+```
+git pull
+```
 
 ### Installation
 Back on the new machine, pull the repo. Verify that you can edit `./hosts/common/global/secrets.yml`

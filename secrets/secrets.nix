@@ -3,7 +3,7 @@ let
   earlUser = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvuIIrh2iuj2hX0zIzqLUC/5SD/ZJ3GaLcI1AyHDQuM";
   users = [ archUser earlUser ];
 
-  dukeHost = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINxylSkwlorFuPTKb+yEAR7DgixasqA8UqcgoLx8h1vx";
+  dukeHost = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQS3GJDwok25r57qdgsuzBpjuHiyB5uyXB1n2FusAgI";
   hosts = [ dukeHost ];
 in
 {
