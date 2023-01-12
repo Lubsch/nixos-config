@@ -2,9 +2,10 @@
 let
   hostname = config.networking.hostName;
   systemdPhase1 = config.boot.initrd.systemd.enable;
+  decrypted-drive = "/dev/mapper/${hostname}";
   wipeScript = ''
     mkdir -p /btrfs
-    mount -o subvol=/ /dev/mapper/${hostname} /btrfs
+    mount -o subvol=/ ${decrypted-drive} /btrfs
 
     if [ -e "/btrfs/root/dontwipe" ]; then
       echo "P: Not wiping root because the file /btrfs/root/dontwipe exists"
@@ -46,26 +47,26 @@ in
 
   fileSystems = {
     "/" = {
-      device = "/dev/mapper/${hostname}";
+      device = "${decrypted-drive}";
       fsType = "btrfs";
       options = [ "subvol=root" "compress=zstd" "noatime" ];
     };
 
     "/nix" = {
-      device = "/dev/mapper/${hostname}";
+      device = "${decrypted-drive}";
       fsType = "btrfs";
       options = [ "subvol=nix" "noatime" "compress=zstd" ];
     };
 
     "/persist" = {
-      device = "/dev/mapper/${hostname}";
+      device = "${decrypted-drive}";
       fsType = "btrfs";
       options = [ "subvol=persist" "compress=zstd" "noatime" ];
       neededForBoot = true;
     };
 
     "/swap" = {
-      device = "/dev/mapper/${hostname}";
+      device = "${decrypted-drive}";
       fsType = "btrfs";
       options = [ "subvol=swap" "noatime" ];
     };

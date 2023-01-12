@@ -34,16 +34,16 @@
     let
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-    in rec {
-      lib = import ./lib.nix { inherit inputs; };
       hosts = import ./hosts.nix { inherit hardware; };
+      lib = import ./lib.nix { inherit inputs; };
+    in {
       templates = import ./templates;
       overlays = import ./overlays;
 
       devShells = forAllSystems (system:
         let pkgs = nixpkgs.legacyPackages.${system}; in {
-          default = pkgs.mkShell {
-            packages = with pkgs;[
+          default = pkgs.mkShellNoCC {
+            packages = with pkgs; [
               nix
               home-manager
               git
