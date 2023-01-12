@@ -37,7 +37,7 @@ btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 umount /mnt
 cryptsetup close $1
 
-./mount-partitions.sh
+./mount-partitions.sh $1
 
 # Create directory necessary for boot
 mkdir -p /mnt/var/log
