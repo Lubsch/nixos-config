@@ -4,29 +4,11 @@ This is my NixOS-config. It is heavily inspired by [Misterio77's config](https:/
 
 ## How it works
 
-The different system and user configurations are defined as sets in `./hosts.nix`. Configurations are defined with the following structure:
-
-- host (for nixos-modules)
-    - user (for nixos-modules and hm-modules)
-    - ...
-- ...
-
-This structure seems to make sense since users are really bound to hosts. Now, the artificial distinction between users configured on the host and the hm-config is abstracted away.
-
-This file is read in the `flake.nix` where the keys of the set are turned into arguments for the NixOS- and HM-configurations using `_module.args`. This acutally consitutes an antipattern I think, because it is recommended to use module options. But this is my config and this way I can avoid a lot of boilerplate.
+Host-configs and home-manager-configs are defined in flake.nix. Just specifiy the modules you'd like and 
 
 ### Secrets
 
-GPG is avoided like the plague it probably is.
-
-Each host has its own private hostkey, saved in `/persist/etc/ssh/ssh_host_ed25519_key` (as configured in `./nixos-modules/common/openssh.nix`).
-
-This hostkey is used to decrypt secrets (such as user and wifi passwords) stored in `./nixos-modules/common/secrets` and the module is imported in `./nixos-modules/agenix.nix`).
-
-To edit secrets, in the `./nixos-modules/common/secrets` directory run:
-```
-agenix -e <secret>.age -i <ssh-private-key-path>
-```
+I later on decided on not managing secrets using nix, making bootsstrapping easier. Secret management (especially on such a small scale) should be seen as a stateful problem, when you think about it.
 
 ### SSH remote access
 
@@ -56,7 +38,7 @@ Change the keyboard layout:
 sudo loadkeys de-latin1
 ```
 
-Optionally, login to a wireless network:
+Optionally, log in to a wireless network:
 ```
 sudo systemctl start wpa_supplicant
 wpa_cli
@@ -89,20 +71,9 @@ It will do the following:
 - Create the BTRFS subvolumes
 - Mount the BTRFS subvolumes and boot partition under `/mnt`
 - Create the `/mnt/persist/var/log` directory
-- Generate an ssh-hostkey and put it in the `/mnt/persist/etc/ssh` directory
-- Send auto-generated hardware-configuration and ssh-hostkey via `wormhole`
+- Print auto-generated hardware-config
 
-On another computer with access to this repo, use:
-```
-wormhole receive
-```
-Add the key to `./secrets/secrets.nix` and rekey the secrets:
-```
-nix develop
-cd secrets
-agenix -r -i <ssh-private-key>
-```
-Modify the hosts hardware-configuration in `./hosts.nix`. Commit and push your changes to git.
+Modify the host's hardware-configuration on another device. Commit and push your changes to git.
 
 On the new device run:
 ```
@@ -110,12 +81,11 @@ git pull
 ```
 
 ### Installation
-Back on the new machine, pull the repo. Verify that you can edit `./hosts/common/global/secrets.yml`
-Install NixOS to the `/mnt`:
+Back on the new machine, pull the repo. Install NixOS to `/mnt`:
 ```
 sudo nixos-install --flake .#<hostname>
 ```
 Shutdown and boot without the USB drive. Check if everything works, login as the user and install home-manager:
 ```
-home-manager switch --flake .#"lubsch@<hostname>"
+home-manager switch --flake .#"<username>@<hostname>"
 ```

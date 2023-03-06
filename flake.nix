@@ -34,19 +34,6 @@
       templates = import ./templates;
       overlays = import ./overlays;
 
-      devShells = forAllSystems (system:
-        let pkgs = nixpkgs.legacyPackages.${system}; in {
-          default = pkgs.mkShellNoCC {
-            packages = with pkgs; [
-              nix
-              home-manager
-              git
-              magic-wormhole
-            ];
-          };
-        }
-      );
-
       nixosConfigurations = {
         "duke" = nixpkgs.lib.nixosSystem {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;

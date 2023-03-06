@@ -15,6 +15,7 @@ parted $2 mkpart ESP fat32 1MiB 513MiB
 parted $2 set 1 esp on
 parted $2 mkpart "$1_crypt" btrfs 513MiB 100%
 
+# I hate shell scripting
 sleep 0.2
 
 # Create ESP file system
@@ -42,9 +43,5 @@ cryptsetup close $1
 # Create directory necessary for boot
 mkdir -p /mnt/var/log
 
-# Generate ssh-hostkeys
-mkdir -p /mnt/etc/ssh
-ssh-keygen -A -f /mnt -C "root@$1"
-
-# Output host keys and auto generated config to magic-wormhole
-echo -e "$(nixos-generate-config --root /mnt --show-hardware-config)" "\n" "$(cat /mnt/etc/ssh/ssh_host_ed25519_key.pub)" | wormhole send --text -
+# Print out auto-generated hardware config
+nixos-generate-config --root /mnt --show-hardware-config
