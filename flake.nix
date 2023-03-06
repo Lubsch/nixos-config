@@ -20,10 +20,6 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
   };
 
   outputs = { self, nixpkgs, hardware, impermanence, home-manager, firefox-addons, nix-colors, ... }@inputs:
