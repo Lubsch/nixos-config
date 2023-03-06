@@ -12,10 +12,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,16 +26,10 @@
     };
   };
 
-  outputs = { self, nixpkgs, hardware, agenix, ... }@inputs:
+  outputs = { self, nixpkgs, hardware, impermanence, home-manager, firefox-addons, nix-colors, ... }@inputs:
     let
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-      hosts = import ./hosts.nix { inherit hardware; };
-      lib = import ./lib.nix { inherit inputs; };
-      authorizedKeys = [
-        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDS42veAAS9JxykhqWAhJq/llMEqNWScUHeH7bbv6w7BhzEkhpokEtpq+Mkp1EM7zJgq5FIEQcuQtoEZkZpYqR+c8bAKXHkz8KDBvg4yI1Y5AjRd4vWistAMNicoatwLU5gaPsmhbFNE2HGPVEO+8pBMruSJy+fHAgESSWgn/GYGazv/qCohKPp/7Mw4pXdrdynMIsB7KbHtuXx/zn2+R1az0zfP7XWv9qiyniINrPGBwWMtyYqdNd0K4G1FBWNjfVwGCUw2W50/vX5B2y0FI/gLpzg6VSFksOiH9S8pAR/4vN71fnHZw7vOuFIFq8PSedgFjsTuarELNBWRuKMWIxmej/UChmtNEqMOLOSkHNv3LBLHFFFljoOnaIoCTgSAn2I5+yHsaEy/TWhi6D0nCYA1UQBB4mVeoElFoAM1FAOV7jaMSMKHMJhSrDXtFmpJGXf2eEGyuX467q+rhb/MgW7QtIkMaOvMYbH5kiz+gleZmQ5K73yu5xmrBz66G6Flgs= (lubsch@arch)"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvuIIrh2iuj2hX0zIzqLUC/5SD/ZJ3GaLcI1AyHDQuM"
-      ];
     in {
       templates = import ./templates;
       overlays = import ./overlays;
@@ -51,8 +41,6 @@
               nix
               home-manager
               git
-              rage
-              agenix.defaultPackage.${system}
               magic-wormhole
             ];
           };
@@ -61,40 +49,37 @@
 
       nixosConfigurations = {
         "duke" = nixpkgs.lib.nixosSystem {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
-            ./nixos/common
-            ./nixos/wireless.nix
-            ./nixos/virtualisation.nix
-            ./nixos/pipewire.nix
-            impermanence.nixosModules.impermanence
-            agenix.nixosModule
-            {
-              config._module.args = {
+            { config._module.args = {
                 hostname = "duke";
                 system = "x86_64-linux";
                 kernelModules = [ "kvm-intel" ];
                 initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
-                users.lubsch.arguments = { inherit authorizedKeys; };
-              };
-            }
+                users.lubsch.arguments.authorizedKeys = import ./authorizedKeys.nix;
+            }; }
+            impermanence.nixosModules.impermanence
+            ./nixos/common
+            ./nixos/wireless.nix
+            ./nixos/virtualisation.nix
+            ./nixos/pipewire.nix
           ];
         };
       };
 
       homeConfigurations = {
         "lubsch@duke" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
-            ./home/common
-            ./home/nvim
-            impermanence.nixosModules.home-manager.impermanence
-            {
-              config._module.args = {
+            { config._module.args = {
                 username = "lubsch";
                 hostname = "duke";
                 inherit (nix-colors) colorSchemes;
                 firefox-addons = firefox-addons.packages.x86_64-linux;
-              };
-            }
+            }; }
+            impermanence.nixosModules.home-manager.impermanence
+            ./home/common
+            ./home/nvim
           ];
         };
       };
