@@ -35,7 +35,7 @@
               kernelModules = [ "kvm-intel" ];
               initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
               cpuFreqGovernor = "powersave";
-              users.lubsch.arguments.authorizedKeys = [
+              users.lubsch.authorizedKeys = [
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvuIIrh2iuj2hX0zIzqLUC/5SD/ZJ3GaLcI1AyHDQuM" # droid
               ];

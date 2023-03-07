@@ -32,7 +32,10 @@
 
   # Persist logs etc.
   environment = {
-    persistence."/persist".directories = [ "/var/lib/systemd" "/var/log" ];
+    persistence."/persist" = {
+      directories = [ "/var/lib/systemd" "/var/log" ];
+      files = [ "/etch/machine-id" ];
+    };
     enableAllTerminfo = true;
   };
 

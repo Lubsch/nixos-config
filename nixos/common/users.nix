@@ -8,17 +8,21 @@ let
       "video"
       "audio"
     ] ++ builtins.filter (group: builtins.hasAttr group config.users.groups) [
-      "network"
+      "networkmanager"
       "libvirtd"
       "git"
     ];
 
-    openssh = { authorizedKeys.keys = user.arguments.authorizedKeys; };
-    passwordFile = config.age.secrets.userPassword.path;
+    openssh.authorizedKeys.keys = user.authorizedKeys;
+
+    # Not in root directory or /etc because it's not a standard linux directory but my own
+    passwordFile = "/persist/passwords/${username}";
   };
 in
 {
-  age.secrets.userPassword.file = ../../secrets/userPassword.age;
-  users.mutableUsers = false;
-  users.users = builtins.mapAttrs makeUser users;
+  users = {
+    # Make users from "users" argument to the hosts's config
+    users = builtins.mapAttrs makeUser users;
+    mutableUsers = false;
+  };
 }

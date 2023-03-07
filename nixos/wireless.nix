@@ -1,35 +1,10 @@
 { config, ... }: {
-  age.secrets.wireless.file = ../secrets/wireless.age;
-
-  networking.wireless = {
-    enable = true;
-    fallbackToWPA2 = false;
-    # Declarative networking config
-    environmentFile = config.age.secrets.wireless.path;
-    networks = {
-      "@SSID_HOME@" = {
-        psk = "@PSK_HOME@";
-      };
-    };
-
-    # Imperative fallback
-    allowAuxiliaryImperativeNetworks = true;
-    userControlled = {
-      enable = true;
-      group = "network";
-    };
-    extraConfig = ''
-      update_config=1
-    '';
-  };
+  # Configure network manager for imperative usage
+  networking.networkmanager.enable = true;
 
   # Make the group exist
-  users.groups.network = { };
+  users.groups.networkmanager = { };
 
   # Persist imperative config
-  environment.persistence = {
-    "/persist".files = [
-      "/etc/wpa_supplicant.conf"
-    ];
-  };
+  environment.persistence."/persist".directories = [ "/etc/NetworkManager/system-connections" ];
 }

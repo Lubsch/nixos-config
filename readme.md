@@ -8,7 +8,7 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 ### Secrets
 
-I later on decided on not managing secrets using nix, making bootsstrapping easier. Secret management (especially on such a small scale) should be seen as a stateful problem, when you think about it.
+I decided on not managing secrets using nix, making bootsstrapping easier. Secret management (especially on such a small scale) should be seen as a stateful problem, when you think about it. Passwords are stored in `/perstist/passwords/<username>`.
 
 ### SSH remote access
 
@@ -26,7 +26,7 @@ This guide should include each and every step to get up and running on a new mac
 
 Download the [minimal iso](https://nixos.org/download.html#nixos-iso) and burn it to an empty usb-stick:
 ```
-doas dd if=./path/to/file.iso of=/dev/<usb_drive> status=progress
+doas dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
 ```
 
 ### Prepare the machine
@@ -60,17 +60,18 @@ nix-shell
 
 ### Run the setup script
 ```
-sudo ./setup.sh <hostname> <drive>
+sudo ./setup.sh <hostname> <drive> <username>
 ```
 It will do the following:
 - Partition your drive
-- Format the ESP-partition and label it `/dev/disk/by-label/ESP`
-- Create luks-encryption on the encrypted-partition and label it `/dev/disk/by-label/<hostname>_crypt`
+- Format the ESP-partition and label it `/dev/disk/by-partlabel/ESP`
+- Create luks-encryption on the encrypted-partition and label it `/dev/disk/by-partlabel/<hostname>_crypt`
 - Prompt you to create an encryption password
 - Format the BTRFS partition which will be accessible under `/dev/mapper/<hostname>`
-- Create the BTRFS subvolumes
+- Create the BTRFS subvolumes, including the blank one
 - Mount the BTRFS subvolumes and boot partition under `/mnt`
 - Create the `/mnt/persist/var/log` directory
+- Create the user password in `/persist/passwords/<username>`
 - Print auto-generated hardware-config
 
 Modify the host's hardware-configuration on another device. Commit and push your changes to git.
