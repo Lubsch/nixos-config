@@ -17,6 +17,7 @@
   };
 
   nixpkgs.config = { 
+    hostPlatform = pkgs.system;
     allowUnfree = true; 
     enableParallelBuilding = true;
   };
