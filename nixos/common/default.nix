@@ -17,7 +17,7 @@
   };
 
   nixpkgs = {
-    hostPlatform = pkgs.system;
+    inherit pkgs;
     config = { 
       allowUnfree = true; 
       enableParallelBuilding = true;
