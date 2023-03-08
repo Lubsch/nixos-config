@@ -46,7 +46,8 @@ mkdir -p /mnt/persist/passwords
 mkpasswd -m sha-512 > /mnt/persist/passwords/"$3"
 
 # Enable nix command and flakes
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
 
 # Print out auto-generated hardware config
 nixos-generate-config --root /mnt --show-hardware-config

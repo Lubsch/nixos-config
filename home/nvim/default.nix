@@ -1,5 +1,5 @@
-{ colorscheme, ... }: {
-  home.packages = [ nvim ];
+{ pkgs, colorscheme, ... }: {
+  home.packages = [ (import ./../../pkgs/nvim { inherit pkgs colorscheme; }) ];
 
   home.sessionVariables.EDITOR = "nvim";
 

@@ -8,7 +8,7 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 ### Secrets
 
-I decided on not managing secrets using nix, making bootsstrapping easier. Secret management (especially on such a small scale) should be seen as a stateful problem, when you think about it. Passwords are stored in `/perstist/passwords/<username>`.
+I decided on not managing secrets using nix, making bootsstrapping easier. Secret management (especially on such a small scale) should be seen as a stateful problem, when you think about it. Passwords are stored in `/persist/passwords/<username>`.
 
 ### SSH remote access
 
@@ -26,6 +26,7 @@ This guide should include each and every step to get up and running on a new mac
 
 Download the [minimal iso](https://nixos.org/download.html#nixos-iso) and burn it to an empty usb-stick:
 ```
+umount </dev/usb_drive>
 doas dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
 ```
 
@@ -50,12 +51,13 @@ wpa_cli
 Clone the repository:
 ```
 nix-shell -p git
-git clone https://github.com/Lubsch/nixos-config
+git clone https://github.com/lubsch/nixos-config
 cd nixos-config
 ```
 
 ### Run the setup script
 ```
+cd scripts
 sudo ./setup.sh <hostname> <drive> <username>
 ```
 It will do the following:
