@@ -1,9 +1,5 @@
 # Global user config on all hosts
-{ colorSchemes, lib, pkgs, username, ... }:
-let
-  inherit username;
-  homeDirectory = "/home/${username}";
-in
+{ lib, pkgs, username, ... }:
 {
   imports = [
     ./git.nix
@@ -13,7 +9,7 @@ in
     ./exa.nix
   ];
 
-  # Nicely reload system units when changing hm configs
+  # Automatically reload systemd when changing hm configs
   systemd.user.startServices = "sd-switch";
 
   programs = {
@@ -23,7 +19,8 @@ in
   nix = {
     package = pkgs.nix;
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      warn-dirty = false;
     };
   };
 
@@ -31,18 +28,21 @@ in
     userDirs = {
       enable = true;
       createDirectories = true;
-      documents = "${homeDirectory}/documents";
-      download = "${homeDirectory}/loads";
-      music = "${homeDirectory}/music";
-      pictures = "${homeDirectory}/pictures";
-      videos = "${homeDirectory}/videos";
+      documents = "${config.home.homeDirectory}/documents";
+      download = "${config.home.homeDirectory}/loads";
+      music = "${config.home.homeDirectory}/music";
+      pictures = "${config.home.homeDirectory}/pictures";
+      videos = "${config.home.homeDirectory}/videos";
+      publicShare = null;
+      template = null;
+      desktop = null;
     };
   };
 
   home = {
     inherit username;
-    inherit homeDirectory;
-    stateVersion = lib.mkDefault "22.05";
+    homeDirectory = "/home/${username}";
+    stateVersion = "23.05";
 
     packages = with pkgs; [
       comma # run programs without installing
@@ -54,7 +54,7 @@ in
       fd # better find
     ];
 
-    persistence."/persist/home/${username}" = {
+    persistence."/persist${config.home.homeDirectory}" = {
       directories = [
         "documents"
         "loads"
@@ -63,7 +63,7 @@ in
         "videos"
         "misc"
       ];
-      allowOther = true;
+      allowOther = true; # Allows other users (such as root when using doas) on the binds
     };
   };
 }

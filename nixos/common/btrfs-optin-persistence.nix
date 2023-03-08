@@ -1,4 +1,4 @@
-{lib, config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 let
   hostname = config.networking.hostName;
   systemdPhase1 = config.boot.initrd.systemd.enable;

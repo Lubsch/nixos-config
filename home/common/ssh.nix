@@ -1,8 +1,5 @@
-{ username, config, lib, ... }:
+{ config, ... }:
 {
   programs.ssh.enable = true;
-
-  home.persistence = {
-    "/persist/home/${username}".directories = [ ".ssh" ];
-  };
+  home.persistence."/persist${config.home.homeDirectory}".directories = [ ".ssh" ];
 }

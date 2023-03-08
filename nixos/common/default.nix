@@ -1,9 +1,5 @@
 # This file applies to all hosts
-{ lib
-, system
-, hostname
-, ...
-}: {
+{ lib, hostname, pkgs, ... }: {
   imports = [
     ./btrfs-optin-persistence.nix
     ./doas.nix
@@ -21,25 +17,22 @@
   };
 
   nixpkgs = {
-    hostPlatform = system;
     overlays = builtins.attrValues (import ../../overlays);
     config = {
       allowUnfree = true;
+      enableParallelBuilding = true;
     };
   };
 
-  programs.zsh.enable = true;
-
-  # Persist logs etc.
   environment = {
     persistence."/persist" = {
       directories = [ "/var/lib/systemd" "/var/log" ];
-      files = [ "/etch/machine-id" ];
+      files = [ "/etc/machine-id" ];
     };
     enableAllTerminfo = true;
   };
 
-  # Allows users to allow others on their binds (fuse binds are used by persistence)
+  # Allows other users (includeing root) on fuse binds (used by impermanence)
   programs.fuse.userAllowOther = true;
 
   hardware.enableRedistributableFirmware = true;

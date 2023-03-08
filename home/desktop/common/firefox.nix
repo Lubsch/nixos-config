@@ -1,4 +1,4 @@
-{ firefox-addons, username, config, pkgs, lib, ... }:
+{ firefox-addons, config, pkgs, lib, ... }:
 {
   programs.firefox = {
     enable = true;
@@ -21,7 +21,5 @@
     };
   };
 
-  home.persistence = {
-    "/persist/home/${username}".directories = [ ".mozilla/firefox" ];
-  };
+  home.persistence."/persist${config.home.homeDirectory}".directories = [ ".mozilla/firefox" ];
 }
