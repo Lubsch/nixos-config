@@ -16,10 +16,12 @@
     hostName = hostname;
   };
 
-  nixpkgs.config = { 
+  nixpkgs = {
     hostPlatform = pkgs.system;
-    allowUnfree = true; 
-    enableParallelBuilding = true;
+    config = { 
+      allowUnfree = true; 
+      enableParallelBuilding = true;
+    };
   };
 
   environment = {
