@@ -56,6 +56,7 @@
           ];
         };
         modules = [
+          home-manager.nixosModules.home-manager
           impermanence.nixosModules.impermanence
           ./nixos/common
           ./nixos/wireless.nix

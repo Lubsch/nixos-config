@@ -2,12 +2,14 @@
   services.openssh = {
     enable = true;
 
-    # Hardenings :)
-    passwordAuthentication = false;
-    permitRootLogin = "no";
+    settings = {
+      # Hardenings :)
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
 
-    # Allow ssh clients to connect to ports open to host (port forwarding)
-    gatewayPorts = "clientspecified";
+      # Allow ssh clients to connect to ports open to host (port forwarding)
+      GatewayPorts = "clientspecified";
+    };
 
     # Remove stale sockets automatically
     extraConfig = ''
