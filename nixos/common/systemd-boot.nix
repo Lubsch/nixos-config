@@ -6,6 +6,6 @@
     };
 
     # The installatin of the bootloader can touch efi vars
-    efi.canTouchEfiVariabe = true;
+    efi.canTouchEfiVariables = true;
   };
 }

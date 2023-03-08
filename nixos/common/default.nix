@@ -1,5 +1,5 @@
 # This file applies to all hosts
-{ lib, hostname, pkgs, ... }: {
+{ lib, system, hostname, pkgs, ... }: {
   imports = [
     ./btrfs-optin-persistence.nix
     ./doas.nix
@@ -17,7 +17,7 @@
   };
 
   nixpkgs = {
-    inherit pkgs;
+    localSystem.system = system;
     config = { 
       allowUnfree = true; 
       enableParallelBuilding = true;
