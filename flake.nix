@@ -21,31 +21,25 @@
   let
 
     makeConfig = configFunction: { system, arguments, modules }:
-    configFunction {
-      pkgs = nixpkgs.legacyPackages.${system};
-      modules = [
-        { config._module.args = arguments; }
-      ] ++ modules;
-    };
+      configFunction {
+        pkgs = nixpkgs.legacyPackages.${system};
+        modules = [
+          { config._module.args = arguments; }
+        ] ++ modules;
+      };
 
     forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
 
   in rec {
+
     templates = import ./templates;
 
     packages = forAllSystems (system: {
-      nvim = (import ./pkgs/nvim { 
-        pkgs = nixpkgs.legacyPackages.${system}; 
-        colorscheme = nix-colors.colorSchemes.gruvbox;
-      } );
-    } );
-
-    apps = forAllSystems (system: {
-      nvim = {
-        type = "app";
-        program = "${packages.${system}.nvim}/bin/nvim";
+      nvim = import ./pkgs/nvim {
+        pkgs = nixpkgs.legacyPackages.${system};
+        colorscheme = nix-colors.color-schemes.gruvbox;
       };
-    } );
+    });
 
     nixosConfigurations = {
       "duke" = makeConfig nixpkgs.lib.nixosSystem { 
@@ -87,5 +81,6 @@
         ];
       };
     };
+
   };
 }
