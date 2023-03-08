@@ -25,7 +25,8 @@
       "duke" = nixpkgs.lib.nixosSystem {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [
-          { config._module.args = {
+          {
+            config._module.args = {
               hostname = "duke";
               system = "x86_64-linux";
               kernelModules = [ "kvm-intel" ];
@@ -35,7 +36,8 @@
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
                 "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvuIIrh2iuj2hX0zIzqLUC/5SD/ZJ3GaLcI1AyHDQuM" # droid
               ];
-          }; }
+            };
+          }
           impermanence.nixosModules.impermanence
           ./nixos/common
           ./nixos/wireless.nix
@@ -49,12 +51,14 @@
       "lubsch@duke" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [
-          { config._module.args = {
+          { 
+            config._module.args = {
               username = "lubsch";
               hostname = "duke";
               inherit (nix-colors) colorSchemes;
               firefox-addons = firefox-addons.packages.x86_64-linux;
-          }; }
+            }; 
+          }
           impermanence.nixosModules.home-manager.impermanence
           ./home/common
           ./home/nvim
