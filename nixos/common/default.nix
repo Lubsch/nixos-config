@@ -16,12 +16,9 @@
     hostName = hostname;
   };
 
-  nixpkgs = {
-    overlays = builtins.attrValues (import ../../overlays);
-    config = {
-      allowUnfree = true;
-      enableParallelBuilding = true;
-    };
+  nixpkgs.config = { 
+    allowUnfree = true; 
+    enableParallelBuilding = true;
   };
 
   environment = {

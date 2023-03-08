@@ -34,10 +34,8 @@ btrfs subvolume create /mnt/persist
 btrfs subvolume create /mnt/swap
 btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 
-# Unmount and close again (so the mount script can be used standalone)
-umount /mnt
-cryptsetup close "$1"
-
+# Remount so that the scripts are confirmed working
+./umount-partitions.sh "$1"
 ./mount-partitions.sh "$1"
 
 # Create directory necessary for boot
@@ -46,6 +44,9 @@ mkdir -p /mnt/var/log
 # Create the user password
 mkdir -p /mnt/persist/passwords
 mkpasswd -m sha-512 > /mnt/persist/passwords/"$3"
+
+# Enable nix command and flakes
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
 # Print out auto-generated hardware config
 nixos-generate-config --root /mnt --show-hardware-config

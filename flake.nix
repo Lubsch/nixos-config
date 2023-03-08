@@ -30,7 +30,6 @@
 
   in {
     templates = import ./templates;
-    overlays = import ./overlays;
 
     nixosConfigurations = {
       "duke" = makeConfig nixpkgs.lib.nixosSystem { 

@@ -53,10 +53,6 @@ nix-shell -p git
 git clone https://github.com/Lubsch/nixos-config
 cd nixos-config
 ```
-Get into the dev-shell:
-```
-nix-shell
-```
 
 ### Run the setup script
 ```
@@ -72,6 +68,7 @@ It will do the following:
 - Mount the BTRFS subvolumes and boot partition under `/mnt`
 - Create the `/mnt/persist/var/log` directory
 - Create the user password in `/persist/passwords/<username>`
+- Enable nix command and nix flakes
 - Print auto-generated hardware-config
 
 Modify the host's hardware-configuration on another device. Commit and push your changes to git.
