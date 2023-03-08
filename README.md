@@ -71,7 +71,7 @@ It will do the following:
 - Create the `/mnt/persist/var/log` directory
 - Create the user password in `/persist/passwords/<username>`
 - Enable nix command and nix flakes
-- Print auto-generated hardware-config
+- Store auto-generated hardware-config to `hardware-config.nix`
 
 Modify the host's hardware-configuration on another device. Commit and push your changes to git.
 
@@ -83,6 +83,7 @@ git pull
 ### Installation
 Back on the new machine, pull the repo. Install NixOS to `/mnt`:
 ```
+cd ..
 sudo nixos-install --flake .#<hostname>
 ```
 Shutdown and boot without the USB drive. Check if everything works, login as the user and install home-manager:

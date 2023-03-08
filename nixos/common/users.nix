@@ -8,7 +8,7 @@ let
       "wheel"
       "video"
       "audio"
-    ] ++ exstingGroupsFrom [
+    ] ++ existingGroupsFrom [
       "networkmanager"
       "libvirtd"
     ];
