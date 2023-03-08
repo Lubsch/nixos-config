@@ -1,5 +1,5 @@
 # Global user config on all hosts
-{ lib, pkgs, username, ... }:
+{ config, pkgs, username, ... }:
 {
   imports = [
     ./git.nix
@@ -34,7 +34,7 @@
       pictures = "${config.home.homeDirectory}/pictures";
       videos = "${config.home.homeDirectory}/videos";
       publicShare = null;
-      template = null;
+      templates = null;
       desktop = null;
     };
   };

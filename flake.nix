@@ -28,8 +28,24 @@
       ] ++ modules;
     };
 
-  in {
+    forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+
+  in rec {
     templates = import ./templates;
+
+    packages = forAllSystems (system: {
+      nvim = (import ./pkgs/nvim { 
+        pkgs = nixpkgs.legacyPackages.${system}; 
+        colorscheme = nix-colors.colorSchemes.gruvbox;
+      } );
+    } );
+
+    apps = forAllSystems (system: {
+      nvim = {
+        type = "app";
+        program = "${packages.${system}.nvim}/bin/nvim";
+      };
+    } );
 
     nixosConfigurations = {
       "duke" = makeConfig nixpkgs.lib.nixosSystem { 
@@ -56,11 +72,11 @@
 
     homeConfigurations = {
       "lubsch@duke" = makeConfig home-manager.lib.homeManagerConfiguration {
-        system = "x86-64-linux";
+        system = "x86_64-linux";
         arguments = {
           username = "lubsch";
           hostname = "duke";
-          scheme = nix-colors.colorSchemes.gruvbox;
+          colorscheme = nix-colors.colorSchemes.gruvbox;
           firefox-addons = firefox-addons.packages.x86_64-linux;
         };
         modules = [
