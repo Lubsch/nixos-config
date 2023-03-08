@@ -16,7 +16,7 @@ The file `./nixos-modules/common/user.nix` defines `openssh.authorizedKeys.keys`
 
 ### Colors
 
-Color are managed using the module [nix-colors](https://github.com/Misterio77/nix-color) which allows easy access to base16 colorschemes.
+Color are managed using the module [nix-colors](https://github.com/Misterio77/nix-colors) which allows easy access to base16 colorschemes.
 
 ## Installation Guide
 
