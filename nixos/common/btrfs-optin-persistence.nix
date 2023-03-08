@@ -1,11 +1,9 @@
-{ lib, config, pkgs, ... }:
+{ hostname, ... }:
 let
-  hostname = config.networking.hostName;
-  systemdPhase1 = config.boot.initrd.systemd.enable;
   decrypted-drive = "/dev/mapper/${hostname}";
   wipeScript = ''
     mkdir -p /btrfs
-    mount -o subvol=/ ${decrypted-drive} /btrfs
+    mount -o subvol=/ "${decrypted-drive}" /btrfs
 
     if [ -e "/btrfs/root/dontwipe" ]; then
       echo "P: Not wiping root because the file /btrfs/root/dontwipe exists"
@@ -21,28 +19,13 @@ let
     fi
 
     umount /btrfs
-    rmdir /btrfs
+    rm /btrfs
   '';
 in
 {
   boot.initrd = {
     supportedFilesystems = [ "btrfs" ];
-    systemd = lib.mkIf systemdPhase1 {
-      emergencyAccess = true;
-      initrdBin = with pkgs; [ coreutils btrfs-progs ];
-      services.initrd-btrfs-root-wipe = {
-        description = "Wipe ephemeral btrfs root";
-        script = wipeScript;
-        serviceConfig.Type = "oneshot";
-        unitConfig.DefaultDependencies = "no";
-
-        requires = [ "initrd-root-device.target" ];
-        before = [ "sysroot.mount" ];
-        wantedBy = [ "initrd-root-fs.target" ];
-      };
-    };
-    # Use postDeviceCommands if on old phase 1 (when systemd can't do its thing already on bootup)
-    postDeviceCommands = lib.mkBefore (lib.optionalString (!systemdPhase1) wipeScript);
+    postDeviceCommands = wipeScript;
   };
 
   fileSystems = {

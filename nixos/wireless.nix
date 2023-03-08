@@ -1,4 +1,4 @@
-{ config, ... }: {
+{
   # Configure network manager for imperative usage
   networking.networkmanager.enable = true;
 
