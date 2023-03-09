@@ -55,6 +55,8 @@
       templates = null;
       desktop = null;
     };
+    # Where .nix-profile etc go
+    stateHome = "${config.home.homeDirectory}/.local/state";
   };
 
   # Automatically reload systemd when changing hm configs

@@ -16,6 +16,11 @@
     hostName = hostname;
   };
 
+  # TODO change this to something not involving xserver option
+  services.xserver = {
+    layout = "de";
+    xkbOptions = "caps:escape";
+  };
   console.useXkbConfig = true;
 
   nixpkgs = {
@@ -32,6 +37,9 @@
     systemPackages = [ pkgs.git ];
     # So zsh completion files are available correctly (https://github.com/nix-community/home-manager/blob/master/modules/programs/zsh.nix)
     pathsToLink = [ "/share/zsh" ];
+
+    # TODO do this using home.sessionVariables in /home/nvim/default.nix when it doesn't get overridden by nano
+    sessionVariables.EDITOR = "nvim";
 
     persistence."/persist" = {
       directories = [ "/var/lib/systemd" "/var/log" ];
