@@ -8,9 +8,9 @@
   programs.zsh.initExtra = ''
     function j() {
         if [[ "$argv[1]" == "-"* ]]; then
-            zx "$@"
+            z "$@"
         else
-            cd "$@" 2> /dev/null || zx "$@"
+            cd "$@" 2> /dev/null || z "$@"
         fi
     }
   '';
