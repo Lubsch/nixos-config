@@ -3,5 +3,5 @@
   programs.zsh.shellAliases = {
     rm = "trash";
   };
-  persistence.persist."/persist${config.home.homeDirectory}".directories = [ ".local/share/Trash" ];
+  home.persistence."/persist${config.home.homeDirectory}".directories = [ ".local/share/Trash" ];
 }
