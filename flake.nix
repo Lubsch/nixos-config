@@ -60,7 +60,7 @@
                 nix-colors.homeManagerModule
                 impermanence.nixosModules.home-manager.impermanence
                 ./home/common
-                ./home/nvim
+                ./home/nvim.nix
               ];
               _module.args = {
                 username = "lubsch";
