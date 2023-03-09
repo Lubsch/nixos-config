@@ -26,7 +26,7 @@
 
   environment = {
     # Makes root aware of git for nixos-rebuil --flake
-    packages = [ pkgs.git ];
+    systemPackages = [ pkgs.git ];
     persistence."/persist" = {
       directories = [ "/var/lib/systemd" "/var/log" ];
       files = [ "/etc/machine-id" ];
