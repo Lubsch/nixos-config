@@ -1,6 +1,7 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   programs.zsh = {
     enable = true;
+    dotDir = "${config.xdg.configHome}";
     autocd = true;
     enableSyntaxHighlighting = true;
     shellAliases =
@@ -49,4 +50,3 @@
       '';
   };
 }
-# vim: filetype=nix
