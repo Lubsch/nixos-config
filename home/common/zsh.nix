@@ -1,7 +1,8 @@
 { config, pkgs, ... }: {
   programs.zsh = {
     enable = true;
-    dotDir = "${config.xdg.configHome}";
+    dotDir = "${config.xdg.configHome}/zsh";
+    history.path = "${config.xdg.dataHome}/zsh/zsh_history";
     autocd = true;
     enableSyntaxHighlighting = true;
     shellAliases =

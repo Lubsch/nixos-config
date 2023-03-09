@@ -21,12 +21,16 @@
     config = { 
       allowUnfree = true; 
       enableParallelBuilding = true;
+      use-xdg-base-directories = true;
     };
   };
 
   environment = {
-    # Makes root aware of git for nixos-rebuil --flake
+    # Makes root aware of git for nixos-rebuild --flake
     systemPackages = [ pkgs.git ];
+    # So zsh completion files are available correctly (https://github.com/nix-community/home-manager/blob/master/modules/programs/zsh.nix)
+    pathsToLink = [ "/share/zsh" ];
+
     persistence."/persist" = {
       directories = [ "/var/lib/systemd" "/var/log" ];
       files = [ "/etc/machine-id" ];
