@@ -16,6 +16,8 @@
     hostName = hostname;
   };
 
+  console.useXkbConfig = true;
+
   nixpkgs = {
     localSystem.system = system;
     config = { 

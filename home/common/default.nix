@@ -24,6 +24,11 @@
       magic-wormhole # send files between computers
     ];
 
+    keyboard = {
+      layout = "de";
+      options = "caps:escape";
+    };
+
     persistence."/persist${config.home.homeDirectory}" = {
       directories = [
         "${config.xdg.userDirs.documents}"
@@ -34,16 +39,6 @@
         "misc"
       ];
       allowOther = true; # Allows other users (mainly root when using doas) on the binds
-    };
-  };
-
-  # Automatically reload systemd when changing hm configs
-  systemd.user.startServices = "sd-switch";
-
-  nix = {
-    settings = {
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
-      warn-dirty = false;
     };
   };
 
@@ -59,6 +54,16 @@
       publicShare = null;
       templates = null;
       desktop = null;
+    };
+  };
+
+  # Automatically reload systemd when changing hm configs
+  systemd.user.startServices = "sd-switch";
+
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      warn-dirty = false;
     };
   };
 }

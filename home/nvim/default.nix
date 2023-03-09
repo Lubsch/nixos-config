@@ -1,8 +1,7 @@
-{ lib, pkgs, colorscheme, ... }: {
+{ pkgs, colorscheme, ... }: {
   home.packages = [ (import ./../../pkgs/nvim { inherit pkgs colorscheme; }) ];
 
-  # mkBefore because otherwise its nano 🤮
-  home.sessionVariables.EDITOR = lib.mkBefore "nvim";
+  home.sessionVariables.EDITOR = "nvim";
 
   xdg.desktopEntries = {
     nvim = {
