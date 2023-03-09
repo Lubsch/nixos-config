@@ -31,11 +31,11 @@
 
     persistence."/persist${config.home.homeDirectory}" = {
       directories = [
-        "${config.xdg.userDirs.documents}"
-        "${config.xdg.userDirs.download}"
-        "${config.xdg.userDirs.music}"
-        "${config.xdg.userDirs.pictures}"
-        "${config.xdg.userDirs.videos}"
+        "documents"
+        "downloads"
+        "music"
+        "pictures"
+        "videos"
         "misc"
       ];
       allowOther = true; # Allows other users (mainly root when using doas) on the binds

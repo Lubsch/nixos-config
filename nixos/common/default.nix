@@ -41,7 +41,8 @@
     sessionVariables.EDITOR = "nvim";
 
     persistence."/persist" = {
-      directories = [ "/var/lib/systemd" "/var/log" ];
+      # Persist some log files across reboots
+      directories = [ "/var/lib/systemd/coredump" "/var/log" ];
       files = [ "/etc/machine-id" ];
     };
     enableAllTerminfo = true;
