@@ -1,4 +1,4 @@
-{ hostname, ... }:
+{ lib, hostname, ... }:
 let
   decrypted-drive = "/dev/mapper/${hostname}";
   wipeScript = ''
@@ -25,7 +25,7 @@ in
 {
   boot.initrd = {
     supportedFilesystems = [ "btrfs" ];
-    postDeviceCommands = wipeScript;
+    postDeviceCommands = lib.mkBefore wipeScript;
   };
 
   fileSystems = {

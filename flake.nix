@@ -19,42 +19,21 @@
 
   outputs = { self, nixpkgs, hardware, impermanence, home-manager, firefox-addons, nix-colors, ... }: 
   let
-
-    makeConfig = configFunction: { system, arguments, modules }:
-      configFunction {
-        pkgs = nixpkgs.legacyPackages.${system};
-        modules = [
-          { config._module.args = arguments; }
-        ] ++ modules;
-      };
-
     forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
-
-  in rec {
+  in {
 
     templates = import ./templates;
 
     packages = forAllSystems (system: {
       nvim = import ./pkgs/nvim {
-        pkgs = nixpkgs.legacyPackages.${system};
-        colorscheme = nix-colors.color-schemes.gruvbox;
+      pkgs = nixpkgs.legacyPackages.${system};
+      colorscheme = nix-colors.color-schemes.gruvbox;
       };
     });
 
     nixosConfigurations = {
-      "duke" = makeConfig nixpkgs.lib.nixosSystem { 
-        system = "x86_64-linux";
-        arguments = {
-          hostname = "duke";
-          system = "x86_64-linux";
-          kernelModules = [ "kvm-intel" ];
-          initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
-          cpuFreqGovernor = "powersave";
-          users.lubsch.authorizedKeys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvuIIrh2iuj2hX0zIzqLUC/5SD/ZJ3GaLcI1AyHDQuM" # droid
-          ];
-        };
+      "duke" = nixpkgs.lib.nixosSystem { 
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
         modules = [
           home-manager.nixosModules.home-manager
           impermanence.nixosModules.impermanence
@@ -63,26 +42,35 @@
           ./nixos/virtualisation.nix
           ./nixos/pipewire.nix
         ];
-      };
-    };
-
-    homeConfigurations = {
-      "lubsch@duke" = makeConfig home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
-        arguments = {
-          username = "lubsch";
+        specialArgs = {
           hostname = "duke";
-          colorscheme = nix-colors.colorSchemes.gruvbox;
-          firefox-addons = firefox-addons.packages.x86_64-linux;
+          system = "x86_64-linux";
+          kernelModules = [ "kvm-intel" ];
+          initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
+          cpuFreqGovernor = "powersave";
+
+          users.lubsch = {
+            authorizedKeys = [
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvuIIrh2iuj2hX0zIzqLUC/5SD/ZJ3GaLcI1AyHDQuM" # droid
+            ];
+            hm-config = {
+              imports = [
+                nix-colors.homeManagerModule
+                impermanence.nixosModules.home-manager.impermanence
+                ./home/common
+                ./home/nvim
+              ];
+              _module.args = {
+                username = "lubsch";
+                hostname = "duke";
+                colorscheme = nix-colors.colorSchemes.gruvbox-dark-medium;
+                firefox-addons = firefox-addons.packages.x86_64-linux;
+              };
+            };
+          };
         };
-        modules = [
-          nix-colors.homeManagerModule
-          impermanence.nixosModules.home-manager.impermanence
-          ./home/common
-          ./home/nvim
-        ];
       };
     };
-
   };
 }

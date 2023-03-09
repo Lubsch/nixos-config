@@ -1,7 +1,8 @@
 { pkgs, config, users, ... }:
 let
   existingGroupsFrom = builtins.filter (group: builtins.hasAttr group config.users.groups);
-  makeUser = username: user: {
+
+  makeSystemUser = username: user: {
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [
@@ -18,11 +19,16 @@ let
 
     openssh.authorizedKeys.keys = user.authorizedKeys;
   };
-in
-{
+
+in {
   users = {
-    # Make users from "users" argument to the hosts's config
-    users = builtins.mapAttrs makeUser users;
+    users = builtins.mapAttrs makeSystemUser users;
     mutableUsers = false;
+  };
+
+  home-manager = {
+    users = builtins.mapAttrs (_: user: user.hm-config) users;
+    useGlobalPkgs = true;
+    useUserPackages = true;
   };
 }
