@@ -5,6 +5,7 @@
     ./ssh.nix
     ./zsh.nix
     ./trash.nix
+    ./zoxide.nix
   ];
 
   home = {

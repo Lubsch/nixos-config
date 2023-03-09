@@ -25,7 +25,7 @@
 
         jctl = "journalctl -p 3 -xb";
       };
-    initExtra = builtins.readfile ./zshrc;
+    initExtra = builtins.readFile ./zshrc;
   };
   home.persistence."/persist${config.xdg.dataHome}/zsh".files = [ "zsh_history" ];
 }
