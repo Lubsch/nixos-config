@@ -29,6 +29,5 @@ in {
   home-manager = {
     users = builtins.mapAttrs (_: user: user.hm-config) users;
     useGlobalPkgs = true;
-    useUserPackages = true;
   };
 }
