@@ -31,13 +31,13 @@
       # Prompt (should be replaced by something faster)
       git_branch_test_color() {
         local branch=$(git symbolic-ref --short HEAD 2> /dev/null)
-        if [ -n "${branch}" ]; then
+        if [ -n "$branch" ]; then
           if [ -n "$(git status --porcelain)" ]; then
             local gitstatuscolor='%F{yellow}'
           else
             local gitstatuscolor='%F{green}'
           fi
-          echo "${gitstatuscolor} ${branch}"
+          echo "$gitstatuscolor $branch"
         else
           echo ""
         fi
