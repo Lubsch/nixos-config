@@ -1,10 +1,9 @@
 { config, pkgs, ... }: {
   programs.zsh = {
     enable = true;
-    # NOTE this is not set to xdg.configHome because dotDir takes a path relative to $HOME
     dotDir = ".config/zsh";
     history = {
-      path = "${config.xdg.dataHome}/zsh/zsh_history";
+      path = "${config.xdg.home.homeDirectory}/.local/share/zsh/zsh_history";
       size = 100000000;
     };
     autocd = true;
@@ -27,5 +26,5 @@
       };
     initExtra = builtins.readFile ./zshrc;
   };
-  home.persistence."/persist${config.xdg.dataHome}/zsh".files = [ "zsh_history" ];
+  home.persistence."/persist${config.home.homeDirectory}".files = [ ".local/share/zsh/zsh_history" ];
 }

@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let 
-  j = pkgs.writeShellScript "j" ''
+  j = pkgs.writeShellScriptBin "j" ''
     if [[ "$argv[1]" == "-"* ]]; then
         zx "$@"
     else
@@ -15,5 +15,5 @@ in {
 
   home.packages = [ j ];
 
-  home.persistence."/persist${config.xdg.dataHome}".directories = [ "zoxide" ];
+  home.persistence."/persist${config.home.homeDirectory}".directories = [ ".local/share/zoxide" ];
 }
