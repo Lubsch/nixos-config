@@ -3,7 +3,6 @@
     enable = true;
     dotDir = ".config/zsh";
     history = {
-      path = "${config.home.homeDirectory}/.local/share/zsh/zsh_history";
       size = 100000000;
     };
     autocd = true;
@@ -91,5 +90,5 @@
     '';
 
   };
-  home.persistence."/persist${config.home.homeDirectory}".files = [ ".local/share/zsh/zsh_history" ];
+  home.persistence."/persist${config.home.homeDirectory}".files = [ ".cache/zsh/history" ];
 }

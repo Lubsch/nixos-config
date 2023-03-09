@@ -1,8 +1,11 @@
-{ pkgs, colorscheme, ... }: {
+{ config, pkgs, colorscheme, ... }: {
   home.packages = [ (import ../pkgs/nvim { inherit pkgs colorscheme; }) ];
 
   # TODO reactivate this when it works instead of using environment.sessionVariables
   /* home.sessionVariables.EDITOR = "nvim"; */
+
+  # Persist log, shada, swap and undo (could all be cleaned out from time to time but it's better to be save)
+  persistence."/persist${config.home.userDirectory}".directories = [ ".local/state/nvim" ];
 
   xdg.desktopEntries = {
     nvim = {

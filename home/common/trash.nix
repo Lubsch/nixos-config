@@ -1,6 +1,7 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   home.packages = with pkgs; [ trash-cli ];
   programs.zsh.shellAliases = {
     rm = "trash";
   };
+  persistence.persist."/persist${config.home.homeDirectory}".directories = [ ".local/share/Trash" ];
 }
