@@ -1,7 +1,8 @@
 { config, pkgs, ... }: {
   programs.zsh = {
     enable = true;
-    dotDir = "${config.xdg.configHome}/zsh";
+    # NOTE this is not set by xdg config because dotDir takes a path relative to $HOME
+    dotDir = ".config/zsh";
     history.path = "${config.xdg.dataHome}/zsh/zsh_history";
     autocd = true;
     enableSyntaxHighlighting = true;
