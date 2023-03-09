@@ -6,6 +6,7 @@
     ./zsh.nix
     ./trash.nix
     ./zoxide.nix
+    ./tealdeer.nix
   ];
 
   home = {
@@ -17,7 +18,6 @@
       comma # run programs without installing
       ncdu # disk usage viewing
 
-      tealdeer # tldr pages
       neofetch # system info
       ripgrep # better grep
       fd # better find
