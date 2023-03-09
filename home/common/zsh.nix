@@ -27,4 +27,5 @@
       };
     initExtra = builtins.readfile ./zshrc;
   };
+  home.persistence."/persist${config.xdg.dataHome}/zsh".files = [ "zsh_history" ];
 }
