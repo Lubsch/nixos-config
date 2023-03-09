@@ -3,7 +3,7 @@
     enable = true;
     dotDir = ".config/zsh";
     history = {
-      path = "${config.xdg.home.homeDirectory}/.local/share/zsh/zsh_history";
+      path = "${config.home.homeDirectory}/.local/share/zsh/zsh_history";
       size = 100000000;
     };
     autocd = true;
