@@ -1,4 +1,4 @@
-{ config, pkgs }:
+{ config, pkgs, ... }:
 let 
   j = pkgs.writeShellScript "j" ''
     if [[ "$argv[1]" == "-"* ]]; then
