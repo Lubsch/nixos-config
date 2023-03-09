@@ -61,11 +61,4 @@
 
   # Automatically reload systemd when changing hm configs
   systemd.user.startServices = "sd-switch";
-
-  nix = {
-    settings = {
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
-      warn-dirty = false;
-    };
-  };
 }

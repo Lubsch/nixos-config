@@ -45,6 +45,7 @@
         specialArgs = {
           hostname = "duke";
           system = "x86_64-linux";
+          inherit nixpkgs; # For the registry
           kernelModules = [ "kvm-intel" ];
           initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
           cpuFreqGovernor = "powersave";

@@ -28,7 +28,6 @@
     config = { 
       allowUnfree = true; 
       enableParallelBuilding = true;
-      use-xdg-base-directories = true;
     };
   };
 

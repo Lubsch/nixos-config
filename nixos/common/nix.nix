@@ -1,24 +1,26 @@
 { pkgs
-# , inputs
 , lib
 , config
+, nixpkgs
 , ...
 }:
 {
   nix = {
     settings = {
       auto-optimise-store = true;
+      warn-dirty = false;
+      # TODO readd this after nix update
+      # use-xdg-base-directories = true;
     };
     extraOptions = ''
-      experimental-features = nix-command flakes
+      experimental-features = nix-command flakes repl-flake
     '';
     gc = {
       automatic = true;
       dates = "weekly";
     };
-    # Map each flake input as a registry, making nix commands consistent with the flake
-    # (where it is defined what 'nixpkgs' means)
-    /* registry = lib.mapAttrs (_: value: { flake = value; }) inputs; */
+    # Map nixpkgs to registry (when using e.g. `nix run nixpkgs#asdf`, it defines what nixpkgs it)
+    registry.nixpkgs.flake = nixpkgs;
 
     # Map registry to channel (useful when using legacy commands)
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
