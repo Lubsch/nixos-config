@@ -1,13 +1,8 @@
-{ config, pkgs, ... }: {
+{ lib, config, pkgs, ... }: {
   programs.zsh = {
     enable = true;
 
     dotDir = ".config/zsh";
-    history = {
-      path = "${config.xdg.dataHome}/zsh/history";
-      size = 100000000;
-    };
-
     autocd = true;
     enableSyntaxHighlighting = true;
     defaultKeymap = "viins";
@@ -28,6 +23,10 @@
     };
 
     initExtra = ''
+      export HISTFILE=$HOME/.local/share/zsh/history
+      export HISTSIZE=10000000
+      export HISTSAVE=10000000
+
       # Disable C-s which freezes the terminal and is annoying
       stty stop undef
 
@@ -94,6 +93,7 @@
     '';
 
   };
-
-  home.persistence."/persist${config.home.homeDirectory}".files = [ ".local/share/zsh/history" ];
+  
+  # Create the symlink before home-manager tries to create the history file
+  home.persistence."/persist${config.home.homeDirectory}".directories = [ ".local/share/zsh" ];
 }

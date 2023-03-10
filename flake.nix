@@ -31,8 +31,10 @@
     });
 
     nixosConfigurations = {
-      "duke" = nixpkgs.lib.nixosSystem { 
-        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      "duke" = 
+        let pkgs = nixpkgs.legacyPackages."x86_64-linux"; in 
+      nixpkgs.lib.nixosSystem {
+        inherit pkgs;
         modules = [
           home-manager.nixosModules.home-manager
           impermanence.nixosModules.impermanence
@@ -72,8 +74,8 @@
                     package = pkgs.fira;
                   };
                   mono = {
-                    name = "Fira Code";
-                    package = (pkgs.nerdfonts.override {fonts = [ "FiraCode"]; });
+                    name = "FiraCode Nerd Font";
+                    package = pkgs.nerdfonts.override {fonts = [ "FiraCode"]; };
                   };
                 };
                 colorscheme = nix-colors.colorSchemes.gruvbox-dark-medium;

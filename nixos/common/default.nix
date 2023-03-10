@@ -48,8 +48,12 @@
     enableAllTerminfo = true;
   };
 
-  # Allows other users (includeing root) on fuse binds (used by impermanence)
+  # Allows other users (includeing root) on fuse binds (used by impermanence) 
   programs.fuse.userAllowOther = true;
+
+  # Make sway work
+  programs.dconf.enable = true;
+  hardware.opengl.enable = true;
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "23.05";

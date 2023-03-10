@@ -4,22 +4,18 @@
     /* ./spotify */
     ./gtk-qt.nix
     ./firefox.nix
+    ./foot.nix
+    ./fonts.nix
     /* ./shotcut.nix */
     /* ./tor.nix */
     /* ./calibre.nix */
     /* ./abiword.nix */
   ];
 
-  home.packages = with pkgs; [
-    xdragon # Drag and drop from terminal
-  ];
-
-  # Program that auto-detects font on system
-  fonts.fonconfig.enable = true;
-
-  keyboard = {
-    layout = "de";
-    options = "caps:escape";
+  home = {
+    packages = with pkgs; [
+      xdragon # Drag and drop from terminal
+    ];
   };
 
   xdg.mimeApps.enable = true;
