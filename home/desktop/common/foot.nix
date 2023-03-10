@@ -1,4 +1,7 @@
-{ colorscheme, fonts, ... }: {
+{ colorscheme, fonts, ... }: 
+let 
+  inherit (colorscheme) colors;
+in {
   programs.foot = {
     enable = true;
     server.enable = true;
