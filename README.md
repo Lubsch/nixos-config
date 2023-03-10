@@ -14,10 +14,6 @@ I decided on not managing secrets using nix, making bootsstrapping easier. Secre
 
 The file `./nixos-modules/common/user.nix` defines `openssh.authorizedKeys.keys`, which are the public keys of keypairs that can access the user over ssh. All ssh private keys are of course stored locally and always live on one device only (in the `~/.shh` folder, except for hostkeys)
 
-### Colors
-
-Color are managed using the module [nix-colors](https://github.com/Misterio77/nix-colors) which allows easy access to base16 colorschemes.
-
 ## Installation Guide
 
 This guide should include each and every step to get up and running on a new machine. This way, I don't have to put any effort into remembering a lot of details which you could get wrong. It also increases reproducibility. This is not primarily intended for other users but you can of course use and adapt these steps to your needs.

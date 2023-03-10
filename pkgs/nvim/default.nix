@@ -1,5 +1,4 @@
-{ pkgs, colorscheme, ... }:
-
+pkgs:
 pkgs.wrapNeovim pkgs.neovim-unwrapped {
   configure = {
     customRC = ''

@@ -11,6 +11,9 @@ in {
         dpi-aware = "yes";
       };
       colors = {
+          background = colors.base00;
+          foreground = colors.base05;
+
           regular0 = colors.base00;
           regular1 = colors.base01;
           regular2 = colors.base02;
@@ -27,9 +30,6 @@ in {
           bright5 = colors.base0D;
           bright6 = colors.base0E;
           bright7 = colors.base0F;
-
-          foreground = colors.base05;
-          background = colors.base00;
       };
     };
   };

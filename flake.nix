@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     impermanence.url = "github:nix-community/impermanence";
-    nix-colors.url = "github:misterio77/nix-colors";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -16,7 +15,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, impermanence, home-manager, firefox-addons, nix-colors }: 
+  outputs = { self, nixpkgs, impermanence, home-manager, firefox-addons }: 
   let
     forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   in {
@@ -24,10 +23,7 @@
     templates = import ./templates;
 
     packages = forAllSystems (system: {
-      nvim = import ./pkgs/nvim {
-      pkgs = nixpkgs.legacyPackages.${system};
-      colorscheme = nix-colors.color-schemes.gruvbox;
-      };
+      nvim = import ./pkgs/nvim nixpkgs.legacyPackages.${system};
     });
 
     nixosConfigurations = {
@@ -58,7 +54,6 @@
             ];
             hm-config = {
               imports = [
-                nix-colors.homeManagerModule
                 impermanence.nixosModules.home-manager.impermanence
                 ./home/common
                 ./home/nvim.nix
@@ -78,7 +73,6 @@
                     package = pkgs.nerdfonts.override {fonts = [ "FiraCode"]; };
                   };
                 };
-                colorscheme = nix-colors.colorSchemes.gruvbox-dark-medium;
                 firefox-addons = firefox-addons.packages.x86_64-linux;
               };
             };
