@@ -2,10 +2,7 @@
   imports = [
     /* ./discord */
     /* ./spotify */
-    /* ./librewolf.nix */
-    /* ./font.nix */
-    ./gtk.nix
-    ./qt.nix
+    ./gtk-qt.nix
     ./firefox.nix
     /* ./shotcut.nix */
     /* ./tor.nix */
@@ -14,8 +11,14 @@
   ];
 
   home.packages = with pkgs; [
-    xdragon # Drag and drop
+    xdragon # Drag and drop from terminal
   ];
+
+
+  keyboard = {
+    layout = "de";
+    options = "caps:escape";
+  };
 
   xdg.mimeApps.enable = true;
 }

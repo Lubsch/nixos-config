@@ -1,10 +1,10 @@
-{ pkgs, ... }: rec {
+{ fonts, pkgs, ... }: {
   gtk = {
     enable = true;
-    /* font = { */
-    /*   name = config.fontProfiles.regular.family; */
-    /*   size = 14; */
-    /* }; */
+    font = {
+      inherit (fonts.regular) package name;
+      size = 14;
+    };
     theme = {
       name = "Plata-Noir-Compact";
       package = pkgs.plata-theme;
@@ -13,5 +13,10 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
   };
 }

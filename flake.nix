@@ -60,10 +60,21 @@
                 impermanence.nixosModules.home-manager.impermanence
                 ./home/common
                 ./home/nvim.nix
+                # ./home/desktop/common
               ];
               _module.args = {
                 username = "lubsch";
                 hostname = "duke";
+                /* fonts = { */
+                /*   regular = { */
+                /*     name = ""; */
+                /*     package = pkgs.asdf; */
+                /*   }; */
+                /*   mono = { */
+                /*     name = ""; */
+                /*     package = pkgs.asdf; */
+                /*   }; */
+                /* }; */
                 colorscheme = nix-colors.colorSchemes.gruvbox-dark-medium;
                 firefox-addons = firefox-addons.packages.x86_64-linux;
               };

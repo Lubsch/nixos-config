@@ -17,17 +17,13 @@
     packages = with pkgs; [
       comma # run programs without installing
       ncdu # disk usage viewing
-
+      tree # view file tree
+      tokei # count lines of code
       neofetch # system info
       ripgrep # better grep
       fd # better find
       magic-wormhole # send files between computers
     ];
-
-    keyboard = {
-      layout = "de";
-      options = "caps:escape";
-    };
 
     persistence."/persist${config.home.homeDirectory}" = {
       directories = [
@@ -55,7 +51,7 @@
       templates = null;
       desktop = null;
     };
-    # Where .nix-profile etc go
+    # Where nvim things (and late some .nix-files) go
     stateHome = "${config.home.homeDirectory}/.local/state";
   };
 
