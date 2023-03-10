@@ -7,6 +7,7 @@
     ./trash.nix
     ./zoxide.nix
     ./tealdeer.nix
+    ./comma.nix
   ];
 
   home = {
@@ -15,9 +16,9 @@
     stateVersion = "23.05";
 
     packages = with pkgs; [
-      comma # run programs without installing
       ncdu # disk usage viewing
       tree # view file tree
+      tree # view a nix derivation's dependencies
       tokei # count lines of code
       neofetch # system info
       ripgrep # better grep
