@@ -60,21 +60,22 @@
                 impermanence.nixosModules.home-manager.impermanence
                 ./home/common
                 ./home/nvim.nix
-                # ./home/desktop/common
+                ./home/desktop/common
+                ./home/desktop/sway
               ];
               _module.args = {
                 username = "lubsch";
                 hostname = "duke";
-                /* fonts = { */
-                /*   regular = { */
-                /*     name = ""; */
-                /*     package = pkgs.asdf; */
-                /*   }; */
-                /*   mono = { */
-                /*     name = ""; */
-                /*     package = pkgs.asdf; */
-                /*   }; */
-                /* }; */
+                fonts = {
+                  regular = {
+                    name = "Fira Sans";
+                    package = pkgs.fira;
+                  };
+                  mono = {
+                    name = "Fira Code";
+                    package = (pkgs.nerdfonts.override {fonts = [ "FiraCode"]; });
+                  };
+                };
                 colorscheme = nix-colors.colorSchemes.gruvbox-dark-medium;
                 firefox-addons = firefox-addons.packages.x86_64-linux;
               };
