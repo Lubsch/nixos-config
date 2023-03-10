@@ -26,7 +26,7 @@
       export HISTFILE=$HOME/.local/share/zsh/history
       export HISTSIZE=10000000
       export HISTSAVE=10000000
-
+      
       # Disable C-s which freezes the terminal and is annoying
       stty stop undef
 
@@ -46,6 +46,9 @@
       }
       setopt PROMPT_SUBST
       PS1='[%9c$(git_branch_test_color)%F{none}]$ '
+
+      # Remove delay when hitting esc to change modes (in 100ths of seconds)
+      export KEYTIMEOUT=1
 
       # Change cursor shape for different vi modes.
       function zle-keymap-select {
