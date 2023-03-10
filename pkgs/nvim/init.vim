@@ -1,10 +1,7 @@
 " Remap leader key
 nmap <Space> <leader>
 
-" Telescope binds
-nnoremap <silent> <leader>f :Telescope find_files<cr>
-nnoremap <silent> <leader>b :Telescope buffers<cr>
-nnoremap <silent> <leader>g :Telescope live_grep<cr>
+set mouse=
 
 colorscheme gruvbox
 
@@ -23,6 +20,10 @@ filetype plugin indent on
 " Make backspace behave in a sane manner.	
 set backspace=indent,eol,start
 
+" Telescope binds
+nnoremap <silent> <leader>f :Telescope find_files<cr>
+nnoremap <silent> <leader>b :Telescope buffers<cr>
+nnoremap <silent> <leader>g :Telescope live_grep<cr>
 
 " Switch syntax highlighting on
 syntax on

@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    hardware.url = "github:nixos/nixos-hardware";
     impermanence.url = "github:nix-community/impermanence";
     nix-colors.url = "github:misterio77/nix-colors";
 
@@ -17,7 +16,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, hardware, impermanence, home-manager, firefox-addons, nix-colors, ... }: 
+  outputs = { self, nixpkgs, impermanence, home-manager, firefox-addons, nix-colors, ... }: 
   let
     forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   in {
