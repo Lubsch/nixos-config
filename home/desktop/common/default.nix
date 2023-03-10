@@ -14,6 +14,8 @@
     xdragon # Drag and drop from terminal
   ];
 
+  # Program that auto-detects font on system
+  fonts.fonconfig.enable = true;
 
   keyboard = {
     layout = "de";
