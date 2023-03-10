@@ -16,7 +16,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, impermanence, home-manager, firefox-addons, nix-colors, ... }: 
+  outputs = { self, nixpkgs, impermanence, home-manager, firefox-addons, nix-colors }: 
   let
     forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   in {
@@ -42,9 +42,9 @@
           ./nixos/pipewire.nix
         ];
         specialArgs = {
+          inherit nixpkgs; # For the registry
           hostname = "duke";
           system = "x86_64-linux";
-          inherit nixpkgs; # For the registry
           kernelModules = [ "kvm-intel" ];
           initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
           cpuFreqGovernor = "powersave";
