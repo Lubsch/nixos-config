@@ -3,12 +3,9 @@
     enable = true;
 
     settings = {
-      # Hardenings :)
+      # Hardenings ig :)
       PasswordAuthentication = false;
       PermitRootLogin = "no";
-
-      # Allow ssh clients to connect to ports open to host (port forwarding)
-      GatewayPorts = "clientspecified";
     };
 
     # Remove stale sockets automatically
@@ -22,7 +19,7 @@
     }];
   };
 
-  # Perstist host key across reboots
+  # Persist host key across reboots
   environment.persistence."/persist".files = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
   # Passwordless sudo when SSHing with keys

@@ -28,15 +28,17 @@
 
     nixosConfigurations = {
       "duke" = 
-        let pkgs = nixpkgs.legacyPackages."x86_64-linux"; in 
+      let pkgs = nixpkgs.legacyPackages."x86_64-linux"; in 
       nixpkgs.lib.nixosSystem {
         inherit pkgs;
         modules = [
           home-manager.nixosModules.home-manager
           impermanence.nixosModules.impermanence
           ./nixos/common
+          ./encrypted-root.nix
+          ./btrfs-optin-persistence.nix
+          ./locale.nix
           ./nixos/wireless.nix
-          ./nixos/virtualisation.nix
           ./nixos/pipewire.nix
         ];
         specialArgs = {
@@ -57,8 +59,8 @@
                 impermanence.nixosModules.home-manager.impermanence
                 ./home/common
                 ./home/nvim.nix
-                ./home/desktop/common
-                ./home/desktop/sway
+                ./home/desktop-common
+                ./home/sway
               ];
               _module.args = {
                 username = "lubsch";
@@ -73,7 +75,7 @@
                     package = pkgs.nerdfonts.override {fonts = [ "FiraCode"]; };
                   };
                 };
-                firefox-addons = firefox-addons.packages.x86_64-linux;
+                inherit firefox-addons;
               };
             };
           };

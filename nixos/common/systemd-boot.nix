@@ -5,7 +5,7 @@
       consoleMode = "max";
     };
 
-    # The installatin of the bootloader can touch efi vars
+    # The installation of the bootloader can touch efi vars
     efi.canTouchEfiVariables = true;
   };
 }

@@ -4,7 +4,7 @@
     enable = true;
 
     profiles.default = {
-      extensions = with firefox-addons; [
+      extensions = with firefox-addons.packages.system; [
         ublock-origin
         vimium
         sponsorblock

@@ -14,10 +14,8 @@ let
       "libvirtd"
     ];
 
-    # Not in root directory or /etc because it's not a standard linux directory but my own
-    passwordFile = "/persist/passwords/${username}";
-
     openssh.authorizedKeys.keys = user.authorizedKeys;
+    passwordFile = "/etc/passwords/${username}";
   };
 
 in {
@@ -31,4 +29,6 @@ in {
     useGlobalPkgs = true;
     useUserPackages = true;
   };
+
+  environment.persistence."/persist".directories = [ "/etc/passwords" ];
 }

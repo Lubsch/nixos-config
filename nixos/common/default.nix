@@ -1,10 +1,7 @@
 # This file applies to all hosts
-{ lib, system, hostname, pkgs, ... }: {
+{ system, hostname, pkgs, ... }: {
   imports = [
-    ./btrfs-optin-persistence.nix
     ./doas.nix
-    ./encrypted-root.nix
-    ./locale.nix
     ./nix.nix
     ./openssh.nix
     ./systemd-boot.nix
@@ -24,36 +21,27 @@
   console.useXkbConfig = true;
 
   nixpkgs = {
-    localSystem.system = system;
+    hostPlatform.system = system;
     config = { 
       allowUnfree = true; 
       enableParallelBuilding = true;
     };
   };
 
-  environment = {
-    # Makes root aware of git for nixos-rebuild --flake
-    systemPackages = [ pkgs.git ];
-    # So zsh completion files are available correctly (https://github.com/nix-community/home-manager/blob/master/modules/programs/zsh.nix)
-    pathsToLink = [ "/share/zsh" ];
+  programs = {
+    git.enable = true; # Make nix work
+    fuse.userAllowOther = true; # Allow root on impermanence binds
+  };
 
-    # TODO do this using home.sessionVariables in /home/nvim/default.nix when it doesn't get overridden by nano
-    sessionVariables.EDITOR = "nvim";
+  environment = {
+    pathsToLink = [ "/share/zsh" ]; # For zsh-completions
+    sessionVariables.EDITOR = "nvim"; # Override nano default TODO do with hm
 
     persistence."/persist" = {
-      # Persist some log files across reboots
       directories = [ "/var/lib/systemd/coredump" "/var/log" ];
-      files = [ "/etc/machine-id" ];
     };
     enableAllTerminfo = true;
   };
-
-  # Allows other users (includeing root) on fuse binds (used by impermanence) 
-  programs.fuse.userAllowOther = true;
-
-  # Make sway work
-  programs.dconf.enable = true;
-  hardware.opengl.enable = true;
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "23.05";
