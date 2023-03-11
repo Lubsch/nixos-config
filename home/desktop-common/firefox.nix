@@ -3,7 +3,7 @@
   programs.firefox = {
     enable = true;
 
-    profiles.${username} = {
+    profiles.default = {
       extensions = with firefox-addons; [
         ublock-origin
         vimium

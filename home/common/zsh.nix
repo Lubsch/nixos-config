@@ -8,9 +8,11 @@
     defaultKeymap = "viins";
 
     shellAliases = {
+      rr = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
+
       e = "$EDITOR";
 
-      getip = "curl ifconfig.me";
+      getip = "curl ifconfig.me\n";
 
       cp = "cp -iv";
       mv = "mv -iv";
@@ -47,8 +49,11 @@
       setopt PROMPT_SUBST
       PS1='[%9c$(git_branch_test_color)%F{none}]$ '
 
-      # Remove delay when hitting esc to change modes (in 100ths of seconds)
+      # Remove delay when hitting esc
       export KEYTIMEOUT=1
+
+      # Make backspace work as expected
+      bindkey "^?" backward-delete-char
 
       # Change cursor shape for different vi modes.
       function zle-keymap-select {

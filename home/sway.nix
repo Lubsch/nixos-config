@@ -3,7 +3,7 @@
     enable = true;
     config = {
       startup = [
-        { command = "${pkgs.autotiling-rs}/bin/autotiling-rs"; }
+        { command = "${pkgs.autotiling}/bin/autotiling"; }
       ];
       input = {
         "*" = {

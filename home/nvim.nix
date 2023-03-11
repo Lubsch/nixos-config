@@ -1,5 +1,5 @@
-{ config, pkgs, colorscheme, ... }: {
-  home.packages = [ (import ../pkgs/nvim { inherit pkgs colorscheme; }) ];
+{ config, pkgs, ... }: {
+  home.packages = [ (import ../pkgs/nvim pkgs) ];
 
   # TODO reactivate this when it works instead of using environment.sessionVariables
   /* home.sessionVariables.EDITOR = "nvim"; */
