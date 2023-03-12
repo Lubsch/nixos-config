@@ -56,7 +56,7 @@
                 ./home/common
                 ./home/nvim.nix
                 ./home/desktop-common
-                ./home/sway
+                ./home/sway.nix
               ];
               _module.args = {
                 username = "lubsch";
