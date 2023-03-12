@@ -15,7 +15,7 @@ parted "$2" mkpart ESP fat32 1MiB 513MiB
 parted "$2" set 1 esp on
 parted "$2" mkpart "$1_crypt" btrfs 513MiB 100%
 
-# I hate shell scripting
+# Would fail otherwise for some reason
 sleep 0.2
 
 # Create ESP file system
@@ -34,16 +34,8 @@ btrfs subvolume create /mnt/persist
 btrfs subvolume create /mnt/swap
 btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 
-# Remount so that the scripts are confirmed working
 ./umount-partitions.sh "$1"
 ./mount-partitions.sh "$1"
-
-# Create directory necessary for boot
-mkdir -p /mnt/var/log
-
-# Create the user password
-mkdir -p /mnt/persist/passwords
-mkpasswd -m sha-512 > /mnt/persist/passwords/"$3"
 
 # Enable nix command and flakes
 mkdir -p ~/.config/nix

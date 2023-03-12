@@ -17,18 +17,26 @@
 
   outputs = { self, nixpkgs, impermanence, home-manager, firefox-addons }: 
   let
-    forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+    forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
+    overlays = {
+      additions = final: prev: import ./pkgs { pkgs = final; };
+      firefox-addons = final: prev: { firefox-addons =  firefox-addons.packages.${final.system}; };
+    };
+    makePkgs = system: import nixpkgs { 
+      inherit system overlays;
+      config = { 
+        allowUnfree = true; 
+        enableParallelBuilding = true;
+      };
+    };  
   in {
-
+    inherit overlays;
+    packages = forEachSystem (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; });
     templates = import ./templates;
-
-    packages = forAllSystems (system: {
-      nvim = import ./pkgs/nvim nixpkgs.legacyPackages.${system};
-    });
 
     nixosConfigurations = {
       "duke" = 
-      let pkgs = nixpkgs.legacyPackages."x86_64-linux"; in 
+        let pkgs = makePkgs "x86_64-linux"; in 
       nixpkgs.lib.nixosSystem {
         inherit pkgs;
         modules = [
@@ -75,7 +83,6 @@
                     package = pkgs.nerdfonts.override {fonts = [ "FiraCode"]; };
                   };
                 };
-                inherit firefox-addons;
               };
             };
           };

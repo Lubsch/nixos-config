@@ -20,7 +20,7 @@
   };
 
   # Persist host key across reboots
-  environment.persistence."/persist".files = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  environment.persistence."/persist".files = [ "/etc/ssh/ssh_host_ed25519_key" "/etc/ssh/ssh_host_ed25519_key.pub" ];
 
   # Passwordless sudo when SSHing with keys
   security.pam.enableSSHAgentAuth = true;

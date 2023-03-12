@@ -1,5 +1,5 @@
-pkgs:
-with pkgs.vimPlugins; {
+vimPlugins:
+with vimPlugins; {
   start = [
     nvim-treesitter
     nvim-lspconfig

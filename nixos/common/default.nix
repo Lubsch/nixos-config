@@ -20,14 +20,6 @@
   };
   console.useXkbConfig = true;
 
-  nixpkgs = {
-    hostPlatform.system = system;
-    config = { 
-      allowUnfree = true; 
-      enableParallelBuilding = true;
-    };
-  };
-
   programs = {
     git.enable = true; # Make nix work
     fuse.userAllowOther = true; # Allow root on impermanence binds

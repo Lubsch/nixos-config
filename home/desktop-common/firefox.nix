@@ -1,10 +1,11 @@
-{ firefox-addons, config, username, pkgs, lib, ... }:
+# NOTE this requires firefox-addons being in the overlay
+{ pkgs, config, ... }:
 {
   programs.firefox = {
     enable = true;
 
     profiles.default = {
-      extensions = with firefox-addons.packages.system; [
+      extensions = with pkgs.firefox-addons; [
         ublock-origin
         vimium
         sponsorblock
