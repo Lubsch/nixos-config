@@ -18,12 +18,14 @@
   outputs = { self, nixpkgs, impermanence, home-manager, firefox-addons }: 
   let
     forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
+
     overlays = {
       additions = final: prev: import ./pkgs { pkgs = final; };
       firefox-addons = final: prev: { firefox-addons =  firefox-addons.packages.${final.system}; };
     };
+
     makePkgs = system: import nixpkgs { 
-      inherit system;
+      hostPlatform.system = system;
       overlays = builtins.attrValues overlays;
       config = { 
         allowUnfree = true; 
