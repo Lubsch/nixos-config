@@ -66,7 +66,7 @@
                 ./home/desktop-common
                 ./home/sway
               ];
-              _module.args = {
+              extraSpecialArgs = {
                 username = "lubsch";
                 fonts = {
                   regular = {
