@@ -38,7 +38,7 @@ btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 ./mount-partitions.sh "$1"
 
 # Create the user password
-mkdir -p /mnt/etc/persist/passwords
+mkdir -p /mnt/persist/etc/passwords
 mkpasswd -m sha-512 > /mnt/persist/etc/passwords/"$3"
 chmod 600 //mnt/etc/persist/passwords
 
