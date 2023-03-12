@@ -66,7 +66,7 @@
                 ./home/desktop-common
                 ./home/sway
               ];
-              extraSpecialArgs = {
+              _module.args = {
                 username = "lubsch";
                 fonts = {
                   regular = {
@@ -78,7 +78,7 @@
                     package = pkgs.nerdfonts.override {fonts = [ "FiraCode"]; };
                   };
                 };
-                inherit firefox-addons;
+                firefox-addons = firefox-addons.x86_64-linux;
               };
             };
           };
