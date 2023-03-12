@@ -43,9 +43,9 @@
           home-manager.nixosModules.home-manager
           impermanence.nixosModules.impermanence
           ./nixos/common
-          ./encrypted-root.nix
-          ./btrfs-optin-persistence.nix
-          ./locale.nix
+          ./nixos/encrypted-root.nix
+          ./nixos/btrfs-optin-persistence.nix
+          ./nixos/locale.nix
           ./nixos/wireless.nix
           ./nixos/pipewire.nix
         ];
@@ -53,8 +53,8 @@
           inherit nixpkgs; # For the registry
           hostname = "duke";
           system = "x86_64-linux";
-          kernelModules = [ "kvm-intel" ];
           initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
+          kernelModules = [ "kvm-intel" ];
           cpuFreqGovernor = "powersave";
 
           users.lubsch = {

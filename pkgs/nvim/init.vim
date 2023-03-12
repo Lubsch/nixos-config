@@ -74,7 +74,7 @@ nnoremap <leader>i :e $HOME/documents/wiki/index.md<cr>
 command! W silent execute 'w !doas tee % > /dev/null' <bar> edit!
 
 "Disable automatic commenting on new line
-" autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 "Make split windows open at the bottom
 set splitbelow splitright

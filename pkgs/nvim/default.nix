@@ -16,7 +16,7 @@ pkgs.wrapNeovim pkgs.neovim-unwrapped {
       ${builtins.readFile ./init.vim}
     '';
     packages.myVimPackage = {
-      inherit (import ./plugins.nix pkgs) start opt;
+      inherit (import ./plugins.nix pkgs.vimPlugins) start opt;
     };
   };
 }
