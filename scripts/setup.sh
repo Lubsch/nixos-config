@@ -40,7 +40,7 @@ btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 # Create the user password
 mkdir -p /mnt/persist/etc/passwords
 mkpasswd -m sha-512 > /mnt/persist/etc/passwords/"$3"
-chmod 600 //mnt/etc/persist/passwords
+chmod 600 /mnt/etc/persist/passwords/"$3"
 
 # Enable nix command and flakes
 mkdir -p ~/.config/nix
