@@ -25,7 +25,7 @@
     };
 
     makePkgs = system: import nixpkgs { 
-      hostPlatform.system = system;
+      inherit system;
       overlays = builtins.attrValues overlays;
       config = { 
         allowUnfree = true; 
