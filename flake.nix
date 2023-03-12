@@ -70,7 +70,7 @@
                     package = pkgs.nerdfonts.override {fonts = [ "FiraCode"]; };
                   };
                 };
-                firefox-addons = firefox-addons.x86_64-linux;
+                inherit firefox-addons;
               };
             };
           };
