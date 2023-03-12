@@ -1,6 +1,5 @@
 # NOTE this requires firefox-addons being in the overlay
-{ pkgs, config, ... }:
-{
+{ pkgs, config, ... }: {
   programs.firefox = {
     enable = true;
 

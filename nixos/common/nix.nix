@@ -1,15 +1,9 @@
-{ pkgs
-, lib
-, config
-, nixpkgs
-, ...
-}:
-{
+{ pkgs , lib , config , nixpkgs , ... }: {
   nix = {
     settings = {
       auto-optimise-store = true;
       warn-dirty = false;
-      # TODO readd this after nix update
+      # TODO add this after nix update
       # use-xdg-base-directories = true;
     };
     extraOptions = ''
@@ -19,6 +13,7 @@
       automatic = true;
       dates = "weekly";
     };
+
     # Map nixpkgs to registry (when using e.g. `nix run nixpkgs#asdf`, it defines what nixpkgs it)
     registry.nixpkgs.flake = nixpkgs;
 

@@ -75,7 +75,6 @@
               ];
               _module.args = {
                 username = "lubsch";
-                hostname = "duke";
                 fonts = {
                   regular = {
                     name = "Fira Sans";

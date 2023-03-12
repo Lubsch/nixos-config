@@ -8,6 +8,8 @@
     ./users.nix
   ];
 
+  nixpkgs.pkgs = pkgs;
+
   networking = {
     useDHCP = false;
     hostName = hostname;
