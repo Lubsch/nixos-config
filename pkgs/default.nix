@@ -1,3 +1,3 @@
 { pkgs }: {
-  neovimLubsch = pkgs.callPackage ./nvim { };
+  neovimLubsch = import ./nvim pkgs;
 }
