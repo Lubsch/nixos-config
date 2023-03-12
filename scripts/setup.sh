@@ -37,6 +37,11 @@ btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 ./umount-partitions.sh "$1"
 ./mount-partitions.sh "$1"
 
+# Create the user password
+mkdir -p /mnt/etc/persist/passwords
+mkpasswd -m sha-512 > /mnt/persist/passwords/"$3"
+chmod 600 /mnt/persist/passwords
+
 # Enable nix command and flakes
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf

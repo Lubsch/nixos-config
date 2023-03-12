@@ -30,5 +30,5 @@ in {
     useUserPackages = true;
   };
 
-  environment.persistence."/persist".directories = [ "/etc/passwords" ];
+  environment.persistence."/persist".directories = [ { directory = "/etc/passwords"; mode = "0600"; } ];
 }
