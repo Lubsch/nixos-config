@@ -9,6 +9,9 @@ if [ "$#" -ne 3 ]; then
     exit 1
 fi
 
+# So you don't need to manually unmount when retrying the script
+./umount-partitions.sh "$1" >/dev/null
+
 # Partition the drive
 parted "$2" mklabel gpt
 parted "$2" mkpart ESP fat32 1MiB 513MiB
@@ -34,7 +37,7 @@ btrfs subvolume create /mnt/persist
 btrfs subvolume create /mnt/swap
 btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 
-./umount-partitions.sh "$1"
+./umount-partitions.sh "$1" >/dev/null
 ./mount-partitions.sh "$1"
 
 # Create the user password
