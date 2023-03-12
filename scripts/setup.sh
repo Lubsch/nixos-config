@@ -9,9 +9,6 @@ if [ "$#" -ne 3 ]; then
     exit 1
 fi
 
-# So you don't need to manually unmount when retrying the script
-./umount-partitions.sh "$1" >/dev/null
-
 # Partition the drive
 parted "$2" mklabel gpt
 parted "$2" mkpart ESP fat32 1MiB 513MiB
