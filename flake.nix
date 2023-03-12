@@ -24,7 +24,7 @@
     };
     makePkgs = system: import nixpkgs { 
       inherit system;
-      overlays = [ overlays ];
+      overlays = builtins.attrValuues overlays;
       config = { 
         allowUnfree = true; 
         enableParallelBuilding = true;
