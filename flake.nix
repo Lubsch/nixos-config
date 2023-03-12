@@ -19,21 +19,14 @@
   let
     forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
 
-    overlays = {
-      additions = final: prev: import ./pkgs { pkgs = final; };
-      firefox-addons = final: prev: { firefox-addons =  firefox-addons.packages.${final.system}; };
-    };
-
     makePkgs = system: import nixpkgs { 
       inherit system;
-      overlays = builtins.attrValues overlays;
       config = { 
         allowUnfree = true; 
         enableParallelBuilding = true;
       };
     };  
   in {
-    inherit overlays;
     packages = forEachSystem (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; });
     templates = import ./templates;
 
@@ -85,6 +78,7 @@
                     package = pkgs.nerdfonts.override {fonts = [ "FiraCode"]; };
                   };
                 };
+                inherit firefox-addons;
               };
             };
           };

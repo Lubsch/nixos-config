@@ -1,10 +1,9 @@
-# NOTE this requires firefox-addons being in the overlay
-{ pkgs, config, ... }: {
+{ firefox-addons, config, ... }: {
   programs.firefox = {
     enable = true;
 
     profiles.default = {
-      extensions = with pkgs.firefox-addons; [
+      extensions = with firefox-addons.packages.system; [
         ublock-origin
         vimium
         sponsorblock
