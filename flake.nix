@@ -23,7 +23,8 @@
       firefox-addons = final: prev: { firefox-addons =  firefox-addons.packages.${final.system}; };
     };
     makePkgs = system: import nixpkgs { 
-      inherit system overlays;
+      inherit system;
+      overlays = [ overlays ];
       config = { 
         allowUnfree = true; 
         enableParallelBuilding = true;
