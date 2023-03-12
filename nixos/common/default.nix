@@ -8,8 +8,6 @@
     ./users.nix
   ];
 
-  nixpkgs.pkgs = pkgs;
-
   networking = {
     useDHCP = false;
     hostName = hostname;
@@ -21,6 +19,14 @@
     xkbOptions = "caps:escape";
   };
   console.useXkbConfig = true;
+
+  nixpkgs = {
+    hostPlatform.system = system;
+    config = { 
+      allowUnfree = true; 
+      enableParallelBuilding = true;
+    };
+  };
 
   programs = {
     git.enable = true; # Make nix work

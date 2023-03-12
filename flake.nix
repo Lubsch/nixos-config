@@ -18,21 +18,13 @@
   outputs = { self, nixpkgs, impermanence, home-manager, firefox-addons }: 
   let
     forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
-
-    makePkgs = system: import nixpkgs { 
-      inherit system;
-      config = { 
-        allowUnfree = true; 
-        enableParallelBuilding = true;
-      };
-    };  
   in {
     packages = forEachSystem (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; });
     templates = import ./templates;
 
     nixosConfigurations = {
       "duke" = 
-        let pkgs = makePkgs "x86_64-linux"; in 
+        let pkgs = nixpkgs.legacyPackages.x86_64-linux; in 
       nixpkgs.lib.nixosSystem {
         inherit pkgs;
         modules = [
