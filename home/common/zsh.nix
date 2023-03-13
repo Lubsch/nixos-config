@@ -102,6 +102,10 @@
 
   };
   
-  # Create the symlink before home-manager tries to create the history file
-  home.persistence."/persist${config.home.homeDirectory}".directories = [ ".local/share/zsh" ];
+  home = {
+    # Avoid pollutin home env, NOTE requires writing to /etc/zsh/zshenv in nixos config
+    file.".zshenv" = null;
+
+    persistence."/persist${config.home.homeDirectory}".directories = [ ".local/share/zsh" ];
+  };
 }

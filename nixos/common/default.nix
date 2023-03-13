@@ -41,9 +41,10 @@
   };
 
   environment = {
-    enableAllTerminfo = true;
+    "zsh/zshenv".text = ''export ZDOTDIR="$HOME"/.config/zsh''; # Source zshenv without ~/.zshenv
     pathsToLink = [ "/share/zsh" ]; # Make zsh-completions work
-    sessionVariables.EDITOR = "nvim"; # Override nano default TODO do with hm
+    sessionVariables.EDITOR = "nvim"; # Override nano default, TODO do with hm
+    enableAllTerminfo = true;
 
     persistence."/persist" = {
       directories = [ "/var/lib/systemd/coredump" "/var/log" ];

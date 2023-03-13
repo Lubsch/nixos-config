@@ -37,6 +37,10 @@ btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 ./umount-partitions.sh "$1" >/dev/null
 ./mount-partitions.sh "$1"
 
+# Create home directory with permissions
+mkdir -p /mnt/persist/home/"$3"
+chown "$3" /mnt/persist/home/"$3"
+
 # Create the user password
 mkdir /mnt/persist/passwords
 mkpasswd -m sha-512 > /mnt/persist/passwords/"$3"
