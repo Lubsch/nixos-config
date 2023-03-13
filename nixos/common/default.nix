@@ -25,7 +25,7 @@
   console.useXkbConfig = true;
 
   nixpkgs = {
-    hostPlatform.system = system;
+    hostPlatform = { inherit system; };
     config = { 
       allowUnfree = true; 
       enableParallelBuilding = true;
