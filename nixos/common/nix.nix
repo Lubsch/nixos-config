@@ -1,10 +1,11 @@
-{ inputs , ... }: {
+{ pkgs, inputs , ... }: {
   nix = {
+    # TODO change this when its the default in pkgs, required for xdg dirs
+    package = pkgs.nixVersions.nix_2_14;
     settings = {
       auto-optimise-store = true;
       warn-dirty = false;
-      # TODO add this after nix update
-      # use-xdg-base-directories = true;
+      use-xdg-base-directories = true;
     };
     extraOptions = ''
       experimental-features = nix-command flakes repl-flake
