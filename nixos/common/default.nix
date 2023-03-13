@@ -1,5 +1,5 @@
 # This file applies to all hosts
-{ cpuFreqGovernor, system, hostname, ... }: {
+{ cpuFreqGovernor, cpu-vendor, system, hostname, ... }: {
   imports = [
     ./doas.nix
     ./nix.nix
@@ -8,9 +8,12 @@
     ./users.nix
   ];
 
-  system.stateVersion = "23.05";
-  hardware.enableRedistributableFirmware = true;
+  hardware = {
+    enableRedistributableFirmware = true;
+    cpu.${cpu-vendor}.updateMicrocode = true;
+  };
   powerManagement = {inherit cpuFreqGovernor; };
+  system.stateVersion = "23.05";
 
   networking = {
     useDHCP = false;

@@ -27,11 +27,13 @@
           ./nixos/locale.nix
           ./nixos/wireless.nix
           ./nixos/pipewire.nix
+          ./nixos/graphical.nix
         ];
         specialArgs = {
           inherit inputs;
           hostname = "duke";
           system = "x86_64-linux";
+          cpu-vendor = "intel";
           cpuFreqGovernor = "powersave";
           kernelModules = [ "kvm-intel" ];
           initrdModules= [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
