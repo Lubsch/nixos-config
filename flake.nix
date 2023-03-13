@@ -35,19 +35,13 @@
           cpuFreqGovernor = "powersave";
           kernelModules = [ "kvm-intel" ];
           initrdModules= [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
-          users."lubsch".hm-config = {
-            imports = [
-              ./home/common
-              ./home/nvim.nix
-              ./home/desktop-common
-              ./home/sway.nix
-              ./home/impermanence.nix
-            ];
-            _module.args = {
-              username = "lubsch";
-              inherit inputs;
-            };
-          };
+          users."lubsch".imports = [
+            ./home/common
+            ./home/nvim.nix
+            ./home/desktop-common
+            ./home/sway.nix
+            ./home/impermanence.nix
+          ];
         };
       };
 

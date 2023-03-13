@@ -1,4 +1,4 @@
-{ pkgs, users, inputs, ... }: {
+{ lib, pkgs, users, inputs, ... }: {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   users = {
@@ -13,7 +13,7 @@
           "networkmanager"
           "libvirtd"
         ];
-        openssh.authorizedKeys = [
+        openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvuIIrh2iuj2hX0zIzqLUC/5SD/ZJ3GaLcI1AyHDQuM" # droid
         ];
@@ -26,7 +26,13 @@
   };
 
   home-manager = {
-    users = builtins.mapAttrs (_: user: user.hm-config) users;
+    users = builtins.mapAttrs 
+      (username: user: {
+        inherit (user) imports;
+        _module.args = { inherit username; }; })
+      users;
+
+    extraSpecialArgs = { inherit inputs; };
     useGlobalPkgs = true;
     useUserPackages = true;
   };

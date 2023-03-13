@@ -1,9 +1,9 @@
-{ pkgs, firefox-addons, config, ... }: {
+{ pkgs, inputs, config, ... }: {
   programs.firefox = {
     enable = true;
 
     profiles.default = {
-      extensions = with firefox-addons.packages.${pkgs.system}; [
+      extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
         ublock-origin
         vimium
         sponsorblock

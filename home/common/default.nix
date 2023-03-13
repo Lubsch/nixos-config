@@ -1,6 +1,6 @@
 # Global user config on all hosts
 { pkgs, username, ... }: 
-let homeDirectory = "/home/$username"; in {
+let homeDirectory = "/home/${username}"; in {
   imports = [
     ./git.nix
     ./ssh.nix

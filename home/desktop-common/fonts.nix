@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }: {
 
-  options = 
-  let 
-    mkDefault = value: lib.mkOption { default = value; };
+  options = let 
+    mkDefault = value: (lib.mkOption { default = value; });
   in {
     fonts = {
       regular = {
@@ -11,8 +10,7 @@
       };
       mono = {
         name = mkDefault "FiraCode Nerd Font"; 
-        package = mkDefault 
-          pkgs.nerdfonts.override { fonts = [ "FiraCode"]; }; 
+        package = mkDefault (pkgs.nerdfonts.override { fonts = [ "FiraCode"]; }); 
       };
     };
   };
