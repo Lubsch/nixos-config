@@ -21,7 +21,7 @@
       ls = "${pkgs.exa}/bin/exa -la --group-directories-first --no-user --no-permissions --icons";
       la = "${pkgs.exa}/bin/exa -la --group-directories-first --icons";
 
-      jctl = "journalctl -p 3 -xb";
+      jctl = "journalctl -p 4 -xb";
     };
 
     initExtra = ''
@@ -103,8 +103,8 @@
   };
   
   home = {
-    # Avoid pollutin home env, NOTE requires writing to /etc/zsh/zshenv in nixos config
-    file.".zshenv" = null;
+    # Avoid pollution home env, NOTE requires writing to /etc/zsh/zshenv in nixos config
+    file.".zshenv".enable = false;
 
     persistence."/persist${config.home.homeDirectory}".directories = [ ".local/share/zsh" ];
   };

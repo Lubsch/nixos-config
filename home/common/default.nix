@@ -52,8 +52,6 @@ let homeDirectory = "/home/${username}"; in {
       templates = null;
       desktop = null;
     };
-    # Where nvim things (and late some .nix-files) go
-    stateHome = "${homeDirectory}/.local/state";
   };
 
   # Automatically reload systemd when changing hm configs
