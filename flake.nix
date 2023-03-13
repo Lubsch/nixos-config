@@ -62,10 +62,7 @@
                 username = "lubsch";
                 inherit firefox-addons;
                 fonts = with (mkPkgs system); {
-                  regular = {
-                    name = "Fira Sans";
-                    package = fira;
-                  };
+                  regular = { name = "Fira Sans"; package = fira; };
                   mono = {
                     name = "FiraCode Nerd Font";
                     package = nerdfonts.override {fonts = [ "FiraCode"]; };
