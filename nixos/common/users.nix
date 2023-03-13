@@ -30,5 +30,6 @@ in {
     useUserPackages = true;
   };
 
-  environment.persistence."/persist".directories = [ { directory = "/etc/passwords"; mode = "0600"; } ];
+  # NOTE maybe make this use more secure permissions one day
+  environment.persistence."/persist".directories = [ "/etc/passwords" ];
 }
