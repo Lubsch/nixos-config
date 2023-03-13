@@ -8,7 +8,7 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 ### Secrets
 
-I decided on not managing secrets using nix, making bootsstrapping easier. Secret management (especially on such a small scale) should be seen as a stateful problem, when you think about it. Passwords are stored in `/persist/etc/passwords/<username>`. Perhaps I will start managing secrets using nix when/if there is a native NixOS solution.
+I decided on not managing secrets using nix, making bootsstrapping easier. Secret management (especially on such a small scale) should be seen as a stateful problem, when you think about it. Passwords are stored in `/passwords/<username>`. Perhaps I will start managing secrets using nix when/if there is a native NixOS solution.
 
 ### SSH remote access
 
@@ -63,7 +63,7 @@ It will do the following:
 - Format the BTRFS partition which will be accessible under `/dev/mapper/<hostname>`
 - Create the BTRFS subvolumes, including the blank one
 - Mount the BTRFS subvolumes and boot partition under `/mnt`
-- Create the user password in `/persist/etc/passwords/<username>`
+- Create the user password in `/persist/passwords/<username>`
 - Enable nix command and nix flakes
 - Put auto-generated hardware-config into `hardware-config.nix`
 

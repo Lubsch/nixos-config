@@ -15,7 +15,7 @@ let
     ];
 
     openssh.authorizedKeys.keys = user.authorizedKeys;
-    passwordFile = "/etc/passwords/${username}";
+    passwordFile = "/passwords/${username}";
   };
 
 in {
@@ -31,5 +31,5 @@ in {
   };
 
   # NOTE maybe make this use more secure permissions one day
-  environment.persistence."/persist".directories = [ "/etc/passwords" ];
+  environment.persistence."/persist".directories = [ "/passwords" ];
 }

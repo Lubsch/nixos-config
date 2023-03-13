@@ -1,5 +1,5 @@
 # This file applies to all hosts
-{ system, hostname, pkgs, ... }: {
+{ cpuFreqGovernor, system, hostname, ... }: {
   imports = [
     ./doas.nix
     ./nix.nix
@@ -7,6 +7,8 @@
     ./systemd-boot.nix
     ./users.nix
   ];
+
+  inherit cpuFreqGovernor;
 
   networking = {
     useDHCP = false;
