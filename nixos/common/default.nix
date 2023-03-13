@@ -4,11 +4,11 @@
     ./doas.nix
     ./nix.nix
     ./openssh.nix
-    ./systemd-boot.nix
+    ./boot.nix
     ./users.nix
   ];
 
-  inherit cpuFreqGovernor;
+  powerManagement = {inherit cpuFreqGovernor; };
 
   networking = {
     useDHCP = false;

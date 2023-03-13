@@ -1,5 +1,6 @@
 # Global user config on all hosts
-{ config, pkgs, username, ... }: {
+{ pkgs, username, ... }: 
+let homeDirectory = "/home/$username"; in {
   imports = [
     ./git.nix
     ./ssh.nix
@@ -11,8 +12,7 @@
   ];
 
   home = {
-    inherit username;
-    homeDirectory = "/home/${username}";
+    inherit username homeDirectory;
     stateVersion = "23.05";
 
     packages = with pkgs; [
@@ -26,7 +26,7 @@
       magic-wormhole # send files between computers
     ];
 
-    persistence."/persist${config.home.homeDirectory}" = {
+    persistence."/persist${homeDirectory}" = {
       directories = [
         "documents"
         "downloads"
@@ -43,17 +43,17 @@
     userDirs = {
       enable = true;
       createDirectories = true;
-      documents = "${config.home.homeDirectory}/documents";
-      download = "${config.home.homeDirectory}/downloads";
-      music = "${config.home.homeDirectory}/music";
-      pictures = "${config.home.homeDirectory}/pictures";
-      videos = "${config.home.homeDirectory}/videos";
+      documents = "${homeDirectory}/documents";
+      download = "${homeDirectory}/downloads";
+      music = "${homeDirectory}/music";
+      pictures = "${homeDirectory}/pictures";
+      videos = "${homeDirectory}/videos";
       publicShare = null;
       templates = null;
       desktop = null;
     };
     # Where nvim things (and late some .nix-files) go
-    stateHome = "${config.home.homeDirectory}/.local/state";
+    stateHome = "${homeDirectory}/.local/state";
   };
 
   # Automatically reload systemd when changing hm configs

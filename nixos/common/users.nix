@@ -1,26 +1,22 @@
-{ pkgs, config, users, ... }:
-let
-  existingGroupsFrom = builtins.filter (group: builtins.hasAttr group config.users.groups);
-
-  makeSystemUser = username: user: {
-    isNormalUser = true;
-    shell = pkgs.zsh;
-    extraGroups = [
-      "wheel"
-      "video"
-      "audio"
-    ] ++ existingGroupsFrom [
-      "networkmanager"
-      "libvirtd"
-    ];
-
-    openssh.authorizedKeys.keys = user.authorizedKeys;
-    passwordFile = "/passwords/${username}";
-  };
-
-in {
+{ pkgs, users, ... }: {
   users = {
-    users = builtins.mapAttrs makeSystemUser users;
+    users = builtins.mapAttrs
+      (username: user: {
+        isNormalUser = true;
+        shell = pkgs.zsh;
+        extraGroups = [
+          "wheel"
+          "video"
+          "audio"
+          "networkmanager"
+          "libvirtd"
+        ];
+        openssh.authorizedKeys.keys = user.authorizedKeys;
+        # TODO Make this work without /persist existing, too
+        passwordFile = "/persist/passwords/${username}";
+      })
+      users;
+
     mutableUsers = false;
   };
 
@@ -29,7 +25,4 @@ in {
     useGlobalPkgs = true;
     useUserPackages = true;
   };
-
-  # NOTE maybe make this use more secure permissions one day
-  environment.persistence."/persist".directories = [ "/passwords" ];
 }

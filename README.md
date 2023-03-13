@@ -8,11 +8,7 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 ### Secrets
 
-I decided on not managing secrets using nix, making bootsstrapping easier. Secret management (especially on such a small scale) should be seen as a stateful problem, when you think about it. Passwords are stored in `/passwords/<username>`. Perhaps I will start managing secrets using nix when/if there is a native NixOS solution.
-
-### SSH remote access
-
-The file `./nixos-modules/common/user.nix` defines `openssh.authorizedKeys.keys`, which are the public keys of keypairs that can access the user over ssh. All ssh private keys are of course stored locally and always live on one device only (in the `~/.shh` folder, except for hostkeys)
+I decided on not managing secrets using nix, making bootsstrapping easier. Secret management (especially on such a small scale) should be seen as a stateful problem, when you think about it. Passwords are stored in `/persist/passwords/<username>`. Perhaps I will start managing secrets using nix when/if there is a native NixOS solution.
 
 ## Installation Guide
 

@@ -16,17 +16,18 @@
   };
 
   outputs = { self, nixpkgs, impermanence, home-manager, firefox-addons }: 
-  let
-    forEachSystem = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
+  let mkPkgs = system: nixpkgs.legacyPackages.${system}; 
   in {
-    packages = forEachSystem (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; });
     templates = import ./templates;
+    packages = nixpkgs.lib.genAttrs 
+      [ "x86_64-linux" "aarch64-linux" ]
+      (system: import ./pkgs (mkPkgs system));
 
     nixosConfigurations = {
       "duke" = 
-        let pkgs = nixpkgs.legacyPackages.x86_64-linux; in 
+        let system = "x86_64-linux"; in 
       nixpkgs.lib.nixosSystem {
-        inherit pkgs;
+        pkgs = mkPkgs system;
         modules = [
           home-manager.nixosModules.home-manager
           impermanence.nixosModules.impermanence
@@ -38,12 +39,11 @@
           ./nixos/pipewire.nix
         ];
         specialArgs = {
-          inherit nixpkgs; # For the registry
           hostname = "duke";
-          system = "x86_64-linux";
-          initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
-          kernelModules = [ "kvm-intel" ];
+          inherit nixpkgs system;
           cpuFreqGovernor = "powersave";
+          kernelModules = [ "kvm-intel" ];
+          initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
 
           users.lubsch = {
             authorizedKeys = [
@@ -60,17 +60,17 @@
               ];
               _module.args = {
                 username = "lubsch";
-                fonts = {
+                inherit firefox-addons;
+                fonts = with (mkPkgs system); {
                   regular = {
                     name = "Fira Sans";
-                    package = pkgs.fira;
+                    package = fira;
                   };
                   mono = {
                     name = "FiraCode Nerd Font";
-                    package = pkgs.nerdfonts.override {fonts = [ "FiraCode"]; };
+                    package = nerdfonts.override {fonts = [ "FiraCode"]; };
                   };
                 };
-                inherit firefox-addons;
               };
             };
           };
