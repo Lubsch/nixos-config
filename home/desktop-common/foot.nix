@@ -1,10 +1,10 @@
-{ fonts, ... }: {
+{ config, ... }: {
   programs.foot = {
     enable = true;
     server.enable = true;
     settings = {
       main = {
-        font = "${fonts.mono.name}:size=10";
+        font = "${config.fonts.mono.name}:size=10";
         dpi-aware = "yes";
       };
       /* colors = { */

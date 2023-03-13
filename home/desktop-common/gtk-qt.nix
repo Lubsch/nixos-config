@@ -1,8 +1,8 @@
-{ fonts, pkgs, ... }: {
+{ config, pkgs, ... }: {
   gtk = {
     enable = true;
     font = {
-      inherit (fonts.regular) package name;
+      inherit (config.fonts.regular) package name;
       size = 14;
     };
     theme = {

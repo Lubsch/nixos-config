@@ -1,4 +1,4 @@
-{ hostname, ... }:
+{ hostname, inputs, ... }:
 let
   decrypted-drive = "/dev/mapper/${hostname}";
   wipeScript = ''
@@ -23,6 +23,8 @@ let
   '';
 in
 {
+  imports = [ inputs.impermanence.nixosModules.impermanence ];
+
   boot.initrd = {
     supportedFilesystems = [ "btrfs" ];
     postDeviceCommands = wipeScript;

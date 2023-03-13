@@ -8,6 +8,8 @@
     ./users.nix
   ];
 
+  system.stateVersion = "23.05";
+  hardware.enableRedistributableFirmware = true;
   powerManagement = {inherit cpuFreqGovernor; };
 
   networking = {
@@ -36,15 +38,12 @@
   };
 
   environment = {
-    pathsToLink = [ "/share/zsh" ]; # For zsh-completions
+    enableAllTerminfo = true;
+    pathsToLink = [ "/share/zsh" ]; # Make zsh-completions work
     sessionVariables.EDITOR = "nvim"; # Override nano default TODO do with hm
 
     persistence."/persist" = {
       directories = [ "/var/lib/systemd/coredump" "/var/log" ];
     };
-    enableAllTerminfo = true;
   };
-
-  hardware.enableRedistributableFirmware = true;
-  system.stateVersion = "23.05";
 }

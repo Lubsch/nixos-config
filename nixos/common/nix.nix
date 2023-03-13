@@ -1,4 +1,4 @@
-{ nixpkgs , ... }: {
+{ inputs , ... }: {
   nix = {
     settings = {
       auto-optimise-store = true;
@@ -14,6 +14,6 @@
       dates = "weekly";
     };
 
-    registry.nixpkgs.flake = nixpkgs;
+    registry.nixpkgs.flake = inputs.nixpkgs;
   };
 }

@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     impermanence.url = "github:nix-community/impermanence";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,64 +14,43 @@
     };
   };
 
-  outputs = { self, nixpkgs, impermanence, home-manager, firefox-addons }: 
-  let mkPkgs = system: nixpkgs.legacyPackages.${system}; 
-  in {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     templates = import ./templates;
-    packages = nixpkgs.lib.genAttrs 
-      [ "x86_64-linux" "aarch64-linux" ]
-      (system: import ./pkgs (mkPkgs system));
+    packages = import ./pkgs nixpkgs;
 
     nixosConfigurations = {
-      "duke" = 
-        let system = "x86_64-linux"; in 
-      nixpkgs.lib.nixosSystem {
-        pkgs = mkPkgs system;
+      "duke" = nixpkgs.lib.nixosSystem {
         modules = [
-          home-manager.nixosModules.home-manager
-          impermanence.nixosModules.impermanence
           ./nixos/common
           ./nixos/encrypted-root.nix
-          ./nixos/btrfs-optin-persistence.nix
+          ./nixos/impermanence.nix
           ./nixos/locale.nix
           ./nixos/wireless.nix
           ./nixos/pipewire.nix
         ];
         specialArgs = {
+          inherit inputs;
           hostname = "duke";
-          inherit nixpkgs system;
+          system = "x86_64-linux";
           cpuFreqGovernor = "powersave";
           kernelModules = [ "kvm-intel" ];
-          initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
-
-          users.lubsch = {
-            authorizedKeys = [
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvuIIrh2iuj2hX0zIzqLUC/5SD/ZJ3GaLcI1AyHDQuM" # droid
+          initMods = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
+          users."lubsch".hm-config = {
+            imports = [
+              ./home/common
+              ./home/nvim.nix
+              ./home/desktop-common
+              ./home/sway.nix
+              ./home/impermanence.nix
             ];
-            hm-config = {
-              imports = [
-                impermanence.nixosModules.home-manager.impermanence
-                ./home/common
-                ./home/nvim.nix
-                ./home/desktop-common
-                ./home/sway.nix
-              ];
-              _module.args = {
-                username = "lubsch";
-                inherit firefox-addons;
-                fonts = with (mkPkgs system); {
-                  regular = { name = "Fira Sans"; package = fira; };
-                  mono = {
-                    name = "FiraCode Nerd Font";
-                    package = nerdfonts.override {fonts = [ "FiraCode"]; };
-                  };
-                };
-              };
+            _module.args = {
+              username = "lubsch";
+              inherit inputs;
             };
           };
         };
       };
+
     };
   };
 }
