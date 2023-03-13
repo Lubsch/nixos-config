@@ -9,6 +9,7 @@ let homeDirectory = "/home/${username}"; in {
     ./zoxide.nix
     ./tealdeer.nix
     ./comma.nix
+    ./colors.nix
   ];
 
   home = {

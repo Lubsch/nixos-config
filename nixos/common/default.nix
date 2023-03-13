@@ -1,5 +1,4 @@
-# This file applies to all hosts
-{ cpuFreqGovernor, cpu-vendor, system, hostname, ... }: {
+{ cpuFreqGovernor, cpu-vendor, hostname, ... }: {
   imports = [
     ./users.nix
     ./doas.nix
@@ -12,8 +11,6 @@
     enableRedistributableFirmware = true;
     cpu.${cpu-vendor}.updateMicrocode = true;
   };
-  powerManagement = {inherit cpuFreqGovernor; };
-  system.stateVersion = "23.05";
 
   networking = {
     useDHCP = false;
@@ -26,14 +23,6 @@
     xkbOptions = "caps:escape";
   };
   console.useXkbConfig = true;
-
-  nixpkgs = {
-    hostPlatform = { inherit system; };
-    config = { 
-      allowUnfree = true; 
-      enableParallelBuilding = true;
-    };
-  };
 
   programs = {
     git.enable = true; # Make nix work
@@ -48,4 +37,7 @@
       directories = [ "/var/lib/systemd/coredump" "/var/log" ];
     };
   };
+
+  powerManagement = {inherit cpuFreqGovernor; };
+  system.stateVersion = "23.05";
 }

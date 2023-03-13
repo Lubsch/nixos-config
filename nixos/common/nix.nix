@@ -1,4 +1,4 @@
-{ pkgs, inputs , ... }: {
+{ pkgs, inputs , system, ... }: {
   nix = {
     # TODO change this when its the default in pkgs, required for xdg dirs
     package = pkgs.nixVersions.nix_2_14;
@@ -17,4 +17,13 @@
 
     registry.nixpkgs.flake = inputs.nixpkgs;
   };
+
+  nixpkgs = {
+    hostPlatform = { inherit system; };
+    config = { 
+      allowUnfree = true; 
+      enableParallelBuilding = true;
+    };
+  };
+
 }

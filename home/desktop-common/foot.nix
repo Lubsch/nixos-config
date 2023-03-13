@@ -7,27 +7,26 @@
         font = "${config.fonts.mono.name}:size=10";
         dpi-aware = "yes";
       };
-      /* colors = { */
-      /*     background = colors.base00; */
-      /*     foreground = colors.base05; */
+      colors = with config.colors; {
+        inherit background foreground;
 
-      /*     regular0 = colors.base00; */
-      /*     regular1 = colors.base01; */
-      /*     regular2 = colors.base02; */
-      /*     regular3 = colors.base03; */
-      /*     regular4 = colors.base04; */
-      /*     regular5 = colors.base05; */
-      /*     regular6 = colors.base06; */
-      /*     regular7 = colors.base07; */
-      /*     bright0 = colors.base08; */
-      /*     bright1 = colors.base09; */
-      /*     bright2 = colors.base0A; */
-      /*     bright3 = colors.base0B; */
-      /*     bright4 = colors.base0C; */
-      /*     bright5 = colors.base0D; */
-      /*     bright6 = colors.base0E; */
-      /*     bright7 = colors.base0F; */
-      /* }; */
+        regular0 = base00;
+        regular1 = base01;
+        regular2 = base02;
+        regular3 = base03;
+        regular4 = base04;
+        regular5 = base05;
+        regular6 = base06;
+        regular7 = base07;
+        bright0 = base08;
+        bright1 = base09;
+        bright2 = base10;
+        bright3 = base11;
+        bright4 = base12;
+        bright5 = base13;
+        bright6 = base14;
+        bright7 = base15;
+      };
     };
   };
 }

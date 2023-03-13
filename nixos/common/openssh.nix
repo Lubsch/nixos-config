@@ -3,7 +3,6 @@
     enable = true;
 
     settings = {
-      # Hardenings ig :)
       PasswordAuthentication = false;
       PermitRootLogin = "no";
     };
@@ -19,7 +18,6 @@
     }];
   };
 
-  # Persist host key across reboots
   environment.persistence."/persist".files = [ "/etc/ssh/ssh_host_ed25519_key" "/etc/ssh/ssh_host_ed25519_key.pub" ];
 
   # Passwordless sudo when SSHing with keys
