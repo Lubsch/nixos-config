@@ -36,7 +36,7 @@ let homeDirectory = "/home/${username}"; in {
         "videos"
         "misc"
       ];
-      allowOther = true; # Allows other users (mainly root when using doas) on the binds
+      allowOther = true; # Access to binds for root
     };
   };
 

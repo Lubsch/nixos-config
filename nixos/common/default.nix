@@ -33,9 +33,9 @@
     sessionVariables.EDITOR = "nvim"; # Override nano default, TODO do with hm
     enableAllTerminfo = true;
 
-    persistence."/persist" = {
-      directories = [ "/var/lib/systemd/coredump" "/var/log" ];
-    };
+    persistence."/persist".directories = [
+      "/var/lib/systemd/coredump" "/var/log" 
+    ];
   };
 
   powerManagement = {inherit cpuFreqGovernor; };

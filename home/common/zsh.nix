@@ -106,6 +106,8 @@
     # Avoid pollution home env, NOTE requires writing to /etc/zsh/zshenv in nixos config
     file.".zshenv".enable = false;
 
-    persistence."/persist${config.home.homeDirectory}".directories = [ ".local/share/zsh" ];
+    persistence."/persist${config.home.homeDirectory}".directories = [ 
+      ".local/share/zsh" 
+    ];
   };
 }

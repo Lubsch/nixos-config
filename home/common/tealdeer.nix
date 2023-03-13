@@ -8,5 +8,7 @@
     };
   };
 
-  home.persistence."/persist${config.home.homeDirectory}".directories = [ ".cache/tealdeer" ];
+  home.persistence."/persist${config.home.homeDirectory}".directories = [ 
+    ".cache/tealdeer"
+  ];
 }

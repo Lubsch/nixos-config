@@ -61,4 +61,5 @@ in
     device = "/swap/swapfile";
     size = 8196;
   }];
+  boot.resumeDevice = decrypted-drive;
 }

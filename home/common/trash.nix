@@ -4,5 +4,7 @@
     rm = "trash";
   };
 
-  home.persistence."/persist${config.home.homeDirectory}".directories = [ ".local/share/Trash" ];
+  home.persistence."/persist${config.home.homeDirectory}".directories = [ 
+    ".local/share/Trash" 
+  ];
 }

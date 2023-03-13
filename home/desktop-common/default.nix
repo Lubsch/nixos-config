@@ -15,6 +15,7 @@
   home = {
     packages = with pkgs; [
       xdragon # Drag and drop from terminal
+      brightnessctl # Change brightness
     ];
   };
 

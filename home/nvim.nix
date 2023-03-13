@@ -5,7 +5,9 @@
   /* home.sessionVariables.EDITOR = "nvim"; */
 
   # Persist log, shada, swap and undo (could all be cleaned out from time to time but it's better to be save)
-  home.persistence."/persist${config.home.homeDirectory}".directories = [ ".local/state/nvim" ];
+  home.persistence."/persist${config.home.homeDirectory}".directories = [ 
+    ".local/state/nvim" 
+  ];
 
   xdg.desktopEntries = {
     nvim = {
