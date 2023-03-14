@@ -12,5 +12,4 @@
       "de_DE.UTF-8/UTF-8"
     ];
   };
-  time.timeZone = "Europe/Berlin";
 }

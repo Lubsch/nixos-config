@@ -1,7 +1,7 @@
-{ kernelModules, initrdModules, kernelParams, ... }: {
+{ kernelModules, initrdModules, ... }: {
   boot = {
-    inherit kernelModules kernelParams;
-    initrd.kernelModules = initrdModules;
+    inherit kernelModules;
+    initrd = { inherit kernelModules; };
 
     loader = {
       systemd-boot.enable = true;

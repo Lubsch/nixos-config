@@ -1,4 +1,4 @@
-{ hostname, inputs, ... }:
+{ hostname, inputs, swap, ... }:
 let
   decrypted-drive = "/dev/mapper/${hostname}";
   wipeScript = ''
@@ -59,7 +59,8 @@ in
 
   swapDevices = [{
     device = "/swap/swapfile";
-    size = 8196;
+    inherit (swap) size;
   }];
   boot.resumeDevice = decrypted-drive;
+  boot.kernelParameters = [ "resume_offset=${swap.offset}" ];
 }

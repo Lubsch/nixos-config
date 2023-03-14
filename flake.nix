@@ -35,8 +35,8 @@
           system = "x86_64-linux";
           cpu-vendor = "intel";
           cpuFreqGovernor = "powersave";
-          # TODO doas btrfs inspect-internal map-swapfile -r /swap/swapfile
-          kernelParams = [ "resume_offset=1199735" ];
+          # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
+          swap = { size = 8196; offset = 1199735; };
           kernelModules = [ "kvm-intel" ];
           initrdModules= [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
           users."lubsch".imports = [
@@ -44,7 +44,6 @@
             ./home/nvim.nix
             ./home/desktop-common
             ./home/sway.nix
-            ./home/impermanence.nix
           ];
         };
       };

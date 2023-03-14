@@ -11,11 +11,14 @@
     enableRedistributableFirmware = true;
     cpu.${cpu-vendor}.updateMicrocode = true;
   };
+  powerManagement = {inherit cpuFreqGovernor; };
 
   networking = {
     useDHCP = false;
     hostName = hostname;
   };
+
+  time.timeZone = "Europe/Berlin";
 
   console.useXkbConfig = true;
   services.xserver = {
@@ -37,6 +40,5 @@
     ];
   };
 
-  powerManagement = {inherit cpuFreqGovernor; };
   system.stateVersion = "23.05";
 }
