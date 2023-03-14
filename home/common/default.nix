@@ -1,5 +1,5 @@
 # Global user config on all hosts
-{ pkgs, username, ... }: 
+{ pkgs, username, inputs, nixosConfig, ... }: 
 let homeDirectory = "/home/${username}"; in {
   imports = [
     ./git.nix
@@ -10,13 +10,12 @@ let homeDirectory = "/home/${username}"; in {
     ./tealdeer.nix
     ./comma.nix
     ./colors.nix
-  ];
+  ] ++ lib.optional 
+    nixosConfig._module.specialArts.impermanence
+    inputs.impermanence.nixosModules.home-manager.impermanence;
 
   home = {
     inherit username homeDirectory;
-    stateVersion = "23.05";
-    # Nicely start user services on rebuild
-    systemd.user.startServices = "sd-switch";
 
     packages = with pkgs; [
       ncdu # disk usage viewing
@@ -56,4 +55,8 @@ let homeDirectory = "/home/${username}"; in {
       desktop = null;
     };
   };
+
+  # Nicely start user services on rebuild
+  systemd.user.startServices = "sd-switch";
+  stateVersion = "23.05";
 }

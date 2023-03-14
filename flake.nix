@@ -23,7 +23,6 @@
         modules = [
           ./nixos/common
           ./nixos/encrypted-root.nix
-          ./nixos/impermanence.nix
           ./nixos/locale.nix
           ./nixos/wireless.nix
           ./nixos/desktop.nix
@@ -32,6 +31,7 @@
         specialArgs = {
           inherit inputs;
           hostname = "duke";
+          impermanece = true;
           system = "x86_64-linux";
           cpu-vendor = "intel";
           cpuFreqGovernor = "powersave";

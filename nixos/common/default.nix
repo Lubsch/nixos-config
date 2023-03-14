@@ -4,6 +4,7 @@
     ./nix.nix
     ./openssh.nix
     ./boot.nix
+    ./btrfs.nix
   ] ++ [ (if (users != null) then ./users.nix else ./only-root.nix) ];
 
   hardware = {
