@@ -28,6 +28,7 @@
           ./nixos/wireless.nix
           ./nixos/pipewire.nix
           ./nixos/graphical.nix
+          ./nixos/zsh.nix
         ];
         specialArgs = {
           inherit inputs;

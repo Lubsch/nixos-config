@@ -1,11 +1,11 @@
 # This file applies to all hosts
 { cpuFreqGovernor, cpu-vendor, system, hostname, ... }: {
   imports = [
+    ./users.nix
     ./doas.nix
     ./nix.nix
     ./openssh.nix
     ./boot.nix
-    ./users.nix
   ];
 
   hardware = {
@@ -41,8 +41,6 @@
   };
 
   environment = {
-    etc."zshenv".text = ''export ZDOTDIR="$HOME"/.config/zsh''; # Source zshenv without ~/.zshenv
-    pathsToLink = [ "/share/zsh" ]; # Make zsh-completions work
     sessionVariables.EDITOR = "nvim"; # Override nano default, TODO do with hm
     enableAllTerminfo = true;
 

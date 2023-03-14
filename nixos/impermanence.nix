@@ -6,7 +6,7 @@ let
     mount -o subvol=/ "${decrypted-drive}" /btrfs
 
     if [ -e "/btrfs/root/dontwipe" ]; then
-      echo "P: Not wiping root because the file /btrfs/root/dontwipe exists"
+      echo "P: The file /btrfs/root/dontwipe exists"
     else
       echo "P: Cleaning subvolume"
       btrfs subvolume list -o /btrfs/root | cut -f9 -d ' ' |
