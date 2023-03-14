@@ -1,11 +1,11 @@
-{ cpuFreqGovernor, cpu-vendor, hostname, ... }: {
+{ cpuFreqGovernor, cpu-vendor, hostname, users, lib, ... }: {
   imports = [
-    ./users.nix
     ./doas.nix
     ./nix.nix
     ./openssh.nix
     ./boot.nix
-  ];
+  ] ++ lib.optional (users != null) ./users.nix 
+  ++ lib.optional (users == null) ./only-root.nix;
 
   hardware = {
     enableRedistributableFirmware = true;
