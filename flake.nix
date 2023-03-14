@@ -26,8 +26,7 @@
           ./nixos/impermanence.nix
           ./nixos/locale.nix
           ./nixos/wireless.nix
-          ./nixos/pipewire.nix
-          ./nixos/graphical.nix
+          ./nixos/desktop.nix
           ./nixos/zsh.nix
         ];
         specialArgs = {
@@ -36,7 +35,7 @@
           system = "x86_64-linux";
           cpu-vendor = "intel";
           cpuFreqGovernor = "powersave";
-          # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
+          # TODO doas btrfs inspect-internal map-swapfile -r /swap/swapfile
           kernelParams = [ "resume_offset=1199735" ];
           kernelModules = [ "kvm-intel" ];
           initrdModules= [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];

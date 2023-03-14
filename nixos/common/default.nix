@@ -1,11 +1,10 @@
-{ cpuFreqGovernor, cpu-vendor, hostname, users, lib, ... }: {
+{ cpuFreqGovernor, cpu-vendor, hostname, users, ... }: {
   imports = [
     ./doas.nix
     ./nix.nix
     ./openssh.nix
     ./boot.nix
-  ] ++ lib.optional (users != null) ./users.nix 
-  ++ lib.optional (users == null) ./only-root.nix;
+  ] ++ [ (if (users != null) then ./users.nix else ./only-root.nix) ];
 
   hardware = {
     enableRedistributableFirmware = true;
@@ -17,12 +16,11 @@
     hostName = hostname;
   };
 
-  # TODO change this to something not involving xserver option
+  console.useXkbConfig = true;
   services.xserver = {
     layout = "de";
     xkbOptions = "caps:escape";
   };
-  console.useXkbConfig = true;
 
   programs = {
     git.enable = true; # Make nix work

@@ -15,6 +15,8 @@ let homeDirectory = "/home/${username}"; in {
   home = {
     inherit username homeDirectory;
     stateVersion = "23.05";
+    # Nicely start user services on rebuild
+    systemd.user.startServices = "sd-switch";
 
     packages = with pkgs; [
       ncdu # disk usage viewing
@@ -54,7 +56,4 @@ let homeDirectory = "/home/${username}"; in {
       desktop = null;
     };
   };
-
-  # Automatically reload systemd when changing hm configs
-  systemd.user.startServices = "sd-switch";
 }

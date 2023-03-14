@@ -1,4 +1,5 @@
 { lib, ... }: {
+
   # Global keys vars, consumed by users.nix and only-root.nix
   options = {
     keys = lib.mkOption {
@@ -12,16 +13,7 @@
   config = {
     services.openssh = {
       enable = true;
-
-      settings = {
-        PasswordAuthentication = false;
-        PermitRootLogin = "no";
-      };
-
-      # Remove stale sockets automatically
-      extraConfig = ''
-        StreamLocalBindUnlink yes
-      '';
+      settings.PasswordAuthentication = false;
 
       hostKeys = [{
         path = "/etc/ssh/ssh_host_ed25519_key";

@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }: {
+{ lib, config, pkgs, nixosConfig, ... }: {
   programs.zsh = {
     enable = true;
 
@@ -103,11 +103,13 @@
   };
   
   home = {
-    # Avoid pollution home env, NOTE requires writing to /etc/zsh/zshenv in nixos config
-    file.".zshenv".enable = false;
+    # Declutter home when defining zshenv through nixos
+    file = lib.mkIf (nixosConfig.environment.etc."zshenv" != null) { 
+      ".zshenv".enable = false;
+    };
 
-    persistence."/persist${config.home.homeDirectory}".directories = [ 
-      ".local/share/zsh" 
+    persistence."/persist${config.home.homeDirectory}".files = [ 
+      ".local/share/zsh/history" 
     ];
   };
 }
