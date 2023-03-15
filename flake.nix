@@ -14,7 +14,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { nixpkgs, ... }@inputs: {
     templates = import ./templates;
     packages = import ./pkgs nixpkgs;
 
@@ -31,14 +31,15 @@
         specialArgs = {
           inherit inputs;
           hostname = "duke";
-          impermanece = true;
+          impermanence = true;
           system = "x86_64-linux";
-          cpu-vendor = "intel";
-          cpuFreqGovernor = "powersave";
           # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
-          swap = { size = 8196; offset = 1199735; };
+          swap = { size = 8192; offset = "1199735"; };
+          cpu = { vendor = "intel"; freq = "powersave"; };
+          initrdModules= [ 
+            "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc"
+          ];
           kernelModules = [ "kvm-intel" ];
-          initrdModules= [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
           users."lubsch".imports = [
             ./home/common
             ./home/nvim.nix

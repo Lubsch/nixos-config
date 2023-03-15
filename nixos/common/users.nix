@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, users, ... }: {
+{ config, pkgs, inputs, users, impermanence, ... }: {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
     users = {
       mutableUsers = false;
@@ -21,7 +21,7 @@
         users;
     };
     home-manager = {
-      extraSpecialArgs = { inherit inputs; };
+      extraSpecialArgs = { inherit inputs impermanence; };
       useGlobalPkgs = true;
       useUserPackages = true;
 

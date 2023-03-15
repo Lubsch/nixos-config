@@ -1,17 +1,21 @@
-{ cpuFreqGovernor, cpu-vendor, hostname, users, ... }: {
+{ inputs, impermanence, cpu, hostname, users, ... }: {
   imports = [
     ./doas.nix
     ./nix.nix
     ./openssh.nix
     ./boot.nix
     ./btrfs.nix
-  ] ++ [ (if (users != null) then ./users.nix else ./only-root.nix) ];
+  ] ++ [ (if (users != null) then ./users.nix else ./no-users.nix) 
+    (if impermanence 
+     then inputs.impermanence.nixosModules.impermanence 
+     else ./no-impermanence.nix) ];
+
 
   hardware = {
     enableRedistributableFirmware = true;
-    cpu.${cpu-vendor}.updateMicrocode = true;
+    cpu.${cpu.vendor}.updateMicrocode = true;
   };
-  powerManagement = {inherit cpuFreqGovernor; };
+  powerManagement.cpuFreqGovernor = cpu.freq;
 
   networking = {
     useDHCP = false;

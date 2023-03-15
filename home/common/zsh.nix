@@ -103,13 +103,15 @@
   };
   
   home = {
-    # Declutter home when defining zshenv through nixos
-    file = lib.mkIf (nixosConfig.environment.etc."zshenv" != null) { 
-      ".zshenv".enable = false;
-    };
+    file = {
+      ".local/share/zsh/history".enable = false; # Conflict with persistence mount
 
+      # Declutter home when defining zshenv through nixos
+      ".zshenv".enable = lib.mkIf (nixosConfig.environment.etc."zshenv" != null) false;
+    };
+    
     persistence."/persist${config.home.homeDirectory}".files = [ 
-      ".local/share/zsh/history" 
+      ".local/share/zsh/history"
     ];
   };
 }

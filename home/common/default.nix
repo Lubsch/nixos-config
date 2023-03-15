@@ -1,5 +1,5 @@
 # Global user config on all hosts
-{ pkgs, username, inputs, nixosConfig, ... }: 
+{ impermanence, pkgs, username, inputs, ... }: 
 let homeDirectory = "/home/${username}"; in {
   imports = [
     ./git.nix
@@ -10,17 +10,18 @@ let homeDirectory = "/home/${username}"; in {
     ./tealdeer.nix
     ./comma.nix
     ./colors.nix
-  ] ++ lib.optional 
-    nixosConfig._module.specialArts.impermanence
-    inputs.impermanence.nixosModules.home-manager.impermanence;
+  ] ++ [ (if impermanence 
+     then inputs.impermanence.nixosModules.home-manager.impermanence
+     else ./no-impermanence.nix) ];
 
   home = {
+    stateVersion = "23.05";
     inherit username homeDirectory;
 
     packages = with pkgs; [
       ncdu # disk usage viewing
       tree # view file tree
-      tree # view a nix derivation's dependencies
+      nix-tree # view a nix derivation's dependencies
       tokei # count lines of code
       neofetch # system info
       ripgrep # better grep
@@ -58,5 +59,4 @@ let homeDirectory = "/home/${username}"; in {
 
   # Nicely start user services on rebuild
   systemd.user.startServices = "sd-switch";
-  stateVersion = "23.05";
 }

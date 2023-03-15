@@ -1,4 +1,4 @@
-{ hostname, inputs, swap, ... }:
+{ lib, hostname, swap, impermanence, ... }:
 let
   decrypted-drive = "/dev/mapper/${hostname}";
   wipeScript = ''
@@ -23,11 +23,9 @@ let
   '';
 in
 {
-  imports = [ inputs.impermanence.nixosModules.impermanence ];
-
   boot.initrd = {
     supportedFilesystems = [ "btrfs" ];
-    postDeviceCommands = wipeScript;
+    postDeviceCommands = lib.mkIf impermanence wipeScript;
   };
 
   fileSystems = {
@@ -43,7 +41,7 @@ in
       options = [ "subvol=nix" "noatime" "compress=zstd" ];
     };
 
-    "/persist" = {
+    "/persist" = lib.mkIf impermanence {
       device = "${decrypted-drive}";
       fsType = "btrfs";
       options = [ "subvol=persist" "compress=zstd" "noatime" ];
@@ -61,6 +59,9 @@ in
     device = "/swap/swapfile";
     inherit (swap) size;
   }];
-  boot.resumeDevice = decrypted-drive;
-  boot.kernelParameters = [ "resume_offset=${swap.offset}" ];
+  boot = {
+    resumeDevice = decrypted-drive;
+    kernelParams = [ "resume_offset=${swap.offset}" ];
+  };
+  services.logind.lidSwitch = "hybrid-sleep";
 }
