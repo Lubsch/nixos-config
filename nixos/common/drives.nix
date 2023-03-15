@@ -3,6 +3,7 @@ let
   main-drive = if encrypted 
     then "/dev/mapper/${hostname}"
     else args.main-drive;
+
   wipeScript = ''
     mkdir -p /btrfs
     mount -o subvol=/ "${main-drive}" /btrfs
@@ -28,8 +29,8 @@ in
   boot.initrd = {
     supportedFilesystems = [ "btrfs" ];
     postDeviceCommands = lib.mkIf impermanence wipeScript;
-    luks.devices."${hostname}".device = lib.mkIf 
-      encrypted "/dev/disk/by-partlabel/${hostname}_crypt";
+    luks.devices."${hostname}".device = lib.mkIf encrypted 
+      "/dev/disk/by-partlabel/${hostname}_crypt";
   };
 
   fileSystems = {
