@@ -22,7 +22,6 @@
       "duke" = nixpkgs.lib.nixosSystem {
         modules = [
           ./nixos/common
-          ./nixos/encrypted-root.nix
           ./nixos/wireless.nix
           ./nixos/desktop.nix
           ./nixos/zsh.nix
@@ -31,6 +30,7 @@
           inherit inputs;
           hostname = "duke";
           impermanence = true;
+          encrypted = true;
           system = "x86_64-linux";
           # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
           swap = { size = 8192; offset = "1199735"; };

@@ -10,6 +10,7 @@ let homeDirectory = "/home/${username}"; in {
     ./tealdeer.nix
     ./comma.nix
     ./colors.nix
+    ./automount.nix
   ] ++ [ (if impermanence 
      then inputs.impermanence.nixosModules.home-manager.impermanence
      else ./no-impermanence.nix) ];
@@ -19,11 +20,13 @@ let homeDirectory = "/home/${username}"; in {
     inherit username homeDirectory;
 
     packages = with pkgs; [
-      ncdu # disk usage viewing
-      tree # view file tree
+      skim # fuzzy finder
+      unzip
+      tree
       nix-tree # view a nix derivation's dependencies
+      ncdu # disk usage viewing
       tokei # count lines of code
-      neofetch # system info
+      neofetch
       ripgrep # better grep
       fd # better find
       magic-wormhole # send files between computers

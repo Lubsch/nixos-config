@@ -4,12 +4,11 @@
     ./nix.nix
     ./openssh.nix
     ./boot.nix
-    ./btrfs.nix
+    ./drives.nix
   ] ++ [ (if (users != null) then ./users.nix else ./no-users.nix) 
     (if impermanence 
      then inputs.impermanence.nixosModules.impermanence 
      else ./no-impermanence.nix) ];
-
 
   hardware = {
     enableRedistributableFirmware = true;

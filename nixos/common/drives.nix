@@ -1,9 +1,11 @@
-{ lib, hostname, swap, impermanence, ... }:
+{ encrypted, hostname, lib, swap, impermanence, ... }@args:
 let
-  decrypted-drive = "/dev/mapper/${hostname}";
+  main-drive = if encrypted 
+    then "/dev/mapper/${hostname}"
+    else args.main-drive;
   wipeScript = ''
     mkdir -p /btrfs
-    mount -o subvol=/ "${decrypted-drive}" /btrfs
+    mount -o subvol=/ "${main-drive}" /btrfs
 
     if [ -e "/btrfs/root/dontwipe" ]; then
       echo "P: The file /btrfs/root/dontwipe exists"
@@ -26,30 +28,32 @@ in
   boot.initrd = {
     supportedFilesystems = [ "btrfs" ];
     postDeviceCommands = lib.mkIf impermanence wipeScript;
+    luks.devices."${hostname}".device = lib.mkIf 
+      encrypted "/dev/disk/by-partlabel/${hostname}_crypt";
   };
 
   fileSystems = {
     "/" = {
-      device = "${decrypted-drive}";
+      device = "${main-drive}";
       fsType = "btrfs";
       options = [ "subvol=root" "compress=zstd" "noatime" ];
     };
 
     "/nix" = {
-      device = "${decrypted-drive}";
+      device = "${main-drive}";
       fsType = "btrfs";
       options = [ "subvol=nix" "noatime" "compress=zstd" ];
     };
 
     "/persist" = lib.mkIf impermanence {
-      device = "${decrypted-drive}";
+      device = "${main-drive}";
       fsType = "btrfs";
       options = [ "subvol=persist" "compress=zstd" "noatime" ];
       neededForBoot = true;
     };
 
     "/swap" = {
-      device = "${decrypted-drive}";
+      device = "${main-drive}";
       fsType = "btrfs";
       options = [ "subvol=swap" "noatime" ];
     };
@@ -60,8 +64,11 @@ in
     inherit (swap) size;
   }];
   boot = {
-    resumeDevice = decrypted-drive;
+    resumeDevice = main-drive;
     kernelParams = [ "resume_offset=${swap.offset}" ];
   };
   services.logind.lidSwitch = "hybrid-sleep";
+
+  # For automount
+  services.udisks2.enable = true;
 }
