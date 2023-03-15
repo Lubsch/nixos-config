@@ -9,8 +9,6 @@
           shell = pkgs.zsh;
           extraGroups = [
             "wheel"
-            "video"
-            "audio"
             "networkmanager"
             "libvirtd"
           ];

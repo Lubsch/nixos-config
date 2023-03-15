@@ -1,5 +1,4 @@
 {
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -9,5 +8,8 @@
   };
 
   programs.dconf.enable = true;
-  hardware.opengl.enable = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
 }
