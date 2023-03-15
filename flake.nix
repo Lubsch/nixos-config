@@ -29,9 +29,9 @@
         specialArgs = {
           inherit inputs;
           hostname = "duke";
-          impermanence = true;
-          encrypted = true;
           system = "x86_64-linux";
+          encrypted = true;
+          impermanence = true;
           # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
           swap = { size = 8192; offset = "1199735"; };
           cpu = { vendor = "intel"; freq = "powersave"; };
