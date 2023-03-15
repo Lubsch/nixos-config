@@ -20,7 +20,7 @@ pkgs.symlinkJoin {
         };
       };
     })
-    # Install clangd via project-specific libglang
     pkgs.rnix-lsp
+    pkgs.clang-tools_11
   ];
 }
