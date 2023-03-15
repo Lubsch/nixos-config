@@ -23,7 +23,6 @@
         modules = [
           ./nixos/common
           ./nixos/encrypted-root.nix
-          ./nixos/locale.nix
           ./nixos/wireless.nix
           ./nixos/desktop.nix
           ./nixos/zsh.nix
