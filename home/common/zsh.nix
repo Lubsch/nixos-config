@@ -1,7 +1,10 @@
 { lib, config, pkgs, nixosConfig, ... }: {
   programs.zsh = {
     enable = true;
-
+    history = {
+      path = ".local/share/zsh/history";
+      size = 100000000;
+    };
     dotDir = ".config/zsh";
     autocd = true;
     enableSyntaxHighlighting = true;
@@ -25,10 +28,6 @@
     };
 
     initExtra = ''
-      export HISTFILE=$HOME/.local/share/zsh/history
-      export HISTSIZE=10000000
-      export HISTSAVE=10000000
-      
       # Disable C-s which freezes the terminal and is annoying
       stty stop undef
 

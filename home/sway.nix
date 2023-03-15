@@ -8,7 +8,7 @@
       input = {
         "*" = {
           xkb_layout = "de";
-          xkb_options = "caps:escape";
+          xkb_options = "caps:escape,altwin:swap_lalt_lwin";
           repeat_delay = "300";
           repeat_rate = "30";
           accel_profile = "flat";
