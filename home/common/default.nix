@@ -10,7 +10,7 @@ let homeDirectory = "/home/${username}"; in {
     ./tealdeer.nix
     ./comma.nix
     ./colors.nix
-    ./automount.nix
+    # ./automount.nix
   ] ++ [ (if impermanence 
      then inputs.impermanence.nixosModules.home-manager.impermanence
      else ./no-impermanence.nix) ];
@@ -20,6 +20,7 @@ let homeDirectory = "/home/${username}"; in {
     inherit username homeDirectory;
 
     packages = with pkgs; [
+      libqalculate # terminal calculator
       skim # fuzzy finder
       unzip
       tree

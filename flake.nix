@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     impermanence.url = "github:nix-community/impermanence";
+    hyprland.url = "github:hyprwm/Hyprland";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +31,6 @@
           inherit inputs;
           hostname = "duke";
           system = "x86_64-linux";
-          encrypted = true;
           impermanence = true;
           # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
           swap = { size = 8192; offset = "1199735"; };
@@ -43,7 +43,8 @@
             ./home/common
             ./home/nvim.nix
             ./home/desktop-common
-            ./home/river
+            ./home/sway.nix
+            ./home/hyprland.nix
           ];
         };
       };

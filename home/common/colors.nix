@@ -1,13 +1,15 @@
 { lib, ... }: {
   options = {
     colors = lib.genAttrs
-      [ "background" "foreground" "base00" "base01" "base02" "base03" "base04" "base05" "base06" "base08" "base07" "base09" "base10" "base11" "base12" "base13" "base14" "base15" ]
+      [ "alpha" "background" "foreground" "base00" "base01" "base02" "base03" "base04" "base05" "base06" "base08" "base07" "base09" "base10" "base11" "base12" "base13" "base14" "base15" ]
       (_: lib.mkOption { type = lib.types.str; });
   };
 
   config = {
-    # Gruvbox
     colors = {
+      alpha = "E5";
+
+      # Gruvbox
       background = "282828";
       foreground = "ebdbb2";
       base00 =  "282828";

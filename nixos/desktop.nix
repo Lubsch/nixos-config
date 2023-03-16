@@ -7,9 +7,12 @@
     jack.enable = true;
   };
 
+  security.polkit.enable = true;
   programs.dconf.enable = true;
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
   };
+
+  fonts.enableDefaultFonts = true;
 }

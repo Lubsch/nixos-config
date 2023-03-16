@@ -1,8 +1,8 @@
-{ encrypted, hostname, lib, swap, impermanence, ... }@args:
+{ hostname, lib, swap, impermanence, ... }@args:
 let
-  main-drive = if encrypted 
-    then "/dev/mapper/${hostname}"
-    else args.main-drive;
+  main-drive = if (args ? main-drive)
+    then args.main-drive
+    else "/dev/mapper/${hostname}";
 
   wipeScript = ''
     mkdir -p /btrfs
@@ -29,7 +29,7 @@ in
   boot.initrd = {
     supportedFilesystems = [ "btrfs" ];
     postDeviceCommands = lib.mkIf impermanence wipeScript;
-    luks.devices."${hostname}".device = lib.mkIf encrypted 
+    luks.devices."${hostname}".device = lib.mkIf (!(args ? main-drive))
       "/dev/disk/by-partlabel/${hostname}_crypt";
   };
 

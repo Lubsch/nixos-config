@@ -2,7 +2,7 @@
   programs.zsh = {
     enable = true;
     history = {
-      path = ".local/share/zsh/history";
+      path = "${config.home.homeDirectory}/.local/share/zsh/history";
       size = 100000000;
     };
     dotDir = ".config/zsh";
