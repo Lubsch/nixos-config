@@ -1,14 +1,8 @@
 { inputs, impermanence, cpu, hostname, users, ... }: {
-  imports = [
-    ./doas.nix
-    ./nix.nix
-    ./openssh.nix
-    ./boot.nix
-    ./drives.nix
-  ] ++ [ (if (users != null) then ./users.nix else ./no-users.nix) 
-    (if impermanence 
-     then inputs.impermanence.nixosModules.impermanence 
-     else ./no-impermanence.nix) ];
+  imports = map (n: ./. + "/${n}")
+    (builtins.filter
+      (n: n != "default.nix")
+      (builtins.attrNames (builtins.readDir ./.)));
 
   hardware = {
     enableRedistributableFirmware = true;

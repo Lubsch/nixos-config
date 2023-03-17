@@ -8,7 +8,7 @@
         dpi-aware = "yes";
       };
       colors = with config.colors; {
-        inherit background foreground;
+        inherit background foreground alpha;
 
         regular0 = base00;
         regular1 = base01;

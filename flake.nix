@@ -43,7 +43,6 @@
             ./home/common
             ./home/nvim.nix
             ./home/desktop-common
-            ./home/sway.nix
             ./home/hyprland.nix
           ];
         };

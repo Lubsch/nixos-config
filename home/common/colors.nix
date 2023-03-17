@@ -7,7 +7,7 @@
 
   config = {
     colors = {
-      alpha = "E5";
+      alpha = "0.85";
 
       # Gruvbox
       background = "282828";

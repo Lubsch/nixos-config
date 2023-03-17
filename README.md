@@ -1,6 +1,6 @@
 # NixOS-config
 
-This is my NixOS-config. It is heavily inspired by [Misterio77's config](https://git.sr.ht/~misterio/nix-config).
+This is my NixOS-config. It is heavily inspired by [Misterio77's config](https://git.sr.ht/~misterio/nix-config). One of its aims is staying below around 5000 lines of code.
 
 ## How it works
 

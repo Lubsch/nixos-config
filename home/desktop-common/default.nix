@@ -14,6 +14,7 @@
 
   home = {
     packages = with pkgs; [
+      swaybg
       xdragon # Drag and drop from terminal
       brightnessctl # Change brightness
     ];

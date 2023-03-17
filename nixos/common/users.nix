@@ -1,4 +1,5 @@
-{ config, pkgs, inputs, users, impermanence, ... }: {
+{ config, pkgs, inputs, impermanence, ... }@args:
+if (args ? users) then {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
     users = {
       mutableUsers = false;
@@ -16,7 +17,7 @@
           # TODO Make this work without /persist existing, too
           passwordFile = "/persist/passwords/${username}";
         })
-        users;
+        args.users;
     };
     home-manager = {
       extraSpecialArgs = { inherit inputs impermanence; };
@@ -27,6 +28,8 @@
         (username: user: {
           inherit (user) imports;
           _module.args = { inherit username; }; })
-        users;
+        args.users;
   };
+} else {
+  users.users.root.openssh.authorizedKeys = { inherit (config) keys; };
 }

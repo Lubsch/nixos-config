@@ -1,19 +1,10 @@
 # Global user config on all hosts
 { impermanence, pkgs, username, inputs, ... }: 
 let homeDirectory = "/home/${username}"; in {
-  imports = [
-    ./git.nix
-    ./ssh.nix
-    ./zsh.nix
-    ./trash.nix
-    ./zoxide.nix
-    ./tealdeer.nix
-    ./comma.nix
-    ./colors.nix
-    # ./automount.nix
-  ] ++ [ (if impermanence 
-     then inputs.impermanence.nixosModules.home-manager.impermanence
-     else ./no-impermanence.nix) ];
+  imports = map (n: ./. + "/${n}")
+    (builtins.filter
+      (n: n != "default.nix")
+      (builtins.attrNames (builtins.readDir ./.)));
 
   home = {
     stateVersion = "23.05";
