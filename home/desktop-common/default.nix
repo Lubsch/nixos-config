@@ -1,16 +1,8 @@
 { pkgs, ... }: {
-  imports = [
-    /* ./discord */
-    /* ./spotify */
-    ./gtk-qt.nix
-    ./firefox.nix
-    ./foot.nix
-    ./fonts.nix
-    /* ./shotcut.nix */
-    /* ./tor.nix */
-    /* ./calibre.nix */
-    /* ./abiword.nix */
-  ];
+  imports = map (n: ./. + "/${n}")
+    (builtins.filter
+      (n: n != "default.nix")
+      (builtins.attrNames (builtins.readDir ./.)));
 
   home = {
     packages = with pkgs; [

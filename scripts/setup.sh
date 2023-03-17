@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# TODO make these scripts work for non-impermanence and non-encryption, too
+
 # Exit on error
 set -e
 
@@ -15,7 +17,7 @@ parted "$2" mkpart ESP fat32 1MiB 513MiB
 parted "$2" set 1 esp on
 parted "$2" mkpart "$1_crypt" btrfs 513MiB 100%
 
-# Would fail otherwise for some reason
+# Would otherwise fail for some reason
 sleep 0.2
 
 # Create ESP file system

@@ -43,8 +43,8 @@ static const struct xkb_rule_names xkb_rules = {
   .options = "caps:escape,altwin:swap_lalt_lwin",
 };
 
-static const int repeat_rate = 35;
-static const int repeat_delay = 300;
+static const int repeat_rate = 30;
+static const int repeat_delay = 240;
 
 /* Trackpad */
 static const int tap_to_click = 1;
@@ -95,8 +95,8 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-static const char *termcmd[] = { "foot", NULL };
-static const char *browsercmd[] = { "firefox", NULL };
+static const char *termcmd[] = { "$TERMINAL", NULL };
+static const char *browsercmd[] = { "$BROWSER", NULL };
 
 static const Key keys[] = {
   /* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */

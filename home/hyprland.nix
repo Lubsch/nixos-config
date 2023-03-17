@@ -11,6 +11,7 @@
 
       # Execute your favorite apps at launch
       # exec-once = firefox
+      exec-once = foot --server
 
       # Some default env vars.
       env = XCURSOR_SIZE,24

@@ -6,9 +6,12 @@ This is my NixOS-config. It is heavily inspired by [Misterio77's config](https:/
 
 Host-configs and home-manager-configs are defined in flake.nix. Just specifiy the modules you'd like and 
 
-### Secrets
+## Where state lingers on
 
-I decided on not managing secrets using nix, making bootsstrapping easier. Secret management (especially on such a small scale) should be seen as a stateful problem, when you think about it. Passwords are stored in `/persist/passwords/<username>`. Perhaps I will start managing secrets using nix when/if there is a native NixOS solution.
+- Hibernation resume offset (see `flake.nix`)
+- Wifi and Email credentials
+- Shh keys (and GitHub access)
+- Steam settings and Proton (just run `, protonup`)
 
 ## Installation Guide
 

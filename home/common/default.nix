@@ -1,5 +1,4 @@
-# Global user config on all hosts
-{ impermanence, pkgs, username, inputs, ... }: 
+{ pkgs, username, ... }: 
 let homeDirectory = "/home/${username}"; in {
   imports = map (n: ./. + "/${n}")
     (builtins.filter

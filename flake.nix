@@ -43,7 +43,8 @@
             ./home/common
             ./home/nvim.nix
             ./home/desktop-common
-            ./home/hyprland.nix
+            /* ./home/hyprland.nix */
+            ./home/dwl.nix
           ];
         };
       };

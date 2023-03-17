@@ -1,4 +1,4 @@
-{ inputs, impermanence, cpu, hostname, users, ... }: {
+{ cpu, hostname, ... }: {
   imports = map (n: ./. + "/${n}")
     (builtins.filter
       (n: n != "default.nix")
@@ -10,17 +10,13 @@
   };
   powerManagement.cpuFreqGovernor = cpu.freq;
 
-  networking = {
-    useDHCP = false;
-    hostName = hostname;
-  };
-
+  networking.hostName = hostname;
   time.timeZone = "Europe/Berlin";
 
   console.useXkbConfig = true;
   services.xserver = {
     layout = "de";
-    xkbOptions = "caps:escape";
+    xkbOptions = "caps:escape,altwin:swap_lalt_lwin";
   };
 
   programs = {

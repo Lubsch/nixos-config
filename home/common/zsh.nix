@@ -103,8 +103,6 @@
   
   home = {
     file = {
-      ".local/share/zsh/history".enable = false; # Conflict with persistence mount
-
       # Declutter home when defining zshenv through nixos
       ".zshenv".enable = lib.mkIf (nixosConfig.environment.etc."zshenv" != null) false;
     };
