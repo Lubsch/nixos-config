@@ -1,4 +1,4 @@
-{ lib, config, pkgs, nixosConfig, ... }: {
+{ lib, config, pkgs, ... }@args: {
   programs.zsh = {
     enable = true;
     history = {
@@ -104,7 +104,11 @@
   home = {
     file = {
       # Declutter home when defining zshenv through nixos
-      ".zshenv".enable = lib.mkIf (nixosConfig.environment.etc."zshenv" != null) false;
+      ".zshenv".enable = lib.mkIf 
+        (if (args ? nixosConfig) 
+         then (nixosConfig.environment.etc."zshenv" != null) 
+         else false)
+        false;
     };
     
     persistence."/persist${config.home.homeDirectory}".files = [ 
