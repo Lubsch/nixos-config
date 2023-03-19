@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, impermanence, ... }@args:
+{ myLib, config, pkgs, inputs, impermanence, ... }@args:
 if (args ? users) then {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
     users = {
@@ -20,7 +20,7 @@ if (args ? users) then {
         args.users;
     };
     home-manager = {
-      extraSpecialArgs = { inherit inputs impermanence; };
+      extraSpecialArgs = { inherit inputs impermanence myLib; };
       useGlobalPkgs = true;
       useUserPackages = true;
 

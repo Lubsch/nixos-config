@@ -1,8 +1,5 @@
-{ cpu, hostname, ... }: {
-  imports = map (n: ./. + "/${n}")
-    (builtins.filter
-      (n: n != "default.nix")
-      (builtins.attrNames (builtins.readDir ./.)));
+{ myLib, cpu, hostname, ... }: {
+  imports = myLib.modulesInDir ./.;
 
   hardware = {
     enableRedistributableFirmware = true;

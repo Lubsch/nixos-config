@@ -15,7 +15,15 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs: {
+  outputs = { nixpkgs, ... }@inputs: 
+  let
+    myLib = {
+      modulesInDir = dir: map (n: dir + "/${n}")
+    (builtins.filter
+      (n: n != "default.nix")
+      (builtins.attrNames (builtins.readDir dir)));
+    };
+  in {
     templates = import ./templates;
     packages = import ./pkgs nixpkgs;
 
@@ -28,7 +36,7 @@
           ./nixos/zsh.nix
         ];
         specialArgs = {
-          inherit inputs;
+          inherit inputs myLib;
           hostname = "duke";
           system = "x86_64-linux";
           impermanence = true;

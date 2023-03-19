@@ -1,8 +1,5 @@
-{ pkgs, ... }: {
-  imports = map (n: ./. + "/${n}")
-    (builtins.filter
-      (n: n != "default.nix")
-      (builtins.attrNames (builtins.readDir ./.)));
+{ myLib, pkgs, ... }: {
+  imports = myLib.modulesInDir ./.;
 
   home = {
     packages = with pkgs; [
