@@ -1,5 +1,5 @@
-{ myLib, cpu, hostname, ... }: {
-  imports = myLib.modulesInDir ./.;
+{ lib, cpu, hostname, ... }: {
+  imports = builtins.filter (n: n != "default.nix") (lib.listFilesRecursive ./.);
 
   hardware = {
     enableRedistributableFirmware = true;

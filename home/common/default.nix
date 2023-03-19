@@ -1,6 +1,6 @@
-{ myLib, pkgs, username, ... }: 
+{ lib, pkgs, username, ... }: 
 let homeDirectory = "/home/${username}"; in {
-  imports = myLib.modulesInDir ./.;
+  imports = builtins.filter (n: n != "default.nix") (lib.listFilesRecursive ./.);
 
   home = {
     stateVersion = "23.05";

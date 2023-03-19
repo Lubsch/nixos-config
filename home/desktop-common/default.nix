@@ -1,5 +1,5 @@
-{ myLib, pkgs, ... }: {
-  imports = myLib.modulesInDir ./.;
+{ lib, pkgs, ... }: {
+  imports = builtins.filter (n: n != "default.nix") (lib.listFilesRecursive ./.);
 
   home = {
     packages = with pkgs; [
