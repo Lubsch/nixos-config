@@ -4,6 +4,6 @@ nixpkgs.lib.genAttrs
   (system: let
     pkgs = nixpkgs.legacyPackages.${system};
   in {
-    neovimLubsch = import ./nvim pkgs;
-    dwlLubsch = import ./dwl { inherit pkgs; };
+    nvim = import ./nvim pkgs;
+    dwl = import ./dwl { inherit pkgs; };
   })

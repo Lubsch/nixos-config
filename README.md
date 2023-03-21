@@ -4,7 +4,15 @@ This is my NixOS-config. It is heavily inspired by [Misterio77's config](https:/
 
 ## How it works
 
-Host-configs and home-manager-configs are defined in flake.nix. Just specifiy the modules you'd like and 
+Host-configs and home-manager-configs are defined in flake.nix. Just specifiy the modules you'd like and the specialArguments to pass through to them.
+
+## Depndencies
+
+- Nixpkgs: Perhaps the greatest package repository out there, also providing NixOS-modules and a library
+- Home-Manager: Modules for managing the home directory
+- Impermanence: Define what data persist boots
+- Firefox-Addons: Repository with Firefox addons, duh
+- Nix-Colors: Easil pull in base16 schemes, library for colorschemes (incl. vim-plugin and hex conversion)
 
 ## Where state lingers on
 
