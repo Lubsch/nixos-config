@@ -8,10 +8,11 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 ## Where state lingers on
 
-- Hibernation resume offset (see `flake.nix`)
+- Hibernation resume offset and swap size (see `flake.nix`)
 - Wifi and Email credentials
 - Shh keys (and GitHub access)
 - Steam settings and Proton (just run `, protonup`)
+- Firefox settings and extensions
 
 ## Installation Guide
 

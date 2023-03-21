@@ -1,3 +1,4 @@
+# TODO make lsps work on non-nixos, install grammars without rebuild
 pkgs:
 pkgs.symlinkJoin {
   name = "nvim";
