@@ -17,7 +17,7 @@
       env = XCURSOR_SIZE,24
 
       input {
-          repeat_delay = 200
+          repeat_delay = 240
           repeat_rate = 30
 
           kb_layout = de

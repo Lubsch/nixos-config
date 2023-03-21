@@ -106,7 +106,7 @@
       # Declutter home when defining zshenv through nixos
       ".zshenv".enable = lib.mkIf 
         (if (args ? nixosConfig) 
-         then (nixosConfig.environment.etc."zshenv" != null) 
+         then (args.nixosConfig.environment.etc."zshenv" != null) 
          else false)
         false;
     };

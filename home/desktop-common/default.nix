@@ -1,5 +1,6 @@
 { lib, pkgs, ... }: {
-  imports = builtins.filter (n: n != "default.nix") (lib.listFilesRecursive ./.);
+  imports = builtins.filter (n: n != ./default.nix)
+    (lib.filesystem.listFilesRecursive ./.);
 
   home = {
     packages = with pkgs; [

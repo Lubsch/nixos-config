@@ -1,6 +1,7 @@
 { lib, pkgs, username, ... }: 
 let homeDirectory = "/home/${username}"; in {
-  imports = builtins.filter (n: n != "default.nix") (lib.listFilesRecursive ./.);
+  imports = builtins.filter (n: n != ./default.nix)
+    (lib.filesystem.listFilesRecursive ./.);
 
   home = {
     stateVersion = "23.05";

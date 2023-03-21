@@ -1,5 +1,6 @@
 { lib, cpu, hostname, ... }: {
-  imports = builtins.filter (n: n != "default.nix") (lib.listFilesRecursive ./.);
+  imports = builtins.filter (n: n != ./default.nix) 
+    (lib.filesystem.listFilesRecursive ./.);
 
   hardware = {
     enableRedistributableFirmware = true;
