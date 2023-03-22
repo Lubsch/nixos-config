@@ -1,6 +1,6 @@
 { pkgs, inputs, config, ... }: {
 
-  /* home.sessionVariables.BROWSER = "firefox"; */
+  home.sessionVariables.BROWSER = "firefox";
 
   programs.firefox = {
     enable = true;

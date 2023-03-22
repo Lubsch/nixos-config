@@ -6,5 +6,4 @@ nixpkgs.lib.genAttrs
   in {
     nvim = import ./nvim pkgs;
     dwl = import ./dwl { inherit pkgs; };
-    vivarium = pkgs.callPackage ./vivarium.nix { };
   })

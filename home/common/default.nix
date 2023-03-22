@@ -8,7 +8,6 @@ let homeDirectory = "/home/${username}"; in {
     inherit username homeDirectory;
 
     packages = with pkgs; [
-      hyperfine # benchmark utility
       libqalculate # terminal calculator
       skim # fuzzy finder
       unzip

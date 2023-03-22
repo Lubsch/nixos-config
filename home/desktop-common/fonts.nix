@@ -9,8 +9,8 @@
         package = mkDefault pkgs.fira;
       };
       mono = {
-        name = mkDefault "JetBrainsMono Nerd Font";
-        package = mkDefault (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono"]; }); 
+        name = mkDefault "FiraCode Nerd Font"; 
+        package = mkDefault (pkgs.nerdfonts.override { fonts = [ "FiraCode"]; }); 
       };
     };
   };
