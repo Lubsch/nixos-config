@@ -15,12 +15,10 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs: {
-    templates = import ./templates;
-    packages = import ./pkgs nixpkgs;
-
-    nixosConfigurations = {
-      "duke" = nixpkgs.lib.nixosSystem {
+  outputs = { nixpkgs, ... }@inputs: 
+  let
+    hosts = {
+      "duke" = {
         modules = [
           ./nixos/common
           ./nixos/wireless.nix
@@ -28,8 +26,6 @@
           ./nixos/zsh.nix
         ];
         specialArgs = {
-          inherit inputs;
-          hostname = "duke";
           system = "x86_64-linux";
           impermanence = true;
           # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
@@ -48,7 +44,29 @@
           ];
         };
       };
-
     };
+  in {
+    templates = import ./templates;
+    packages = import ./pkgs nixpkgs;
+
+    homeConfigurations = with nixpkgs.lib; zipAttrs
+      (attrValues
+        (mapAttrs
+          (hostname: host: mapAttrs'
+            (username: user: {
+              name = "${username}@${hostname}";
+              value = home-manager.lib.homeManagerConfiguration {
+                inherit (user) imports;
+                extraSpecialArgs = { inherit username inputs impermanence; };
+              };
+            })
+            host.specialArgs.users
+          )
+          hosts));
+
+    nixosConfigurations = nixpkgs.lib.mapAttrs
+      (hostname: host: nixpkgs.lib.nixosSystem 
+        (host // { specialArgs = { inherit hostname inputs; }; }))
+      hosts;
   };
 }
