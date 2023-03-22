@@ -1,5 +1,5 @@
 /* appearance */
-static const int sloppyfocus               = 0;  /* focus follows mouse */
+static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
 static const unsigned int borderpx         = 1;
 static const float bordercolor[]           = {0.5, 0.5, 0.5, 1.0};
@@ -12,10 +12,7 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
   /* app_id     title       tags mask     isfloating   monitor */
-  /* examples:
   { "Gimp",     NULL,       0,            1,           -1 },
-  */
-  { "firefox",  NULL,       1 << 8,       0,           -1 },
 };
 
 /* layout(s) */
@@ -106,19 +103,19 @@ static const Key keys[] = {
   { MODKEY,                    XKB_KEY_w,          spawn,          {.v = browsercmd} },
   { MODKEY,                    XKB_KEY_j,          focusstack,     {.i = +1} },
   { MODKEY,                    XKB_KEY_k,          focusstack,     {.i = -1} },
-  { MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
-  { MODKEY,                    XKB_KEY_d,          incnmaster,     {.i = -1} },
+  /* { MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} }, */
+  /* { MODKEY,                    XKB_KEY_d,          incnmaster,     {.i = -1} }, */
   { MODKEY,                    XKB_KEY_h,          setmfact,       {.f = -0.05} },
   { MODKEY,                    XKB_KEY_l,          setmfact,       {.f = +0.05} },
   { MODKEY,                    XKB_KEY_space,      zoom,           {0} },
   { MODKEY,                    XKB_KEY_Tab,        view,           {0} },
-  { MODKEY,                    XKB_KEY_q,          killclient,     {0} },
-  { MODKEY,                    XKB_KEY_t,          setlayout,      {.v = &layouts[0]} },
-  { MODKEY,                    XKB_KEY_f,          setlayout,      {.v = &layouts[1]} },
-  { MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[2]} },
+  { MODKEY,                    XKB_KEY_d,          killclient,     {0} },
+  /* { MODKEY,                    XKB_KEY_t,          setlayout,      {.v = &layouts[0]} }, */
+  /* { MODKEY,                    XKB_KEY_f,          setlayout,      {.v = &layouts[1]} }, */
+  /* { MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[2]} }, */
   /* { MODKEY,                    XKB_KEY_space,      setlayout,      {0} }, */
-  { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,      togglefloating, {0} },
-  { MODKEY,                    XKB_KEY_e,         togglefullscreen, {0} },
+  { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_t,      togglefloating, {0} },
+  { MODKEY,                    XKB_KEY_f,         togglefullscreen, {0} },
   { MODKEY,                    XKB_KEY_0,          view,           {.ui = ~0} },
   { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_parenright, tag,            {.ui = ~0} },
   { MODKEY,                    XKB_KEY_comma,      focusmon,       {.i = WLR_DIRECTION_LEFT} },

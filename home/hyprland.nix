@@ -1,11 +1,11 @@
-{ config, inputs, ... }: {
+{ lib, config, inputs, ... }: {
   imports = [ inputs.hyprland.homeManagerModules.default ];
 
   wayland.windowManager.hyprland = {
     enable = true;
     nvidiaPatches = true;
 
-    extraConfig = ''
+    extraConfig = with config; ''
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor=,preferred,auto,auto
 
@@ -29,7 +29,7 @@
               disable_while_typing = false
           }
 
-          sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+          sensitivity = 0
           accel_profile = flat
       }
 
@@ -37,8 +37,8 @@
           gaps_in = 0
           gaps_out = 0
           border_size = 1
-          col.active_border = rgb(33ccff) rgb(00ff99) 45deg
-          col.inactive_border = rgba(595959aa)
+          col.active_border = rgb(${colors.foreground})
+          col.inactive_border = rgb(000000)
 
           layout = master
       }
@@ -50,12 +50,12 @@
 
       decoration {
           rounding = 0
-          blur = true
+          blur = false
           blur_size = 3
           blur_passes = 1
           blur_new_optimizations = true
 
-          drop_shadow = true
+          drop_shadow = false
           shadow_range = 4
           shadow_render_power = 3
           col.shadow = rgba(1a1a1aee)
@@ -74,12 +74,6 @@
           animation = borderangle, 1, 8, default
           animation = fade, 1, 7, default
           animation = workspaces, 1, 6, default
-      }
-
-      dwindle {
-          # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-          pseudotile = true # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-          preserve_split = true # you probably want this
       }
 
       master {
@@ -102,25 +96,32 @@
       # See https://wiki.hyprland.org/Configuring/Keywords/ for more
       $mainMod = SUPER
 
-      bind = $mainMod, return, exec, foot
-      bind = $mainMod, W, exec, firefox
+      bind = $mainMod, return, exec, ${home.sessionVariables.TERMINAL}
+      bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
+
+      bind = $mainMod SHIFT, E, exit,
       bind = $mainMod, D, killactive,
       bind = $mainMod, T, togglefloating,
+      bind = $mainMod, S, layoutmsg, swapwithmaster
       bind = $mainMod, F, fullscreen, 1
       bind = $mainMod SHIFT, F, fullscreen, 0
-      bind = $mainMod SHIFT, E, exit,
 
-      bind = $mainMod, Space, layoutmsg, swapwithmaster
-      bind = $mainMod, M, layoutmsg, addmaster
-      bind = $mainMod SHIFT, M, layoutmsg, removemaster
+      # 59 mean comma (,), 60 means dot (.)
+      bind = $mainMod, 59, layoutmsg, addmaster
+      bind = $mainMod, 60, layoutmsg, removemaster
 
       bind = $mainMod, J, layoutmsg, cyclenext
       bind = $mainMod, K, layoutmsg, cycleprev
+      binde= $mainMod, H, splitratio, -0.015
+      binde= $mainMod, L, splitratio, +0.015
 
       bind = $mainMod SHIFT, J, layoutmsg, orientationbottom
       bind = $mainMod SHIFT, K, layoutmsg, orientationtop
       bind = $mainMod SHIFT, H, layoutmsg, orientationleft
       bind = $mainMod SHIFT, L, layoutmsg, orientationright
+
+      # Show windows on all workspaces
+      bind = $mainMod, 0, pin
 
       # Switch workspaces with mainMod + [0-9]
       bind = $mainMod, 1, workspace, 1
@@ -132,19 +133,17 @@
       bind = $mainMod, 7, workspace, 7
       bind = $mainMod, 8, workspace, 8
       bind = $mainMod, 9, workspace, 9
-      bind = $mainMod, 0, workspace, 10
 
       # Move active window to a workspace with mainMod + SHIFT + [0-9]
-      bind = $mainMod SHIFT, 1, movetoworkspace, 1
-      bind = $mainMod SHIFT, 2, movetoworkspace, 2
-      bind = $mainMod SHIFT, 3, movetoworkspace, 3
-      bind = $mainMod SHIFT, 4, movetoworkspace, 4
-      bind = $mainMod SHIFT, 5, movetoworkspace, 5
-      bind = $mainMod SHIFT, 6, movetoworkspace, 6
-      bind = $mainMod SHIFT, 7, movetoworkspace, 7
-      bind = $mainMod SHIFT, 8, movetoworkspace, 8
-      bind = $mainMod SHIFT, 9, movetoworkspace, 9
-      bind = $mainMod SHIFT, 0, movetoworkspace, 10
+      bind = $mainMod SHIFT, 1, movetoworkspacesilent, 1
+      bind = $mainMod SHIFT, 2, movetoworkspacesilent, 2
+      bind = $mainMod SHIFT, 3, movetoworkspacesilent, 3
+      bind = $mainMod SHIFT, 4, movetoworkspacesilent, 4
+      bind = $mainMod SHIFT, 5, movetoworkspacesilent, 5
+      bind = $mainMod SHIFT, 6, movetoworkspacesilent, 6
+      bind = $mainMod SHIFT, 7, movetoworkspacesilent, 7
+      bind = $mainMod SHIFT, 8, movetoworkspacesilent, 8
+      bind = $mainMod SHIFT, 9, movetoworkspacesilent, 9
 
       # Scroll through existing workspaces with mainMod + scroll
       bind = $mainMod, mouse_down, workspace, e+1

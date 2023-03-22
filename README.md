@@ -1,18 +1,18 @@
 # NixOS-config
 
-This is my NixOS-config. It is heavily inspired by [Misterio77's config](https://git.sr.ht/~misterio/nix-config). One of its aims is staying below around 5000 lines of code.
+This is my NixOS-config. It is heavily inspired by [Misterio77's config](https://git.sr.ht/~misterio/nix-config). One of its goals is staying below around 5000 lines of code.
 
 ## How it works
 
-Host-configs and home-manager-configs are defined in flake.nix. Just specifiy the modules you'd like and the specialArguments to pass through to them.
+Host-configs and home-manager-configs are defined in flake.nix. Just specifiy the modules you'd like and the specialArguments to pass through to them. Note that specialArguments are passed to all NixOS-modules and can even be used by home-manager ones. Their interface is entirely custom-defined by me.
 
-## Depndencies
+## Dependencies
 
 - Nixpkgs: Perhaps the greatest package repository out there, also providing NixOS-modules and a library
 - Home-Manager: Modules for managing the home directory
 - Impermanence: Define what data persist boots
 - Firefox-Addons: Repository with Firefox addons, duh
-- Nix-Colors: Easil pull in base16 schemes, library for colorschemes (incl. vim-plugin and hex conversion)
+- Nix-Colors: Easil pull in base16 schemes, library for colorschemes (incl. hex conversion and especially the vim-plugin)
 
 ## Where state lingers on
 
@@ -21,6 +21,15 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 - Shh keys (and GitHub access)
 - Steam settings and Proton (just run `, protonup`)
 - Firefox settings and extensions
+
+## TODO
+
+Some bigger TODOs that remain are:
+- Scripts for easy notetaking
+- Setup Email
+- Window manager shortcuts
+- Templates
+- Qutebrowser config
 
 ## Installation Guide
 
