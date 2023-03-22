@@ -1,7 +1,7 @@
 vimPlugins:
 with vimPlugins; {
   start = [
-    nvim-treesitter
+    nvim-treesitter.withAllGrammars
     nvim-lspconfig
     vim-commentary
     nvim-autopairs

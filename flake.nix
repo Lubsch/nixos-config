@@ -15,58 +15,30 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs: 
-  let
-    hosts = {
-      "duke" = {
-        modules = [
-          ./nixos/common
-          ./nixos/wireless.nix
-          ./nixos/desktop.nix
-          ./nixos/zsh.nix
-        ];
-        specialArgs = {
-          system = "x86_64-linux";
-          impermanence = true;
-          # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
-          swap = { size = 8192; offset = "1199735"; };
-          cpu = { vendor = "intel"; freq = "powersave"; };
-          kernelModules = [ "kvm-intel" ];
-          initrdModules= [ 
-            "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc"
-          ];
-          users."lubsch".imports = [
-            ./home/common
-            ./home/nvim.nix
-            ./home/desktop-common
-            ./home/hyprland.nix
-            ./home/dwl.nix
-          ];
-        };
-      };
-    };
-  in {
+  outputs = { home-manager, nixpkgs, ... }@inputs: 
+  let hosts = import ./hosts.nix; in {
+
     templates = import ./templates;
     packages = import ./pkgs nixpkgs;
 
-    homeConfigurations = with nixpkgs.lib; zipAttrs
-      (attrValues
-        (mapAttrs
-          (hostname: host: mapAttrs'
-            (username: user: {
-              name = "${username}@${hostname}";
-              value = home-manager.lib.homeManagerConfiguration {
-                inherit (user) imports;
-                extraSpecialArgs = { inherit username inputs impermanence; };
-              };
-            })
-            host.specialArgs.users
-          )
-          hosts));
-
-    nixosConfigurations = nixpkgs.lib.mapAttrs
+    nixosConfigurations = builtins.mapAttrs
       (hostname: host: nixpkgs.lib.nixosSystem 
         (host // { specialArgs = { inherit hostname inputs; }; }))
       hosts;
+
+    homeConfigurations = with builtins; zipAttrsWith
+      (_: user: head user)
+      (attrValues (mapAttrs
+        (hostname: host: nixpkgs.lib.mapAttrs'
+          (username: user: {
+            name = "${username}@${hostname}";
+            value = home-manager.lib.homeManagerConfiguration {
+              pkgs = nixpkgs.legacyPackages.${host.specialArgs.system};
+              inherit (user) modules;
+              extraSpecialArgs = { inherit host username inputs; };
+            };
+          })
+          host.specialArgs.users)
+        hosts));
   };
 }
