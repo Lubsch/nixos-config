@@ -15,12 +15,12 @@
     };
   };
 
-  outputs = { home-manager, nixpkgs, ... }@inputs: {
+  outputs = { nixpkgs, ... }@inputs: {
     templates = import ./templates;
     packages = import ./pkgs nixpkgs;
 
     nixosConfigurations = {
-      "duke" = {
+      "duke" = nixpkgs.lib.nixosSystem {
         modules = [
           ./nixos/common
           ./nixos/wireless.nix
@@ -29,6 +29,7 @@
         ];
         specialArgs = {
           inherit inputs;
+          hostname = "duke";
           system = "x86_64-linux";
           impermanence = true;
           # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
@@ -38,12 +39,11 @@
           initrdModules= [ 
             "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc"
           ];
-          users."lubsch" = [
+          users."lubsch".imports = [
             ./home/common
             ./home/nvim.nix
             ./home/desktop-common
             ./home/hyprland.nix
-            ./home/dwl.nix
           ];
         };
       };
