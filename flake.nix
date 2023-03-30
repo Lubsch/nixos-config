@@ -17,7 +17,11 @@
 
   outputs = { nixpkgs, ... }@inputs: {
     templates = import ./templates;
-    packages = import ./pkgs nixpkgs;
+    packages = nixpkgs.lib.genAttrs 
+      [ "x86_64-linux" "aarch64-linux" ]
+      (system: { 
+       nvim = import ../home/nvim/package.nix nixpkgs.legacyPackages.${system}; 
+       });
 
     nixosConfigurations = {
       "duke" = nixpkgs.lib.nixosSystem {
@@ -41,7 +45,7 @@
           ];
           users."lubsch".imports = [
             ./home/common
-            ./home/nvim.nix
+            ./home/nvim
             ./home/desktop-common
             ./home/hyprland.nix
           ];

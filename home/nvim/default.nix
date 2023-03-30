@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  home.packages = [ (import ../pkgs/nvim pkgs) ];
+  home.packages = [ (import ./package.nix pkgs) ];
 
   # TODO reactivate this when it works instead of using environment.sessionVariables
   /* home.sessionVariables.EDITOR = "nvim"; */
