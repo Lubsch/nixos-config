@@ -1,10 +1,6 @@
 { lib, config, pkgs, ... }@args: {
   programs.zsh = {
     enable = true;
-    history = {
-      path = "${config.home.homeDirectory}/.local/share/zsh/history";
-      size = 100000000;
-    };
     dotDir = ".config/zsh";
     autocd = true;
     enableSyntaxHighlighting = true;
@@ -30,6 +26,11 @@
     initExtra = ''
       # Disable C-s which freezes the terminal and is annoying
       stty stop undef
+
+      # History i guess
+      export HISTFILE=$HOME/.local/share/zsh/history
+      export HISTSIZE=100000000
+      export SAVEHIST=100000000
 
       # Prompt (should be replaced by something faster)
       git_branch_test_color() {
