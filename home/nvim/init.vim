@@ -20,14 +20,13 @@ filetype plugin indent on
 " Make backspace behave in a sane manner.	
 set backspace=indent,eol,start
 
-" Telescope binds
-nnoremap <silent> <leader>f :Telescope find_files<cr>
-nnoremap <silent> <leader>b :Telescope buffers<cr>
-nnoremap <silent> <leader>g :Telescope live_grep<cr>
-
 " Switch syntax highlighting on
 syntax on
 
+"Persistent undo (into ~/.local/share/nvim/undo)
+set undofile
+
+" SEARCH
 "Ignore case when searching
 set ignorecase
 "When searching be smart about cases
@@ -38,9 +37,6 @@ set incsearch
 set magic
 "Clear search higlighting with esc
 nnoremap <silent> <esc> :noh<CR><esc>
-
-"Persistent undo (into ~/.local/share/nvim/undo)
-set undofile
 
 "Relative line numbers
 set number relativenumber numberwidth=1
@@ -72,6 +68,10 @@ nnoremap <leader>w :w<cr>
 nnoremap <leader>i :e $HOME/documents/wiki/index.md<cr>
 ":W doas saves file
 command! W silent execute 'w !doas tee % > /dev/null' <bar> edit!
+" Telescope binds
+nnoremap <silent> <leader>f :Telescope find_files<cr>
+nnoremap <silent> <leader>b :Telescope buffers<cr>
+nnoremap <silent> <leader>g :Telescope live_grep<cr>
 
 "Disable automatic commenting on new line
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o

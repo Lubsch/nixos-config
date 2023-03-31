@@ -11,16 +11,21 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 - Nixpkgs: Perhaps the greatest package repository out there, also providing NixOS-modules and a library
 - Home-Manager: Modules for managing the home directory
 - Impermanence: Define what data persist boots
-- Firefox-Addons: Repository with Firefox addons, duh
-- Nix-Colors: Easil pull in base16 schemes, library for colorschemes (incl. vim-plugin and hex conversion)
 
 ## Where state lingers on
 
 - Hibernation resume offset and swap size (see `flake.nix`)
 - Wifi and Email credentials
-- Shh keys (and GitHub access)
+- SSH keys (and GitHub access)
 - Steam settings and Proton (just run `, protonup`)
-- Firefox settings and extensions
+
+## Todo that's not marked
+
+- Background
+- Nixpak
+    - Browser
+    - Steam and games
+- Nix-On-Droid
 
 ## Installation Guide
 
