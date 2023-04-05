@@ -6,7 +6,7 @@ This is my NixOS-config. It is heavily inspired by [Misterio77's config](https:/
 
 Host-configs and home-manager-configs are defined in flake.nix. Just specifiy the modules you'd like and the specialArguments to pass through to them.
 
-## Depndencies
+## Dependencies
 
 - Nixpkgs: Perhaps the greatest package repository out there, also providing NixOS-modules and a library
 - Home-Manager: Modules for managing the home directory
@@ -18,6 +18,7 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 - Wifi and Email credentials
 - SSH keys (and GitHub access)
 - Steam settings and Proton (just run `, protonup`)
+- Browser settings
 
 ## Todo that's not marked
 

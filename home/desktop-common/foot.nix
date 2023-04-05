@@ -9,6 +9,8 @@
       main = {
         font = "${config.fonts.mono.name}:size=10";
         dpi-aware = "yes";
+        resize-delay-ms = "0";
+        pad = "1x1";
       };
       colors = with config.colors; {
         inherit background foreground alpha;

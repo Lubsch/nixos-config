@@ -2,6 +2,10 @@
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
+    history = {
+      path = "$HOME/.local/share/zsh/history";
+      size = 10000000;
+    };
     autocd = true;
     enableSyntaxHighlighting = true;
     defaultKeymap = "viins";
@@ -27,12 +31,7 @@
       # Disable C-s which freezes the terminal and is annoying
       stty stop undef
 
-      # History i guess
-      export HISTFILE=$HOME/.local/share/zsh/history
-      export HISTSIZE=100000000
-      export SAVEHIST=100000000
-
-      # Prompt (should be replaced by something faster)
+      # TODO Prompt (should be replaced by something faster)
       git_branch_test_color() {
         local branch=$(git symbolic-ref --short HEAD 2> /dev/null)
         if [ -n "$branch" ]; then
@@ -69,9 +68,10 @@
       }
       zle -N zle-line-init
 
+      , () { nix run nixpkgs#$1 }
+
       # Archive extraction
-      ex ()
-      {
+      ex () {
       if [ -f $1 ] ; then
         case $1 in
           *.tar.bz2)   tar xjf $1   ;;

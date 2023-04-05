@@ -3,7 +3,10 @@ require('impatient')
 
 require("gruvbox").setup({ 
     transparent_mode = true,
-    italic = false,
+    italic = {
+        strings = false,
+        operators = false,
+    },
     overrides = {
         LineNr = { fg = "#fabd2f" },
         LineNrAbove = { fg = "#7c6f64" },

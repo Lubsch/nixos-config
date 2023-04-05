@@ -5,12 +5,12 @@
   in {
     fonts = {
       regular = {
-        name = mkDefault "Fira Sans";
-        package = mkDefault pkgs.fira;
+        name = mkDefault "Roboto";
+        package = mkDefault pkgs.roboto;
       };
       mono = {
-        name = mkDefault "FiraCode Nerd Font"; 
-        package = mkDefault (pkgs.nerdfonts.override { fonts = [ "FiraCode"]; }); 
+        name = mkDefault "JetBrains Mono Nerd Font"; 
+        package = mkDefault (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono"]; }); 
       };
     };
   };

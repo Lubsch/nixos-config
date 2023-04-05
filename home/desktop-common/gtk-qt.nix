@@ -4,7 +4,7 @@
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     font = {
       inherit (config.fonts.regular) package name;
-      size = 14;
+      size = 12;
     };
     theme = {
       name = "Plata-Noir-Compact";

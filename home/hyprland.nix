@@ -100,6 +100,9 @@
       bind = $mainMod, return, exec, ${home.sessionVariables.TERMINAL}
       bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
 
+      bind = ,XF86MonBrightnessUp, exec, brightnessctl set 5%+
+      bind = ,XF86MonBrightnessDown, exec, brightnessctl set 5%-
+
       bind = $mainMod SHIFT, E, exit,
       bind = $mainMod, D, killactive,
       bind = $mainMod, T, togglefloating,
