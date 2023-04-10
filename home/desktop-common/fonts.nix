@@ -21,7 +21,7 @@
       mono.package 
     ];
 
-    # Program that auto-detects font on system
+    # Program that auto-detects fonts on system
     fonts.fontconfig.enable = true;
   };
 }
