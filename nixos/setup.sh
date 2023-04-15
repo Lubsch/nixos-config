@@ -36,8 +36,17 @@ btrfs subvolume create /mnt/persist
 btrfs subvolume create /mnt/swap
 btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 
-./umount-partitions.sh "$1" >/dev/null
-./mount-partitions.sh "$1"
+umount /mnt
+
+mount -o subvol=root,compress=zstd,noatime /dev/mapper/"$1" /mnt
+mkdir -p /mnt/nix
+mount -o subvol=nix,compress=zstd,noatime /dev/mapper/"$1" /mnt/nix
+mkdir -p /mnt/persist
+mount -o subvol=persist,compress=zstd,noatime /dev/mapper/"$1" /mnt/persist
+mkdir -p /mnt/swap
+mount -o subvol=swap,noatime /dev/mapper/"$1" /mnt/swap
+mkdir -p /mnt/boot
+mount /dev/disk/by-partlabel/ESP /mnt/boot
 
 # Create home directory with permissions
 mkdir -p /mnt/persist/home/"$3"
