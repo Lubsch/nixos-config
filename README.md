@@ -16,8 +16,8 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 - Hibernation resume offset and swap size (see `flake.nix`)
 - Wifi and Email credentials
-- SSH keys (and GitHub access)
-- Steam settings and Proton (just run `, protonup`)
+- SSH keys (including git access)
+- Steam settings and Proton (run `, protonup` for install and updates)
 - Browser settings
 - User password
 
@@ -70,8 +70,7 @@ cd nixos-config
 
 ### Run the setup script
 ```
-cd scripts
-sudo ./setup.sh <hostname> <drive> <username>
+sudo ./nixos/setup.sh <hostname> <drive> <username>
 ```
 It will do the following:
 - Partition your drive
