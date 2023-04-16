@@ -14,7 +14,6 @@
   };
 
   environment = {
-    sessionVariables.EDITOR = "nvim"; # Override nano default, TODO do with hm
     enableAllTerminfo = true;
 
     persistence."/persist".directories = [

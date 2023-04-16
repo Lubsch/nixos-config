@@ -20,10 +20,6 @@
       cp = "cp -iv";
       mv = "mv -iv";
 
-      l = "${pkgs.exa}/bin/exa";
-      ls = "${pkgs.exa}/bin/exa -la --group-directories-first --no-user --no-permissions --icons";
-      la = "${pkgs.exa}/bin/exa -la --group-directories-first --icons";
-
       jctl = "journalctl -p 4 -xb";
     };
 

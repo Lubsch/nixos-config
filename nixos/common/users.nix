@@ -15,6 +15,7 @@ if (args ? users) then {
           ];
           openssh.authorizedKeys = { inherit (config) keys; };
           # TODO Make this work without /persist existing, too
+          # Change permission to root only
           passwordFile = "/persist/passwords/${username}";
         })
         args.users;

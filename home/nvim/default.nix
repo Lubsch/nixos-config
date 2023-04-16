@@ -1,8 +1,7 @@
 { config, pkgs, ... }: {
   home.packages = [ (import ./package.nix pkgs) ];
 
-  # TODO reactivate this when it works instead of environment.sessionVariables
-  /* home.sessionVariables.EDITOR = "nvim"; */
+  home.sessionVariables.EDITOR = "nvim";
 
   # Persist log, shada, swap and undo (could require manual cleanup)
   home.persistence."/persist${config.home.homeDirectory}".directories = [ 
