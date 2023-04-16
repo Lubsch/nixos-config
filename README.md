@@ -19,6 +19,7 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 - SSH keys (and GitHub access)
 - Steam settings and Proton (just run `, protonup`)
 - Browser settings
+- User password
 
 ## Todo that's not marked
 
