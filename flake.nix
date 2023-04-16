@@ -49,6 +49,7 @@
             ./home/nvim
             ./home/desktop-common
             ./home/hyprland.nix
+            ./home/mail.nix
           ];
         };
       };
