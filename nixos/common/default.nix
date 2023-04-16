@@ -2,24 +2,15 @@
   imports = builtins.filter (n: n != ./default.nix) 
     (lib.filesystem.listFilesRecursive ./.);
 
-  hardware = {
-    enableRedistributableFirmware = true;
-    cpu.${cpu.vendor}.updateMicrocode = true;
-  };
-  powerManagement.cpuFreqGovernor = cpu.freq;
+  system.stateVersion = "23.05";
 
   networking.hostName = hostname;
   time.timeZone = "Europe/Berlin";
 
-  console.useXkbConfig = true;
-  services.xserver = {
-    layout = "de";
-    xkbOptions = "caps:escape,altwin:swap_lalt_lwin";
-  };
-
-  programs = {
-    git.enable = true; # Make nix work
-    fuse.userAllowOther = true; # Allow root on impermanence binds
+  powerManagement.cpuFreqGovernor = cpu.freq;
+  hardware = {
+    enableRedistributableFirmware = true;
+    cpu.${cpu.vendor}.updateMicrocode = true;
   };
 
   environment = {
@@ -27,9 +18,8 @@
     enableAllTerminfo = true;
 
     persistence."/persist".directories = [
-      "/var/lib/systemd/coredump" "/var/log" 
+      "/var/lib/systemd/coredump"
+      "/var/log"
     ];
   };
-
-  system.stateVersion = "23.05";
 }

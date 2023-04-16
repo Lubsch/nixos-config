@@ -1,6 +1,9 @@
 { pkgs, inputs , system, ... }: {
+
+  programs.git.enable = true; # Required for nix command
+
   nix = {
-    # TODO change this when its the default in pkgs, required for xdg dirs
+    # TODO remove when its the default in pkgs, required for xdg dirs
     package = pkgs.nixVersions.nix_2_14;
     
     settings = {
@@ -30,5 +33,4 @@
       enableParallelBuilding = true;
     };
   };
-
 }

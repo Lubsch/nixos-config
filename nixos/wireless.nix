@@ -1,4 +1,3 @@
-# TODO switch from networkmanager to something more lightweight
 {
   networking.wireless.iwd.enable = true;
 
