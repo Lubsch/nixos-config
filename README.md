@@ -35,6 +35,11 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 - PDF and image viewing
 - Templates
 - Password Manager
+- Syncthing
+- Calendar
+- Application launcher
+- KDE connect
+- Statusbar
 
 ## Installation Guide
 
@@ -98,7 +103,6 @@ git pull
 ### Installation
 Back on the new machine, pull the repo. Install NixOS to `/mnt`:
 ```
-cd ..
 sudo nixos-install --flake .#<hostname>
 ```
 Shutdown and boot without the USB drive, enjoy! :)
