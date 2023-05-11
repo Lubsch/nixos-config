@@ -50,6 +50,9 @@
             ./home/desktop-common
             ./home/hyprland.nix
             ./home/mail.nix
+            ./home/syncthing.nix
+            ./home/keepassxc.nix
+            ./home/kdeconnect.nix
           ];
         };
       };

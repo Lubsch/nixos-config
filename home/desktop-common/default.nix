@@ -4,9 +4,11 @@
 
   home = {
     packages = with pkgs; [
-      swaybg
       xdragon # Drag and drop from terminal
       brightnessctl # Change brightness
+      imv # Image viewer
+      wl-clipboard # Clipboard manager
+      ydotool
     ];
   };
 

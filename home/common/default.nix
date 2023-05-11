@@ -8,6 +8,7 @@
     stateVersion = "23.05";
 
     packages = with pkgs; [
+      poppler_utils # PDF utils (e.g. pdftotext)
       hyperfine # application benchmarks
       libqalculate # terminal calculator
       skim # fuzzy finder

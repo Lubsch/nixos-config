@@ -5,7 +5,6 @@ let homeDirectory = "/home/${username}"; in {
     persistence."/persist${homeDirectory}" = {
       directories = [
         "documents"
-        "downloads"
         "music"
         "pictures"
         "videos"

@@ -26,16 +26,13 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 ## Todo that's not marked
 
-- Background
 - Nixpak
     - Browser
     - Steam and games
 - Nix-On-Droid
 - E-Mail
 - PDF and image viewing
-- Templates
-- Password Manager
-- Syncthing
+- Improve Password Manager
 - Calendar
 - Application launcher
 - KDE connect

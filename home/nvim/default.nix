@@ -1,7 +1,14 @@
 { config, pkgs, ... }: {
-  home.packages = [ (import ./package.nix pkgs) ];
+  home = {
+    sessionVariables.EDITOR = "nvim";
+    packages = with pkgs; [ 
+      (import ./package.nix pkgs) 
+      rnix-lsp
+      clang-tools
+      jdt-language-server
+    ];
+  };
 
-  home.sessionVariables.EDITOR = "nvim";
 
   # Persist log, shada, swap and undo (could require manual cleanup)
   home.persistence."/persist${config.home.homeDirectory}".directories = [ 

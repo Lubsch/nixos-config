@@ -1,5 +1,6 @@
-{ lib, config, inputs, ... }: {
+{ pkgs, lib, config, inputs, ... }: {
   imports = [ inputs.hyprland.homeManagerModules.default ];
+
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -12,6 +13,7 @@
       # Execute your favorite apps at launch
       # exec-once = firefox
       exec-once = foot --server
+      exec-once = ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/bliss-600dpi.png
 
       # Some default env vars.
       env = XCURSOR_SIZE,24
