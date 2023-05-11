@@ -8,7 +8,8 @@
       brightnessctl # Change brightness
       imv # Image viewer
       wl-clipboard # Clipboard manager
-      ydotool
+      xdg-utils # For xdg-open to work
+      pcmanfm # File manager
     ];
   };
 

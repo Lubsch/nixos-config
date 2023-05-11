@@ -31,6 +31,7 @@
           ./nixos/wireless.nix
           ./nixos/desktop.nix
           ./nixos/zsh.nix
+          ./nixos/bluetooth.nix
         ];
         specialArgs = {
           inherit inputs;
