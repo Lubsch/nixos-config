@@ -1,9 +1,9 @@
-{ pkgs }: {
+{ pkgs, ... }: {
   home.packages = [
     pkgs.xdg-utils
   ];
 
-  zsh.shellAliases = {
+  programs.zsh.shellAliases = {
     o = "xdg-open";
   };
 }

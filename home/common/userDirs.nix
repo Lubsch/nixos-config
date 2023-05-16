@@ -15,7 +15,6 @@ let homeDirectory = "/home/${username}"; in {
   };
 
   xdg = {
-    enable = true;
     userDirs = {
       enable = true;
       createDirectories = true;

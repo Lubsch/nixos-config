@@ -1,19 +1,18 @@
 { pkgs, lib, config, inputs, ... }: {
   imports = [ inputs.hyprland.homeManagerModules.default ];
 
-
   wayland.windowManager.hyprland = {
     enable = true;
     nvidiaPatches = true;
 
-    extraConfig = with config; ''
+    extraConfig = with config; with pkgs; ''
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor=,preferred,auto,auto
 
       # Execute your favorite apps at launch
       # exec-once = firefox
       exec-once = foot --server
-      exec-once = ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/bliss-600dpi.png
+      exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/bliss-600dpi.png
 
       # Some default env vars.
       env = XCURSOR_SIZE,24
@@ -105,8 +104,15 @@
       bind = $mainMod, return, exec, ${home.sessionVariables.TERMINAL}
       bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
 
-      bind = ,XF86MonBrightnessUp, exec, brightnessctl set 5%+
-      bind = ,XF86MonBrightnessDown, exec, brightnessctl set 5%-
+      bind = ,XF86MonBrightnessUp, exec, ${brightnessctl}/bin/brightnessctl set 5%+
+      bind = ,XF86MonBrightnessDown, exec, ${brightnessctl}/bin/brightnessctl set 5%-
+
+      bind = ,XF86AudioLowerVolume, exec, ${pamixer}/bin/pamixer -d 2
+      bind = ,XF86AudioRaiseVolume, exec, ${pamixer}/bin/pamixer -i 2
+
+      bind = ,Xf86AudioPlay, exec, ${playerctl}/bin/playerctl play-pause
+      bind = ,Xf86AudioPrev, exec, ${playerctl}/bin/playerctl previous
+      bind = ,Xf86AudioNext, exec, ${playerctl}/bin/playerctl next
 
       bind = $mainMod SHIFT, E, exit,
       bind = $mainMod, D, killactive,
@@ -116,8 +122,8 @@
       bind = $mainMod SHIFT, F, fullscreen, 0
 
       # 59 mean comma (,), 60 means dot (.)
-      bind = $mainMod, 59, layoutmsg, addmaster
-      bind = $mainMod, 60, layoutmsg, removemaster
+      bind = $mainMod, 59, layoutmsg, removemaster
+      bind = $mainMod, 60, layoutmsg, addmaster
 
       bind = $mainMod, J, layoutmsg, cyclenext
       bind = $mainMod, K, layoutmsg, cycleprev
