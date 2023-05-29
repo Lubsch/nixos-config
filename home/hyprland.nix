@@ -104,8 +104,6 @@
       bind = $mainMod, return, exec, ${home.sessionVariables.TERMINAL}
       bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
 
-      bind = $mainMod, M, exec, ${warpd}/bin/warpd --normal
-
       bind = ,XF86MonBrightnessUp, exec, ${brightnessctl}/bin/brightnessctl set 5%+
       bind = ,XF86MonBrightnessDown, exec, ${brightnessctl}/bin/brightnessctl set 5%-
 
