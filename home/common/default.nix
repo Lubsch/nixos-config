@@ -8,7 +8,7 @@
     stateVersion = "23.05";
 
     packages = with pkgs; [
-      entr # run commands on file change
+      entr # Run commands on file change (file watcher)
       poppler_utils # PDF utils (e.g. pdftotext)
       hyperfine # application benchmarks
       libqalculate # terminal calculator

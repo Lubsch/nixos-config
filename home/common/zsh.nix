@@ -12,13 +12,15 @@
 
     shellAliases = {
       rr = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
+      rrz = "export HIST=; \rm -r ~/.local/share/zsh; doas nixos-rebuild switch --flake ~/misc/repos/nixos-config"; # Fix zsh history collision
 
       e = "$EDITOR";
 
-      getip = "curl ifconfig.me\n";
+      getip = "curl ifconfig.me;echo";
 
       cp = "cp -iv";
       mv = "mv -iv";
+      rm = "rm -I";
 
       jctl = "journalctl -p 4 -xb";
     };
