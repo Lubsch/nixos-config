@@ -8,7 +8,6 @@
       zathura # pdf viewer
       xdragon # Drag and drop from terminal
       brightnessctl # Change brightness
-      imv # Image viewer
       wl-clipboard # Clipboard manager
       pcmanfm # File manager
       libnotify # Command notify-send
