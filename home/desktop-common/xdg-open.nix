@@ -1,9 +1,12 @@
 { pkgs, ... }: {
   home.packages = [
-    pkgs.xdg-utils
+    pkgs.handlr
+    (pkgs.writeShellScriptBin "xdg-open" ''
+      handlr open
+    '')
   ];
 
   programs.zsh.shellAliases = {
-    o = "xdg-open";
+    o = "handlr open";
   };
 }
