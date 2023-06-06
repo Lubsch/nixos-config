@@ -12,7 +12,7 @@
 
     shellAliases = {
       rr = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
-      rrz = "export HIST=; \rm -r ~/.local/share/zsh; doas nixos-rebuild switch --flake ~/misc/repos/nixos-config"; # Fix zsh history collision
+      rrz = "export HIST=; rm -r --interactive=never ~/.local/share/zsh; doas nixos-rebuild switch --flake ~/misc/repos/nixos-config"; # Fix zsh history collision
 
       e = "$EDITOR";
 
@@ -101,12 +101,10 @@
   };
   
   home = {
-    file = {
-      # Declutter home when defining zshenv through nixos
-      ".zshenv".enable = lib.mkIf 
-        ((args ? nixosConfig) && (args.nixosConfig.environment.etc."zshenv" != null))
-        false;
-    };
+    # Declutter home when defining zshenv through nixos
+    file.".zshenv".enable = lib.mkIf 
+      ((args ? nixosConfig) && (args.nixosConfig.environment.etc."zshenv" != null))
+      false;
     
     persistence."/persist${config.home.homeDirectory}".files = [ 
       ".local/share/zsh/history"
