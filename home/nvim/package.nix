@@ -15,6 +15,7 @@ pkgs.wrapNeovim pkgs.neovim-unwrapped {
     '';
     packages.myVimPackage = with pkgs.vimPlugins; {
       start = [
+        typst-vim
         nvim-treesitter
         nvim-lspconfig
         vim-commentary

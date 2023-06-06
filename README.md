@@ -35,7 +35,6 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 - Improve Password Manager
 - Calendar
 - Application launcher
-- KDE connect
 - Statusbar
 
 ## Installation Guide

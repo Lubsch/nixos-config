@@ -4,6 +4,8 @@
 
   home = {
     packages = with pkgs; [
+      mpv # media player
+      zathura # pdf viewer
       xdragon # Drag and drop from terminal
       brightnessctl # Change brightness
       imv # Image viewer
