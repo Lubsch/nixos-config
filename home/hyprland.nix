@@ -22,6 +22,7 @@
       $mainMod = SUPER
 
       bind = $mainMod, P, exec, ${home.sessionVariables.PASSWORDMANAGER}
+      bind = $mainMod, V, exec, ${home.sessionVariables.LAUNCHER}
 
       bind = $mainMod, return, exec, ${home.sessionVariables.TERMINAL}
       bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}

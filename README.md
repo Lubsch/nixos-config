@@ -31,7 +31,6 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
     - Steam and games
 - Nix-On-Droid
 - E-Mail
-- PDF and image viewing
 - Calendar
 - Application launcher
 - Statusbar
