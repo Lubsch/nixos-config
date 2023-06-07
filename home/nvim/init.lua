@@ -77,8 +77,13 @@ function add_lsp(binary, server, options)
     if vim.fn.executable(binary) == 1 then server.setup(options) end
 end
 
+add_lsp("typst-lsp", lspconfig.typst_lsp, {})
 add_lsp("rnix-lsp", lspconfig.rnix, {})
 add_lsp("clangd", lspconfig.clangd, {})
 add_lsp("jdt-language-server", lspconfig.jdtls, {
-    cmd = { "jdt-language-server" }
+    cmd = { "jdt-language-server", "-configuration", "/home/lubsch/.cache/jdtls/config", "-data", "/home/lubsch/.cache/jdtls/workspace" },
+
+    init_options = {
+        workspace = "/home/lubsch/.cache/jdtls/workspace"
+    }
 })
