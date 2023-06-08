@@ -61,7 +61,7 @@
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix
-            ./home/kdeconnect.nix
+            ./home/qutebrowser.nix
           ];
         };
       };
