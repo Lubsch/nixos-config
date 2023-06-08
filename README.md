@@ -8,7 +8,7 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 ## Dependencies
 
-- Nixpkgs: Perhaps the greatest package repository out there, also providing NixOS-modules and its standard library
+- Nixpkgs: Packages and standard library
 - Impermanence: Define what data persist boots
 - Hyprland: Window manager
 - Home-Manager: Modules for managing the home directory
@@ -17,11 +17,11 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 ## Where state lingers on
 
 - Hibernation resume offset and swap size (see `flake.nix`)
+- User password
 - Wifi credentials
 - SSH keys (including git access)
 - Steam settings and Proton (run `, protonup` for install and updates)
-- Browser settings
-- User password
+- Some website settings
 - Password Manager (required for email)
 
 ## Todo that's not marked

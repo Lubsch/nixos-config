@@ -22,7 +22,7 @@ let
     fi
 
     umount /btrfs
-    rm /btrfs
+    rmdir /btrfs
   '';
 in
 {

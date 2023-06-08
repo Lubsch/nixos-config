@@ -1,7 +1,15 @@
 { kernelModules, initrdModules, ... }: {
   boot = {
     inherit kernelModules;
-    initrd = { inherit kernelModules; };
+    initrd = { 
+      kernelModules = initrdModules; 
+      verbose = false;
+    };
+
+    kernelParams = [
+      "quiet"
+      "loglevel=3"
+    ];
 
     loader = {
       systemd-boot.enable = true;
