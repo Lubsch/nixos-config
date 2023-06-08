@@ -32,7 +32,6 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 - Nix-On-Droid
 - E-Mail
 - Calendar
-- Application launcher
 - Statusbar
 
 ## Installation Guide
