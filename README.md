@@ -38,7 +38,7 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 This guide should include each and every step to get up and running on a new machine. This way, I don't have to put any effort into remembering a lot of details which you could get wrong. It also increases reproducibility. This is not primarily intended for other users but you can of course use and adapt these steps to your needs.
 
-Download the [minimal iso](https://nixos.org/download.html#nixos-iso) and burn it to an empty usb-stick:
+Burn the iso to an empty usb stick
 ```
 umount </dev/usb_drive>
 doas dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
