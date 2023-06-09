@@ -11,13 +11,11 @@ let
     if [ -e "/btrfs/root/dontwipe" ]; then
       echo "P: The file /btrfs/root/dontwipe exists"
     else
-      echo "P: Cleaning subvolume"
       btrfs subvolume list -o /btrfs/root | cut -f9 -d ' ' |
       while read subvolume; do
         btrfs subvolume delete "/btrfs/$subvolume"
       done && btrfs subvolume delete /btrfs/root
 
-      echo "P: Restoring blank subvolume"
       btrfs subvolume snapshot /btrfs/root-blank /btrfs/root
     fi
 
