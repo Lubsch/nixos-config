@@ -19,7 +19,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-generators, ... }@inputs: {
+  outputs = { nixpkgs, nixos-generators, ... }@inputs: {
     templates = builtins.mapAttrs
       (t: _: { description = t; path = ./templates + "/${t}"; })
       (builtins.readDir ./templates);
@@ -42,7 +42,7 @@
           ./nixos/bluetooth.nix
         ];
         specialArgs = {
-          inherit inputs self;
+          inherit inputs;
           hostname = "duke";
           system = "x86_64-linux";
           impermanence = true;

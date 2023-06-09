@@ -1,5 +1,6 @@
 { lib, pkgs, ... }: {
-  imports = bultins.attrNames (builtins.readDir ./.);
+  imports = map (f: ./. + "/${f}") 
+    ((builtins.filter (f: f != "default.nix")) (builtins.attrNames (builtins.readDir ./.)));
 
   systemd.user.startServices = "sd-switch";
 

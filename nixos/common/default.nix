@@ -1,5 +1,6 @@
 { cpu, hostname, ... }: {
-  imports = bultins.attrNames (builtins.readDir ./.);
+  imports = map (f: ./. + "/${f}") 
+    ((builtins.filter (f: f != "default.nix")) (builtins.attrNames (builtins.readDir ./.)));
 
   system.stateVersion = "23.05";
 
