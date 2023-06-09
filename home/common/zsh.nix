@@ -11,8 +11,8 @@
     defaultKeymap = "viins";
 
     shellAliases = {
-      rr = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
-      rrz = "export HIST=; rm -r --interactive=never ~/.local/share/zsh; doas nixos-rebuild switch --flake ~/misc/repos/nixos-config"; # Fix zsh history collision
+      rr = "doas nixos-rebuild switch --flake config";
+      rrz = "export HIST=; rm -r --interactive=never ~/.local/share/zsh; doas nixos-rebuild switch --flake config"; # Fix zsh history collision
 
       e = "$EDITOR";
 
@@ -65,8 +65,6 @@
           echo -ne "\e[6 q"
       }
       zle -N zle-line-init
-
-      , () { nix run nixpkgs#$1 }
 
       # Archive extraction
       ex () {

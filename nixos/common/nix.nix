@@ -1,4 +1,4 @@
-{ pkgs, inputs, system, ... }: {
+{ pkgs, inputs, self, system, ... }: {
 
   programs.git.enable = true; # Required for nix command
 
@@ -24,7 +24,7 @@
     };
 
     registry.nixpkgs.flake = inputs.nixpkgs;
-    # registry.config.flake = self;
+    registry.config.flake = self;
   };
 
   nixpkgs = {

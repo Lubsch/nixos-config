@@ -1,6 +1,5 @@
-{ lib, cpu, hostname, ... }: {
-  imports = builtins.filter (n: n != ./default.nix) 
-    (lib.filesystem.listFilesRecursive ./.);
+{ cpu, hostname, ... }: {
+  imports = bultins.attrNames (builtins.readDir ./.);
 
   system.stateVersion = "23.05";
 
