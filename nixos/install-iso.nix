@@ -1,9 +1,10 @@
 { pkgs, nixos-generators }:
 let iso-module = {
   networking.wireless.iwd.enable = true;
+  networking.wireless.enable = false;
   nix.extraOptions = "experimental-features = nix-command flakes repl-flake";
 
-  environment.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     git
     (writeShellScriptBin "clone" ''
       git clone https://github.com/lubsch/nixos-config
@@ -95,5 +96,6 @@ nixos-generators.nixosGenerate {
   modules = [
     ./common/layout.nix
     ./common/doas.nix
+    iso-module
   ];
 }

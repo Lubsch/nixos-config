@@ -11,12 +11,12 @@
     defaultKeymap = "viins";
 
     shellAliases = {
-      rr = "doas nixos-rebuild switch --flake config";
-      rrz = "export HIST=; rm -r --interactive=never ~/.local/share/zsh; doas nixos-rebuild switch --flake config"; # Fix zsh history collision
+      rr = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
+      rrz = "export HIST=; rm -r --interactive=never ~/.local/share/zsh; doas nixos-rebuild switch --flake ~/misc/repos/nixos-config"; # Fix zsh history collision
 
       e = "$EDITOR";
 
-      getip = "curl ifconfig.me;echo";
+      myip = "curl ifconfig.me;echo";
 
       cp = "cp -iv";
       mv = "mv -iv";
@@ -26,25 +26,14 @@
     };
 
     initExtra = ''
+      autoload -Uz vcs_info
+      precmd() { vcs_info }
+      zstyle ':vcs_info:git:*' formats '%b '
+      setopt PROMPT_SUBST
+      prompt='%~ %F{red}$vcs_info_msg_0_%f$ '
+
       # Disable C-s which freezes the terminal and is annoying
       stty stop undef
-
-      # TODO Prompt (should be replaced by something faster)
-      git_branch_test_color() {
-        local branch=$(git symbolic-ref --short HEAD 2> /dev/null)
-        if [ -n "$branch" ]; then
-          if [ -n "$(git status --porcelain)" ]; then
-            local gitstatuscolor='%F{yellow}'
-          else
-            local gitstatuscolor='%F{green}'
-          fi
-          echo "$gitstatuscolor $branch"
-        else
-          echo ""
-        fi
-      }
-      setopt PROMPT_SUBST
-      PS1='[%9c$(git_branch_test_color)%F{none}]$ '
 
       # Remove delay when hitting esc
       export KEYTIMEOUT=1
