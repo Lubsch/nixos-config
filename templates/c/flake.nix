@@ -9,7 +9,11 @@
         pkgs = nixpkgs.legacyPackages.${s}; 
       in
       pkgs.mkShell {
-        packages = with pkgs; [ ];
+        packages = with pkgs; [
+          valgrind
+          gdb
+          clang
+        ];
       }
     );
   };
