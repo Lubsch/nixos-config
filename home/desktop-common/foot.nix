@@ -1,10 +1,10 @@
 { config, ... }: {
 
   home.sessionVariables.TERMINAL = "footclient";
+  home.sessionVariables.TERMINALSERVER = "foot --server";
 
   programs.foot = {
     enable = true;
-    server.enable = true;
     settings = {
       main = {
         font = "${config.fonts.mono.name}:size=10";

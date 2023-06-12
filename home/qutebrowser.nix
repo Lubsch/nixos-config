@@ -41,4 +41,8 @@
       config.set("fonts.default_size", "11pt") 
     '';
   };
+
+  home.persistence."/persist${config.home.homeDirectory}".directories = [ 
+    ".local/share/qutebrowser"
+  ];
 }

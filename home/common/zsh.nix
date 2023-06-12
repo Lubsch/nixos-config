@@ -26,11 +26,22 @@
     };
 
     initExtra = ''
-      autoload -Uz vcs_info
-      precmd() { vcs_info }
-      zstyle ':vcs_info:git:*' formats '%b '
+      git_info() {
+        local ref=$(git symbolic-ref --short HEAD 2> /dev/null)
+        if [ -n "$ref" ]; then
+          if [ -n "$(git status --porcelain)" ]; then
+            local gitstatuscolor='%F{yellow}'
+          else
+            local gitstatuscolor='%F{green}'
+          fi
+          echo "$gitstatuscolor$ref "
+        else
+          echo ""
+        fi
+      }
       setopt PROMPT_SUBST
-      prompt='%~ %F{red}$vcs_info_msg_0_%f$ '
+      prompt='%~ $(git_info)%f$ '
+      rprompt='%D{%k:%M:%S}'
 
       # Disable C-s which freezes the terminal and is annoying
       stty stop undef
