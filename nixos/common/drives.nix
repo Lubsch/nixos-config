@@ -1,26 +1,24 @@
 { hostname, lib, swap, impermanence, ... }@args:
 let
+  # Pass main-drive as an argument if you don't want encryption
   main-drive = if (args ? main-drive)
     then args.main-drive
     else "/dev/mapper/${hostname}";
 
   wipeScript = ''
-    mkdir -p /btrfs
-    mount -o subvol=/ "${main-drive}" /btrfs
+    mkdir -p /tmp
+    mntpoint=$(mktemp -d)
+    mount -o subvol=/ "${main-drive}" "$mntpoint"
 
-    if [ -e "/btrfs/root/dontwipe" ]; then
-      echo "P: The file /btrfs/root/dontwipe exists"
-    else
-      btrfs subvolume list -o /btrfs/root | cut -f9 -d ' ' |
-      while read subvolume; do
-        btrfs subvolume delete "/btrfs/$subvolume"
-      done && btrfs subvolume delete /btrfs/root
+    subvolumes=$(btrfs subvolume list -o "$mntpoint/root" | awk '{print $NF}')
+    for subvolume in subvolumes; do
+      btrfs subvolume delete "$mntpoint/$subvolume"
+    done && btrfs subvolume delete "$mntpoint/root"
 
-      btrfs subvolume snapshot /btrfs/root-blank /btrfs/root
-    fi
+    btrfs subvolume snapshot "$mntpoint/root" "$mntpoint/root-backup"
+    # btrfs subvolume snapshot "$mntpoint/root-blank" "$mntpoint/root"
 
-    umount /btrfs
-    rmdir /btrfs
+    umount "$mntpoint"
   '';
 in
 {
@@ -41,7 +39,7 @@ in
     "/nix" = {
       device = "${main-drive}";
       fsType = "btrfs";
-      options = [ "subvol=nix" "noatime" "compress=zstd" ];
+      options = [ "subvol=nix" "compress=zstd" "noatime" ];
     };
 
     "/persist" = lib.mkIf impermanence {
