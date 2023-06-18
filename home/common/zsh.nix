@@ -11,14 +11,16 @@
     defaultKeymap = "viins";
 
     shellAliases = {
+      e = "$EDITOR";
+
       rr = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
       rrz = "export HIST=; rm -r --interactive=never ~/.local/share/zsh; doas nixos-rebuild switch --flake ~/misc/repos/nixos-config"; # Fix zsh history collision
 
-      e = "$EDITOR";
+      iw = "iwctl station wlan0 scan && iwctl station wlan0 connect earl";
 
       myip = "curl ifconfig.me;echo";
 
-      cp = "cp -iv";
+      cp = "cp -ivr";
       mv = "mv -iv";
       rm = "rm -I";
 

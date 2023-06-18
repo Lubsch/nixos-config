@@ -5,6 +5,7 @@
   home = {
     packages = with pkgs; [
       mpv # media player
+      ffmpeg-full # media tools (full, so there is ffplay)
       zathura # pdf viewer
       xdragon # Drag and drop from terminal
       brightnessctl # Change brightness

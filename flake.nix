@@ -47,7 +47,7 @@
           system = "x86_64-linux";
           impermanence = true;
           # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
-          swap = { size = 8192; offset = "1199735"; };
+          swap = { size = 8192; offset = "1256037"; };
           cpu = { vendor = "intel"; freq = "powersave"; };
           kernelModules = [ "kvm-intel" ];
           initrdModules= [ 

@@ -1,7 +1,14 @@
 { config, pkgs, ... }: {
   home = {
     sessionVariables.EDITOR = "nvim";
-    packages = [ (import ./package.nix pkgs) ];
+    packages = with pkgs; [ 
+      lldb
+      typst-lsp
+      rnix-lsp
+      clang-tools
+      clang
+      jdt-language-server
+      (import ./package.nix pkgs) ];
   };
 
 

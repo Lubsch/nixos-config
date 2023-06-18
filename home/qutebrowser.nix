@@ -37,6 +37,8 @@
       config.bind("J", "tab-prev")
       config.bind("K", "tab-next")
 
+      config.set("colors.webpage.preferred_color_scheme", "dark")
+
       config.set("fonts.default_family", "${config.fonts.regular.name}") 
       config.set("fonts.default_size", "11pt") 
     '';

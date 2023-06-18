@@ -9,10 +9,12 @@
 
     packages = with pkgs; [
       entr # Run commands on file change (file watcher)
+      inotify-tools # "
       poppler_utils # PDF utils (e.g. pdftotext)
       hyperfine # application benchmarks
       libqalculate # terminal calculator
       skim # fuzzy finder
+      zip
       unzip
       nix-tree # view a nix derivation's dependencies
       ncdu # disk usage viewing
