@@ -6,7 +6,6 @@ let
     else "/dev/mapper/${hostname}";
 
   wipeScript = ''
-    mkdir -p /tmp
     mntpoint=$(mktemp -d)
     mount -o subvol=/ "${main-drive}" "$mntpoint"
 
@@ -15,8 +14,7 @@ let
       btrfs subvolume delete "$mntpoint/$subvolume"
     done && btrfs subvolume delete "$mntpoint/root"
 
-    btrfs subvolume snapshot "$mntpoint/root" "$mntpoint/root-backup"
-    # btrfs subvolume snapshot "$mntpoint/root-blank" "$mntpoint/root"
+    btrfs subvolume snapshot "$mntpoint/root-blank" "$mntpoint/root"
 
     umount "$mntpoint"
   '';
