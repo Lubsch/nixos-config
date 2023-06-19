@@ -18,6 +18,7 @@
 
   programs.qutebrowser = {
     enable = true;
+    package = pkgs.qutebrowser.override { enableWideVine = true; };
 
     extraConfig = ''
       config.unbind("<Ctrl-d>")
@@ -37,10 +38,12 @@
       config.bind("J", "tab-prev")
       config.bind("K", "tab-next")
 
-      config.set("colors.webpage.preferred_color_scheme", "dark")
+      c.colors.webpage.preferred_color_scheme = "dark"
+      c.colors.webpage.bg = "#${config.colors.background}"
 
-      config.set("fonts.default_family", "${config.fonts.regular.name}") 
-      config.set("fonts.default_size", "11pt") 
+      c.fonts.default_family = "${config.fonts.regular.name}"
+      c.fonts.default_size = "11pt"
+      c.url.start_pages = "about:blank"
     '';
   };
 

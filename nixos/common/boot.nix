@@ -1,14 +1,16 @@
-{ kernelModules, initrdModules, ... }: {
+{ pkgs, kernelModules, initrdModules, ... }: {
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+
     inherit kernelModules;
     initrd = { 
       kernelModules = initrdModules; 
       verbose = false;
     };
 
+    consoleLogLevel = 2;
     kernelParams = [
       "quiet"
-      "loglevel=3"
     ];
 
     loader = {

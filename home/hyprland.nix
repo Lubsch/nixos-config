@@ -171,6 +171,6 @@
   };
 
   programs.zsh.loginExtra = ''
-    [ "$(tty)" = "/dev/tty1" ] && exec Hyprland
+    [ "$(tty)" = "/dev/tty1" ] && exec Hyprland &> /dev/null
   '';
 }

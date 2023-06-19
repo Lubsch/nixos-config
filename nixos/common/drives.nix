@@ -6,17 +6,20 @@ let
     else "/dev/mapper/${hostname}";
 
   wipeScript = ''
-    mntpoint=$(mktemp -d)
-    mount -o subvol=/ "${main-drive}" "$mntpoint"
+    mkdir -p /mnt
+    mount -o subvol=/ "${main-drive}" /mnt
 
-    subvolumes=$(btrfs subvolume list -o "$mntpoint/root" | awk '{print $NF}')
-    for subvolume in subvolumes; do
-      btrfs subvolume delete "$mntpoint/$subvolume"
-    done && btrfs subvolume delete "$mntpoint/root"
+    btrfs subvolume delete /mnt/root-old
+    btrfs subvolume snapshot /mnt/root /mnt/root-old
 
-    btrfs subvolume snapshot "$mntpoint/root-blank" "$mntpoint/root"
+    btrfs subvolume list -o /mnt/root | awk '{print $NF}' |
+    while read -r subvolume; do
+      btrfs subvolume delete /mnt/$subvolume
+    done && btrfs subvolume delete /mnt/root
 
-    umount "$mntpoint"
+    btrfs subvolume snapshot /mnt/root-blank /mnt/root
+
+    umount /mnt
   '';
 in
 {

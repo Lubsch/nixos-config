@@ -19,18 +19,23 @@
     };
   };
 
-  outputs = { nixpkgs, nixos-generators, ... }@inputs: {
+  outputs = { nixpkgs, nixos-generators, ... }@inputs: 
+  let
+    myLib = {
+      getModules = dir: map 
+        (f: dir + "/${f}") 
+        ((builtins.filter (f: f != "default.nix")) (builtins.attrNames (builtins.readDir dir)));
+    };
+  in {
     templates = builtins.mapAttrs
       (t: _: { description = t; path = ./templates + "/${t}"; })
       (builtins.readDir ./templates);
 
-    packages = nixpkgs.lib.genAttrs
-      [ "x86_64-linux" "aarch64-linux" ]
+    packages = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ]
       (system: let pkgs = nixpkgs.legacyPackages.${system}; in {
         nvim = import ./home/nvim/package.nix pkgs;
         install-iso = import ./nixos/install-iso.nix 
-          { inherit pkgs nixos-generators; };
-      });
+          { inherit pkgs nixos-generators; }; });
 
     nixosConfigurations = {
       "duke" = nixpkgs.lib.nixosSystem {
@@ -42,7 +47,7 @@
           ./nixos/bluetooth.nix
         ];
         specialArgs = {
-          inherit inputs;
+          inherit inputs myLib;
           hostname = "duke";
           system = "x86_64-linux";
           impermanence = true;
