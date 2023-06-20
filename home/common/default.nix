@@ -1,11 +1,9 @@
-{ myLib, pkgs, ... }: {
-  imports = myLib.getModules ./.;
-
-  systemd.user.startServices = "sd-switch";
+{ pkgs, ... }: {
+  imports = map (f: ./. + "/${f}")
+    ((builtins.filter (f: f != "default.nix")) (builtins.attrNames (builtins.readDir ./.)));
 
   home = {
     stateVersion = "23.05";
-
     packages = with pkgs; [
       entr # Run commands on file change (file watcher)
       inotify-tools # "
@@ -25,4 +23,6 @@
       magic-wormhole # send files between computers
     ];
   };
+
+  systemd.user.startServices = "sd-switch";
 }

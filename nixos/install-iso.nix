@@ -1,4 +1,4 @@
-{ pkgs, nixos-generators }:
+pkgs: nixos-generators:
 let iso-module = {
   networking.wireless.iwd.enable = true;
   networking.wireless.enable = false;

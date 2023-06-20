@@ -1,5 +1,6 @@
-{ myLib, pkgs, ... }: {
-  imports = myLib.getModules ./.;
+{ pkgs, ... }: {
+  imports = map (f: ./. + "/${f}")
+    ((builtins.filter (f: f != "default.nix")) (builtins.attrNames (builtins.readDir ./.)));
 
   home = {
     packages = with pkgs; [
@@ -13,6 +14,4 @@
       libnotify # Command notify-send
     ];
   };
-
-  xdg.mimeApps.enable = true;
 }

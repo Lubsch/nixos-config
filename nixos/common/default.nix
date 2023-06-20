@@ -1,8 +1,8 @@
-{ myLib, cpu, hostname, ... }: {
-  imports = myLib.getModules ./.;
+{ cpu, hostname, ... }: {
+  imports = map (f: ./. + "/${f}")
+    ((builtins.filter (f: f != "default.nix")) (builtins.attrNames (builtins.readDir ./.)));
 
   system.stateVersion = "23.05";
-
   networking.hostName = hostname;
   time.timeZone = "Europe/Berlin";
 

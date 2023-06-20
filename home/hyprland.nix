@@ -4,6 +4,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
 
+    # binde for repeat
     extraConfig = with config; with pkgs; ''
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor=,preferred,auto,auto
@@ -15,21 +16,18 @@
       # Some default env vars.
       env = XCURSOR_SIZE,24
 
-
-      # See https://wiki.hyprland.org/Configuring/Keywords/ for more
       $mainMod = SUPER
 
+      bind = $mainMod, return, exec, ${home.sessionVariables.TERMINAL}
       bind = $mainMod, P, exec, ${home.sessionVariables.PASSWORDMANAGER}
       bind = $mainMod, V, exec, ${home.sessionVariables.LAUNCHER}
-
-      bind = $mainMod, return, exec, ${home.sessionVariables.TERMINAL}
       bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
 
       bind = ,XF86MonBrightnessUp, exec, ${brightnessctl}/bin/brightnessctl set 5%+
       bind = ,XF86MonBrightnessDown, exec, ${brightnessctl}/bin/brightnessctl set 5%-
 
-      bind = ,XF86AudioLowerVolume, exec, ${pamixer}/bin/pamixer -d 2
-      bind = ,XF86AudioRaiseVolume, exec, ${pamixer}/bin/pamixer -i 2
+      binde = ,XF86AudioLowerVolume, exec, ${pamixer}/bin/pamixer -d 2
+      binde = ,XF86AudioRaiseVolume, exec, ${pamixer}/bin/pamixer -i 2
 
       bind = ,Xf86AudioPlay, exec, ${playerctl}/bin/playerctl play-pause
       bind = ,Xf86AudioPrev, exec, ${playerctl}/bin/playerctl previous
@@ -56,10 +54,9 @@
       bind = $mainMod SHIFT, H, layoutmsg, orientationleft
       bind = $mainMod SHIFT, L, layoutmsg, orientationright
 
-      # Show windows on all workspaces
+      # Pin floating window
       bind = $mainMod, 0, pin
 
-      # Switch workspaces with mainMod + [0-9]
       bind = $mainMod, 1, workspace, 1
       bind = $mainMod, 2, workspace, 2
       bind = $mainMod, 3, workspace, 3
@@ -70,7 +67,6 @@
       bind = $mainMod, 8, workspace, 8
       bind = $mainMod, 9, workspace, 9
 
-      # Move active window to a workspace with mainMod + SHIFT + [0-9]
       bind = $mainMod SHIFT, 1, movetoworkspacesilent, 1
       bind = $mainMod SHIFT, 2, movetoworkspacesilent, 2
       bind = $mainMod SHIFT, 3, movetoworkspacesilent, 3
@@ -138,17 +134,6 @@
 
       animations {
           enabled = false
-
-          # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-
-          bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-
-          animation = windows, 1, 7, myBezier
-          animation = windowsOut, 1, 7, default, popin 80%
-          animation = border, 1, 10, default
-          animation = borderangle, 1, 8, default
-          animation = fade, 1, 7, default
-          animation = workspaces, 1, 6, default
       }
 
       master {
@@ -158,7 +143,6 @@
       }
 
       gestures {
-          # See https://wiki.hyprland.org/Configuring/Variables/ for more
           workspace_swipe = true
       }
 
