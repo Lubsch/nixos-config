@@ -12,17 +12,18 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 - Impermanence: Define what data persist boots
 - Hyprland: Window manager
 - Home-Manager: Modules for managing the home directory
-- Firefox-Addons: Duh.
 
 ## Where state lingers on
 
 - Hibernation resume offset and swap size (see `flake.nix`)
 - User password
+- /persist/home permissions
 - Wifi credentials
 - SSH keys (including git access)
 - Steam settings and Proton (run `, protonup` for install and updates)
 - Some website settings
-- Password Manager (required for email)
+- Password Manager (required for email, done through syncthing)
+- Syncthing
 
 ## Todo that's not marked
 
@@ -64,6 +65,8 @@ Install nixos to the machine
 ```
 doas installate <hostname>
 ```
+Shutdown and boot without the USB drive, enjoy! :)
+
 For recovery purposes you can also use these scripts:
 ```
 doas decrypt <hostname>
@@ -71,4 +74,3 @@ doas decrypt <hostname>
 ```
 doas mountall <hostname>
 ```
-Shutdown and boot without the USB drive, enjoy! :)

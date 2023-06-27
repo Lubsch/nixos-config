@@ -16,7 +16,7 @@
       nix-tree # view a nix derivation's dependencies
       ncdu # disk usage viewing
       tokei # count lines of code
-      htop # resource usage viewer
+      btop # resource usage viewer
       neofetch
       ripgrep # better grep
       fd # better find
