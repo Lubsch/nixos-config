@@ -64,5 +64,39 @@
         };
       };
     };
+    "shah" = lib.nixosSystem {
+        modules = [
+          ./nixos/common
+          ./nixos/wireless.nix
+          ./nixos/desktop.nix
+          ./nixos/zsh.nix
+          ./nixos/bluetooth.nix
+        ];
+        specialArgs = {
+          inherit inputs;
+          hostname = "shah";
+          system = "x86_64-linux";
+          impermanence = true;
+          # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
+          swap = { size = 8192; offset = "1256037"; };
+          cpu = { vendor = "intel"; freq = "powersave"; };
+          kernelModules = [ ];
+          initrdModules = [ 
+            "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci"
+          ];
+          users."lubsch".imports = [
+            ./home/common
+            ./home/nvim
+            ./home/desktop-common
+            ./home/hyprland.nix
+            ./home/mail.nix
+            ./home/syncthing.nix
+            ./home/keepassxc.nix
+            ./home/qutebrowser.nix
+          ];
+        };
+      };
+    };
+    
   };
 }
