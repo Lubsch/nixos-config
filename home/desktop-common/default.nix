@@ -4,6 +4,7 @@
 
   home = {
     packages = with pkgs; [
+      wev # show pressed keys
       mpv # media player
       ffmpeg-full # media tools (full, so there is ffplay)
       zathura # pdf viewer

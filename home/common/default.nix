@@ -5,6 +5,9 @@
   home = {
     stateVersion = "23.05";
     packages = with pkgs; [
+      file # File information
+      fq # Explore file formats
+      imagemagick # Convert images
       entr # Run commands on file change (file watcher)
       inotify-tools # "
       poppler_utils # PDF utils (e.g. pdftotext)

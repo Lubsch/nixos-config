@@ -43,7 +43,6 @@
       }
       setopt PROMPT_SUBST
       prompt='%~ $(git_info)%f$ '
-      rprompt='%D{%k:%M:%S}'
 
       # Disable C-s which freezes the terminal and is annoying
       stty stop undef

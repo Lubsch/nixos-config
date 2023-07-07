@@ -15,6 +15,7 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 ## Where state lingers on
 
+- Desktop Wallpaper (set to `~/pictures/wallpaper`)
 - Hibernation resume offset and swap size (see `flake.nix`)
 - User password
 - /persist/home permissions
@@ -34,6 +35,8 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 - E-Mail
 - Calendar
 - Statusbar
+- Touch for terminal and image viewer
+- Rotate button
 
 ## Installation Guide
 

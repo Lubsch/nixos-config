@@ -10,7 +10,7 @@
       monitor=,preferred,auto,auto
 
       # Execute your favorite apps at launch
-      exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/bliss-600dpi.png
+      exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       exec-once = ${home.sessionVariables.TERMINALSERVER}
 
       # Some default env vars.

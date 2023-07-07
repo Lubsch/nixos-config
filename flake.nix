@@ -13,15 +13,11 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { nixpkgs, nixos-generators, ... }@inputs: with nixpkgs; with builtins; {
     templates = mapAttrs 
-      (t: _: { description = t; path = ./templates + "/${t}"; }) 
+      (name: _: { description = name; path = ./templates + "/${name}"; }) 
       (readDir ./templates);
 
     packages = lib.genAttrs lib.systems.flakeExposed
@@ -45,8 +41,8 @@
           system = "x86_64-linux";
           impermanence = true;
           # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
-          swap = { size = 8192; offset = "1256037"; };
-          cpu = { vendor = "intel"; freq = "powersave"; };
+          swap = { size = 8 * 1024; offset = "1256037"; };
+          cpuVendor = "intel";
           kernelModules = [ "kvm-intel" ];
           initrdModules = [ 
             "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc"
@@ -63,6 +59,7 @@
           ];
         };
       };
+
       "shah" = lib.nixosSystem {
           modules = [
             ./nixos/common
@@ -77,8 +74,8 @@
             system = "x86_64-linux";
             impermanence = true;
             # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
-            swap = { size = 8192; offset = "2106624"; };
-            cpu = { vendor = "intel"; freq = "powersave"; };
+            swap = { size = 8 * 1024; offset = "2106624"; };
+            cpuVendor = "intel";
             kernelModules = [ ];
             initrdModules = [ 
               "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci"
