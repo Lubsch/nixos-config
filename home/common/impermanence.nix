@@ -1,4 +1,4 @@
-{ lib, impermanence, inputs, ... }:
+{ lib, impermanence ? true, inputs, ... }:
 if impermanence then { 
   imports = [ inputs.impermanence.nixosModules.home-manager.impermanence ];
 } else {

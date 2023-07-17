@@ -39,7 +39,6 @@
       config.bind("K", "tab-next")
 
       c.colors.webpage.preferred_color_scheme = "dark"
-      c.colors.webpage.bg = "#${config.colors.background}"
 
       c.fonts.default_family = "${config.fonts.regular.name}"
       c.fonts.default_size = "11pt"

@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, impermanence, ... }@args:
+{ config, pkgs, inputs, impermanence ? true, ... }@args:
 if (args ? users) then {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
     users = {

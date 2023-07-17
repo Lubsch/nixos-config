@@ -46,7 +46,7 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
--- dap (see package.nix)
+local dap = require('dap')
 dap.configurations.cpp = {
   {
     name = 'Launch',
@@ -106,43 +106,14 @@ vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
 vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 vim.keymap.set('n', '<space>=', function() vim.lsp.buf.format { async = true } end, bufopts)
 
-local lspconfig = require('lspconfig')
-
--- Set up lspconfig.
--- local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-function add_lsp(binary, server, options)
-    if vim.fn.executable(binary) == 1 then server.setup(options) end
-end
-
-add_lsp("typst-lsp", lspconfig.typst_lsp, {})
-add_lsp("rnix-lsp", lspconfig.rnix, {})
-add_lsp("clangd", lspconfig.clangd, {})
-add_lsp("jdt-language-server", lspconfig.jdtls, {
-    cmd = { "jdt-language-server", "-configuration", "/home/lubsch/.cache/jdtls/config", "-data", "/home/lubsch/.cache/jdtls/workspace" },
-
-    init_options = {
-        workspace = "/home/lubsch/.cache/jdtls/workspace"
-    }
-})
-
 -- completions
 -- Set up nvim-cmp.
 local cmp = require'cmp'
 
 cmp.setup({
-snippet = {
-  -- REQUIRED - you must specify a snippet engine
-  expand = function(args)
-    vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-    -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-    -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-    -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-  end,
-},
 window = {
-  -- completion = cmp.config.window.bordered(),
-  -- documentation = cmp.config.window.bordered(),
+  completion = cmp.config.window.bordered(),
+  documentation = cmp.config.window.bordered(),
 },
 mapping = cmp.mapping.preset.insert({
   ['<C-b>'] = cmp.mapping.scroll_docs(-4),

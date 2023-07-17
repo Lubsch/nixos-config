@@ -1,4 +1,4 @@
-{ hostname, lib, swap, impermanence, ... }@args:
+{ hostname, lib, swap, impermanence ? true, ... }@args:
 let
   # Pass main-drive as an argument if you don't want encryption
   main-drive = if (args ? main-drive)

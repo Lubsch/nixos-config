@@ -1,7 +1,7 @@
 " Remap leader key
 nmap <Space> <leader>
 
-set mouse=
+set mousescroll=ver:1
 
 colorscheme gruvbox
 

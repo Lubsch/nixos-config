@@ -1,4 +1,4 @@
-{ pkgs, kernelModules, initrdModules, ... }: {
+{ pkgs, kernelModules ? [], initrdModules ? [], ... }: {
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 

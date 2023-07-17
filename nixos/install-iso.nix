@@ -1,4 +1,4 @@
-pkgs: nixos-generators:
+pkgs: inputs:
 let iso-module = {
   networking.wireless.iwd.enable = true;
   networking.wireless.enable = false;
@@ -90,7 +90,7 @@ let iso-module = {
     '')
   ];
 }; in
-nixos-generators.nixosGenerate {
+inputs.nixos-generators.nixosGenerate {
   system = pkgs.system;
   format = "install-iso";
   modules = [
