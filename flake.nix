@@ -19,10 +19,10 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs: with nixpkgs; {
-    templates = builtins.mapAttrs 
+  outputs = { nixpkgs, ... }@inputs: with nixpkgs; with builtins; {
+    templates = mapAttrs 
       (name: _: { description = name; path = ./templates + "/${name}"; }) 
-      (builtins.readDir ./templates);
+      (readDir ./templates);
 
     packages = lib.genAttrs lib.systems.flakeExposed
       (system: let pkgs = legacyPackages.${system}; in {
@@ -30,12 +30,10 @@
         install-iso = import ./nixos/install-iso.nix pkgs inputs.nixos-generators;
       });
 
-    nixosConfigurations = mapAttrs 
-    (hostname: config: lib.nixosSystem {
-        inherit (config) modules;
-        specialArgs = { inherit inputs hostname; } // config.specialArgs;
-    })
-    {
+    nixosConfigurations = mapAttrs (hostname: c: lib.nixosSystem {
+      inherit (c) modules;
+      specialArgs = { inherit inputs hostname; } // c.specialArgs;
+    }) {
       "duke" = {
         modules = [
           ./nixos/common
@@ -46,7 +44,7 @@
         ];
         specialArgs = {
           # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
-          swap = { size = 8 * 1024; offset = "1256037"; };
+          swap = { size = 8; offset = "1256037"; };
           cpuVendor = "intel";
           kernelModules = [ "kvm-intel" ];
           initrdModules = [ 
@@ -74,7 +72,7 @@
           ./nixos/bluetooth.nix
         ];
         specialArgs = {
-          swap = { size = 8 * 1024; offset = "2106624"; };
+          swap = { size = 8; offset = "2106624"; };
           cpuVendor = "intel";
           initrdModules = [ 
             "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci"

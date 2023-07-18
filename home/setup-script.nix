@@ -1,12 +1,17 @@
-{ pkgs, ... }: {
+{ pkgs, lib, config, ... }: {
+  options.setup-scripts = lib.mkOption { };
 
   config = {
     home.packages = [(pkgs.writeShellScriptBin "setup-all" ''
         echo Starting setup
-        echo WARNING: About to show arbitrary programs starting with "setup-"
-
-        for  f
-        read -p "Setup  [y/n]: " a; [ $a = "y" ] && {
+        ${builtins.concatStringsSep "\n" (builtins.map 
+          (s: ''
+            read -p "Setup ${s.name}? [y/n]: " a; [ $a = "y" ] && {
+              ${s.script}
+            }
+          '') 
+          config.setup-scripts
+        )}
     '')];
   };
 }

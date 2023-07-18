@@ -59,7 +59,7 @@ in
 
   swapDevices = [{
     device = "/swap/swapfile";
-    inherit (swap) size;
+    size = swap.size * 1024;
   }];
   boot = {
     resumeDevice = main-drive;
