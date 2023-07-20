@@ -1,5 +1,4 @@
-# Pass main-drive as an argument if you don't want encryption
-{ hostname, lib, swap, impermanence, main-drive ? "/dev/mapper/${hostname}", ... }:
+{ hostname, lib, swap, impermanence, main-drive, ... }:
 let
   wipeScript = ''
     mkdir -p /mnt

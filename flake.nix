@@ -32,9 +32,10 @@
         inherit inputs hostname; 
         system = "x86_64-linux";
         impermanence = true;
-        main-drive = "/dev/mapper/${hostname}";
+        main-drive = "/dev/mapper/${hostname}"; # Change to disable full-drive encryption
         kernelModules = [ ];
         initrdModules = [ ];
+        users = { };
       } // c.specialArgs;
     }) {
       "duke" = {

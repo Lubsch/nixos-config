@@ -1,11 +1,11 @@
-{ config, pkgs, inputs, impermanence, ... }@args:
+{ config, pkgs, inputs, impermanence, users, ... }:
 let
   keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvuIIrh2iuj2hX0zIzqLUC/5SD/ZJ3GaLcI1AyHDQuM" # droid
   ]; 
 in
-if (args ? users) then {
+if (users != {}) then {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
     users = {
       mutableUsers = false;
@@ -24,7 +24,7 @@ if (args ? users) then {
           # Change permission to root only
           passwordFile = "/persist/passwords/${username}";
         })
-        args.users;
+        users;
     };
     home-manager = {
       extraSpecialArgs = { inherit inputs impermanence; };
@@ -35,7 +35,7 @@ if (args ? users) then {
         (username: user: {
           inherit (user) imports;
           _module.args = { inherit username; }; })
-        args.users;
+        users;
   };
 } else {
   users.users.root.openssh.authorizedKeys = { inherit keys; };
