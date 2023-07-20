@@ -1,4 +1,4 @@
-{ config, ... }: {
+{
   programs.tealdeer = {
     enable = true;
     settings = {
@@ -8,7 +8,7 @@
     };
   };
 
-  home.persistence."/persist${config.home.homeDirectory}".directories = [ 
+  persist.directories = [ 
     ".cache/tealdeer"
   ];
 }

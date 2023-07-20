@@ -4,12 +4,12 @@
     sessionVariables.LAUNCHER = "fuzzel";
   };
 
-  xdg.configFile."fuzzel/fuzzel.ini".text = ''
-   font = ${config.fonts.regular.name}:size=12
-   icon-theme = ${config.gtk.iconTheme.name}
+  xdg.configFile."fuzzel/fuzzel.ini".text = with config; ''
+   font = ${fonts.regular.name}:size=12
+   icon-theme = ${gtk.iconTheme.name}
    layer = overlay
    [colors]
-   background = ${config.colors.background}ff
-   text = ${config.colors.foreground}ff
+   background = ${colors.background}ff
+   text = ${colors.foreground}ff
   '';
 }

@@ -1,18 +1,6 @@
 { username, ... }: 
 let homeDirectory = "/home/${username}"; in {
-  home = {
-    inherit username homeDirectory;
-    persistence."/persist${homeDirectory}" = {
-      directories = [
-        "documents"
-        "music"
-        "pictures"
-        "videos"
-        "misc"
-      ];
-      allowOther = true; # Access to binds for root
-    };
-  };
+  home = { inherit username homeDirectory; };
 
   xdg = {
     userDirs = {
@@ -27,5 +15,16 @@ let homeDirectory = "/home/${username}"; in {
       templates = null;
       desktop = null;
     };
+  };
+
+  persist = {
+    directories = [
+      "documents"
+      "music"
+      "pictures"
+      "videos"
+      "misc"
+    ];
+    allowOther = true; # Access to binds for root
   };
 }

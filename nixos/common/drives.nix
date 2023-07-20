@@ -1,10 +1,6 @@
-{ hostname, lib, swap, impermanence ? true, ... }@args:
+# Pass main-drive as an argument if you don't want encryption
+{ hostname, lib, swap, impermanence, main-drive ? "/dev/mapper/${hostname}", ... }:
 let
-  # Pass main-drive as an argument if you don't want encryption
-  main-drive = if (args ? main-drive)
-    then args.main-drive
-    else "/dev/mapper/${hostname}";
-
   wipeScript = ''
     mkdir -p /mnt
     mount -o subvol=/ "${main-drive}" /mnt
@@ -18,7 +14,6 @@ let
     done && btrfs subvolume delete /mnt/root
 
     btrfs subvolume snapshot /mnt/root-blank /mnt/root
-
     umount /mnt
   '';
 in
@@ -26,7 +21,7 @@ in
   boot.initrd = {
     supportedFilesystems = [ "btrfs" ];
     postDeviceCommands = lib.mkIf impermanence wipeScript;
-    luks.devices."${hostname}".device = lib.mkIf (!(args ? main-drive))
+    luks.devices."${hostname}".device = lib.mkIf (main-drive == "/dev/mapper/${hostname}")
       "/dev/disk/by-partlabel/${hostname}_crypt";
   };
 

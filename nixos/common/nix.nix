@@ -1,4 +1,4 @@
-{ inputs, system ? "x86_64-linux", ... }: {
+{ inputs, system, ... }: {
 
   programs.git.enable = true; # Required for nix command
 

@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }@args: {
+{ lib, pkgs, nixosConfig ? { }, ... }: {
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
@@ -98,15 +98,11 @@
     '';
 
   };
-  
-  home = {
-    # Declutter home when defining zshenv through nixos
-    file.".zshenv".enable = lib.mkIf 
-      ((args ? nixosConfig) && (args.nixosConfig.environment.etc."zshenv" != null))
-      false;
-    
-    persistence."/persist${config.home.homeDirectory}".files = [ 
-      ".local/share/zsh/history"
-    ];
-  };
+
+  # Declutter home when defining zshenv through nixos
+  home.file.".zshenv".enable = lib.mkIf (nixosConfig.environment.etc ? "zshenv") false;
+
+  persist.files = [ 
+    ".local/share/zsh/history"
+  ];
 }

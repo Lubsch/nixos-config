@@ -46,7 +46,7 @@
     '';
   };
 
-  home.persistence."/persist${config.home.homeDirectory}".directories = [ 
+  persist.directories = [ 
     ".local/share/qutebrowser"
   ];
 }

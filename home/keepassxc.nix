@@ -1,4 +1,7 @@
-{ pkgs, ...}: {
+{ pkgs, ...}: 
+let
+  database-path = "~/misc/keepass/secrets.kdbx";
+in {
   home = {
     packages = with pkgs; [ 
       keepassxc
@@ -26,5 +29,13 @@
     ];
 
     sessionVariables."PASSWORDMANAGER" = "kp";
+  };
+
+  setup-scripts.keepassxc = {
+    dependencies = [ "syncthing" ];
+    script = ''
+      echo DO NOT FORGET TO SYNC PASSWORDS TO ${database-path}
+      $BROWSER localhost:8384
+    '';
   };
 }

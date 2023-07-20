@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, ... }: {
+{ pkgs, inputs, ... }: {
 
   home.sessionVariables.BROWSER = "firefox";
 
@@ -24,7 +24,7 @@
     };
   };
 
-  home.persistence."/persist${config.home.homeDirectory}".directories = [ 
+  persist.directories = [ 
     ".mozilla/firefox" 
   ];
 }

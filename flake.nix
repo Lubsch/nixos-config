@@ -27,12 +27,20 @@
     packages = lib.genAttrs lib.systems.flakeExposed
       (system: let pkgs = legacyPackages.${system}; in {
         nvim = import ./home/nvim/package.nix { inherit pkgs; with-servers = false; };
-        install-iso = import ./nixos/install-iso.nix pkgs inputs.nixos-generators;
+        install-iso = import ./nixos/install-iso.nix pkgs inputs;
       });
 
     nixosConfigurations = mapAttrs (hostname: c: lib.nixosSystem {
       inherit (c) modules;
-      specialArgs = { inherit inputs hostname; } // c.specialArgs;
+      specialArgs = { 
+        inherit inputs hostname; 
+        system = "x86_64-linux";
+        impermanence = true;
+        main-drive = "/dev/mapper/${hostname}";
+
+        kernelModules = [ ];
+        initrdModules = [ ];
+      } // c.specialArgs;
     }) {
       "duke" = {
         modules = [
@@ -47,9 +55,7 @@
           swap = { size = 8; offset = "1256037"; };
           cpuVendor = "intel";
           kernelModules = [ "kvm-intel" ];
-          initrdModules = [ 
-            "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc"
-          ];
+          initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
           users."lubsch".imports = [
             ./home/common
             ./home/nvim
@@ -74,9 +80,7 @@
         specialArgs = {
           swap = { size = 8; offset = "2106624"; };
           cpuVendor = "intel";
-          initrdModules = [ 
-            "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci"
-          ];
+          initrdModules = [ "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
           users."lubsch".imports = [
             ./home/common
             ./home/nvim

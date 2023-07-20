@@ -1,11 +1,8 @@
-{ pkgs, config, ... }: {
-  home = {
-    packages = [
-      pkgs.nsxiv
-    ];
-
-    persistence."/persist${config.home.homeDirectory}".directories = [ 
-      ".cache/nsxiv"
-    ];
-  };
+{ pkgs, ... }: {
+  home.packages = [
+    pkgs.nsxiv
+  ];
+  persist.directories = [ 
+    ".cache/nsxiv"
+  ];
 }

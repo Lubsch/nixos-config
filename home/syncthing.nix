@@ -1,4 +1,4 @@
-{ config, ... }: {
+{
   services.syncthing = {
     enable = true;
     extraOptions = [
@@ -6,7 +6,19 @@
     ];
   };
 
-  home.persistence."/persist${config.home.homeDirectory}".directories = [ 
+  persist.directories = [ 
     ".config/syncthing"
   ];
+
+  setup-scripts.syncthing = {
+    dependencies = [ ];
+    script = ''
+      echo What you might want to sync:
+      echo Passwords
+      echo Uni
+      echo Notes
+      echo Pictures
+      $BROWSER localhost:8384
+    '';
+  };
 }

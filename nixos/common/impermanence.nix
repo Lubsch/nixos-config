@@ -1,4 +1,4 @@
-{ lib, impermanence ? true, inputs, ...}: 
+{ lib, impermanence, inputs, ...}: 
 if impermanence then {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
   programs.fuse.userAllowOther = true; # Allow root on impermanence binds

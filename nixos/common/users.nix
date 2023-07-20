@@ -1,4 +1,10 @@
-{ config, pkgs, inputs, impermanence ? true, ... }@args:
+{ config, pkgs, inputs, impermanence, ... }@args:
+let
+  keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvuIIrh2iuj2hX0zIzqLUC/5SD/ZJ3GaLcI1AyHDQuM" # droid
+  ]; 
+in
 if (args ? users) then {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
     users = {
@@ -13,7 +19,7 @@ if (args ? users) then {
             "networkmanager"
             "libvirtd"
           ];
-          openssh.authorizedKeys = { inherit (config) keys; };
+          openssh.authorizedKeys = { inherit keys; };
           # TODO Make this work without /persist existing, too
           # Change permission to root only
           passwordFile = "/persist/passwords/${username}";
@@ -32,5 +38,5 @@ if (args ? users) then {
         args.users;
   };
 } else {
-  users.users.root.openssh.authorizedKeys = { inherit (config) keys; };
+  users.users.root.openssh.authorizedKeys = { inherit keys; };
 }

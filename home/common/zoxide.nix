@@ -1,5 +1,4 @@
-{ config, ... }: {
-
+{
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
@@ -15,7 +14,7 @@
     }
   '';
 
-  home.persistence."/persist${config.home.homeDirectory}".directories = [
+  persist.directories = [
     ".local/share/zoxide" 
   ];
 }

@@ -13,7 +13,7 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 - Hyprland: Window manager
 - Home-Manager: Modules for managing the home directory
 
-## Where state lingers on
+## Where state lingers on outside scripts
 
 - Desktop Wallpaper (set to `~/pictures/wallpaper`)
 - Hibernation resume offset and swap size (see `flake.nix`)
@@ -23,8 +23,6 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 - SSH keys (including git access)
 - Steam settings and Proton (run `, protonup` for install and updates)
 - Some website settings
-- Password Manager (required for email, done through syncthing)
-- Syncthing
 
 ## Todo that's not marked
 
