@@ -13,10 +13,6 @@
       url = "github:nix-community/nixos-generators"; 
       inputs.nixpkgs.follows = "nixpkgs"; 
     };
-    flake-compat = {
-      url = "github:inclyc/flake-compat"; # for nixd
-      flake = false;
-    };
   };
 
   outputs = { nixpkgs, ... }@inputs: with nixpkgs; with builtins; {
@@ -37,7 +33,6 @@
         system = "x86_64-linux";
         impermanence = true;
         main-drive = "/dev/mapper/${hostname}";
-
         kernelModules = [ ];
         initrdModules = [ ];
       } // c.specialArgs;
