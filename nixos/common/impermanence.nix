@@ -4,6 +4,7 @@ if impermanence then {
     inputs.impermanence.nixosModules.impermanence
     (lib.mkAliasOptionModule [ "persist" ] [ "environment" "persistence" "/persist" ] )
   ];
+  programs.fuse.userAllowOther = true;
 } else {
   options.persist = lib.mkOption { };
 }

@@ -73,7 +73,6 @@
           ./nixos/bluetooth.nix
         ];
         specialArgs = {
-          # doas btrfs inspect-internal map-swapfile -r /swap/swapfile
           swap = { size = 8; offset = "1256037"; };
           cpuVendor = "intel";
           kernelModules = [ "kvm-intel" ];
