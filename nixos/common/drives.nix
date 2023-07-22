@@ -61,6 +61,6 @@ in
   };
   services.logind.lidSwitch = "hybrid-sleep";
 
-  # For automount
+  # Automount
   services.udisks2.enable = true;
 }

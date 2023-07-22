@@ -1,7 +1,7 @@
 {
   networking.wireless.iwd.enable = true;
 
-  environment.persistence."/persist".directories = [ 
+  persist.directories = [ 
     "/var/lib/iwd"
   ];
 }

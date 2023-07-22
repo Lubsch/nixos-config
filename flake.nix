@@ -38,6 +38,32 @@
         users = { };
       } // c.specialArgs;
     }) {
+
+    "shah" = {
+        modules = [
+          ./nixos/common
+          ./nixos/wireless.nix
+          ./nixos/desktop.nix
+          ./nixos/zsh.nix
+          ./nixos/bluetooth.nix
+        ];
+        specialArgs = {
+          swap = { size = 8; offset = "2106624"; };
+          cpuVendor = "intel";
+          initrdModules = [ "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
+          users."lubsch".imports = [
+            ./home/common
+            ./home/nvim
+            ./home/desktop-common
+            ./home/hyprland.nix
+            ./home/mail.nix
+            ./home/syncthing.nix
+            ./home/keepassxc.nix
+            ./home/qutebrowser.nix
+          ];
+        };
+      };
+
       "duke" = {
         modules = [
           ./nixos/common
@@ -52,31 +78,6 @@
           cpuVendor = "intel";
           kernelModules = [ "kvm-intel" ];
           initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
-          users."lubsch".imports = [
-            ./home/common
-            ./home/nvim
-            ./home/desktop-common
-            ./home/hyprland.nix
-            ./home/mail.nix
-            ./home/syncthing.nix
-            ./home/keepassxc.nix
-            ./home/qutebrowser.nix
-          ];
-        };
-      };
-
-    "shah" = {
-        modules = [
-          ./nixos/common
-          ./nixos/wireless.nix
-          ./nixos/desktop.nix
-          ./nixos/zsh.nix
-          ./nixos/bluetooth.nix
-        ];
-        specialArgs = {
-          swap = { size = 8; offset = "2106624"; };
-          cpuVendor = "intel";
-          initrdModules = [ "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
           users."lubsch".imports = [
             ./home/common
             ./home/nvim

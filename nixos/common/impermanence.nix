@@ -1,7 +1,9 @@
-{ lib, impermanence, inputs, ...}: 
+{ lib, inputs, impermanence, config, ... }: 
 if impermanence then {
-  imports = [ inputs.impermanence.nixosModules.impermanence ];
-  programs.fuse.userAllowOther = true; # Allow root on impermanence binds
+  imports = [
+    inputs.impermanence.nixosModules.impermanence
+    (lib.mkAliasOptionModule [ "persist" ] [ "environment" "persistence" "/persist" ] )
+  ];
 } else {
-  options.environment.persistence = lib.mkOption { };
+  options.persist = lib.mkOption { };
 }
