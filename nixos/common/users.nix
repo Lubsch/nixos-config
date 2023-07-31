@@ -17,7 +17,6 @@ if (users != {}) then {
           extraGroups = [ "wheel" "libvirtd" ];
           openssh.authorizedKeys = { inherit keys; };
           # TODO Make this work without /persist existing, too
-          # Change permission to root only
           passwordFile = "/persist/passwords/${username}";
         })
         users;

@@ -1,8 +1,8 @@
-{ inputs, hostname, lib, swap, impermanence, main-drive, ... }:
+{ inputs, hostname, lib, swap, impermanence, main-disk, ... }:
 let
   wipeScript = ''
     mkdir -p /mnt
-    mount -o subvol=/ "${main-drive}" /mnt
+    mount -o subvol=/ "${main-disk}" /mnt
 
     btrfs subvolume delete /mnt/root-old
     btrfs subvolume snapshot /mnt/root /mnt/root-old
@@ -22,13 +22,11 @@ in
   boot.initrd = {
     supportedFilesystems = [ "btrfs" ];
     postDeviceCommands = lib.mkIf impermanence wipeScript;
-    luks.devices."${hostname}".device = lib.mkIf (main-drive == "/dev/mapper/${hostname}")
-      "/dev/disk/by-partlabel/${hostname}_crypt";
   };
 
-  disko.devices.disk.vdb = {
+  disko.devices.disk.main = {
     type = "disk";
-    device = main-drive;
+    device = main-disk;
     content = {
       type = "gpt";
       partitions = {
@@ -41,31 +39,35 @@ in
             type = "filesystem";
             format = "vfat";
             mountpoint = "/boot";
-            mountoptions = [ "defaults" ];
+            mountOptions = [ "defaults" ];
           };
         };
-      };
-      luks = {
-        size = "100%";
-        content = {
-          type = "luks";
-          name = "crypted";
-          extraOpenArgs = [ "--allow-discards" ];
-          settings.keyFile = "/tmp/secret.key";
+        luks = {
+          size = "100%";
           content = {
-            type = "btrfs";
-            subVolumes = {
-              "/root" = {
-                mountpoint = "/";
-                mountOptions = [ "compress=zstd" "noatime" ];
-              };
-              "/nix" = {
-                mountpoint = "/nix";
-                mountOptions = [ "compress=zstd" "noatime" ];
-              };
-              "/persist" = {
-                mountpoint = "/persist";
-                mountOptions = [ "compress=zstd" "noatime" ];
+            type = "luks";
+            name = "crypted";
+            extraOpenArgs = [ "--allow-discards" ];
+            settings.keyFile = "/tmp/luks.key";
+            content = {
+              type = "btrfs";
+              subvolumes = {
+                "/root" = {
+                  mountpoint = "/";
+                  mountOptions = [ "compress=zstd" "noatime" ];
+                };
+                "/nix" = {
+                  mountpoint = "/nix";
+                  mountOptions = [ "compress=zstd" "noatime" ];
+                };
+                "/persist" = {
+                  mountpoint = "/persist";
+                  mountOptions = [ "compress=zstd" "noatime" ];
+                };
+                "/swap" = {
+                  mountpoint = "/swap";
+                  mountOptions = [ "noatime" ];
+                };
               };
             };
           };
@@ -73,13 +75,14 @@ in
       };
     };
   };
+  fileSystems."/persist".neededForBoot = true;
 
   swapDevices = [{
     device = "/swap/swapfile";
     size = swap.size * 1024;
   }];
   boot = {
-    resumeDevice = main-drive;
+    resumeDevice = main-disk;
     kernelParams = [ "resume_offset=${swap.offset}" ];
   };
   services.logind.lidSwitch = "hybrid-sleep";

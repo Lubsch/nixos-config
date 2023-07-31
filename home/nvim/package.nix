@@ -38,7 +38,7 @@ let
       };
       customRC = ''
         lua << EOF
-        ${builtins.concatStringsSep "\n" (builtins.map setup-server servers)}
+        ${builtins.concatStringsSep "\n" (map setup-server servers)}
         ${builtins.readFile ./init.lua}
         dap.adapters.lldb = {
           type = 'executable',

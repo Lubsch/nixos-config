@@ -28,8 +28,6 @@
         inherit inputs hostname; 
         system = "x86_64-linux";
         impermanence = true;
-        # Change to disable full-drive encryption
-        main-drive = "/dev/mapper/${hostname}";
         kernelModules = [ ];
         initrdModules = [ ];
         users = { };
@@ -48,6 +46,7 @@
           swap = { size = 8; offset = "2106624"; };
           cpuVendor = "intel";
           initrdModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
+          main-disk = "/dev/sda";
           users."lubsch".imports = [
             ./home/common
             ./home/nvim
