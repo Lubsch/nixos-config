@@ -4,39 +4,32 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     impermanence.url = "github:nix-community/impermanence";
-    hyprland.url = "github:hyprwm/Hyprland";
     home-manager = { 
       url = "github:nix-community/home-manager"; 
-      inputs.nixpkgs.follows = "nixpkgs"; 
-    };
-    nixos-generators = { 
-      url = "github:nix-community/nixos-generators"; 
       inputs.nixpkgs.follows = "nixpkgs"; 
     };
   };
 
   outputs = { nixpkgs, ... }@inputs: with nixpkgs; with builtins; {
-    templates = mapAttrs 
-      (name: _: { description = name; path = ./templates + "/${name}"; }) 
-      (readDir ./templates);
+    templates = mapAttrs (n: _: { path = ./templates + "/${n}"; }) (readDir ./templates);
 
-    packages = lib.genAttrs lib.systems.flakeExposed
-      (system: let pkgs = legacyPackages.${system}; in {
-        nvim = import ./home/nvim/package.nix { inherit pkgs; with-servers = false; };
-        install-iso = import ./nixos/install-iso.nix pkgs inputs;
-      });
+    packages = mapAttrs (_: pkgs: {
+      nvim = import ./home/nvim/package.nix { inherit pkgs; with-servers = false; };
+      nvim-lsp = import ./home/nvim/package.nix { inherit pkgs; with-servers = true; };
+    }) legacyPackages;
 
-    nixosConfigurations = mapAttrs (hostname: c: lib.nixosSystem {
-      inherit (c) modules;
+    nixosConfigurations = mapAttrs (hostname: config: lib.nixosSystem {
+      inherit (config) modules;
       specialArgs = { 
         inherit inputs hostname; 
         system = "x86_64-linux";
         impermanence = true;
-        main-drive = "/dev/mapper/${hostname}"; # Change to disable full-drive encryption
+        # Change to disable full-drive encryption
+        main-drive = "/dev/mapper/${hostname}";
         kernelModules = [ ];
         initrdModules = [ ];
         users = { };
-      } // c.specialArgs;
+      } // config.specialArgs;
     }) {
 
     "shah" = {
@@ -50,7 +43,9 @@
         specialArgs = {
           swap = { size = 8; offset = "2106624"; };
           cpuVendor = "intel";
-          initrdModules = [ "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci" ];
+          initrdModules = [ 
+            "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci"
+          ];
           users."lubsch".imports = [
             ./home/common
             ./home/nvim
@@ -76,7 +71,9 @@
           swap = { size = 8; offset = "1256037"; };
           cpuVendor = "intel";
           kernelModules = [ "kvm-intel" ];
-          initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
+          initrdModules = [ 
+            "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc"
+          ];
           users."lubsch".imports = [
             ./home/common
             ./home/nvim

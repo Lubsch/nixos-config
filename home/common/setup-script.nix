@@ -24,7 +24,7 @@ in {
         echo Starting setup
         ${builtins.concatStringsSep "\n" (builtins.map 
           (s: with config.setup-scripts.${s}; ''
-            echo ${s} (dependencies: ${builtins.concatStringsSep " " dependencies}):
+            echo '${s} (dependencies: ${builtins.concatStringsSep " " dependencies}):'
             ${script}
             echo Press Enter to continue
             read

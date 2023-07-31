@@ -1,8 +1,8 @@
 -- Improve startup time
-require('impatient')
+require'impatient'
 
 -- color scheme
-require("gruvbox").setup({ 
+require'gruvbox'.setup({ 
     transparent_mode = true,
     italic = {
         strings = false,
@@ -16,8 +16,8 @@ require("gruvbox").setup({
 })
 
 -- telescope config
-local actions = require("telescope.actions")
-require("telescope").setup{
+local actions = require'telescope.actions'
+require'telescope'.setup{
     defaults = {
         mappings = {
             i = {
@@ -37,7 +37,7 @@ require("telescope").setup{
 
 
 -- Autopair
-require 'nvim-autopairs':setup{}
+require'nvim-autopairs':setup{}
 
 -- treesitter
 require'nvim-treesitter.configs'.setup {
@@ -46,7 +46,7 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
-local dap = require('dap')
+local dap = require'dap'
 dap.configurations.cpp = {
   {
     name = 'Launch',

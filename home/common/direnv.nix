@@ -3,7 +3,7 @@
     enable = true;
     nix-direnv.enable = true;
     config = {
-      warn_timeout = "0s";
+      warn_timeout = "2m";
     };
   };
 

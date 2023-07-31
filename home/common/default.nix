@@ -5,17 +5,16 @@
   home = {
     stateVersion = "23.05";
     packages = with pkgs; [
+      gource # Visualize git histories
       file # File information
       fq # Explore file formats
       imagemagick # Convert images
-      entr # Run commands on file change (file watcher)
-      inotify-tools # "
+      entr inotify-tools # Run commands on file change (file watcher)
       poppler_utils # PDF utils (e.g. pdftotext)
       hyperfine # application benchmarks
       libqalculate # terminal calculator
       skim # fuzzy finder
-      zip
-      unzip
+      zip unzip
       nix-tree # view a nix derivation's dependencies
       ncdu # disk usage viewing
       tokei # count lines of code

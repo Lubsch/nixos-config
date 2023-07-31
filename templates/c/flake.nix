@@ -1,4 +1,5 @@
 {
+  description = "c project";
   outputs = { nixpkgs, ...}: 
   let
     forAllSystems = nixpkgs.lib.genAttrs

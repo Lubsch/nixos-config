@@ -1,21 +1,6 @@
 { config, lib, pkgs, ... }: {
   home.sessionVariables.BROWSER = lib.mkForce "qutebrowser";
 
-  /*
-  systemd.user.services.qutebrowser = {
-    Unit = {
-      Description = "Windowless qutebrowser on startup";
-      PartOf = [ "graphical-session.target" ];
-      After = [ "graphical-session.target" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.qutebrowser}/bin/qutebrowser --nowindow";
-      Restart = "on-failure";
-    };
-    Install = { WantedBy = [ "graphical-session.target" ]; };
-  };
-  */
-
   programs.qutebrowser = {
     enable = true;
     package = pkgs.qutebrowser.override { enableWideVine = true; };

@@ -7,13 +7,13 @@ let homeDirectory = "/home/${username}"; in {
       enable = true;
       createDirectories = true;
       documents = "${homeDirectory}/documents";
-      download = "${homeDirectory}/downloads";
+      download = homeDirectory;
       music = "${homeDirectory}/music";
       pictures = "${homeDirectory}/pictures";
       videos = "${homeDirectory}/videos";
       publicShare = null;
       templates = null;
-      desktop = null;
+      desktop = homeDirectory;
     };
   };
 

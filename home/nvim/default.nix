@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, ... }: {
   home = {
     sessionVariables.EDITOR = "nvim";
     packages = [ (import ./package.nix { inherit pkgs; with-servers = true; }) ];

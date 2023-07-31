@@ -1,4 +1,4 @@
-{ lib, inputs, impermanence, config, ... }: 
+{ lib, inputs, impermanence, ... }: 
 if impermanence then {
   imports = [
     inputs.impermanence.nixosModules.impermanence

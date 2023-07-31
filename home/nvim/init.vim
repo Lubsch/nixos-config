@@ -1,5 +1,6 @@
 " Remap leader key
 nmap <Space> <leader>
+nmap <leader> <localleader>
 
 set mousescroll=ver:1
 

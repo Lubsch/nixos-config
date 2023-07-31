@@ -1,6 +1,4 @@
-{ pkgs, lib, config, inputs, ... }: {
-  imports = [ inputs.hyprland.homeManagerModules.default ];
-
+{ pkgs, config, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
 

@@ -83,6 +83,7 @@ let iso-module = {
 
       # Create the user password
       mkdir /mnt/persist/passwords
+      chmod o=,g= /persist/passwords
       mkpasswd -m sha-512 > /mnt/persist/passwords/"$3"
 
       # Store auto-generated hardware config

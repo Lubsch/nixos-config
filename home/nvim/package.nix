@@ -1,4 +1,5 @@
-{ pkgs, with-servers }:
+# Server-packages (although not always co-installed) are defined here, too so there's fewer files to modify
+{ pkgs, with-servers, ... }:
 let 
   servers = with pkgs; [
     { package = typst-lsp; name = "typst_lsp"; }
@@ -7,12 +8,15 @@ let
     { package = jdt-language-server; name = "jdtls"; binary = "jdt-language-server";
       opts = "{ cmd = { 'jdt-language-server', '-configuration', '$HOME/.cache/jdtls/config', '-data', '$HOME/.cache/jdtls/workspace' }, init_options = { workspace = '$HOME/.cache/jdtls/workspace' } }"; }
   ];
+
   setup-server = { package, name ? package.pname, binary ? package.pname, opts ? "{}" }: 
     "if vim.fn.executable'${binary}' == 1 then require'lspconfig'.${name}.setup${opts} end";
-  nvim = pkgs.wrapNeovim pkgs.neovim-unwrapped {
+
+  mynvim = pkgs.wrapNeovim pkgs.neovim-unwrapped {
     configure = {
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
+          conjure
           nvim-dap
           nvim-cmp
           cmp-nvim-lsp
@@ -54,5 +58,5 @@ let
 in 
 pkgs.symlinkJoin {
   name = "nvim";
-  paths = (if with-servers then map (s: s.package) servers else []) ++ [ nvim ];
+  paths = [ mynvim ] ++ (if with-servers then map (s: s.package) servers else []);
 }
