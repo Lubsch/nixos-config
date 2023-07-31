@@ -8,6 +8,10 @@
       url = "github:nix-community/home-manager"; 
       inputs.nixpkgs.follows = "nixpkgs"; 
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, ... }@inputs: with nixpkgs; with builtins; {
@@ -43,9 +47,7 @@
         specialArgs = {
           swap = { size = 8; offset = "2106624"; };
           cpuVendor = "intel";
-          initrdModules = [ 
-            "ehci_pci" "ahci" "usb_storage" "sd_mod" "sdhci_pci"
-          ];
+          initrdModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
           users."lubsch".imports = [
             ./home/common
             ./home/nvim
@@ -71,9 +73,7 @@
           swap = { size = 8; offset = "1256037"; };
           cpuVendor = "intel";
           kernelModules = [ "kvm-intel" ];
-          initrdModules = [ 
-            "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc"
-          ];
+          initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
           users."lubsch".imports = [
             ./home/common
             ./home/nvim

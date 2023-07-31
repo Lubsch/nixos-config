@@ -14,5 +14,5 @@
     driSupport32Bit = true;
   };
 
-  fonts.enableDefaultFonts = true;
+  fonts.enableDefaultPackages = true;
 }

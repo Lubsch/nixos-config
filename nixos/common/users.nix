@@ -14,11 +14,7 @@ if (users != {}) then {
         (username: _: {
           isNormalUser = true;
           shell = pkgs.zsh;
-          extraGroups = [
-            "wheel"
-            "networkmanager"
-            "libvirtd"
-          ];
+          extraGroups = [ "wheel" "libvirtd" ];
           openssh.authorizedKeys = { inherit keys; };
           # TODO Make this work without /persist existing, too
           # Change permission to root only

@@ -1,4 +1,4 @@
-{ hostname, lib, swap, impermanence, main-drive, ... }:
+{ inputs, hostname, lib, swap, impermanence, main-drive, ... }:
 let
   wipeScript = ''
     mkdir -p /mnt
@@ -17,6 +17,8 @@ let
   '';
 in
 {
+  imports = [ inputs.disko.nixosModules.disko ];
+
   boot.initrd = {
     supportedFilesystems = [ "btrfs" ];
     postDeviceCommands = lib.mkIf impermanence wipeScript;
@@ -24,30 +26,51 @@ in
       "/dev/disk/by-partlabel/${hostname}_crypt";
   };
 
-  fileSystems = {
-    "/" = {
-      device = "${main-drive}";
-      fsType = "btrfs";
-      options = [ "subvol=root" "compress=zstd" "noatime" ];
-    };
-
-    "/nix" = {
-      device = "${main-drive}";
-      fsType = "btrfs";
-      options = [ "subvol=nix" "compress=zstd" "noatime" ];
-    };
-
-    "/persist" = lib.mkIf impermanence {
-      device = "${main-drive}";
-      fsType = "btrfs";
-      options = [ "subvol=persist" "compress=zstd" "noatime" ];
-      neededForBoot = true;
-    };
-
-    "/swap" = {
-      device = "${main-drive}";
-      fsType = "btrfs";
-      options = [ "subvol=swap" "noatime" ];
+  disko.devices.disk.vdb = {
+    type = "disk";
+    device = main-drive;
+    content = {
+      type = "gpt";
+      partitions = {
+        ESP = {
+          label = "EFI";
+          name = "ESP";
+          size = "512M";
+          type = "EF00";
+          content = {
+            type = "filesystem";
+            format = "vfat";
+            mountpoint = "/boot";
+            mountoptions = [ "defaults" ];
+          };
+        };
+      };
+      luks = {
+        size = "100%";
+        content = {
+          type = "luks";
+          name = "crypted";
+          extraOpenArgs = [ "--allow-discards" ];
+          settings.keyFile = "/tmp/secret.key";
+          content = {
+            type = "btrfs";
+            subVolumes = {
+              "/root" = {
+                mountpoint = "/";
+                mountOptions = [ "compress=zstd" "noatime" ];
+              };
+              "/nix" = {
+                mountpoint = "/nix";
+                mountOptions = [ "compress=zstd" "noatime" ];
+              };
+              "/persist" = {
+                mountpoint = "/persist";
+                mountOptions = [ "compress=zstd" "noatime" ];
+              };
+            };
+          };
+        };
+      };
     };
   };
 
