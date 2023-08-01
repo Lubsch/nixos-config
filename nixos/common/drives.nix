@@ -48,7 +48,7 @@ in
             type = "luks";
             name = "crypted";
             extraOpenArgs = [ "--allow-discards" ];
-            settings.keyFile = "/tmp/luks.key";
+            # settings.keyFile = "/tmp/luks.key";
             content = {
               type = "btrfs";
               subvolumes = {
