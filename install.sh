@@ -30,11 +30,11 @@ else
     exit 1
 fi
 
-# stty -echo
-# printf "Enter disk encryption password: "
-# read -r password
-# echo $password > /tmp/luks.key
-# stty echo
+stty -echo
+printf "Enter disk encryption password: "
+read -r password
+echo $password > /tmp/luks.key
+stty echo
 
 users=$(nix eval --raw .#nixosConfigurations."$1"._module.specialArgs.users --apply 'users: builtins.concatStringsSep "\n" (builtins.attrNames users)')
 for user in $users; do
@@ -45,4 +45,4 @@ for user in $users; do
 done
 
 # key-path twice, once remote, once local
-/tmp/nix run github:numtide/nixos-anywhere -- $armFlag --extra-files "$temp" --flake .#"$1" root@"$2"
+/tmp/nix run github:numtide/nixos-anywhere -- $armFlag --extra-files "$temp" --disk-encryption-keys /tmp/luks.key /tmp/luks.key --flake .#"$1" root@"$2"
