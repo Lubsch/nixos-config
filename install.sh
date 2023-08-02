@@ -33,7 +33,7 @@ fi
 stty -echo
 printf "Enter disk encryption password: "
 read -r password
-echo $password > /tmp/luks.key
+echo -n $password > /tmp/luks.key
 stty echo
 
 users=$(nix eval --raw .#nixosConfigurations."$1"._module.specialArgs.users --apply 'users: builtins.concatStringsSep "\n" (builtins.attrNames users)')

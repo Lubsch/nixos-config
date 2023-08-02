@@ -2,7 +2,7 @@
 let
   wipeScript = ''
     mkdir -p /mnt
-    mount -o subvol=/ "${main-disk}" /mnt
+    mount -o subvol=/ "/dev/mapper/main" /mnt
 
     btrfs subvolume delete /mnt/root-old
     btrfs subvolume snapshot /mnt/root /mnt/root-old
@@ -46,12 +46,8 @@ in
           size = "100%";
           content = {
             type = "luks";
-            name = "crypted";
+            name = "main";
             extraOpenArgs = [ "--allow-discards" ];
-            settings = {
-              keyFile = "/tmp/luks.key";
-              fallBackToPassword = true;
-            };
             content = {
               type = "btrfs";
               subvolumes = {
