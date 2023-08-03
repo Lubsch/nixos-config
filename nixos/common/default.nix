@@ -6,7 +6,7 @@
   networking.hostName = hostname;
   time.timeZone = "Europe/Berlin";
   environment.enableAllTerminfo = true;
-  environment.binSh = "${pkgs.dash}"/bin/dash;
+  environment.binsh = "${pkgs.dash}/bin/dash";
 
   hardware = {
     enableRedistributableFirmware = true;

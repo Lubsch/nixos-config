@@ -15,7 +15,6 @@ if (users != {}) then {
           shell = pkgs.zsh;
           extraGroups = [ "wheel" "libvirtd" ];
           openssh.authorizedKeys = { inherit keys; };
-          # TODO Make this work without /persist existing, too
           passwordFile = "/persist/passwords/${name}";
         })
         users;
