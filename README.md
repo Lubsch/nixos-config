@@ -53,7 +53,8 @@ doas dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
 
 Boot from the USB drive and set the root password:
 ```
-sudo passwd <password>
+sudo passwd
+<password>
 ```
 
 You need to connect to the internet (preferably over ethernet). To enable wifi:
