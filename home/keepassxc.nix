@@ -32,7 +32,7 @@ in {
   };
 
   setup-scripts.keepassxc = {
-    dependencies = [ "syncthing" ];
+    deps = [ "syncthing" ];
     script = ''
       echo DO NOT FORGET TO SYNC PASSWORDS TO ${database-path}
       $BROWSER localhost:8384

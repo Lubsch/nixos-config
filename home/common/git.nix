@@ -9,7 +9,7 @@
   };
 
   setup-scripts.git = {
-    dependencies = [ ];
+    deps = [ ];
     script = ''
       echo Prepare to upload your ssh public keys
       echo They will be copied to your clipboard.

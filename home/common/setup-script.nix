@@ -2,17 +2,15 @@
 let
   order-scripts = with builtins; scripts: order:
     if scripts == { } then order else let 
-      newly-ordered = filter (n: scripts.${n}.dependencies == []) (attrNames scripts);
-      dependencies-filtered = mapAttrs (_: s: s // { dependencies = filter (d: !(elem d order)) s.dependencies; }) scripts;
-    in order-scripts
-      (removeAttrs dependencies-filtered newly-ordered)
-      (order ++ newly-ordered);
+      newly-ordered = filter (n: scripts.${n}.deps == []) (attrNames scripts);
+      deps-filtered = mapAttrs (_: s: s // { deps = filter (d: !(elem d order)) s.deps; }) scripts;
+    in order-scripts (removeAttrs deps-filtered newly-ordered) (order ++ newly-ordered);
 in {
   options.setup-scripts = lib.mkOption { };
 
   config = {
     setup-scripts.resume-offset = {
-      dependencies = [ ];
+      deps = [ ];
       script = ''
         btrfs inspect-internal map-swapfile -r /swap/swapfile | wl-copy
         echo Copied offset to clipboard, paste it in the swap config in flake.nix
@@ -24,7 +22,7 @@ in {
         echo Starting setup
         ${builtins.concatStringsSep "\n" (builtins.map 
           (s: with config.setup-scripts.${s}; ''
-            echo '${s} (dependencies: ${builtins.concatStringsSep " " dependencies}):'
+            echo '${s} (dependencies: ${builtins.concatStringsSep " " deps}):'
             ${script}
             echo Press Enter to continue
             read

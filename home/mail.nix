@@ -1,6 +1,6 @@
 {
   setup-scripts.mail = {
-    dependencies = [ "keepassxc" ];
+    deps = [ "keepassxc" ];
     script = ''
       echo TODO
     '';

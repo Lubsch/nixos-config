@@ -11,12 +11,15 @@
   ];
 
   setup-scripts.syncthing = {
-    dependencies = [ ];
+    deps = [ ];
     script = ''
-      echo What you might want to sync:
+      echo You might want to sync:
       echo Uni
+      echo Old Documents
       echo Notes
       echo Pictures
+      echo Videos
+      echo Projects
       $BROWSER localhost:8384
     '';
   };

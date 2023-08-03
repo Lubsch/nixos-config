@@ -8,8 +8,8 @@ if [ "$#" -gt 2 ] || [ "$#" -lt 1 ]; then
 fi
 
 if [ "$2" != "" ]; then
-    rsync -r . root@"$2":nixos-config --progress
-    ssh root@"$2" -t "cd nixos-config && ./install.sh $1"
+    rsync --rsh="ssh -o StrictHostKeyChecking=no" -r . root@"$2":nixos-config --progress
+    ssh -o StrictHostKeyChecking=no root@"$2" -t "cd nixos-config && ./install.sh $1"
     exit
 fi
 
