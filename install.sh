@@ -13,7 +13,6 @@ print_usage() {
     echo
     echo "OPIONS:"
     echo "  -m  Only mount the drive"
-    echo "  -i  Create an install iso"
     echo "  -h  Hostname of device"
     echo "  -a  Address to reach device"
     exit 1
@@ -45,12 +44,8 @@ nix="nix"
 
 system=$($nix eval --raw .#nixosConfigurations."$hostname".pkgs.system)
 
-createiso () {
-    $nix run github:nix-community/nixos-generators -- -f install-iso -c ./nixos/install-iso.nix -I nixpkgs="$($nix eval --raw .#inputs.nixpkgs.outPath)"
-}
-
 mountdrives () {
-    echo asdf
+    $nix run github:nix-community/disko -- -m mount -f .#nixosConfiguration."$hostname"
 }
 
 installhost () {

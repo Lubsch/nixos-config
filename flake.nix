@@ -17,9 +17,7 @@
   outputs = { nixpkgs, ... }@inputs: with nixpkgs; with builtins; {
     templates = mapAttrs (n: _: { description = n; path = ./templates + "/${n}"; }) (readDir ./templates);
 
-    packages = mapAttrs (_: pkgs: {
-      install-iso = import ./nixos/install-iso.nix { inherit nixpkgs pkgs; };
-    } // import ./home/nvim/package.nix pkgs) legacyPackages;
+    packages = mapAttrs (_: pkgs: { } // import ./home/nvim/package.nix pkgs) legacyPackages;
 
     nixosConfigurations = mapAttrs (hostname: config: lib.nixosSystem {
       inherit ({ system = "x86_64-linux"; } // config) system modules;
