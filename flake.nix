@@ -15,18 +15,16 @@
   };
 
   outputs = { nixpkgs, ... }@inputs: with nixpkgs; with builtins; {
-    templates = mapAttrs (n: _: { path = ./templates + "/${n}"; }) (readDir ./templates);
+    templates = mapAttrs (n: _: { description = n; path = ./templates + "/${n}"; }) (readDir ./templates);
 
     packages = mapAttrs (_: pkgs: {
-      nvim = import ./home/nvim/package.nix { inherit pkgs; with-servers = false; };
-      nvim-lsp = import ./home/nvim/package.nix { inherit pkgs; with-servers = true; };
-    }) legacyPackages;
+      install-iso = import ./nixos/install-iso.nix { inherit nixpkgs pkgs; };
+    } // import ./home/nvim/package.nix pkgs) legacyPackages;
 
     nixosConfigurations = mapAttrs (hostname: config: lib.nixosSystem {
-      inherit (config) modules;
+      inherit ({ system = "x86_64-linux"; } // config) system modules;
       specialArgs = { 
         inherit inputs hostname; 
-        system = "x86_64-linux";
         impermanence = true;
         kernelModules = [ ];
         initrdModules = [ ];
@@ -34,7 +32,7 @@
       } // config.specialArgs;
     }) {
 
-    "shah" = {
+      "shah" = {
         modules = [
           ./nixos/common
           ./nixos/wireless.nix
@@ -47,7 +45,7 @@
           cpuVendor = "intel";
           initrdModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
           main-disk = "/dev/sda";
-          users."lubsch".imports = [
+          users."lubsch" = [
             ./home/common
             ./home/nvim
             ./home/desktop-common
@@ -73,7 +71,7 @@
           cpuVendor = "intel";
           kernelModules = [ "kvm-intel" ];
           initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
-          users."lubsch".imports = [
+          users."lubsch" = [
             ./home/common
             ./home/nvim
             ./home/desktop-common

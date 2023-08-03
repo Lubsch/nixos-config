@@ -1,4 +1,4 @@
-{ inputs, system, ... }: {
+{ inputs, ... }: {
 
   programs.git.enable = true; # Required for nix command
 
@@ -20,11 +20,8 @@
     registry.config.flake.outPath = ../..;
   };
 
-  nixpkgs = {
-    hostPlatform = { inherit system; };
-    config = { 
-      allowUnfree = true; 
-      enableParallelBuilding = true;
-    };
+  nixpkgs.config = {
+    allowUnfree = true; 
+    enableParallelBuilding = true;
   };
 }

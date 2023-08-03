@@ -48,6 +48,10 @@ in
             type = "luks";
             name = "main";
             extraOpenArgs = [ "--allow-discards" ];
+            settings = {
+              keyFile = "/tmp/luks.key";
+              fallbackToPassword = true;
+            };
             content = {
               type = "btrfs";
               subvolumes = {

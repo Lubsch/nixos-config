@@ -1,5 +1,5 @@
 # Server-packages (although not always co-installed) are defined here, too so there's fewer files to modify
-{ pkgs, with-servers, ... }:
+pkgs:
 let 
   servers = with pkgs; [
     { package = typst-lsp; name = "typst_lsp"; }
@@ -12,7 +12,7 @@ let
   setup-server = { package, name ? package.pname, binary ? package.pname, opts ? "{}" }: 
     "if vim.fn.executable'${binary}' == 1 then require'lspconfig'.${name}.setup${opts} end";
 
-  mynvim = pkgs.wrapNeovim pkgs.neovim-unwrapped {
+  nvim = pkgs.wrapNeovim pkgs.neovim-unwrapped {
     configure = {
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
@@ -55,8 +55,13 @@ let
       '';
     };
   }; 
-in 
-pkgs.symlinkJoin {
-  name = "nvim";
-  paths = [ mynvim ] ++ (if with-servers then map (s: s.package) servers else []);
+  
+  
+
+in {
+  inherit nvim;
+  nvim-lsp = pkgs.symlinkJoin {
+    name = "nvim";
+    paths = [ nvim ] ++ map (s: s.package) servers;
+  };
 }

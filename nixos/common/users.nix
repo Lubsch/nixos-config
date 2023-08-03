@@ -2,22 +2,21 @@
 let
   keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvuIIrh2iuj2hX0zIzqLUC/5SD/ZJ3GaLcI1AyHDQuM" # droid
   ]; 
 in
 if (users != {}) then {
+
   imports = [ inputs.home-manager.nixosModules.home-manager ];
     users = {
       mutableUsers = false;
-
       users = builtins.mapAttrs
-        (username: _: {
+        (name: _: {
           isNormalUser = true;
           shell = pkgs.zsh;
           extraGroups = [ "wheel" "libvirtd" ];
           openssh.authorizedKeys = { inherit keys; };
           # TODO Make this work without /persist existing, too
-          passwordFile = "/persist/passwords/${username}";
+          passwordFile = "/persist/passwords/${name}";
         })
         users;
     };
@@ -27,11 +26,16 @@ if (users != {}) then {
       useUserPackages = true;
 
       users = builtins.mapAttrs 
-        (username: user: {
-          inherit (user) imports;
-          _module.args = { inherit username; }; })
+        (name: imports: {
+          inherit imports;
+          _module.args = { username = name; }; })
         users;
   };
+  system.activationScripts = builtins.mapAttrs (name: _: { "homedir-persist-${name}" = ''
+    mkdir -p /persist/home/${name}
+    chown ${name} /persist/home/${name}
+  ''; }) users;
+
 } else {
   users.users.root.openssh.authorizedKeys = { inherit keys; };
 }
