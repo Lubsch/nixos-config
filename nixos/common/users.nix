@@ -31,10 +31,10 @@ if (users != {}) then {
           _module.args = { username = name; }; })
         users;
   };
-  system.activationScripts = builtins.mapAttrs (name: _: { "homedir-persist-${name}" = ''
+  system.activationScripts = builtins.mapAttrs (name: _: ''
     mkdir -p /persist/home/${name}
     chown ${name} /persist/home/${name}
-  ''; }) users;
+  '') users;
 
 } else {
   users.users.root.openssh.authorizedKeys = { inherit keys; };

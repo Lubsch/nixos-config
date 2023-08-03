@@ -10,18 +10,16 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 - Nixpkgs: Packages and standard library
 - Impermanence: Define what data persist boots
-- Hyprland: Window manager
 - Home-Manager: Modules for managing the home directory
+- Disko: Define partioning declaratively
 
 ## Where state lingers on outside scripts
 
 - Desktop Wallpaper (set to `~/pictures/wallpaper`)
 - Hibernation resume offset and swap size (see `flake.nix`)
-- User password
-- /persist/home permissions
 - Wifi credentials
 - SSH keys (including git access)
-- Steam settings and Proton (run `, protonup` for install and updates)
+- Steam settings and Proton
 - Some website settings
 
 ## Todo that's not marked
@@ -40,38 +38,28 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 This guide should include each and every step to get up and running on a new machine. This way, I don't have to put any effort into remembering a lot of details which you could get wrong. It also increases reproducibility. This is not primarily intended for other users but you can of course use and adapt these steps to your needs.
 
-Burn the iso to an empty usb stick
+Download the iso from [https://nixos.org/download.html#nixos-iso](https://nixos.org/download.html#nixos-iso):
+
+Burn the iso to an empty usb stick:
 ```
 umount </dev/usb_drive>
 doas dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
 ```
 
-Boot from the USB drive.
+Boot from the USB drive and enable internet (preferably over ethernet).
 
-Enable wifi:
+To enable wifi:
 ```
-iwctl station <station> enable
-iwctl station <station> connect <ssid>
+sudo systemctl enable wpa_supplicant.service
+wpa_cli
+scan
+add_network
+set_network 0 ssid "<ssid>"
+set_network 0 psk "<psk>"
+enable_network 0
 ```
 
-Clone this repo:
+You can clone this repo or install it via ssh. Either way, run in this repo:
 ```
-clone
-```
-Run the setup script
-```
-doas setup <hostname> <drive> <username>
-```
-Install nixos to the machine
-```
-doas installate <hostname>
-```
-Shutdown and boot without the USB drive, enjoy! :)
-
-For recovery purposes you can also use these scripts:
-```
-doas decrypt <hostname>
-```
-```
-doas mountall <hostname>
+[sudo] ./install.sh <hostname> [<address>]
 ```

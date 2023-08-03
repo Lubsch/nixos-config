@@ -12,7 +12,7 @@ let
       btrfs subvolume delete /mnt/$subvolume
     done && btrfs subvolume delete /mnt/root
 
-    btrfs subvolume snapshot /mnt/root-blank /mnt/root
+    btrfs subvolume create /mnt/root
     umount /mnt
   '';
 in
@@ -48,12 +48,9 @@ in
             type = "luks";
             name = "main";
             extraOpenArgs = [ "--allow-discards" ];
-            settings = {
-              keyFile = "/tmp/luks.key";
-              fallbackToPassword = true;
-            };
             content = {
               type = "btrfs";
+              extraArgs = [ "-f" ];
               subvolumes = {
                 "/root" = {
                   mountpoint = "/";

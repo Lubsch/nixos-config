@@ -15,12 +15,16 @@
   };
 
   outputs = { nixpkgs, ... }@inputs: with nixpkgs; with builtins; {
+
     templates = mapAttrs (n: _: { description = n; path = ./templates + "/${n}"; }) (readDir ./templates);
 
-    packages = mapAttrs (_: pkgs: { } // import ./home/nvim/package.nix pkgs) legacyPackages;
+    packages = mapAttrs (system: pkgs: { 
+      disko = inputs.disko.outputs.packages.${system}.disko;
+    } // import ./home/nvim/package.nix pkgs) legacyPackages;
 
     nixosConfigurations = mapAttrs (hostname: config: lib.nixosSystem {
-      inherit ({ system = "x86_64-linux"; } // config) system modules;
+      inherit (config) modules;
+      system = if config ? system then config.system else "x86_64-linux";
       specialArgs = { 
         inherit inputs hostname; 
         impermanence = true;
