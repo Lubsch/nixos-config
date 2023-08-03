@@ -1,10 +1,10 @@
 # NixOS-config
 
-This is my NixOS-config. It is heavily inspired by [Misterio77's config](https://git.sr.ht/~misterio/nix-config). One of its aims is staying below around 5000 lines of code.
+This is my NixOS-config. It takes inspiration from [Misterio77's config](https://git.sr.ht/~misterio/nix-config). One of its aims is limiting bloat. The flake also has my text-editor neovim as an output.
 
 ## How it works
 
-Host-configs and home-manager-configs are defined in flake.nix. Just specifiy the modules you'd like and the specialArguments to pass through to them.
+System configs are defined in flake.nix. Specifiy the machines' modules and the specialArguments to pass to them.
 
 ## Dependencies
 
@@ -36,7 +36,7 @@ Host-configs and home-manager-configs are defined in flake.nix. Just specifiy th
 
 ## Installation Guide
 
-This guide should include each and every step to get up and running on a new machine. This way, I don't have to put any effort into remembering a lot of details which you could get wrong. It also increases reproducibility. This is not primarily intended for other users but you can of course use and adapt these steps to your needs.
+This guide should include every step to setup a new machine, so I don't have to remember so many details one could get wrong. My config is primarily intended for my own use, but you can of course adapt it to your needs. :)
 
 Download the iso from [https://nixos.org/download.html#nixos-iso](https://nixos.org/download.html#nixos-iso):
 
@@ -46,9 +46,12 @@ umount </dev/usb_drive>
 doas dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
 ```
 
-Boot from the USB drive and enable internet (preferably over ethernet).
+Boot from the USB drive and set the root password:
+```
+sudo passwd <password>
+```
 
-To enable wifi:
+You need to enable an internet connection (preferably ethernet). To enable wifi:
 ```
 sudo systemctl enable wpa_supplicant.service
 wpa_cli
@@ -59,7 +62,7 @@ set_network 0 psk "<psk>"
 enable_network 0
 ```
 
-You can clone this repo or install it via ssh. Either way, run in this repo:
+You can clone this repo or install it via ssh. Either way, run the script in this repo:
 ```
 [sudo] ./install.sh <hostname> [<address>]
 ```

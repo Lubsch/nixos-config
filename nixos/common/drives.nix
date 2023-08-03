@@ -50,7 +50,6 @@ in
             extraOpenArgs = [ "--allow-discards" ];
             content = {
               type = "btrfs";
-              extraArgs = [ "-f" ];
               subvolumes = {
                 "/root" = {
                   mountpoint = "/";

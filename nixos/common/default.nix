@@ -1,4 +1,4 @@
-{ cpuVendor, hostname, ... }: {
+{ pkgs, cpuVendor, hostname, ... }: {
   imports = map (f: ./. + "/${f}")
     ((builtins.filter (f: f != "default.nix")) (builtins.attrNames (builtins.readDir ./.)));
 
@@ -6,6 +6,7 @@
   networking.hostName = hostname;
   time.timeZone = "Europe/Berlin";
   environment.enableAllTerminfo = true;
+  environment.binSh = "${pkgs.dash}"/bin/dash;
 
   hardware = {
     enableRedistributableFirmware = true;

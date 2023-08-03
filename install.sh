@@ -13,12 +13,9 @@ if [ "$2" != "" ]; then
     exit
 fi
 
-# system=$($nix eval --raw .#nixosConfigurations."$hostname".pkgs.system)
-
 echo "About to format the disks on $(hostnamectl hostname) (Type 'Yes')"
 read -r answer
-[ $answer = "Yes" ] || exit
-
+[ "$answer" = "Yes" ] || exit
 nix run .#disko -- -m disko -f git+file:.#"$1"
 
 users=$(nix eval --raw .#nixosConfigurations."$1"._module.specialArgs.users --apply 'users: builtins.concatStringsSep "\n" (builtins.attrNames users)')
