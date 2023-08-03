@@ -1,10 +1,15 @@
 # NixOS-config
 
-This is my NixOS-config. It takes inspiration from [Misterio77's config](https://git.sr.ht/~misterio/nix-config). One of its aims is limiting bloat. The flake also has my text-editor neovim as an output.
+This is my NixOS-config. It takes some inspiration from [Misterio77's config](https://git.sr.ht/~misterio/nix-config).
 
-## How it works
+## Features:
 
-System configs are defined in flake.nix. Specifiy the machines' modules and the specialArguments to pass to them.
+- Hosts are only customized in ´flake.nix´
+- Not very bloated
+- Impermanence (`/` is wiped on every reboot) using BTRFS
+- Optionally remote setup script after which it just works™
+- Home setup scripts (email from password manager and more)
+- Customized neovim as a flake output
 
 ## Dependencies
 
@@ -15,7 +20,7 @@ System configs are defined in flake.nix. Specifiy the machines' modules and the 
 
 ## Where state lingers on outside scripts
 
-- Desktop Wallpaper (set to `~/pictures/wallpaper`)
+- Desktop Wallpaper (set to `~/pictures/wallpapers/current`)
 - Hibernation resume offset and swap size (see `flake.nix`)
 - Wifi credentials
 - SSH keys (including git access)
@@ -36,7 +41,7 @@ System configs are defined in flake.nix. Specifiy the machines' modules and the 
 
 ## Installation Guide
 
-This guide should include every step to setup a new machine, so I don't have to remember so many details one could get wrong. My config is primarily intended for my own use, but you can of course adapt it to your needs. :)
+This guide should include every step to setup a new machine, so I don't have to remember so many details one could get wrong. My config is intended for my own use, but you can of course adapt it to your needs. :)
 
 Download the iso from [https://nixos.org/download.html#nixos-iso](https://nixos.org/download.html#nixos-iso):
 
@@ -51,7 +56,7 @@ Boot from the USB drive and set the root password:
 sudo passwd <password>
 ```
 
-You need to enable an internet connection (preferably ethernet). To enable wifi:
+You need to connect to the internet (preferably over ethernet). To enable wifi:
 ```
 sudo systemctl enable wpa_supplicant.service
 wpa_cli
