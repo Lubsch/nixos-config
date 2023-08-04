@@ -13,7 +13,11 @@ if [ "$2" != "" ]; then
     exit
 fi
 
-echo "About to format the disks on $(hostnamectl hostname) (Type 'Yes')"
+echo "experimental-features = nix-command flakes" > /etc/nix/nix.conf
+
+fdisk -l "$(nix eval --raw .#nixosConfigurations."$1"._module.specialArgs.main-disk)"
+echo
+echo "Format this drive on $(hostnamectl hostname) (Type 'Yes')"
 read -r answer
 [ "$answer" = "Yes" ] || exit
 nix run .#disko -- -m disko -f git+file:.#"$1"
