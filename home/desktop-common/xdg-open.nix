@@ -6,7 +6,5 @@
     pkgs.xdg-utils
   ];
 
-  programs.zsh.shellAliases = {
-    o = "xdg-open";
-  };
+  programs.zsh.initExtra = ''o () { xdg-open "$@" &!}'';
 }

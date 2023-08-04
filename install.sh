@@ -18,13 +18,18 @@ read -r answer
 [ "$answer" = "Yes" ] || exit
 nix run .#disko -- -m disko -f git+file:.#"$1"
 
+nixos-install --flake .#"$1" --no-root-password
+
 users=$(nix eval --raw .#nixosConfigurations."$1"._module.specialArgs.users --apply 'users: builtins.concatStringsSep "\n" (builtins.attrNames users)')
+
+nixos-enter
 for user in $users; do
-    mkdir -p /mnt/persist/passwords
-    chmod o=,g= /mnt/persist/passwords
+    mkdir -p /persist/home/"$user"
+    chown "$user" /persist/home/"$user"
+    mkdir -p /persist/passwords
+    chmod o=,g= /persist/passwords
     echo Enter password for "$user":
-    mkpasswd -m sha-512 > /mnt/persist/passwords/"$user"
+    mkpasswd -m sha-512 > /persist/passwords/"$user"
 done
 
-nixos-install --flake .#"$1" --no-root-password
 reboot

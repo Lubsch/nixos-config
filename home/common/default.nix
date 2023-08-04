@@ -5,12 +5,13 @@
   home = {
     stateVersion = "23.05";
     packages = with pkgs; [
-      gource # Visualize git histories
-      file # File information
-      fq # Explore file formats
-      imagemagick # Convert images
-      entr inotify-tools # Run commands on file change (file watcher)
-      poppler_utils # PDF utils (e.g. pdftotext)
+      shellcheck # check script posix compliance
+      gource # visualize git histories
+      file # file information
+      fq # explore file formats
+      imagemagick # convert images
+      entr inotify-tools # run commands on file change (file watcher)
+      poppler_utils # pdf utils (e.g. pdftotext)
       hyperfine # application benchmarks
       libqalculate # terminal calculator
       skim # fuzzy finder
@@ -19,7 +20,7 @@
       ncdu # disk usage viewing
       tokei # count lines of code
       btop # resource usage viewer
-      neofetch
+      neofetch # quickly show system info
       ripgrep # better grep
       fd # better find
       magic-wormhole # send files between computers

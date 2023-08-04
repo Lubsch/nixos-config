@@ -23,11 +23,16 @@
       config.bind("J", "tab-prev")
       config.bind("K", "tab-next")
 
-      c.colors.webpage.preferred_color_scheme = "dark"
-
-      c.fonts.default_family = "${config.fonts.regular.name}"
-      c.fonts.default_size = "11pt"
       c.url.start_pages = "about:blank"
+
+      c.colors.webpage.preferred_color_scheme = "dark"
+      c.fonts.default_family = "${config.fonts.regular.name}"
+      c.fonts.default_size = "12pt"
+      c.tabs.favicons.scale = 1.0
+      c.tabs.padding = {"bottom": 6, "left": 4, "right": 4, "top": 6}
+
+      c.downloads.position = "bottom"
+      c.downloads.remove_finished = 0
     '';
   };
 
