@@ -26,6 +26,16 @@ if (users != {}) then {
       _module.args = { username = name; }; 
     }) users;
   };
+  system.activationScripts = builtins.mapAttrs (name: _: ''
+    mkdir -p /persist/home/"${name}"
+    chown "${name}" /persist/home/"${name}"
+    if [ ! -e /persist/passwords/"${name}" ]; then
+      mkdir -p /persist/passwords
+      chmod o=,g= /persist/passwords
+      printf "Enter new ${name} "
+      ${pkgs.mkpasswd}/bin/mkpasswd -m sha-512 > /persist/passwords/"${name}"
+    fi
+  '') users;
 
 } else {
   users.users.root.openssh.authorizedKeys = { inherit keys; };

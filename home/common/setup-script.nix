@@ -12,7 +12,7 @@ in {
     setup-scripts.resume-offset = {
       deps = [ ];
       script = ''
-        btrfs inspect-internal map-swapfile -r /swap/swapfile | wl-copy
+        doas btrfs inspect-internal map-swapfile -r /swap/swapfile | wl-copy
         echo Copied offset to clipboard, paste it in the swap config in flake.nix
       '';
     };

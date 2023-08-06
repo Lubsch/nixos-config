@@ -3,7 +3,7 @@
 
   programs.qutebrowser = {
     enable = true;
-    package = pkgs.qutebrowser.override { enableWideVine = true; };
+    package = pkgs.qutebrowser-qt6.override { enableWideVine = true; };
 
     extraConfig = ''
       config.unbind("<Ctrl-d>")
