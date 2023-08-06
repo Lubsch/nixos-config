@@ -21,7 +21,8 @@
     packages = mapAttrs (system: pkgs: rec { 
       disko = inputs.disko.outputs.packages.${system}.disko;
       install = pkgs.writeShellScriptBin "install" ''
-        cd ${self.outPath}
+        ${pkgs.git}/bin/git clone https://github.com/lubsch/nixos-config
+        cd nixos-config
         ${disko}/bin/disko -m disko -f git+file:.#"$1"
         nixos-install --flake .#"$1" --no-root-password
       '';
