@@ -21,7 +21,7 @@
     packages = mapAttrs (system: pkgs: rec { 
       disko = inputs.disko.outputs.packages.${system}.disko;
       install = pkgs.writeShellScriptBin "install" ''
-        ${disko}/bin/disko -m disko -f git+file:${self.outPath}#"$1"
+        ${disko}/bin/disko -m disko -f path:${self.outPath}#"$1"
         nixos-install --flake ${self.outPath}#"$1" --no-root-password
       '';
     } // import ./home/nvim/package.nix pkgs) legacyPackages;
