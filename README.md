@@ -49,7 +49,12 @@ umount </dev/usb_drive>
 doas dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
 ```
 
-You need to connect to the internet (preferably over ethernet). If you need wifi, enable it:
+Installer Layout:
+```
+sudo loadkeys de-latin1
+```
+
+You need to connect to the internet (preferably over ethernet). To enable wifi:
 ```
 sudo systemctl enable wpa_supplicant.service
 wpa_cli
@@ -62,5 +67,6 @@ enable_network 0
 
 Format and install:
 ```
+nix-shell -p git
 sudo nix --experimental-features 'nix-command flakes' run github:lubsch/nixos-config#install -- <hostname>
 ```
