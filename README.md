@@ -62,5 +62,5 @@ enable_network 0
 
 Format and install:
 ```
-sudo nix --experimental-features 'nix-command flakes' run github:lubsch/nixos-config#install <hostname>
+sudo nix --experimental-features 'nix-command flakes' run github:lubsch/nixos-config#install -- <hostname>
 ```
