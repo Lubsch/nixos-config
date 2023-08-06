@@ -14,12 +14,18 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs: with nixpkgs; with builtins; {
+  outputs = { self, nixpkgs, ... }@inputs: with nixpkgs; with builtins; {
 
     templates = mapAttrs (n: _: { description = n; path = ./templates + "/${n}"; }) (readDir ./templates);
 
-    packages = mapAttrs (system: pkgs: { 
+    packages = mapAttrs (system: pkgs: rec { 
       disko = inputs.disko.outputs.packages.${system}.disko;
+      install = pkgs.writeShellScriptBin "install" ''
+        ${pkgs.git}/bin/git clone http://github.com/lubsch/nixos-config
+        cd nixos-config
+        ${disko}/bin/disko -m disko -f git+file:.#"$1"
+        nixos-install --flake .#"$1" --no-root-password
+      '';
     } // import ./home/nvim/package.nix pkgs) legacyPackages;
 
     nixosConfigurations = mapAttrs (hostname: {

@@ -5,9 +5,8 @@ This is my NixOS-config. It takes some inspiration from [Misterio77's config](ht
 ## Features:
 
 - Hosts are only customized in ´flake.nix´
-- Not very bloated
+- Not too bloated
 - Impermanence (`/` is wiped on every reboot) using BTRFS
-- Optionally remote setup script after which it just works™
 - Home setup scripts (email from password manager and more)
 - Customized neovim as a flake output
 
@@ -50,7 +49,7 @@ umount </dev/usb_drive>
 doas dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
 ```
 
-You need to connect to the internet (preferably over ethernet). To enable wifi:
+You need to connect to the internet (preferably over ethernet). If you need wifi, enable it:
 ```
 sudo systemctl enable wpa_supplicant.service
 wpa_cli
@@ -61,14 +60,7 @@ set_network 0 psk "<psk>"
 enable_network 0
 ```
 
-Clone the repo:
-```
-nix-shell -p git
-git clone https://github.com/lubsch/nixos-config
-```
-
 Format and install:
 ```
-sudo nix --experimental-features 'nix-command flakes' run .#disko -- -m disko -f git+file:.#<hostname>
-sudo nixos-install --flake .#<hostname> --no-root-password
+sudo nix --experimental-features 'nix-command flakes' run github:lubsch/nixos-config#install <hostname>
 ```
