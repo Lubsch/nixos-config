@@ -10,8 +10,9 @@
 
   hardware = {
     enableRedistributableFirmware = true;
+  } // (if (cpuVendor != "") then {
     cpu.${cpuVendor}.updateMicrocode = true;
-  };
+  } else { });
 
   persist.directories = [
     "/var/lib/systemd/coredump"

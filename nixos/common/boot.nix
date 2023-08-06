@@ -4,7 +4,7 @@
 
     inherit kernelModules;
     initrd = { 
-      kernelModules = initrdModules; 
+      availableKernelModules = initrdModules; 
       verbose = false;
     };
 

@@ -22,19 +22,27 @@
       disko = inputs.disko.outputs.packages.${system}.disko;
     } // import ./home/nvim/package.nix pkgs) legacyPackages;
 
-    nixosConfigurations = mapAttrs (hostname: config: lib.nixosSystem {
-      inherit (config) modules;
-      system = if config ? system then config.system else "x86_64-linux";
-      specialArgs = { 
-        inherit inputs hostname; 
-        impermanence = true;
-        kernelModules = [ ];
-        initrdModules = [ ];
-        users = { };
-      } // config.specialArgs;
+    nixosConfigurations = mapAttrs (hostname: {
+      system ? "x86_64-linux",
+      main-disk,
+      cpuVendor ? "",
+      impermanence ? true,
+      initrdModules ? [],
+      kernelModules ? [],
+      swap ? { size = null; offset = ""; },
+      modules,
+      users ? {}
+    }: lib.nixosSystem {
+      inherit system modules;
+      specialArgs = { inherit inputs hostname main-disk impermanence kernelModules initrdModules swap users cpuVendor; };
     }) {
 
       "shah" = {
+        main-disk = "/dev/sda";
+        cpuVendor = "intel";
+        initrdModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
+        kernelModules = [ "kvm-intel" ];
+        swap = { size = 8; offset = "2106624"; };
         modules = [
           ./nixos/common
           ./nixos/wireless.nix
@@ -42,25 +50,24 @@
           ./nixos/zsh.nix
           ./nixos/bluetooth.nix
         ];
-        specialArgs = {
-          swap = { size = 8; offset = "2106624"; };
-          cpuVendor = "intel";
-          initrdModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
-          main-disk = "/dev/sda";
-          users."lubsch" = [
-            ./home/common
-            ./home/nvim
-            ./home/desktop-common
-            ./home/hyprland.nix
-            ./home/mail.nix
-            ./home/syncthing.nix
-            ./home/keepassxc.nix
-            ./home/qutebrowser.nix
-          ];
-        };
+        users."lubsch" = [
+          ./home/common
+          ./home/nvim
+          ./home/desktop-common
+          ./home/hyprland.nix
+          ./home/mail.nix
+          ./home/syncthing.nix
+          ./home/keepassxc.nix
+          ./home/qutebrowser.nix
+        ];
       };
 
       "duke" = {
+        main-disk = "/dev/sda";
+        cpuVendor = "intel";
+        initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
+        kernelModules = [ "kvm-intel" ];
+        swap = { size = 8; offset = "1256037"; };
         modules = [
           ./nixos/common
           ./nixos/wireless.nix
@@ -68,22 +75,16 @@
           ./nixos/zsh.nix
           ./nixos/bluetooth.nix
         ];
-        specialArgs = {
-          swap = { size = 8; offset = "1256037"; };
-          cpuVendor = "intel";
-          kernelModules = [ "kvm-intel" ];
-          initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
-          users."lubsch" = [
-            ./home/common
-            ./home/nvim
-            ./home/desktop-common
-            ./home/hyprland.nix
-            ./home/mail.nix
-            ./home/syncthing.nix
-            ./home/keepassxc.nix
-            ./home/qutebrowser.nix
-          ];
-        };
+        users."lubsch" = [
+          ./home/common
+          ./home/nvim
+          ./home/desktop-common
+          ./home/hyprland.nix
+          ./home/mail.nix
+          ./home/syncthing.nix
+          ./home/keepassxc.nix
+          ./home/qutebrowser.nix
+        ];
       };
 
     };

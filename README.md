@@ -16,15 +16,14 @@ This is my NixOS-config. It takes some inspiration from [Misterio77's config](ht
 - Nixpkgs: Packages and standard library
 - Impermanence: Define what data persist boots
 - Home-Manager: Modules for managing the home directory
-- Disko: Define partioning declaratively
+- Disko: Define partitions declaratively
 
 ## Where state lingers on outside scripts
 
 - Desktop Wallpaper (set to `~/pictures/wallpapers/current`)
 - Hibernation resume offset and swap size (see `flake.nix`)
 - Wifi credentials
-- SSH keys (including git access)
-- Steam settings and Proton
+- Steam settings (except for proton)
 - Some website settings
 
 ## Todo that's not marked
@@ -62,7 +61,13 @@ set_network 0 psk "<psk>"
 enable_network 0
 ```
 
-Clone the repo onto the machine and run:
+Clone the repo:
+```
+nix-shell -p git
+git clone https://github.com/lubsch/nixos-config
+```
+
+Format and install:
 ```
 sudo nix --experimental-features 'nix-command flakes' run .#disko -- -m disko -f git+file:.#<hostname>
 sudo nixos-install --flake .#<hostname> --no-root-password

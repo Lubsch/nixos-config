@@ -1,18 +1,20 @@
 { inputs, hostname, lib, swap, impermanence, main-disk, ... }:
 let
+  # TODO keep multiple root-old generations
+  # If anything goes wrong, stderror still gets shown
   wipeScript = ''
     mkdir -p /mnt
     mount -o subvol=/ "/dev/mapper/main" /mnt
 
-    btrfs subvolume delete /mnt/root-old
-    btrfs subvolume snapshot /mnt/root /mnt/root-old
+    btrfs subvolume delete /mnt/root-old > /dev/null
+    btrfs subvolume snapshot /mnt/root /mnt/root-old > /dev/null
 
     btrfs subvolume list -o /mnt/root | awk '{print $NF}' |
     while read -r subvolume; do
-      btrfs subvolume delete /mnt/$subvolume
-    done && btrfs subvolume delete /mnt/root
+      btrfs subvolume delete /mnt/$subvolume > /dev/null
+    done && btrfs subvolume delete /mnt/root > /dev/null
 
-    btrfs subvolume create /mnt/root
+    btrfs subvolume create /mnt/root > /dev/null
     umount /mnt
   '';
 in

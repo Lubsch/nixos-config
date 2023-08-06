@@ -16,7 +16,7 @@
       dates = "weekly";
     };
 
-    registry.nixpkgs.flake = inputs.nixpkgs;
+    registry.n.flake = inputs.nixpkgs;
     registry.config.flake.outPath = ../..;
   };
 

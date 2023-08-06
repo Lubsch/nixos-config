@@ -14,6 +14,9 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
+    gtk3.extraConfig = {
+      gtk-cursor-blink = false;
+    };
   };
 
   qt = {
