@@ -15,7 +15,7 @@
       package = pkgs.papirus-icon-theme;
     };
     gtk3.extraConfig = {
-      gtk-cursor-blink = false;
+      gtk-cursor-blink = false; # doesn't seem to work in qutebrowser
     };
   };
 

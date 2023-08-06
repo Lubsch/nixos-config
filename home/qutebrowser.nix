@@ -3,6 +3,8 @@
 
   programs.qutebrowser = {
     enable = true;
+
+    # results in light theme :/
     package = pkgs.qutebrowser-qt6.override { enableWideVine = true; };
 
     extraConfig = ''

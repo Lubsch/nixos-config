@@ -42,7 +42,7 @@
         cpuVendor = "intel";
         initrdModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
         kernelModules = [ "kvm-intel" ];
-        swap = { size = 8; offset = "2106624"; };
+        swap = { size = 8; offset = "1844480"; };
         modules = [
           ./nixos/common
           ./nixos/wireless.nix
