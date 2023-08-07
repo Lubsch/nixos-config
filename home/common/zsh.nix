@@ -16,7 +16,7 @@
       rr = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
       rrz = "export HIST=; rm -r --interactive=never ~/.local/share/zsh; doas nixos-rebuild switch --flake ~/misc/repos/nixos-config"; # Fix zsh history collision
 
-      iw = "iwctl station wlan0 scan && sleep 0.5 && iwctl station wlan0 connect earl";
+      iw = "iwctl station wlan0 scan && sleep 1 && iwctl station wlan0 connect earl";
 
       myip = "curl ifconfig.me;echo";
 

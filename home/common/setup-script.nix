@@ -9,11 +9,14 @@ in {
   options.setup-scripts = lib.mkOption { };
 
   config = {
-    setup-scripts.resume-offset = {
-      deps = [ ];
+    setup-scripts.hardware = {
+      deps = [ "git" ];
       script = ''
         doas btrfs inspect-internal map-swapfile -r /swap/swapfile | wl-copy
-        echo Copied offset to clipboard, paste it in the swap config in flake.nix
+        echo Copied hardware-config to clipboard
+        echo Press Enter to paste it into flake.nix
+        read
+        $EDITOR ~/misc/repos/nixos-config/flake.nix
       '';
     };
 
@@ -22,10 +25,13 @@ in {
         echo Starting setup
         ${builtins.concatStringsSep "\n" (builtins.map 
           (s: with config.setup-scripts.${s}; ''
+            echo --------------------------------
             echo '${s} (dependencies: ${builtins.concatStringsSep " " deps}):'
             ${script}
+            echo
             echo Press Enter to continue
             read
+            echo
           '')
           (order-scripts config.setup-scripts [])
         )}
