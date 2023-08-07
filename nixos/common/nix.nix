@@ -17,6 +17,7 @@
     };
 
     registry.n.flake = inputs.nixpkgs;
+    registry.nixpkgs.flake = inputs.nixpkgs;
     registry.config.flake.outPath = ../..;
   };
 

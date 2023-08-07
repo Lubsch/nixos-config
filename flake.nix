@@ -18,12 +18,8 @@
 
     templates = mapAttrs (n: _: { description = n; path = ./templates + "/${n}"; }) (readDir ./templates);
 
-    packages = mapAttrs (system: pkgs: rec { 
-      disko = inputs.disko.outputs.packages.${system}.disko;
-      install = pkgs.writeShellScriptBin "install" ''
-        ${disko}/bin/disko -m disko -f path:${self.outPath}#"$1"
-        nixos-install --flake ${self.outPath}#"$1" --no-root-password
-      '';
+    packages = mapAttrs (system: pkgs: { 
+      disko = inputs.disko.packages.${system}.disko;
     } // import ./home/nvim/package.nix pkgs) legacyPackages;
 
     nixosConfigurations = mapAttrs (hostname: {
