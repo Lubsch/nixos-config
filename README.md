@@ -68,5 +68,5 @@ enable_network 0
 
 Format and install:
 ```
-sudo nix-shell -p https://github.com/lubsch/nixos-config/archive/main.zip
+sudo nix-shell https://github.com/lubsch/nixos-config/archive/main.zip
 ```
