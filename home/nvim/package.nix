@@ -2,22 +2,20 @@
 pkgs:
 let 
   servers = with pkgs; [
-    { package = typst-lsp; name = "typst_lsp"; }
-    { package = nixd; }
-    { package = clang-tools; name = "clangd"; binary = "clangd"; }
-    { package = jdt-language-server; name = "jdtls"; binary = "jdt-language-server";
-      opts = "{ cmd = { 'jdt-language-server', '-configuration', '$HOME/.cache/jdtls/config', '-data', '$HOME/.cache/jdtls/workspace' }, init_options = { workspace = '$HOME/.cache/jdtls/workspace' } }"; }
+    { pkg = typst-lsp; name = "typst_lsp"; }
+    { pkg = nixd; }
+    { pkg = clang-tools; name = "clangd"; bin = "clangd"; }
+    { pkg = jdt-language-server; name = "jdtls"; opts = "{ cmd = { 'jdt-language-server', '-configuration', '$HOME/.cache/jdtls/config', '-data', '$HOME/.cache/jdtls/workspace' }, init_options = { workspace = '$HOME/.cache/jdtls/workspace' } }"; }
   ];
-
-  setup-server = { package, name ? package.pname, binary ? package.pname, opts ? "{}" }: 
-    "if vim.fn.executable'${binary}' == 1 then require'lspconfig'.${name}.setup${opts} end";
+  setup-server = { pkg, name ? pkg.pname, bin ? pkg.pname, opts ? "{}" }: 
+    "if vim.fn.executable'${bin}' == 1 then require'lspconfig'.${name}.setup${opts} end";
 
   nvim = pkgs.wrapNeovim pkgs.neovim-unwrapped {
     configure = {
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
-          conjure
           nvim-dap
+          nvim-dap-ui
           nvim-cmp
           cmp-nvim-lsp
           cmp-path
@@ -26,13 +24,10 @@ let
           nvim-lspconfig
           vim-commentary
           nvim-autopairs
-          tex-conceal-vim
           gruvbox-nvim
-          asyncrun-vim
           telescope-nvim
           telescope-fzf-native-nvim
           vim-startuptime
-          impatient-nvim
           markdown-preview-nvim
         ];
       };
@@ -62,6 +57,6 @@ in {
   inherit nvim;
   nvim-lsp = pkgs.symlinkJoin {
     name = "nvim";
-    paths = [ nvim ] ++ map (s: s.package) servers;
+    paths = [ nvim ] ++ map (s: s.pkg) servers;
   };
 }

@@ -21,6 +21,8 @@
       bind = $mainMod, V, exec, ${home.sessionVariables.LAUNCHER}
       bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
 
+      bind = $mainMod, R, exec, ${home.sessionVariables.TERMINAL} --hold zsh -ic "rr; zsh -i"
+
       bind = ,XF86MonBrightnessUp, exec, ${brightnessctl}/bin/brightnessctl set 5%+
       bind = ,XF86MonBrightnessDown, exec, ${brightnessctl}/bin/brightnessctl set 5%-
 
@@ -87,7 +89,6 @@
           repeat_rate = 30
 
           kb_layout = de
-          kb_options = caps:escape,altwin:swap_lalt_lwin
 
           follow_mouse = 1
 

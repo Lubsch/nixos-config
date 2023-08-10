@@ -27,6 +27,7 @@ This is my NixOS-config. It takes some inspiration from [Misterio77's config](ht
 
 ## Todo that's not marked
 
+- Printing
 - Nixpak
     - Browser
     - Steam and games
@@ -67,6 +68,5 @@ enable_network 0
 
 Format and install:
 ```
-nix-shell -p git
-sudo nix --experimental-features 'nix-command flakes' run github:lubsch/nixos-config#install -- <hostname>
+sudo nix-shell -p https://github.com/lubsch/nixos-config/archive/main.zip
 ```

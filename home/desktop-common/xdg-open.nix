@@ -3,8 +3,11 @@
   xdg.mimeApps.enable = true;
 
   home.packages = [
-    pkgs.xdg-utils
+    (pkgs.writeShellScriptBin "xdg-open" ''
+      handlr open "$@"
+    '')
+    pkgs.handlr
   ];
 
-  programs.zsh.initExtra = ''o () { xdg-open "$@" &!}'';
+  programs.zsh.initExtra = ''o () { handlr open "$@" &!}'';
 }

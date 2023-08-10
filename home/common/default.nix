@@ -1,6 +1,6 @@
 { pkgs, ... }: {
-  imports = map (f: ./. + "/${f}")
-    ((builtins.filter (f: f != "default.nix")) (builtins.attrNames (builtins.readDir ./.)));
+  imports = with builtins; map (f: ./. + "/${f}")
+    ((filter (f: f != "default.nix")) (attrNames (readDir ./.)));
 
   home = {
     stateVersion = "23.05";

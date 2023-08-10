@@ -2,13 +2,14 @@
 let
   order-scripts = with builtins; scripts: order:
     if scripts == { } then order else let 
-      newly-ordered = filter (n: scripts.${n}.deps == []) (attrNames scripts);
-      deps-filtered = mapAttrs (_: s: s // { deps = filter (d: !(elem d order)) s.deps; }) scripts;
-    in order-scripts (removeAttrs deps-filtered newly-ordered) (order ++ newly-ordered);
+      only-unordered-deps = mapAttrs (_: s: s // { deps = filter (d: !(elem d order)) s.deps; }) scripts;
+      dependencyless = filter (n: scripts.${n}.deps == []) (attrNames scripts);
+    in order-scripts (removeAttrs only-unordered-deps dependencyless) (order ++ dependencyless);
 in {
   options.setup-scripts = lib.mkOption { };
 
   config = {
+    # TODO
     setup-scripts.hardware = {
       deps = [ "git" ];
       script = ''

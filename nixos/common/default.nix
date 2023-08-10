@@ -1,6 +1,6 @@
 { pkgs, cpuVendor, hostname, ... }: {
-  imports = map (f: ./. + "/${f}")
-    ((builtins.filter (f: f != "default.nix")) (builtins.attrNames (builtins.readDir ./.)));
+  imports = with builtins; map (f: ./. + "/${f}")
+    ((filter (f: f != "default.nix")) (attrNames (readDir ./.)));
 
   system.stateVersion = "23.05";
   networking.hostName = hostname;

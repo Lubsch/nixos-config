@@ -1,5 +1,19 @@
 { config, lib, pkgs, ... }: {
-  home.sessionVariables.BROWSER = lib.mkForce "qutebrowser";
+  home.sessionVariables.BROWSER = lib.mkForce "qute";
+
+  home.packages = [ (pkgs.writeShellScriptBin "qute" ''
+    # initial idea: Florian Bruhin (The-Compiler)
+    # author: Thore Bödecker (foxxx0)
+    _url="$1"
+    _qb_version='2.5.4'
+    _proto_version=1
+    _ipc_socket="$XDG_RUNTIME_DIR/qutebrowser/ipc-$(echo -n "$USER" | md5sum | cut -d' ' -f1)"
+    printf '{"args": ["%s"], "target_arg": null, "version": "%s", "protocol_version": %d, "cwd": "%s"}\n' \
+           "$_url" \
+           "$_qb_version" \
+           "$_proto_version" \
+           "$PWD" | ${pkgs.socat}/bin/socat -lf /dev/null - UNIX-CONNECT:"$_ipc_socket" || "${config.programs.qutebrowser.package}/bin/qutebrowser" "$@" &
+  '') ];
 
   programs.qutebrowser = {
     enable = true;
@@ -25,6 +39,8 @@
       config.bind("J", "tab-prev")
       config.bind("K", "tab-next")
 
+      config.bind("<esc>", "clear-messages")
+
       c.url.start_pages = "about:blank"
 
       c.colors.webpage.preferred_color_scheme = "dark"
@@ -40,5 +56,6 @@
 
   persist.directories = [ 
     ".local/share/qutebrowser"
+    ".cache/qutebrowser"
   ];
 }

@@ -50,6 +50,7 @@
           ./nixos/zsh.nix
           ./nixos/bluetooth.nix
           ./nixos/virtualisation.nix
+          ./nixos/printing.nix
         ];
         users."lubsch" = [
           ./home/common

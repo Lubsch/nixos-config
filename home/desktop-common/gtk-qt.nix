@@ -16,6 +16,10 @@
     };
     gtk3.extraConfig = {
       gtk-cursor-blink = false; # doesn't seem to work in qutebrowser
+      gtk-menu-popup-delay = 0;
+      gtk-can-change-accels = 1; # make keyboard shortcuts editable
+      gtk-enable-event-sounds = 0;
+      gtk-enable-input-feedback-sounds = 0;
     };
   };
 

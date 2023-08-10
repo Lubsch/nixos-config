@@ -1,5 +1,5 @@
 -- Improve startup time
-require'impatient'
+vim.loader.enable()
 
 -- color scheme
 require'gruvbox'.setup({ 
