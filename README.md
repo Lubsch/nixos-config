@@ -27,7 +27,6 @@ This is my NixOS-config. It takes some inspiration from [Misterio77's config](ht
 
 ## Todo that's not marked
 
-- Printing
 - Nixpak
     - Browser
     - Steam and games

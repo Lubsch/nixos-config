@@ -31,6 +31,7 @@
       jctl = "journalctl -p 4 -xb";
     };
 
+    # TODO improve git time
     initExtra = ''
       git_info() {
         local ref=$(git symbolic-ref --short HEAD 2> /dev/null)

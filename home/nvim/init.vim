@@ -7,10 +7,7 @@ set mousescroll=ver:1
 " TODO replace with nix
 colorscheme gruvbox
 
-" Switch syntax highlighting on
-syntax on
-
-" Conceal **emph** tags for example
+" Conceal **emph** tags, for example
 set conceallevel=2
 
 " Use system clipboard
@@ -18,14 +15,12 @@ set clipboard+=unnamedplus
 
 " Enable file type detection and do language-dependent indenting.
 filetype plugin indent on
-" Make backspace behave in a sane manner.	
-set backspace=indent,eol,start
 
 set undofile
 
 " Search
 set ignorecase hlsearch incsearch magic
-"Clear search higlighting with esc
+"Clear search highlighting with esc
 nnoremap <silent> <esc> :noh<CR><esc>
 
 "Relative line numbers
@@ -35,7 +30,7 @@ set signcolumn=yes
 "Color signcolumn correctly
 hi SignColumn guibg=bg
 
-"Indendation
+"Indentation
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent smartindent
 autocmd FileType nix setlocal tabstop=2 softtabstop=2 shiftwidth=2
 

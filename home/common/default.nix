@@ -10,11 +10,9 @@
       file # file information
       fq # explore file formats
       imagemagick # convert images
-      entr inotify-tools # run commands on file change (file watcher)
       poppler_utils # pdf utils (e.g. pdftotext)
       hyperfine # application benchmarks
       libqalculate # terminal calculator
-      skim # fuzzy finder
       zip unzip
       nix-tree # view a nix derivation's dependencies
       ncdu # disk usage viewing
