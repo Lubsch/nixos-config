@@ -16,7 +16,8 @@
 
   outputs = { self, nixpkgs, ... }@inputs: with nixpkgs; with builtins; {
 
-    templates = mapAttrs (n: _: { description = n; path = ./templates + "/${n}"; }) (readDir ./templates);
+    templates = mapAttrs (n: _: { description = n; path = ./templates + "/${n}"; })
+      (readDir ./templates);
 
     packages = mapAttrs (system: pkgs: { 
       disko = inputs.disko.packages.${system}.disko;

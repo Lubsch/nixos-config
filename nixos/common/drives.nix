@@ -1,4 +1,4 @@
-{ inputs, hostname, lib, swap, impermanence, main-disk, ... }:
+{ inputs, swap, impermanence, main-disk, ... }:
 let
   # TODO keep multiple root-old generations
   # If anything goes wrong, stderror still gets shown
@@ -23,7 +23,7 @@ in
 
   boot.initrd = {
     supportedFilesystems = [ "btrfs" ];
-    postDeviceCommands = lib.mkIf impermanence wipeScript;
+    postDeviceCommands = if impermanence then wipeScript else "";
   };
 
   disko.devices.disk.main = {

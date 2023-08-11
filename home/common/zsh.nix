@@ -1,4 +1,9 @@
-{ lib, nixosConfig ? { }, ... }: {
+{ nixosConfig ? { }, lib, ... }: {
+  # Prevents collision with zsh history, hacky but works
+  home.activation.delete-zsh-history = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+    export HIST=; rm -r --interactive=never $HOME/.local/share/zsh/history
+  '';
+
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
@@ -14,11 +19,10 @@
       e = "$EDITOR";
 
       rr = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
-      rrz = "export HIST=; rm -r --interactive=never ~/.local/share/zsh; doas nixos-rebuild switch --flake ~/misc/repos/nixos-config"; # Fix zsh history collision
 
       iw = "iwctl station wlan0 scan && sleep 1 && iwctl station wlan0 connect earl";
 
-      myip = "curl ifconfig.me;echo";
+      myip = "curl ipinfo.io.me;echo";
 
       cp = "cp -ivr";
       mv = "mv -iv";
@@ -100,7 +104,7 @@
   };
 
   # Declutter home when defining zshenv through nixos
-  home.file.".zshenv".enable = lib.mkIf (nixosConfig.environment.etc ? "zshenv") false;
+  home.file.".zshenv".enable = if (nixosConfig.environment.etc ? "zshenv") then false else true;
 
   persist.files = [ 
     ".local/share/zsh/history"
