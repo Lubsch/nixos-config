@@ -11,7 +11,7 @@
       fq # explore file formats
       imagemagick # convert images
       poppler_utils # pdf utils (e.g. pdftotext)
-      hyperfine # application benchmarks
+      hyperfine # simple benchmarks
       libqalculate # terminal calculator
       zip unzip
       nix-tree # view a nix derivation's dependencies

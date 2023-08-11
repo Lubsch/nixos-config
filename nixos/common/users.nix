@@ -7,6 +7,7 @@ in
 if (users != {}) then {
 
   imports = [ inputs.home-manager.nixosModules.home-manager ];
+
   users = {
     mutableUsers = false;
     users = builtins.mapAttrs (name: _: {
@@ -17,6 +18,7 @@ if (users != {}) then {
       passwordFile = "/persist/passwords/${name}";
     }) users;
   };
+
   home-manager = {
     extraSpecialArgs = { inherit inputs impermanence; };
     useGlobalPkgs = true;
@@ -26,6 +28,7 @@ if (users != {}) then {
       _module.args = { username = name; }; 
     }) users;
   };
+
   system.activationScripts = builtins.mapAttrs (name: _: ''
     mkdir -p /persist/home/"${name}"
     chown "${name}" /persist/home/"${name}"

@@ -1,7 +1,7 @@
 { nixosConfig ? { }, lib, ... }: {
   # Prevents collision with zsh history, hacky but works
   home.activation.delete-zsh-history = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-    export HIST=; rm -r --interactive=never $HOME/.local/share/zsh/history
+    export HIST=; rm -rf --interactive=never $HOME/.local/share/zsh/history
   '';
 
   programs.zsh = {

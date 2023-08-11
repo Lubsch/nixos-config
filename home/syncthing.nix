@@ -6,10 +6,6 @@
     ];
   };
 
-  persist.directories = [ 
-    ".config/syncthing"
-  ];
-
   setup-scripts.syncthing = {
     deps = [ ];
     script = ''
@@ -23,4 +19,8 @@
       $BROWSER localhost:8384
     '';
   };
+
+  persist.directories = [ 
+    ".config/syncthing"
+  ];
 }
