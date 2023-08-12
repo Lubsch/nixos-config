@@ -6,22 +6,24 @@ in {
     packages = with pkgs; [ 
       keepassxc
       (writeShellScriptBin "kp" ''
-        database=~/misc/keepass/secrets.kdbx
         timeout=30
 
         password=$(fuzzel -d --password)
-        if [ -z "$password" ]; then exit
+        if [ -z "$password" ]; then 
+          exit
         fi
 
-        list=$(echo "$password" | keepassxc-cli ls $database -q)
-        if [ -z "$list" ]; then exit
+        list=$(echo "$password" | keepassxc-cli ls ${database} -q)
+        if [ -z "$list" ]; then
+          exit
         fi
 
         selection=$(echo "$list" | fuzzel -d)
-        if [ -z "$selection" ]; then exit
+        if [ -z "$selection" ]; then
+          exit
         fi
 
-        echo $password | keepassxc-cli clip -q $database $selection $timeout
+        echo $password | keepassxc-cli clip -q ${database} $selection $timeout
       '')
     ];
 
@@ -31,7 +33,7 @@ in {
   setup-scripts.keepassxc = {
     deps = [ "syncthing" ];
     script = ''
-      echo DO NOT FORGET TO SYNC PASSWORDS TO ${database-path}
+      echo DO NOT FORGET TO SYNC PASSWORDS TO ${database}
       $BROWSER localhost:8384
     '';
   };

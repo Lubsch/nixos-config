@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{ system ? "x86_64-linux", inputs, ... }: {
 
   programs.git.enable = true; # Required for nix command
 
@@ -21,8 +21,11 @@
     registry.config.flake.outPath = ../..;
   };
 
-  nixpkgs.config = {
-    allowUnfree = true; 
-    enableParallelBuilding = true;
+  nixpkgs = {
+    inherit system;
+    config = {
+      allowUnfree = true; 
+      enableParallelBuilding = true;
+    };
   };
 }

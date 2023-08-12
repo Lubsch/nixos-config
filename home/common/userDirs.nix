@@ -1,30 +1,23 @@
-{ username, ... }: 
-let homeDirectory = "/home/${username}"; in {
-  home = { inherit username homeDirectory; };
-
-  xdg = {
-    userDirs = {
-      enable = true;
-      createDirectories = true;
-      documents = "${homeDirectory}/documents";
-      download = homeDirectory;
-      music = "${homeDirectory}/music";
-      pictures = "${homeDirectory}/pictures";
-      videos = "${homeDirectory}/videos";
-      publicShare = null;
-      templates = null;
-      desktop = homeDirectory;
-    };
+{ config, ... }:
+let homeDir = config.home.homeDirectory; in {
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+    documents = "${homeDir}/documents";
+    download = homeDir;
+    music = "${homeDir}/music";
+    pictures = "${homeDir}/pictures";
+    videos = "${homeDir}/videos";
+    publicShare = null;
+    templates = null;
+    desktop = homeDir;
   };
 
-  persist = {
-    directories = [
-      "documents"
-      "music"
-      "pictures"
-      "videos"
-      "misc"
-    ];
-    allowOther = true; # Access to binds for root
-  };
+  persist.directories = [
+    "documents"
+    "music"
+    "pictures"
+    "videos"
+    "misc"
+  ];
 }

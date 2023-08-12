@@ -80,11 +80,11 @@ in
 
   swapDevices = [{
     device = "/swap/swapfile";
-    size = swap.size * 1024;
+    size = swap.size or 0 * 1024;
   }];
   boot = {
     resumeDevice = main-disk;
-    kernelParams = [ "resume_offset=${swap.offset}" ];
+    kernelParams = [ "resume_offset=${swap.offset or ''''}" ];
   };
   services.logind.lidSwitch = "hybrid-sleep";
 

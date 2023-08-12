@@ -1,8 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, username, ... }: {
   imports = with builtins; map (f: ./. + "/${f}")
     ((filter (f: f != "default.nix")) (attrNames (readDir ./.)));
 
   home = {
+    inherit username;
+    homeDirectory = "/home/${username}";
     stateVersion = "23.05";
     packages = with pkgs; [
       shellcheck # check script posix compliance
