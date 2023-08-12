@@ -18,15 +18,15 @@ require'gruvbox'.setup({
 -- telescope config
 local actions = require'telescope.actions'
 require'telescope'.setup{
-    defaults = {
+    defaults = require'telescope.themes'.get_ivy {
         mappings = {
             i = {
                 ["<esc>"] = actions.close,
-                ["<C-j>"] = {
+                ["<Tab>"] = {
                     actions.move_selection_next, type = "action",
                     opts = { nowait = true, silent = true }
                 },
-                ["<C-k>"] = {
+                ["<S-Tab>"] = {
                     actions.move_selection_previous, type = "action",
                     opts = { nowait = true, silent = true }
                 },

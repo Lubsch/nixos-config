@@ -54,9 +54,9 @@ let
         ${builtins.readFile ./init.vim}
       '';
     };
-    extraMakeWrapperArgs = ''
+    extraMakeWrapperArgs = if with-servers then ''
       --suffix PATH : ${pkgs.lib.makeBinPath (map (s: s.pkg) servers)}
-    '';
+    '' else "";
   }; 
 
 in {

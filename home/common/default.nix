@@ -17,6 +17,7 @@
       libqalculate # terminal calculator
       zip unzip
       nix-tree # view a nix derivation's dependencies
+      deadnix # find dead code in nix projects
       ncdu # disk usage viewing
       tokei # count lines of code
       btop # resource usage viewer

@@ -8,6 +8,6 @@
           clang
         ];
       };
-    } );
+    } ) nixpkgs.legacyPackages;
   };
 }

@@ -6,6 +6,6 @@
           # add packages here
         ];
       };
-    } );
+    } ) nixpkgs.legacyPackages;
   };
 }

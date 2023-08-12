@@ -55,7 +55,7 @@ in {
       # Disable C-s which freezes the terminal and is annoying
       stty stop undef
 
-      # Remove delay when hitting esc, 1 vi mode indicator update
+      # Remove delay when hitting esc, 1 because vi mode indicator update
       export KEYTIMEOUT=1
 
       # Make backspace work as expected
@@ -70,7 +70,6 @@ in {
       }
       zle -N zle-keymap-select
       zle-line-init() {
-          zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
           echo -ne "\e[6 q"
       }
       zle -N zle-line-init
@@ -83,7 +82,7 @@ in {
   };
 
   # Declutter home when defining zshenv through nixos
-  home.file.".zshenv".enable = if (nixosConfig.environment.etc ? "zshenv") then false else true;
+  home.file.".zshenv".enable = !(nixosConfig.environment.etc ? "zshenv");
 
   persist.files = [ 
     ".local/share/zsh/history"
