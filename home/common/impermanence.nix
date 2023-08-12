@@ -1,10 +1,8 @@
-{ lib, inputs, impermanence, config, ... }: 
-if impermanence then {
+{ lib, inputs, impermanence, config, ... }: {
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence 
-    (lib.mkAliasOptionModule [ "persist" ] [ "home" "persistence" "/persist${config.home.homeDirectory}" ] )
+    (lib.mkAliasOptionModule [ "persist" ] [ "home" "persistence" "/persist${config.home.homeDirectory}" ])
   ];
-  config.persist.allowOther = true; # Access to binds for root
-} else {
-  options.persist = lib.mkOption { };
+  persist.allowOther = true;
+  home.persistence = lib.mkIf (!impermanence) (lib.mkForce { });
 }

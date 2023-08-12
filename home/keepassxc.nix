@@ -1,6 +1,6 @@
 { pkgs, ...}: 
 let
-  database-path = "~/misc/keepass/secrets.kdbx";
+  database = "~/misc/keepass/secrets.kdbx";
 in {
   home = {
     packages = with pkgs; [ 

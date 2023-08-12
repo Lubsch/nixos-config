@@ -6,7 +6,6 @@
   networking.hostName = hostname;
   time.timeZone = "Europe/Berlin";
   environment.enableAllTerminfo = true;
-
   environment.binsh = "${pkgs.dash}/bin/dash";
 
   hardware = {

@@ -25,9 +25,9 @@ in {
       (pkgs.writeShellScriptBin "setup-all" ''
         echo Starting setup
         ${builtins.concatStringsSep "\n" (builtins.map 
-          (s: with config.setup-scripts.${s}; ''
+          (n: with config.setup-scripts.${n}; ''
             echo --------------------------------
-            echo '${s} (dependencies: ${builtins.concatStringsSep " " deps}):'
+            echo '${n} (dependencies: ${builtins.concatStringsSep " " deps}):'
             ${script}
             echo
             echo Press Enter to continue

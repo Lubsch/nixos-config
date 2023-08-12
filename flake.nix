@@ -21,18 +21,15 @@
     } // import ./home/nvim/package.nix pkgs) legacyPackages;
 
 
-    # Default specialArgs for what is needed to resolve modules
     nixosConfigurations = mapAttrs (hostname: config: lib.nixosSystem {
       inherit (config) modules;
-      specialArgs = { 
-        system = "x86_64-linux";
-        impermanence = true;
-        users = {};
-      } // config // { inherit inputs hostname; };
+      specialArgs = config // { inherit inputs hostname; };
     }) {
 
       "shah" = {
+        system = "x86_64-linux";
         main-disk = "/dev/sda";
+        impermanence = true;
         cpuVendor = "intel";
         initrdModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
         kernelModules = [ "kvm-intel" ];
@@ -59,6 +56,7 @@
       };
 
        "duke" = {
+         impermanence = false;
          main-disk = "/dev/sda";
          cpuVendor = "intel";
          initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];

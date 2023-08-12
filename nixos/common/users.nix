@@ -1,11 +1,9 @@
-{ pkgs, inputs, impermanence, users ? {}, ... }:
+{ pkgs, inputs, impermanence, users, ... }:
 let
   keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
   ]; 
-in
-if (users != {}) then {
-
+in {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   users = {
@@ -25,7 +23,7 @@ if (users != {}) then {
     useUserPackages = true;
     users = builtins.mapAttrs (name: imports: {
       inherit imports;
-      _module.args = { username = name; }; 
+      _module.args.username = name;
     }) users;
   };
 
@@ -40,6 +38,6 @@ if (users != {}) then {
     fi
   '') users;
 
-} else {
+} // (if users == { } then {
   users.users.root.openssh.authorizedKeys = { inherit keys; };
-}
+} else { })
