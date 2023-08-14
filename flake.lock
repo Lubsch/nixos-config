@@ -71,12 +71,25 @@
         "type": "github"
       }
     },
+    "proton-ge": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-mpVZCOmjcDjntxzk5uhx3Wyny1k5ZsQ9sWvLjaZoltw=",
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/Shawn8901/nix-configuration/main/packages/proton-ge-custom/default.nix"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/Shawn8901/nix-configuration/main/packages/proton-ge-custom/default.nix"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "proton-ge": "proton-ge"
       }
     }
   },

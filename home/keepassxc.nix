@@ -25,6 +25,9 @@ in {
 
         echo $password | keepassxc-cli clip -q ${database} $selection $timeout
       '')
+      (writeShellScriptBin "setup-keepass" ''
+        echo Hello World
+      '')
     ];
 
     sessionVariables."PASSWORDMANAGER" = "kp";

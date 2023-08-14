@@ -7,7 +7,7 @@
       size = 12;
     };
     theme = {
-      name = "Plata-Noir-Compact";
+      name = "Plata-Noir-Compact:dark";
       package = pkgs.plata-theme;
     };
     iconTheme = {

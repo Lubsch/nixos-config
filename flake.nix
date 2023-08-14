@@ -10,6 +10,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    proton-ge = {
+      url = "https://raw.githubusercontent.com/Shawn8901/nix-configuration/main/packages/proton-ge-custom/default.nix";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, ... }@inputs: with nixpkgs; with builtins; {

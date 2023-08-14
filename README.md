@@ -22,20 +22,18 @@ This is my NixOS-config. It takes some inspiration from [Misterio77's config](ht
 - Desktop Wallpaper (set to `~/pictures/wallpapers/current`)
 - Hibernation resume offset and swap size (see `flake.nix`)
 - Wifi credentials
-- Steam settings (except for proton)
-- Some website settings
+- Steam settings and games
+- Website settings
 
 ## Todo that's not marked
 
-- Nixpak
-    - Browser
-    - Steam and games
+- Make qutebrowser not create `~\.pki`
 - Nix-On-Droid
 - E-Mail
 - Calendar
 - Statusbar
 - Touch for terminal and image viewer
-- Rotate button
+    - works in foot but hyprland doesn't make cursor disappear when using touch
 
 ## Installation Guide
 

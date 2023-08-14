@@ -23,6 +23,8 @@
 
       bind = $mainMod, R, exec, ${home.sessionVariables.TERMINAL} --hold zsh -ic "rr; zsh -i"
 
+      bind = $mainMod, G, exec, steam
+
       bind = ,XF86MonBrightnessUp, exec, ${brightnessctl}/bin/brightnessctl set 5%+
       bind = ,XF86MonBrightnessDown, exec, ${brightnessctl}/bin/brightnessctl set 5%-
 
