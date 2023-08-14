@@ -28,6 +28,7 @@ This is my NixOS-config. It takes some inspiration from [Misterio77's config](ht
 ## Todo that's not marked
 
 - Make qutebrowser not create `~\.pki`
+- Setup usable Debugger
 - Nix-On-Droid
 - E-Mail
 - Calendar
