@@ -1,4 +1,4 @@
-{ pkgs, inputs, impermanence, users, ... }:
+{ pkgs, inputs, users, ... }:
 let
   keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
@@ -18,7 +18,7 @@ in {
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs impermanence; };
+    extraSpecialArgs = { inherit inputs; };
     useGlobalPkgs = true;
     useUserPackages = true;
     users = builtins.mapAttrs (name: imports: {

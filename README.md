@@ -29,7 +29,7 @@ This is my NixOS-config. It takes some inspiration from [Misterio77's config](ht
 
 - Make qutebrowser not create `~\.pki`
 - Setup usable Debugger
-- Nix-On-Droid
+- Fix Nix-On-Droid rebuilds
 - E-Mail
 - Calendar
 - Statusbar

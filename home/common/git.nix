@@ -9,7 +9,8 @@
   };
 
   setup-scripts.git = {
-    deps = [ "keepassxc" ];
+    deps = [ ];
+    # deps = [ "keepassxc" ];
     script = ''
       mkdir -p ~/misc/repos
       echo Prepare to upload your ssh public keys

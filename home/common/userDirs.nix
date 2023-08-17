@@ -3,14 +3,14 @@ let homeDir = config.home.homeDirectory; in {
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
-    documents = "${homeDir}/documents";
+    desktop = homeDir;
     download = homeDir;
+    documents = "${homeDir}/documents";
     music = "${homeDir}/music";
     pictures = "${homeDir}/pictures";
     videos = "${homeDir}/videos";
     publicShare = null;
     templates = null;
-    desktop = homeDir;
   };
 
   persist.directories = [

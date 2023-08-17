@@ -1,5 +1,5 @@
 # Server-packages (not always co-installed) defined here, too for code centralization
-pkgs:
+{ pkgs, lsp ? true }:
 let 
   servers = with pkgs; [
     { pkg = typst-lsp; name = "typst_lsp"; }
@@ -11,55 +11,43 @@ let
   setup-server = { pkg, name ? pkg.pname, bin ? pkg.pname, opts ? "{}" }: ''
     if vim.fn.executable'${bin}' == 1 then require'lspconfig'.${name}.setup${opts} end
   '';
-
-  nvim = { with-servers }: pkgs.wrapNeovim pkgs.neovim-unwrapped {
-    configure = {
-      packages.myVimPackage = with pkgs.vimPlugins; {
-        start = [
-          nvim-dap
-          nvim-dap-ui
-          nvim-cmp
-          cmp-nvim-lsp
-          cmp-path
-          typst-vim
-          nvim-treesitter
-          nvim-lspconfig
-          vim-commentary
-          nvim-autopairs
-          gruvbox-nvim
-          telescope-nvim
-          telescope-fzf-native-nvim
-          vim-startuptime
-          markdown-preview-nvim
-        ];
-      };
-      customRC = ''
-        lua << EOF
-        ${builtins.concatStringsSep "\n" (map setup-server servers)}
-
-        ${builtins.readFile ./init.lua}
-
-        dap.adapters.lldb = {
-          type = 'executable',
-          command = '${pkgs.lldb}/bin/lldb-vscode',
-          name = 'lldb'
-        }
-
-        -- install all treesitter grammars without slowing down startup
-        vim.opt.runtimepath:append("${pkgs.symlinkJoin {
-          name = "treesitter-grammars";
-          paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
-        } }")
-        EOF
-        ${builtins.readFile ./init.vim}
-      '';
+in
+pkgs.wrapNeovim pkgs.neovim-unwrapped {
+  configure = {
+    packages.myVimPackage = with pkgs.vimPlugins; {
+      start = [
+        nvim-dap
+        nvim-dap-ui
+        nvim-cmp
+        cmp-nvim-lsp
+        cmp-path
+        typst-vim
+        nvim-treesitter
+        nvim-lspconfig
+        vim-commentary
+        nvim-autopairs
+        gruvbox-nvim
+        telescope-nvim
+        telescope-fzf-native-nvim
+        vim-startuptime
+      ];
     };
-    extraMakeWrapperArgs = if with-servers then ''
-      --suffix PATH : ${pkgs.lib.makeBinPath (map (s: s.pkg) servers)}
-    '' else "";
-  }; 
+    customRC = ''
+      lua << EOF
+      ${builtins.concatStringsSep "\n" (map setup-server servers)}
 
-in {
-  nvim = nvim { with-servers = false; };
-  nvim-lsp = nvim { with-servers = true; };
+      ${builtins.readFile ./init.lua}
+
+      -- install all treesitter grammars without slowing down startup
+      vim.opt.runtimepath:append("${pkgs.symlinkJoin {
+        name = "treesitter-grammars";
+        paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+      } }")
+      EOF
+      ${builtins.readFile ./init.vim}
+    '';
+  };
+  extraMakeWrapperArgs = "--suffix PATH : ${with pkgs; lib.makeBinPath (
+    [ fd ripgrep ] ++ lib.optional lsp (map (s: s.pkg) servers)
+  )}";
 }

@@ -1,10 +1,18 @@
 { pkgs, lib, config, ... }: 
 let
+  
+  no-missing = with builtins; scripts:
+    all (s: elem s (attrNames scripts)) (attrValues scripts)
+    ||
+    throw (toString (filter (s: !(elem s (attrNames scripts))) (attrValues scripts)));
+
   order-scripts = with builtins; scripts: order:
-    if scripts == { } then order else let 
+    if scripts == {} then order else
+    let 
       only-unordered-deps = mapAttrs (_: s: s // { deps = filter (d: !(elem d order)) s.deps; }) scripts;
       dependencyless = filter (n: scripts.${n}.deps == []) (attrNames scripts);
-    in order-scripts (removeAttrs only-unordered-deps dependencyless) (order ++ dependencyless);
+    in 
+    order-scripts (removeAttrs only-unordered-deps dependencyless) (order ++ dependencyless);
 in {
   options.setup-scripts = lib.mkOption { };
 
@@ -34,7 +42,8 @@ in {
             read
             echo
           '')
-          (order-scripts config.setup-scripts [])
+          (assert no-missing config.setup-scripts;
+          order-scripts config.setup-scripts [])
         )}
       '')
     ];

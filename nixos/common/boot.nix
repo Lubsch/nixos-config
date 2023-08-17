@@ -1,4 +1,4 @@
-{ pkgs, kernelModules, initrdModules, ... }: {
+{ pkgs, kernelModules, initrdModules, cpuVendor, ... }: {
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
@@ -18,5 +18,9 @@
       timeout = 0;
       efi.canTouchEfiVariables = true;
     };
+  };
+  hardware = {
+    enableRedistributableFirmware = true;
+    cpu.${cpuVendor}.updateMicrocode = true;
   };
 }

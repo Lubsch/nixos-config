@@ -1,31 +1,30 @@
-{ system ? "x86_64-linux", inputs, ... }: {
+{ config, pkgs, inputs, ... }: {
 
-  programs.git.enable = true; # Required for nix command
+  # Required for nix command
+  environment."${if config.droid then "p" else "systemP"}ackages" = [ pkgs.git ];
 
   nix = {
-    settings = {
-      auto-optimise-store = true;
-      warn-dirty = false;
-      use-xdg-base-directories = true;
-    };
     extraOptions = ''
+      use-xdg-base-directories = true
+      warn-dirty = false
+      auto-optimise-store = true
       experimental-features = nix-command flakes repl-flake
     '';
+
+   #registry.n.flake = inputs.nixpkgs;
+   #registry.nixpkgs.flake = inputs.nixpkgs;
+   #registry.config.flake.outPath = ../..;
+  } // (if config.droid then {} else {
     gc = {
       automatic = true;
       dates = "weekly";
     };
+  });
 
-    registry.n.flake = inputs.nixpkgs;
-    registry.nixpkgs.flake = inputs.nixpkgs;
-    registry.config.flake.outPath = ../..;
-  };
-
-  nixpkgs = {
-    inherit system;
-    config = {
-      allowUnfree = true; 
-      enableParallelBuilding = true;
-    };
-  };
+ #nixpkgs = {
+ #  config = {
+ #    allowUnfree = true; 
+ #    enableParallelBuilding = true;
+ #  };
+ #};
 }
