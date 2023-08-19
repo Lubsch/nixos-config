@@ -48,6 +48,6 @@ pkgs.wrapNeovim pkgs.neovim-unwrapped {
     '';
   };
   extraMakeWrapperArgs = "--suffix PATH : ${with pkgs; lib.makeBinPath (
-    [ fd ripgrep ] ++ lib.optional lsp (map (s: s.pkg) servers)
+    [ fd ripgrep ] ++ (lib.optional lsp (map (s: s.pkg) servers))
   )}";
 }

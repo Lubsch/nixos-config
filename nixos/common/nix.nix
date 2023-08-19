@@ -4,8 +4,8 @@
   environment."${if config.droid then "p" else "systemP"}ackages" = [ pkgs.git ];
 
   nix = {
+      # use-xdg-base-directories = true
     extraOptions = ''
-      use-xdg-base-directories = true
       warn-dirty = false
       auto-optimise-store = true
       experimental-features = nix-command flakes repl-flake

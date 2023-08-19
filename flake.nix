@@ -23,7 +23,6 @@
 
   outputs = { nixpkgs, nix-on-droid, ... }@inputs: with nixpkgs; with builtins; {
 
-    inherit inputs;
     templates = import ./templates;
 
     packages = mapAttrs (system: pkgs: { 
