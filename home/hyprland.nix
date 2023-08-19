@@ -122,10 +122,11 @@
 
       decoration {
           rounding = 0
-          blur = false
-          blur_size = 3
-          blur_passes = 1
-          blur_new_optimizations = true
+
+          blur {
+            enabled = true
+            size = 3
+          }
 
           drop_shadow = false
           shadow_range = 4

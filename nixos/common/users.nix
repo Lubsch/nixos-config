@@ -38,6 +38,6 @@ in {
     fi
   '') users;
 
-} // (if users == { } then {
+} // (if users == {} then {
   users.users.root.openssh.authorizedKeys = { inherit keys; };
-} else { })
+} else {})

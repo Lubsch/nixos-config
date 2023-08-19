@@ -7,14 +7,13 @@ let
     throw (toString (filter (s: !(elem s (attrNames scripts))) (attrValues scripts)));
 
   order-scripts = with builtins; scripts: order:
-    if scripts == {} then order else
-    let 
+    if scripts == {} then order else let 
       only-unordered-deps = mapAttrs (_: s: s // { deps = filter (d: !(elem d order)) s.deps; }) scripts;
       dependencyless = filter (n: scripts.${n}.deps == []) (attrNames scripts);
     in 
     order-scripts (removeAttrs only-unordered-deps dependencyless) (order ++ dependencyless);
 in {
-  options.setup-scripts = lib.mkOption { };
+  options.setup-scripts = lib.mkOption {};
 
   config = {
     # TODO
