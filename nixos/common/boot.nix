@@ -1,8 +1,8 @@
 { lib, config, pkgs, ... }: {
 
   options = {
-    kernelModules = lib.mkOption {};
-    initrdModules = lib.mkOption {};
+    kernelModules = lib.mkOption { default = []; };
+    initrdModules = lib.mkOption { default = []; };
   };
 
   config.boot = {
