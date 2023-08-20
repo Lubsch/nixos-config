@@ -1,7 +1,8 @@
-{ lib, nixosConfig ? {}, ... }:
+{ lib, ... }:
 let 
   path = "$HOME/.local/share/zsh/history";
 in {
+
   # Prevents collision with zsh history, hacky but works
   home.activation.delete-zsh-history = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
     export HIST=; rm -rf --interactive=never ${path}
@@ -78,13 +79,10 @@ in {
       autoload edit-command-line; zle -N edit-command-line
       bindkey '^e' edit-command-line
     '';
-
   };
-
-  # Declutter home when defining zshenv through nixos
-  home.file.".zshenv".enable = !(nixosConfig.environment.etc.zshenv.enable or false);
 
   persist.files = [ 
     ".local/share/zsh/history"
   ];
+
 }
