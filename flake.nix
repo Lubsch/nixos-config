@@ -33,7 +33,7 @@
 
       raja = [ {
         nixpkgs.hostPlatform = "x86_64-linux";
-        main-disk = "nvme0n1";
+        main-disk = "/dev/nvme0n1";
         my-users."lubsch" = [
           ./home/common
           ./home/desktop-common
