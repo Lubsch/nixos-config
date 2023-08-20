@@ -6,7 +6,7 @@
     pathsToLink = [ "/share/zsh" ]; # Make zsh-completions work
   };
 
-  home-manager.users = builtins.mapAttrs (name: modules: {
+  home-manager.users = builtins.mapAttrs (_: _: {
     imports = [ { 
       home.file.".zshenv".enable = false;
     } ];

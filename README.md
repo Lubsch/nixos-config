@@ -28,7 +28,7 @@ This is my NixOS-config. It takes some inspiration from [Misterio77's config](ht
 ## Todo that's not marked
 
 - Setup usable Debugger
-- Fix Nix-On-Droid rebuilds
+- Find solution for android
 - E-Mail
 - Calendar
 - Statusbar

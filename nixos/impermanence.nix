@@ -5,7 +5,7 @@
     (lib.mkAliasOptionModule [ "persist" ] [ "environment" "persistence" "/persist" ])
   ];
 
-  home-manager.users = builtins.mapAttrs (name: modules: {
+  home-manager.users = builtins.mapAttrs (name: _: {
     imports = [
       inputs.impermanence.nixosModules.home-manager.impermanence 
       (lib.mkAliasOptionModule [ "persist" ] [ "home" "persistence" "/persist/home/${name}" ])

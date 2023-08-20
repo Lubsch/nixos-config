@@ -14,11 +14,6 @@
       url = "https://raw.githubusercontent.com/Shawn8901/nix-configuration/main/packages/proton-ge-custom/default.nix";
       flake = false;
     };
-    nix-on-droid = {
-      url = "github:t184256/nix-on-droid";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
   };
 
   outputs = inputs: with inputs.nixpkgs; with builtins; {
@@ -36,10 +31,36 @@
       specialArgs = { inherit inputs; };
     }) {
 
-      "shah" = [ {
+      raja = [ {
         nixpkgs.hostPlatform = "x86_64-linux";
-        hardware.cpu.intel.updateMicrocode = true;
+        main-disk = "nvme0";
+        my-users."lubsch" = [
+          ./home/common
+          ./home/desktop-common
+          ./home/nvim
+          ./home/hyprland.nix
+          ./home/mail.nix
+          ./home/syncthing.nix
+          ./home/keepassxc.nix
+          ./home/qutebrowser.nix
+          ./home/steam.nix
+          ./home/setup-script.nix
+        ];
+      }
+        ./nixos/common
+        ./nixos/impermanence.nix
+        ./nixos/wireless.nix
+        ./nixos/desktop.nix
+        ./nixos/zsh.nix
+        ./nixos/bluetooth.nix
+        ./nixos/virtualisation.nix
+        ./nixos/printing.nix
+      ];
+
+      shah = [ {
+        nixpkgs.hostPlatform = "x86_64-linux";
         main-disk = "/dev/sda";
+        hardware.cpu.intel.updateMicrocode = true;
         initrdModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
         kernelModules = [ "kvm-intel" ];
         swap = { size = 8; offset = "1844480"; };
@@ -65,22 +86,5 @@
       ];
 
     };
-
-    nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
-      modules = [ 
-        ./nixos/common/nix.nix
-        ./nixos/common/misc.nix
-        ./nixos/droid.nix
-      ];
-      extraSpecialArgs = { 
-        inherit inputs;
-        username = "lubsch";
-        userModules = [
-          ./home/common
-          ./home/nvim
-        ];
-      };
-    };
-
   };
 }

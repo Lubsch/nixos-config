@@ -3,6 +3,9 @@ let
   database = "~/misc/keepass/secrets.kdbx";
 in {
   home = {
+
+    sessionVariables."PASSWORDMANAGER" = "kp";
+
     packages = with pkgs; [ 
       keepassxc
       (writeShellScriptBin "kp" ''
@@ -26,18 +29,10 @@ in {
         echo $password | keepassxc-cli clip -q ${database} $selection $timeout
       '')
       (writeShellScriptBin "setup-keepass" ''
-        echo Hello World
+        # deps syncthing
+        echo Do not forget to sync passwords to ${database}
+        $BROWSER localhost:8384
       '')
     ];
-
-    sessionVariables."PASSWORDMANAGER" = "kp";
-  };
-
-  setup-scripts.keepassxc = {
-    deps = [ "syncthing" ];
-    script = ''
-      echo DO NOT FORGET TO SYNC PASSWORDS TO ${database}
-      $BROWSER localhost:8384
-    '';
   };
 }

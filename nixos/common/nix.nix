@@ -1,7 +1,7 @@
-{ lib, config, pkgs, inputs, ... }: {
+{ pkgs, inputs, ... }: {
 
   # Required for nix command
-  environment."${if config.droid then "p" else "systemP"}ackages" = [ pkgs.git ];
+  environment.systemPackages = [ pkgs.git ];
 
   nix = {
     extraOptions = ''
@@ -11,22 +11,22 @@
       experimental-features = nix-command flakes repl-flake
     '';
 
-    registry = lib.mkIf (!config.droid) {
+    settings.trusted-users = [ "@wheel" ];
+
+    registry = {
       n.flake = inputs.nixpkgs;
       nixpkgs.flake = inputs.nixpkgs;
       config.flake.outPath = ../..;
     };
 
-    gc = lib.mkIf (!config.droid) {
+    gc = {
       automatic = true;
       dates = "weekly";
     };
   };
 
-  nixpkgs = lib.mkIf (!config.droid) {
-    config = {
-      allowUnfree = true; 
-      enableParallelBuilding = true;
-    };
+  nixpkgs.config = {
+    allowUnfree = true; 
+    enableParallelBuilding = true;
   };
 }

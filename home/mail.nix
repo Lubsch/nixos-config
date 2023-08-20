@@ -1,8 +1,6 @@
-{
-  setup-scripts.mail = {
-    deps = [ "keepassxc" ];
-    script = ''
-      echo TODO
-    '';
-  };
+{ pkgs, ... }: {
+  home.packages = [ (pkgs.writeShellScriptBin "setup-mail" ''
+    # deps keepass
+    echo TODO
+  '') ];
 }
