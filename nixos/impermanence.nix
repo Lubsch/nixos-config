@@ -1,9 +1,17 @@
-{ lib, inputs, main-disk, ... }: {
+{ lib, config, inputs, ... }: {
 
   imports = [
     inputs.impermanence.nixosModules.impermanence
     (lib.mkAliasOptionModule [ "persist" ] [ "environment" "persistence" "/persist" ])
   ];
+
+  home-manager.users = builtins.mapAttrs (name: modules: {
+    imports = [
+      inputs.impermanence.nixosModules.home-manager.impermanence 
+      (lib.mkAliasOptionModule [ "persist" ] [ "home" "persistence" "/persist/home/${name}" ])
+      { persist.allowOther = true; }
+    ];
+  }) config.my-users;
 
   programs.fuse.userAllowOther = true;
 

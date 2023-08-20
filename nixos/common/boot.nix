@@ -1,10 +1,16 @@
-{ pkgs, kernelModules, initrdModules, cpuVendor, ... }: {
-  boot = {
+{ lib, config, pkgs, ... }: {
+
+  options = {
+    kernelModules = lib.mkOption {};
+    initrdModules = lib.mkOption {};
+  };
+
+  config.boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
-    inherit kernelModules;
+    inherit (config) kernelModules;
     initrd = { 
-      availableKernelModules = initrdModules; 
+      availableKernelModules = config.initrdModules; 
       verbose = false;
     };
 
@@ -18,9 +24,5 @@
       timeout = 0;
       efi.canTouchEfiVariables = true;
     };
-  };
-  hardware = {
-    enableRedistributableFirmware = true;
-    cpu.${cpuVendor}.updateMicrocode = true;
   };
 }

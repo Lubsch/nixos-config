@@ -27,14 +27,13 @@ This is my NixOS-config. It takes some inspiration from [Misterio77's config](ht
 
 ## Todo that's not marked
 
-- Make qutebrowser not create `~\.pki`
 - Setup usable Debugger
 - Fix Nix-On-Droid rebuilds
 - E-Mail
 - Calendar
 - Statusbar
-- Touch for terminal and image viewer
-    - works in foot but hyprland doesn't make cursor disappear when using touch
+- Touch for terminal and image viewer (maybe loupe)
+    - should work in foot but hyprland doesn't disable cursor when using touch
 
 ## Installation Guide
 

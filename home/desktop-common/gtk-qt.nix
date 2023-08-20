@@ -7,8 +7,8 @@
       size = 12;
     };
     theme = {
-      name = "Plata-Noir-Compact:dark";
-      package = pkgs.plata-theme;
+      name = "Materia:dark";
+      package = pkgs.materia-theme;
     };
     iconTheme = {
       name = "Papirus-Dark";

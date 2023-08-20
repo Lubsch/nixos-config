@@ -1,4 +1,4 @@
-{ lib, ... }@args:
+{ lib, nixosConfig ? {}, ... }:
 let 
   path = "$HOME/.local/share/zsh/history";
 in {
@@ -82,7 +82,7 @@ in {
   };
 
   # Declutter home when defining zshenv through nixos
-  home.file.".zshenv".enable = !(args ? "nixosConfig");# && args.nixosConfig.environment.etc ? "zshenv" then false else true;
+  home.file.".zshenv".enable = !(nixosConfig.environment.etc.zshenv.enable or false);
 
   persist.files = [ 
     ".local/share/zsh/history"

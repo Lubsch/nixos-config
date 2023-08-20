@@ -21,9 +21,9 @@
     };
   };
 
-  outputs = { nixpkgs, nix-on-droid, ... }@inputs: with nixpkgs; with builtins; {
+  outputs = inputs: with inputs.nixpkgs; with builtins; {
 
-    templates = import ./templates;
+    templates = mapAttrs (n: _: { description = n; path = ./templates+"/"+n; }) (readDir ./templates);
 
     packages = mapAttrs (system: pkgs: { 
       disko = inputs.disko.packages.${system}.disko;
@@ -31,32 +31,21 @@
       nvim = pkgs.callPackage ./home/nvim/package.nix { lsp = false; };
     }) legacyPackages;
 
-    nixosConfigurations = mapAttrs (hostname: config: lib.nixosSystem {
-      inherit (config) modules;
-      system = config.system or "x86_64-linux";
-      specialArgs = config // { inherit inputs hostname; };
+    nixosConfigurations = mapAttrs (hostname: modules: lib.nixosSystem {
+      modules =  modules ++ [ { networking.hostName = hostname; } ];
+      specialArgs = { inherit inputs; };
     }) {
 
-      "shah" = {
+      "shah" = [ {
+        nixpkgs.hostPlatform = "x86_64-linux";
+        hardware.cpu.intel.updateMicrocode = true;
         main-disk = "/dev/sda";
-        cpuVendor = "intel";
         initrdModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
         kernelModules = [ "kvm-intel" ];
         swap = { size = 8; offset = "1844480"; };
-        modules = [
-          ./nixos/common
-          ./nixos/impermanence.nix
-          ./nixos/wireless.nix
-          ./nixos/desktop.nix
-          ./nixos/zsh.nix
-          ./nixos/bluetooth.nix
-          ./nixos/virtualisation.nix
-          ./nixos/printing.nix
-        ];
-        users."lubsch" = [
+        my-users."lubsch" = [
           ./home/common
           ./home/desktop-common
-          ./home/impermanence.nix
           ./home/nvim
           ./home/hyprland.nix
           ./home/mail.nix
@@ -64,33 +53,16 @@
           ./home/keepassxc.nix
           ./home/qutebrowser.nix
         ];
-      };
-
-       "duke" = {
-         impermanence = false;
-         main-disk = "/dev/sda";
-         cpuVendor = "intel";
-         initrdModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
-         kernelModules = [ "kvm-intel" ];
-         swap = { size = 8; offset = "1256037"; };
-         modules = [
-           ./nixos/common
-           ./nixos/wireless.nix
-           ./nixos/desktop.nix
-           ./nixos/zsh.nix
-           ./nixos/bluetooth.nix
-         ];
-         users."lubsch" = [
-           ./home/common
-           ./home/nvim
-           ./home/desktop-common
-           ./home/hyprland.nix
-           ./home/mail.nix
-           ./home/syncthing.nix
-           ./home/keepassxc.nix
-           ./home/qutebrowser.nix
-         ];
-       };
+      }
+        ./nixos/common
+        ./nixos/impermanence.nix
+        ./nixos/wireless.nix
+        ./nixos/desktop.nix
+        ./nixos/zsh.nix
+        ./nixos/bluetooth.nix
+        ./nixos/virtualisation.nix
+        ./nixos/printing.nix
+      ];
 
     };
 

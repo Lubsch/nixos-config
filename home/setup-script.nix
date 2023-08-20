@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }: 
+{ lib, pkgs, config, ... }: 
 let
   
   no-missing = with builtins; scripts:

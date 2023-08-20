@@ -1,6 +1,7 @@
 # Server-packages (not always co-installed) defined here, too for code centralization
 { pkgs, lsp ? true }:
 let 
+
   servers = with pkgs; [
     { pkg = typst-lsp; name = "typst_lsp"; }
     { pkg = nixd; }
@@ -11,6 +12,7 @@ let
   setup-server = { pkg, name ? pkg.pname, bin ? pkg.pname, opts ? "{}" }: ''
     if vim.fn.executable'${bin}' == 1 then require'lspconfig'.${name}.setup${opts} end
   '';
+
 in
 pkgs.wrapNeovim pkgs.neovim-unwrapped {
   configure = {
@@ -35,9 +37,7 @@ pkgs.wrapNeovim pkgs.neovim-unwrapped {
     customRC = ''
       lua << EOF
       ${builtins.concatStringsSep "\n" (map setup-server servers)}
-
       ${builtins.readFile ./init.lua}
-
       -- install all treesitter grammars without slowing down startup
       vim.opt.runtimepath:append("${pkgs.symlinkJoin {
         name = "treesitter-grammars";
@@ -48,6 +48,6 @@ pkgs.wrapNeovim pkgs.neovim-unwrapped {
     '';
   };
   extraMakeWrapperArgs = "--suffix PATH : ${with pkgs; lib.makeBinPath (
-    [ fd ripgrep ] ++ (lib.optional lsp (map (s: s.pkg) servers))
+    [ fd ripgrep ] ++ (if lsp then map (s: s.pkg) servers else [])
   )}";
 }
