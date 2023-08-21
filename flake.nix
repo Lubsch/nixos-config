@@ -22,7 +22,7 @@
 
     packages = mapAttrs (system: pkgs: { 
       disko = inputs.disko.packages.${system}.disko;
-      nvim-lsp = pkgs.callPackage ./home/nvim/package.nix {};
+      nvim-lsp = pkgs.callPackage ./home/nvim/package.nix { lsp = true; };
       nvim = pkgs.callPackage ./home/nvim/package.nix { lsp = false; };
     }) legacyPackages;
 
@@ -31,44 +31,19 @@
       specialArgs = { inherit inputs; };
     }) {
 
-      raja = [ {
-        nixpkgs.hostPlatform = "x86_64-linux";
-        main-disk = "/dev/nvme0n1";
-        my-users."lubsch" = [
-          ./home/common
-          ./home/desktop-common
-          ./home/nvim
-          ./home/hyprland.nix
-          ./home/mail.nix
-          ./home/syncthing.nix
-          ./home/keepassxc.nix
-          ./home/qutebrowser.nix
-          ./home/steam.nix
-          ./home/setup-script.nix
-        ];
-      }
-        ./nixos/common
-        ./nixos/impermanence.nix
-        ./nixos/wireless.nix
-        ./nixos/desktop.nix
-        ./nixos/zsh.nix
-        ./nixos/bluetooth.nix
-        ./nixos/virtualisation.nix
-        ./nixos/printing.nix
-      ];
-
       shah = [ {
         nixpkgs.hostPlatform = "x86_64-linux";
         main-disk = "/dev/sda";
-        hardware.cpu.intel.updateMicrocode = true;
-        initrdModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
-        kernelModules = [ "kvm-intel" ];
         swap = { size = 8; offset = "1844480"; };
-        my-users."lubsch" = [
+        hardware.cpu.intel.updateMicrocode = true;
+        boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
+        boot.kernelModules = [ "kvm-intel" ];
+        home-manager.users."lubsch".imports = [
           ./home/common
           ./home/desktop-common
           ./home/nvim
           ./home/hyprland.nix
+          ./home/setup-script.nix
           ./home/mail.nix
           ./home/syncthing.nix
           ./home/keepassxc.nix

@@ -1,5 +1,5 @@
 # Server-packages (not always co-installed) defined here, too for code centralization
-{ pkgs, lsp ? true }:
+{ pkgs, lsp ? false }:
 let 
 
   servers = with pkgs; [

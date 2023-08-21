@@ -14,15 +14,15 @@
 
     boot.initrd.supportedFilesystems = [ "btrfs" ];
 
-    swapDevices = [{
+    services.logind.lidSwitch = "hybrid-sleep";
+    swapDevices = [ {
       device = "/swap/swapfile";
       size = config.swap.size * 1024;
-    }];
+    } ];
     boot = {
       resumeDevice = config.main-disk;
       kernelParams = [ "resume_offset=${config.swap.offset}" ];
     };
-    services.logind.lidSwitch = "hybrid-sleep";
 
     disko.devices.disk.main = {
       type = "disk";

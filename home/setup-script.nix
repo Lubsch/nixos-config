@@ -3,11 +3,11 @@ let
 in {
   home.packages = [
     # TODO
-    (pkgs.writeShellScriptBin "setup-hardware" ''
+    (pkgs.writeShellScriptBin "setup-swap" ''
       # deps git
-      doas btrfs inspect-internal map-swapfile -r /swap/swapfile | wl-copy
-      echo Copied hardware-config to clipboard
-      echo Press Enter to paste it into flake.nix
+      echo "  swap = { size = CHANGE; offset = \"$(doas btrfs inspect-internal map-swapfile -r /swap/swapfile)\"; }" | wl-copy
+      echo Copied swap-config to clipboard
+      echo Press Enter, then paste it into flake.nix
       read
       $EDITOR ~/misc/repos/nixos-config/flake.nix
     '')

@@ -1,23 +1,11 @@
-{ lib, config, pkgs, ... }: {
+{ pkgs, ... }: {
 
-  options = {
-    kernelModules = lib.mkOption { default = []; };
-    initrdModules = lib.mkOption { default = []; };
-  };
-
-  config.boot = {
+  boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
-    inherit (config) kernelModules;
-    initrd = { 
-      availableKernelModules = config.initrdModules; 
-      verbose = false;
-    };
-
+    initrd.verbose = false;
     consoleLogLevel = 2;
-    kernelParams = [
-      "quiet"
-    ];
+    kernelParams = [ "quiet" ];
 
     loader = {
       systemd-boot.enable = true;
