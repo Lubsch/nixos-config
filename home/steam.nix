@@ -4,7 +4,7 @@ let
   package = pkgs.steam;
 
   script = pkgs.writeShellScriptBin "steam" ''
-    HOME=${config.xdg.dataHome}/steamHome
+    HOME=$HOME/.local/share/steamHome
     STEAM_EXTRA_COMPAT_TOOLS_PATHS=${pkgs.callPackage inputs.proton-ge {}}
     ${package}/bin/steam
   '';

@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
+    xdg-ninja # clear home dir
     shellcheck # check script posix compliance
     gource # visualize git histories
     file # file information

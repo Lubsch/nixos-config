@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+
   services.printing = {
     enable = true;
     webInterface = false;
@@ -16,4 +17,5 @@
       ColorModel = "CMYGray";
     };
   } ];
+
 }

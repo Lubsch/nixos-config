@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }: {
+{ lib, ... }: {
 
   options.persist = lib.mkOption {};
 
@@ -7,7 +7,6 @@
     time.timeZone = "Europe/Berlin";
     hardware.enableRedistributableFirmware = true;
     environment.enableAllTerminfo = true;
-    environment.binsh = "${pkgs.dash}/bin/dash";
     boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
     persist.directories = [

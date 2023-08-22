@@ -18,7 +18,7 @@
 
   outputs = inputs: with inputs.nixpkgs; with builtins; {
 
-    templates = mapAttrs (n: _: { description = n; path = ./templates+"/"+n; }) (readDir ./templates);
+    templates = mapAttrs (n: _: { description = n; path = ./templates + "/${n}"; }) (readDir ./templates);
 
     packages = mapAttrs (system: pkgs: { 
       disko = inputs.disko.packages.${system}.disko;
@@ -31,7 +31,15 @@
       specialArgs = { inherit inputs; };
     }) {
 
-      shah = [ {
+      shah = [
+        ./nixos/common
+        ./nixos/impermanence.nix
+        ./nixos/wireless.nix
+        ./nixos/desktop.nix
+        ./nixos/bluetooth.nix
+        ./nixos/virtualisation.nix
+        ./nixos/printing.nix
+      {
         nixpkgs.hostPlatform = "x86_64-linux";
         main-disk = "/dev/sda";
         swap = { size = 8; offset = "1844480"; };
@@ -49,16 +57,7 @@
           ./home/keepassxc.nix
           ./home/qutebrowser.nix
         ];
-      }
-        ./nixos/common
-        ./nixos/impermanence.nix
-        ./nixos/wireless.nix
-        ./nixos/desktop.nix
-        ./nixos/zsh.nix
-        ./nixos/bluetooth.nix
-        ./nixos/virtualisation.nix
-        ./nixos/printing.nix
-      ];
+      } ];
 
     };
   };

@@ -1,22 +1,20 @@
 { config, lib, pkgs, ... }: {
 
-  options = let 
-    mkDefault = value: (lib.mkOption { default = value; });
-  in {
-    fonts = {
+  options.my-fonts = lib.mkOption {
+    default = {
       regular = {
-        name = mkDefault "Roboto";
-        package = mkDefault pkgs.roboto;
+        name = "Roboto";
+        package = pkgs.roboto;
       };
       mono = {
-        name = mkDefault "JetBrains Mono Nerd Font"; 
-        package = mkDefault (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono"]; }); 
+        name = "JetBrains Mono Nerd Font"; 
+        package = (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono"]; }); 
       };
     };
   };
 
   config = {
-    home.packages = with config.fonts; [ 
+    home.packages = with config.my-fonts; [ 
       regular.package 
       mono.package 
     ];

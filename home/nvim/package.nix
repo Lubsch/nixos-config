@@ -1,16 +1,16 @@
 # Server-packages (not always co-installed) defined here, too for code centralization
-{ pkgs, lsp ? false }:
+{ pkgs, lsp }:
 let 
 
   servers = with pkgs; [
     { pkg = typst-lsp; name = "typst_lsp"; }
     { pkg = nixd; }
-    { pkg = clang-tools; name = "clangd"; bin = "clangd"; }
+    { pkg = clang-tools; name = "clangd"; cmd = "clangd"; }
     { pkg = jdt-language-server; name = "jdtls"; opts = "{ cmd = { 'jdt-language-server', '-configuration', '$HOME/.cache/jdtls/config', '-data', '$HOME/.cache/jdtls/workspace' }, init_options = { workspace = '$HOME/.cache/jdtls/workspace' } }"; }
   ];
 
-  setup-server = { pkg, name ? pkg.pname, bin ? pkg.pname, opts ? "{}" }: ''
-    if vim.fn.executable'${bin}' == 1 then require'lspconfig'.${name}.setup${opts} end
+  setup-server = { pkg, name ? pkg.pname, cmd ? pkg.pname, opts ? "{}" }: ''
+    if vim.fn.executable'${cmd}' == 1 then require'lspconfig'.${name}.setup${opts} end
   '';
 
 in

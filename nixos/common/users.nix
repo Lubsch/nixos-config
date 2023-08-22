@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, ... }: {
+{ config, pkgs, inputs, ... }: {
 
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
@@ -9,11 +9,11 @@
 
     users = {
       mutableUsers = false;
+      defaultUserShell = pkgs.zsh;
       users = if config.home-manager.users == {} then {
         root.openssh.authorizedKeys = { inherit keys; };
       } else builtins.mapAttrs (name: _: {
         isNormalUser = true;
-        shell = pkgs.zsh;
         extraGroups = [ "wheel" "libvirtd" ];
         openssh.authorizedKeys = { inherit keys; };
         passwordFile = "/persist/passwords/${name}";

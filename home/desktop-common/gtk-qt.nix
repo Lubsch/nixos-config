@@ -3,7 +3,7 @@
     enable = true;
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     font = {
-      inherit (config.fonts.regular) package name;
+      inherit (config.my-fonts.regular) package name;
       size = 12;
     };
     theme = {

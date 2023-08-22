@@ -5,7 +5,7 @@
   };
 
   xdg.configFile."fuzzel/fuzzel.ini".text = with config; ''
-   font = ${fonts.regular.name}:size=12
+   font = ${my-fonts.regular.name}:size=12
    icon-theme = ${gtk.iconTheme.name}
    layer = overlay
    [colors]

@@ -7,7 +7,7 @@
         offset = "20x40";
         padding = 8;
         frame_width = 0;
-        font = "${config.fonts.regular.name} 12";
+        font = "${config.my-fonts.regular.name} 12";
       };
       urgency_normal = {
         background = "#000000d8";

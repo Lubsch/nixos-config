@@ -16,7 +16,7 @@
     registry = {
       n.flake = inputs.nixpkgs;
       nixpkgs.flake = inputs.nixpkgs;
-      config.flake.outPath = ../..;
+      c.flake.outPath = ../..;
     };
 
     gc = {

@@ -24,7 +24,7 @@ let
     c.url.start_pages = "about:blank"
 
     c.colors.webpage.preferred_color_scheme = "dark"
-    c.fonts.default_family = "${config.fonts.regular.name}"
+    c.fonts.default_family = "${config.my-fonts.regular.name}"
     c.fonts.default_size = "12pt"
     c.tabs.favicons.scale = 1.0
     c.tabs.padding = {"bottom": 6, "left": 4, "right": 4, "top": 6}
@@ -33,12 +33,13 @@ let
     c.downloads.remove_finished = 0
   '';
 
-  package = pkgs.qutebrowser-qt6.override { enableWideVine = true; };
+  package = pkgs.qutebrowser.override { enableWideVine = true; };
 
   # don't put .pki in ~, faster hot-start
   script = pkgs.writeShellScriptBin "qutebrowser" ''
     # initial idea: Florian Bruhin (The-Compiler)
     # author: Thore Bödecker (foxxx0)
+    XDG_DOWNLOAD_DIR=${config.xdg.userDirs.download}
     HOME=${config.xdg.dataHome}/qutebrowserHome
     _url="$1"
     _qb_version=${package.version}
@@ -48,7 +49,7 @@ let
         "$_url" \
         "$_qb_version" \
         "$_proto_version" \
-        "$PWD" | ${pkgs.socat}/bin/socat -lf /dev/null - UNIX-CONNECT:"$_ipc_socket" || ${package}/bin/qutebrowser -C ${configFile} "$@" &
+        "$PWD" | ${pkgs.socat}/bin/socat -lf /dev/null - UNIX-CONNECT:"$_ipc_socket" "$@" || ${package}/bin/qutebrowser -C ${configFile} "$@" &
   '';
 
 in {
