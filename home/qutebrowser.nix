@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 let
-
   configFile = builtins.toFile "config.py" ''
     config.unbind("<Ctrl-d>")
     config.unbind("<Ctrl-d>")
@@ -8,7 +7,6 @@ let
     config.unbind("u")
     config.bind("d", "scroll-page 0 0.5")
     config.bind("u", "scroll-page 0 -0.5")
-
     config.unbind("xo")
     config.unbind("xO")
     config.bind("x", "tab-close")
@@ -51,9 +49,7 @@ let
         "$_proto_version" \
         "$PWD" | ${pkgs.socat}/bin/socat -lf /dev/null - UNIX-CONNECT:"$_ipc_socket" "$@" || ${package}/bin/qutebrowser -C ${configFile} "$@" &
   '';
-
 in {
-
   home.sessionVariables.BROWSER = script.name;
 
   home.packages = [ (pkgs.symlinkJoin {
@@ -64,5 +60,4 @@ in {
   persist.directories = [ 
     ".local/share/qutebrowserHome"
   ];
-
 }

@@ -27,6 +27,7 @@ This is my NixOS-config. It takes some inspiration from [Misterio77's config](ht
 
 ## Todo that's not marked
 
+- gnu readline
 - Setup usable Debugger
 - Find solution for android
 - E-Mail

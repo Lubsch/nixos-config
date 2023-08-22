@@ -26,8 +26,8 @@
       nvim = pkgs.callPackage ./home/nvim/package.nix { lsp = false; };
     }) legacyPackages;
 
-    nixosConfigurations = mapAttrs (hostname: modules: lib.nixosSystem {
-      modules =  modules ++ [ { networking.hostName = hostname; } ];
+    nixosConfigurations = mapAttrs (name: modules: lib.nixosSystem {
+      modules =  modules ++ [ { networking.hostName = name; } ];
       specialArgs = { inherit inputs; };
     }) {
 
@@ -46,7 +46,7 @@
         hardware.cpu.intel.updateMicrocode = true;
         boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
         boot.kernelModules = [ "kvm-intel" ];
-        home-manager.users."lubsch".imports = [
+        home-manager.users.lubsch.imports = [
           ./home/common
           ./home/desktop-common
           ./home/nvim

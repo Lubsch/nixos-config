@@ -1,29 +1,47 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ?
+ let
+    lock = (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.nixpkgs.locked;
+    nixpkgs = fetchTarball {
+      url = "https://github.com/nixos/nixpkgs/archive/${lock.rev}.tar.gz";
+      sha256 = lock.narHash;
+    };
+  in
+  import nixpkgs {}
+}:
 pkgs.mkShell {
-  packages = [ pkgs.git (pkgs.callPackage ./home/nvim/package.nix {})];
+  NIX_CONFIG = "extra-experimental-features = nix-command flakes";
+  packages = with pkgs; [ 
+    git 
+    (callPackage ./home/nvim/package.nix { lsp = false; })
+  ];
   shellHook = ''
-    set -eu
-    mkdir -p ~/.config/nix
-    echo "experimental-features nix-command flakes" > ~/.config/nix/nix.conf
-    git clone https://github.com/lubsch/nixos-config
-    cd nixos-config
-    read -p "Enter hostname: " hostname
-    generated="$(nixos-generate-config --show --no-filesystem)"
-    
-    config="$hostname = [ {\n"
-    config+="  nixpkgs.hostPlatform = \"${builtins.currentSystem}\"\n"
-    config+="  main-disk = \"/dev/CHANGE\"\n"
-    config+="$(grep "updateMicrocode" <<< $generated)\n"
-    config+="$(grep "boot.initrd.available" <<< $generated)\n"
-    config+="$(grep "boot.kernel" <<< $generated)\n"
-    config+="  home-manager.users.\"CHANGE\".imports = [\n"
-    config+="    ./home/common\n"
-    config+="  ];\n"
-    config+="}\n"
-    config+="  ./nixos/common\n"
-    config+="];\n"
-    nvim -c "let @+='$config'" flake.nix
-    nix run --extra-experimental-features 'nix-command flakes' .#disko -- -m disko -f git+file:.#"$hostname"
+    rm -rf nixos-config-install
+    git clone https://github.com/lubsch/nixos-config nixos-config-install
+    cd nixos-config-install
+
+    read -p "Hostname: " hostname
+    read -p "Username: " username
+
+    generated="$(sudo nixos-generate-config --show-hardware-config --no-filesystems || doas nixos-generate-config --show-hardware-config --no-filesystems)"
+    echo "$hostname = [" >> flake.nix
+    echo "  ./nixos/common" >> flake.nix
+    echo "{" >> flake.nix
+    echo "  nixpkgs.hostPlatform = \"${builtins.currentSystem}\";" >> flake.nix
+    echo "  main-disk = \"/dev/CHANGE\";" >> flake.nix
+    grep "updateMicrocode" <<< "$generated" >> flake.nix
+    grep "boot.initrd.available" <<< "$generated" >> flake.nix
+    grep "boot.kernel" <<< "$generated" >> flake.nix
+    echo "  home-manager.users.\"$username\".imports = [" >> flake.nix
+    echo "    ./home/common" >> flake.nix
+    echo "  ];" >> flake.nix
+    echo "} ];" >> flake.nix
+
+    nvim flake.nix
+
+    nix run .#disko -- -m disko -f git+file:.#"$hostname"
     nixos-install --flake .#"$hostname" --no-root-password
+
+    mkdir -p /mnt/persist/home/"$username"/misc/repos
+    cp -r . /mnt/persist/home/"$username"/misc/repos/nixos-config
   '';
 }
