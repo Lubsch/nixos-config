@@ -26,9 +26,11 @@ let
     c.fonts.default_size = "12pt"
     c.tabs.favicons.scale = 1.0
     c.tabs.padding = {"bottom": 6, "left": 4, "right": 4, "top": 6}
+    c.completion.show = "auto"
 
     c.downloads.position = "bottom"
     c.downloads.remove_finished = 0
+    c.downloads.location.directory = "${config.xdg.userDirs.download}"
   '';
 
   package = pkgs.qutebrowser.override { enableWideVine = true; };
@@ -37,7 +39,6 @@ let
   script = pkgs.writeShellScriptBin "qutebrowser" ''
     # initial idea: Florian Bruhin (The-Compiler)
     # author: Thore Bödecker (foxxx0)
-    XDG_DOWNLOAD_DIR=${config.xdg.userDirs.download}
     HOME=${config.xdg.dataHome}/qutebrowserHome
     _url="$1"
     _qb_version=${package.version}

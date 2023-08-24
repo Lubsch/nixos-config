@@ -5,7 +5,8 @@ let
   servers = with pkgs; [
     { pkg = typst-lsp; name = "typst_lsp"; }
     { pkg = nixd; }
-    { pkg = clang-tools; name = "clangd"; cmd = "clangd"; }
+    # { pkg = clang-tools; name = "clangd"; cmd = "clangd"; }
+    { pkg = ccls; opts = "{ init_options = { cache = { directory = '' } } }"; }
     { pkg = jdt-language-server; name = "jdtls"; opts = "{ cmd = { 'jdt-language-server', '-configuration', '$HOME/.cache/jdtls/config', '-data', '$HOME/.cache/jdtls/workspace' }, init_options = { workspace = '$HOME/.cache/jdtls/workspace' } }"; }
   ];
 

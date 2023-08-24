@@ -6,6 +6,7 @@
       ls = "exa -la --group-directories-first --no-user --no-permissions --icons";
       la = "exa -la --group-directories-first --icons";
       lt = "exa --group-directories-first --no-user --no-permissions --icons --tree";
+      lta = "exa -a --group-directories-first --no-user --no-permissions --icons --tree";
     };
   };
 }

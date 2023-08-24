@@ -21,7 +21,7 @@
       bind = $mainMod, V, exec, ${home.sessionVariables.LAUNCHER}
       bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
 
-      bind = $mainMod, R, exec, ${home.sessionVariables.TERMINAL} --hold zsh -ic "rr; zsh -i"
+      bind = $mainMod, R, exec, ${home.sessionVariables.TERMINAL} --hold zsh -ic "re; zsh -i"
 
       bind = $mainMod, G, exec, steam
 

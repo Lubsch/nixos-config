@@ -22,7 +22,9 @@ in {
     shellAliases = {
       e = "$EDITOR";
 
-      rr = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
+      re = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
+      ns = "nix shell";
+      nr = "nix run";
 
       iw = "iwctl station wlan0 scan && sleep 1 && iwctl station wlan0 connect earl";
 

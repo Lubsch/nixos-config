@@ -7,9 +7,8 @@
     devShells = mapSystems (_: pkgs: { 
       default = pkgs.mkShell {
         packages = with pkgs; [
-          valgrind
-          clang
-          rr
+          cargo
+          rustc
         ];
       };
     });
