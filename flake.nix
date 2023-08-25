@@ -2,14 +2,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     impermanence.url = "github:nix-community/impermanence";
-    home-manager = { 
-      url = "github:nix-community/home-manager"; 
-      inputs.nixpkgs.follows = "nixpkgs"; 
-    };
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
+    disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
     proton-ge = {
       url = "https://raw.githubusercontent.com/Shawn8901/nix-configuration/main/packages/proton-ge-custom/default.nix";
       flake = false;
@@ -49,8 +43,9 @@
         home-manager.users.lubsch.imports = [
           ./home/common
           ./home/desktop-common
-          ./home/nvim
           ./home/hyprland.nix
+          ./home/waybar.nix
+          ./home/nvim
           ./home/setup-script.nix
           ./home/mail.nix
           ./home/syncthing.nix
