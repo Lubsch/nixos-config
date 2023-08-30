@@ -44,7 +44,7 @@
           ./home/common
           ./home/desktop-common
           ./home/hyprland.nix
-          ./home/waybar.nix
+          ./home/yambar.nix
           ./home/nvim
           ./home/setup-script.nix
           ./home/mail.nix
