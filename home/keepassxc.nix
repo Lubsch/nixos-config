@@ -1,40 +1,32 @@
-{ pkgs, ...}: 
+{ lib, pkgs, ... }: 
 let
-  database = "~/misc/keepass/secrets.kdbx";
+
+  script = pkgs.writeShellScriptBin "kp" ''
+    if [ ! -e "$KEEPASS_DATABASE" ]; then
+      notify-send "Keepass database not found" "$KEEPASS_DATABASE"
+      $BROWSER localhost:8384
+      exit
+    fi
+    timeout=30
+    password=$(fuzzel -d --password)
+    [ "$password" ] || exit
+    list=$(echo "$password" | keepassxc-cli ls $KEEPASS_DATABASE -q)
+    [ "$list" ] || exit
+    selection=$(echo "$list" | fuzzel -d)
+    [ "$selection" ] || exit
+    echo $password | keepassxc-cli clip -q $KEEPASS_DATABASE $selection $timeout
+  '';
+
 in {
   home = {
-    sessionVariables."PASSWORDMANAGER" = "kp";
-
-    activation.keepass = ''
-    '';
+    sessionVariables = {
+      PASSWORDMANAGER = script.name;
+      KEEPASS_DATABASE = "$HOME/misc/keepass/secrets.kdbx";
+    };
 
     packages = with pkgs; [ 
       keepassxc
-      (writeShellScriptBin "kp" ''
-        timeout=30
-
-        password=$(fuzzel -d --password)
-        if [ -z "$password" ]; then 
-          exit
-        fi
-
-        list=$(echo "$password" | keepassxc-cli ls ${database} -q)
-        if [ -z "$list" ]; then
-          exit
-        fi
-
-        selection=$(echo "$list" | fuzzel -d)
-        if [ -z "$selection" ]; then
-          exit
-        fi
-
-        echo $password | keepassxc-cli clip -q ${database} $selection $timeout
-      '')
-      (writeShellScriptBin "setup-keepass" ''
-        # deps syncthing
-        echo Do not forget to sync passwords to ${database}
-        $BROWSER localhost:8384
-      '')
+      script
     ];
   };
 }

@@ -1,6 +1,5 @@
 { pkgs, ... }: {
-  home.packages = [ (pkgs.writeShellScriptBin "setup-mail" ''
-    # deps keepass
-    echo TODO
-  '') ];
+  # TODO create email config from keepass database
+  home.activation.mail = ''
+  '';
 }

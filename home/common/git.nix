@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: {
+
   programs.git = {
     enable = true;
     userName = "Lubsch";
@@ -9,20 +10,24 @@
   };
 
   home.packages = [ (pkgs.writeShellScriptBin "setup-git" ''
-    # deps keepass
-    mkdir -p ~/misc/repos
-    echo Prepare to upload your ssh public keys
-    echo They will be copied to your clipboard.
-    echo If they do not exist, they are generated first.
-    if [ ! -e ~/.ssh/id_ed25519.pub ]; then
-      ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519
-    fi
-    cat ~/.ssh/id_ed25519.pub | wl-copy
-    $BROWSER https://git.tu-berlin.de/-/profile/keys
-    $BROWSER https://github.com/settings/keys
-    if [ ! -e ~/misc/repos/nixos-config ]; then
-      echo Press Enter when done copying keys
+    if [ ! -e ~/.ssh/id_github.pub ]; then
+      echo Creating Github key.
+      ssh-keygen -t ed25519 -f ~/.ssh/id_github
+      cat ~/.ssh/id_github.pub | wl-copy
+      $BROWSER https://github.com/settings/keys
+      echo Press enter when done pasting keys.
       read
+    fi
+    if [ ! -e ~/.ssh/id_gitlab.pub ]; then
+      echo Creating Gitlab key.
+      ssh-keygen -t ed25519 -f ~/.ssh/id_gitlab
+      cat ~/.ssh/id_gitlab.pub | wl-copy
+      $BROWSER https://git.tu-berlin.de/-/profile/keys
+      echo Press enter when done pasting keys.
+      read
+    fi
+    mkdir -p ~/misc/repos
+    if [ ! -e ~/misc/repos/nixos-config ]; then
       git clone git@github.com:Lubsch/nixos-config.git ~/misc/repos/nixos-config
     fi
   '') ];

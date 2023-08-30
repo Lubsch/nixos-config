@@ -7,7 +7,7 @@
 
       cargoSha256 = pkgs.lib.fakeSha256;
 
-      src = pkgs.fetchFromGithub {
+      src = pkgs.fetchFromGitHub {
         owner = "jonhoo";
         repo = name;
       };

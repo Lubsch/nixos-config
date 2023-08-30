@@ -1,4 +1,4 @@
-{ lib, config, inputs, ... }: {
+{ lib, config, pkgs, inputs, ... }: {
 
   imports = [ inputs.disko.nixosModules.disko ];
 
@@ -13,21 +13,20 @@
   config = {
 
     services.logind.lidSwitch = "hybrid-sleep";
-    swapDevices = [ {
+    swapDevices = lib.mkIf (config.swap.size != null) [ {
       device = "/swap/swapfile";
       size = config.swap.size * 1024;
     } ];
-    boot = lib.mkIf (config.swap.size != null){
+    boot = lib.mkIf (config.swap.size != null) {
       resumeDevice = config.main-disk;
       kernelParams = [ "resume_offset=${config.swap.offset}" ];
     };
 
     system.activationScripts.swap-config = lib.mkIf (config.swap.size == null) ''
-      echo You haven't configured swap. Paste this:
-      echo swap = { size = CHANGE; offset = \"$(doas btrfs inspect-internal map-swapfile -r /swap/swapfile)\"; }
+      echo "Note: You haven't configured swap."
+      echo "Paste this to flake.nix:"
+      echo "swap = { size = CHANGE; offset = \"$(${pkgs.btrfs-progs}/bin/btrfs inspect-internal map-swapfile -r /swap/swapfile)\"; };"
     '';
-
-    boot.initrd.supportedFilesystems = [ "btrfs" ];
 
     disko.devices.disk.main = {
       type = "disk";
