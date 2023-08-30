@@ -15,7 +15,7 @@
 
   programs.fuse.userAllowOther = true;
 
-  # TODO keep old generations
+  # TODO keep old snapshots
   boot.initrd.postDeviceCommands = ''
     mkdir -p /mnt
     mount -o subvol=/ "/dev/mapper/main" /mnt

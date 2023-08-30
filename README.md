@@ -27,12 +27,14 @@ This is my NixOS-config.
 
 ## Todo that's not marked
 
-- gnu readline
+- Gnu Readline
 - Setup usable Debugger
 - Find solution for android
 - E-Mail
 - Calendar
 - Statusbar
+- Backups
+- Multiple drives
 - Touch for terminal and image viewer (maybe loupe)
     - should work in foot but hyprland doesn't disable cursor when using touch
 
