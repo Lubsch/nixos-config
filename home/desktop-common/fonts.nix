@@ -8,7 +8,7 @@
       };
       mono = {
         name = "JetBrains Mono Nerd Font"; 
-        package = (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono"]; }); 
+        package = (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }); 
       };
     };
   };

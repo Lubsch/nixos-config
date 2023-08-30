@@ -3,8 +3,10 @@ let
   database = "~/misc/keepass/secrets.kdbx";
 in {
   home = {
-
     sessionVariables."PASSWORDMANAGER" = "kp";
+
+    activation.keepass = ''
+    '';
 
     packages = with pkgs; [ 
       keepassxc

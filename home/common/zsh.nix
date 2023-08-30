@@ -1,18 +1,18 @@
 { lib, ... }:
 let 
-  path = "$HOME/.local/share/zsh/history";
+  historyPath = "$HOME/.local/share/zsh/history";
 in {
 
   # Prevents collision with zsh history, hacky but works
   home.activation.delete-zsh-history = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-    export HIST=; rm -rf --interactive=never ${path}
+    rm -rf --interactive=never ${historyPath}
   '';
 
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
     history = {
-      inherit path;
+      path = historyPath;
       size = 10000000;
     };
     autocd = true;

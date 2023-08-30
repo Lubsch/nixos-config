@@ -4,7 +4,7 @@
 
   options = {
     swap = {
-      size = lib.mkOption { default = 0; };
+      size = lib.mkOption { default = null; };
       offset = lib.mkOption { default = ""; };
     };
     main-disk = lib.mkOption {};
@@ -12,17 +12,22 @@
 
   config = {
 
-    boot.initrd.supportedFilesystems = [ "btrfs" ];
-
     services.logind.lidSwitch = "hybrid-sleep";
     swapDevices = [ {
       device = "/swap/swapfile";
       size = config.swap.size * 1024;
     } ];
-    boot = {
+    boot = lib.mkIf (config.swap.size != null){
       resumeDevice = config.main-disk;
       kernelParams = [ "resume_offset=${config.swap.offset}" ];
     };
+
+    system.activationScripts.swap-config = lib.mkIf (config.swap.size == null) ''
+      echo You haven't configured swap. Paste this:
+      echo swap = { size = CHANGE; offset = \"$(doas btrfs inspect-internal map-swapfile -r /swap/swapfile)\"; }
+    '';
+
+    boot.initrd.supportedFilesystems = [ "btrfs" ];
 
     disko.devices.disk.main = {
       type = "disk";
