@@ -12,8 +12,7 @@ pkgs.mkShell {
   NIX_CONFIG = "extra-experimental-features = nix-command flakes";
   packages = with pkgs; [ 
     skim
-    git 
-    (callPackage ./home/nvim/package.nix { lsp = false; })
+    git
   ];
   shellHook = ''
     rm -rf nixos-config-install
@@ -38,7 +37,7 @@ pkgs.mkShell {
     echo "  ];" >> flake.nix
     echo "} ];" >> flake.nix
 
-    nvim flake.nix
+    vim flake.nix
 
     nix run .#disko -- -m disko -f git+file:.#"$hostname"
     nixos-install --flake .#"$hostname" --no-root-password
