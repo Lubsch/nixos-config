@@ -4,7 +4,6 @@ nmap <leader> <localleader>
 
 set mousescroll=ver:1
 
-" TODO replace with nix
 colorscheme gruvbox
 
 " Conceal **emph** tags, for example

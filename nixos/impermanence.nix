@@ -8,7 +8,9 @@
   home-manager.sharedModules = [
     inputs.impermanence.nixosModules.home-manager.impermanence 
     ({ config, ... }: { 
-      imports = [ (lib.mkAliasOptionModule [ "persist" ] [ "home" "persistence" "/persist${config.home.homeDirectory}" ]) ];
+      imports = [ 
+        (lib.mkAliasOptionModule [ "persist" ] [ "home" "persistence" "/persist${config.home.homeDirectory}" ])
+      ];
       persist.allowOther = true; 
     })
   ];

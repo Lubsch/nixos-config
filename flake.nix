@@ -11,6 +11,7 @@
   };
 
   outputs = inputs: with inputs.nixpkgs; with builtins; {
+    inherit inputs;
 
     templates = mapAttrs (n: _: { description = n; path = ./templates + "/${n}"; }) (readDir ./templates);
 
