@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ lib, config, ... }: {
 
   home.sessionVariables.TERMINAL = "footclient";
   home.sessionVariables.TERMINALSERVER = "foot --server";
@@ -12,26 +12,15 @@
         resize-delay-ms = "0";
         pad = "1x1";
       };
-      colors = with config.colors; {
-        inherit background foreground alpha;
-
-        regular0 = base00;
-        regular1 = base01;
-        regular2 = base02;
-        regular3 = base03;
-        regular4 = base04;
-        regular5 = base05;
-        regular6 = base06;
-        regular7 = base07;
-        bright0 = base08;
-        bright1 = base09;
-        bright2 = base10;
-        bright3 = base11;
-        bright4 = base12;
-        bright5 = base13;
-        bright6 = base14;
-        bright7 = base15;
-      };
+      colors = {
+        inherit (config.colors) background foreground alpha;
+      } // builtins.listToAttrs (map
+        (i: {
+          name = if i < 8 then "base${builtins.toString i}" else "base${builtins.toString (i - 8)}";
+          value = config.colors."base${if i < 10 then "0" else ""}${builtins.toString i}";
+        })
+        (lib.range 0 15)
+      );
     };
   };
 }
