@@ -34,6 +34,7 @@
         ./nixos/bluetooth.nix
         ./nixos/virtualisation.nix
         ./nixos/printing.nix
+<<<<<<< HEAD
       {
         nixpkgs.hostPlatform = "x86_64-linux";
         main-disk = "/dev/sda";
@@ -53,6 +54,28 @@
           ./home/qutebrowser.nix
         ];
       } ];
+=======
+	{
+	  nixpkgs.hostPlatform = "x86_64-linux";
+	  main-disk = "/dev/sda";
+	  swap = { size = 8; offset = "1844480"; };
+	  hardware.cpu.intel.updateMicrocode = true;
+	  boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
+	  boot.kernelModules = [ "kvm-intel" ];
+	  home-manager.users.lubsch.imports = [
+	    ./home/common
+	    ./home/desktop-common
+	    ./home/hyprland.nix
+	    # ./home/yambar.nix
+	    ./home/nvim
+	    ./home/mail.nix
+	    ./home/syncthing.nix
+	    ./home/keepassxc.nix
+	    ./home/qutebrowser.nix
+	  ];
+	}
+      ];
+>>>>>>> 5d2dd57 (fixed via reformat)
 
     };
   };

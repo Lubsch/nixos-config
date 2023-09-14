@@ -18,7 +18,7 @@
       size = config.swap.size * 1024;
     } ];
     boot = lib.mkIf (config.swap.size != null) {
-      resumeDevice = config.main-disk;
+      resumeDevice = config.fileSystems."/".device;
       kernelParams = [ "resume_offset=${config.swap.offset}" ];
     };
 
