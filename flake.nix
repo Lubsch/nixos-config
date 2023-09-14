@@ -36,7 +36,7 @@
         ./nixos/printing.nix
       {
         nixpkgs.hostPlatform = "x86_64-linux";
-        main-disk = "/dev/disk/by-id/wwn-0x5002538d42cb6a60";
+        main-disk = "/dev/sda";
         swap = { size = 8; offset = "1844480"; };
         hardware.cpu.intel.updateMicrocode = true;
         boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
