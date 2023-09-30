@@ -1,4 +1,4 @@
-{  lib, config, ...}: {
+{ lib, config, ...}: {
 
   programs.zsh.enable = lib.mkIf (config.home-manager.users != {}) true;
   environment = lib.mkIf (config.home-manager.users != {}) {

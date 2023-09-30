@@ -50,23 +50,13 @@ umount </dev/usb_drive>
 doas dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
 ```
 
-Installer Layout:
-```
-sudo loadkeys de-latin1
-```
-
 You need to connect to the internet (preferably over ethernet). To enable wifi:
 ```
-sudo systemctl enable wpa_supplicant.service
-wpa_cli
-scan
-add_network
-set_network 0 ssid "<ssid>"
-set_network 0 psk "<psk>"
-enable_network 0
+iwctl station <station> scan
+iwctl station <station> connect <ssid>
 ```
 
-Format and install:
+Clone and enter nix shell:
 ```
-sudo nix-shell https://github.com/lubsch/nixos-config/archive/main.zip
+clone
 ```

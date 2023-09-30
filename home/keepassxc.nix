@@ -11,10 +11,15 @@ let
     password=$(fuzzel -d --password)
     [ "$password" ] || exit
     list=$(echo "$password" | keepassxc-cli ls $KEEPASS_DATABASE -q)
-    [ "$list" ] || exit
+    if [ ! "$list" ]; then
+      notify-send "Password wrong"
+      exit
+    fi
     selection=$(echo "$list" | fuzzel -d)
     [ "$selection" ] || exit
+      notify-send "Copied to clipboard" "Will be cleared in $timeout seconds"
     echo $password | keepassxc-cli clip -q $KEEPASS_DATABASE $selection $timeout
+      exit
   '';
 
 in {

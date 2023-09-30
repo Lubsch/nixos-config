@@ -1,22 +1,24 @@
-{ config, pkgs, inputs, ... }: {
+{ lib, config, pkgs, inputs, ... }: {
 
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-  config =
-  let keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
-  ]; in {
+  config = 
+  let 
+    keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+woFGMkb7kaOxHCY8hr6/d0Q/HIHIS3so7BANQqUe6" # arch
+    ]; 
+  in {
 
     users = {
       mutableUsers = false;
       defaultUserShell = pkgs.zsh;
+      allowNoPasswordLogin = true;
       users = if config.home-manager.users == {} then {
         root.openssh.authorizedKeys = { inherit keys; };
-      } else builtins.mapAttrs (name: _: {
+      } else builtins.mapAttrs (_: _: {
         isNormalUser = true;
-        extraGroups = [ "wheel" "libvirtd" ];
-        openssh.authorizedKeys = { inherit keys; };
-        passwordFile = "/persist/passwords/${name}";
+        extraGroups = [ "wheel" ];
+        # openssh.authorizedKeys = { inherit keys; };
       }) config.home-manager.users;
     };
 
@@ -26,16 +28,19 @@
       useUserPackages = true;
     };
 
-    system.activationScripts = builtins.mapAttrs (name: _: ''
-      mkdir -p /persist/home/"${name}"
-      chown "${name}" /persist/home/"${name}"
-      if [ ! -e /persist/passwords/"${name}" ]; then
-        mkdir -p /persist/passwords
-        chmod o=,g= /persist/passwords
-        printf "Enter new ${name} "
-        ${pkgs.mkpasswd}/bin/mkpasswd -m sha-512 > /persist/passwords/"${name}"
-      fi
-    '') config.home-manager.users;
+    # Set user passwords on activation if not yet set
+    system.activationScripts.passwords.text = builtins.concatStringsSep "\n" (
+      map (name: let 
+        file = lib.optionalString (config.fileSystems ? "/persist") "/persist" + "/etc/passwords/${name}";
+      in ''
+        if [ ! -f ${file} ]; then
+          mkdir -m 600 $(dirname ${file})
+          printf "Enter new ${name} "
+          ${pkgs.mkpasswd}/bin/mkpasswd > ${file}
+        fi
+        usermod ${name} -p $(cat ${file})
+      '') (builtins.attrNames config.home-manager.users)
+    );
 
   };
 }

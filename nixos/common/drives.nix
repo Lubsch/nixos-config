@@ -1,33 +1,13 @@
-{ lib, config, pkgs, inputs, ... }: {
+{ lib, config, inputs, ... }: {
 
   imports = [ inputs.disko.nixosModules.disko ];
 
   options = {
-    swap = {
-      size = lib.mkOption { default = null; };
-      offset = lib.mkOption { default = ""; };
-    };
     main-disk = lib.mkOption {};
+    extraSubvolumes = lib.mkOption {};
   };
 
   config = {
-
-    services.logind.lidSwitch = "hybrid-sleep";
-    swapDevices = lib.mkIf (config.swap.size != null) [ {
-      device = "/swap/swapfile";
-      size = config.swap.size * 1024;
-    } ];
-    boot = lib.mkIf (config.swap.size != null) {
-      resumeDevice = config.fileSystems."/".device;
-      kernelParams = [ "resume_offset=${config.swap.offset}" ];
-    };
-
-    system.activationScripts.setup-swap = lib.mkIf (config.swap.size == null) ''
-      echo "Note: You haven't configured swap."
-      echo "Paste this to flake.nix:"
-      echo "swap = { size = CHANGE; offset = \"$(${pkgs.btrfs-progs}/bin/btrfs inspect-internal map-swapfile -r /swap/swapfile)\"; };"
-    '';
-
     disko.devices.disk.main = {
       type = "disk";
       device = config.main-disk;
@@ -54,17 +34,13 @@
               extraOpenArgs = [ "--allow-discards" ];
               content = {
                 type = "btrfs";
-                subvolumes = {
+                subvolumes = config.extraSubvolumes // {
                   "/root" = {
                     mountpoint = "/";
                     mountOptions = [ "compress=zstd" "noatime" ];
                   };
                   "/nix" = {
                     mountpoint = "/nix";
-                    mountOptions = [ "compress=zstd" "noatime" ];
-                  };
-                  "/persist" = {
-                    mountpoint = "/persist";
                     mountOptions = [ "compress=zstd" "noatime" ];
                   };
                   "/swap" = {
@@ -78,7 +54,6 @@
         };
       };
     };
-    fileSystems."/persist".neededForBoot = true;
-
   };
+
 }

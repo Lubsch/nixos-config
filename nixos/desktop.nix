@@ -8,6 +8,7 @@
   };
 
   security.polkit.enable = true;
+  security.pam.services = { swaylock = {}; waylock = {}; };
   programs.dconf.enable = true;
   hardware.opengl = {
     enable = true;

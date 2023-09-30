@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home = {
     sessionVariables.EDITOR = "nvim";
-    packages = [ (pkgs.callPackage ./package.nix { lsp = true; })];
+    packages = [ (pkgs.callPackage ../pkgs/nvim { lsp = true; })];
   };
 
   # Persist log, shada, swap and undo (could require manual cleanup)

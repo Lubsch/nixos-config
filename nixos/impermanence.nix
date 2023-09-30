@@ -1,4 +1,4 @@
-{ lib, inputs, ... }: {
+{ lib, config, inputs, ... }: {
 
   imports = [
     inputs.impermanence.nixosModules.impermanence
@@ -15,7 +15,23 @@
     })
   ];
 
+  system.activationScripts = lib.mapAttrs' (name: _: {
+    name = "${name}-create-persist-home";
+    value = {
+      text = ''
+        mkdir -p /persist/home/"${name}"
+        chown "${name}" /persist/home/"${name}"
+      '';
+    };
+  }) config.home-manager.users;
+
   programs.fuse.userAllowOther = true;
+
+  fileSystems."/persist".neededForBoot = true;
+  extraSubvolumes."/persist" = {
+    mountpoint = "/persist";
+    mountOptions = [ "compress=zstd" "noatime" ];
+  };
 
   # TODO keep old snapshots
   boot.initrd.postDeviceCommands = ''

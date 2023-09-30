@@ -4,6 +4,7 @@
     impermanence.url = "github:nix-community/impermanence";
     home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     proton-ge = {
       url = "https://raw.githubusercontent.com/Shawn8901/nix-configuration/main/packages/proton-ge-custom/default.nix";
       flake = false;
@@ -16,9 +17,10 @@
     templates = mapAttrs (n: _: { description = n; path = ./templates + "/${n}"; }) (readDir ./templates);
 
     packages = mapAttrs (system: pkgs: { 
-      disko = inputs.disko.packages.${system}.disko;
-      nvim-lsp = pkgs.callPackage ./home/nvim/package.nix { lsp = true; };
-      nvim = pkgs.callPackage ./home/nvim/package.nix { lsp = false; };
+      iso = pkgs.callPackage ./pkgs/iso.nix { inherit inputs; };
+      shell = pkgs.callPackage ./pkgs/shell.nix { inherit inputs; };
+      nvim = pkgs.callPackage ./pkgs/nvim { lsp = false; };
+      nvim-lsp = pkgs.callPackage ./pkgs/nvim { lsp = true; };
     }) legacyPackages;
 
     nixosConfigurations = mapAttrs (name: modules: lib.nixosSystem {
@@ -32,12 +34,12 @@
         ./nixos/wireless.nix
         ./nixos/desktop.nix
         ./nixos/bluetooth.nix
-        ./nixos/virtualisation.nix
+        # ./nixos/virtualisation.nix
         ./nixos/printing.nix
         {
           nixpkgs.hostPlatform = "x86_64-linux";
           main-disk = "/dev/sda";
-          swap = { size = 8; offset = "1844480"; };
+          swap = { size = 8; offset = "2106624"; };
           hardware.cpu.intel.updateMicrocode = true;
           boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
           boot.kernelModules = [ "kvm-intel" ];
@@ -46,7 +48,7 @@
             ./home/desktop-common
             ./home/hyprland.nix
             # ./home/yambar.nix
-            ./home/nvim
+            ./home/nvim.nix
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix

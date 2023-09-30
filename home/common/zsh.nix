@@ -25,6 +25,7 @@ in {
       re = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
       ns = "nix shell";
       nr = "nix run";
+      nd = "nix develop";
 
       iw = "iwctl station wlan0 scan && sleep 1 && iwctl station wlan0 connect earl";
 
