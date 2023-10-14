@@ -9,7 +9,7 @@ pkgs.mkShell {
     (writeShellScriptBin "format-and-install" ''
       read -p "Hostname: " hostname
       read -p "Username: " username
-      sudo fdisk -l
+      doas fdisk -l
       echo
       echo Remember correct main-disk\!
       read
@@ -27,10 +27,12 @@ pkgs.mkShell {
       echo "  ];" >> flake.nix
       echo "} ];" >> flake.nix
       vim flake.nix
-      disko -m disko -f git+file:.#"$hostname"
-      nixos-install --flake .#"$hostname" --no-root-password
-      mkdir -p /mnt/persist/home/"$username"/misc/repos
-      cp -r . /mnt/persist/home/"$username"/misc/repos/nixos-config
+      doas disko -m disko -f git+file:.#"$hostname"
+      doas nixos-install --flake .#"$hostname" --no-root-password
+      doas mkdir -p /mnt/persist/home/"$username"/misc/repos
+      doas cp -r . /mnt/persist/home/"$username"/misc/repos/nixos-config
+      doas nixos-enter
+      chown $username /persist/home/"$username"/misc -R
     '')
   ];
 }

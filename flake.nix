@@ -11,8 +11,17 @@
     };
   };
 
-  outputs = inputs: with inputs.nixpkgs; with builtins; {
+
+  outputs = inputs: with inputs.nixpkgs; with builtins;
+  let
+    mylib = rec {
+      # Returns a list of regular files in a directory
+      getDir = dir: map (n: dir + "/${n}") (builtins.attrNames (lib.filterAttrs (_: t: t == "regular") (builtins.readDir dir)));
+      importDir = dir: { imports  = getDir dir; };
+    };
+  in {
     inherit inputs;
+    inherit mylib;
 
     templates = mapAttrs (n: _: { description = n; path = ./templates + "/${n}"; }) (readDir ./templates);
 
@@ -25,11 +34,11 @@
 
     nixosConfigurations = mapAttrs (name: modules: lib.nixosSystem {
       modules =  modules ++ [ { networking.hostName = name; } ];
-      specialArgs = { inherit inputs; };
+      specialArgs = { inherit inputs mylib; };
     }) {
 
       shah = [
-        ./nixos/common
+        (mylib.importDir ./nixos/common)
         ./nixos/impermanence.nix
         ./nixos/wireless.nix
         ./nixos/desktop.nix
@@ -44,8 +53,8 @@
           boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
           boot.kernelModules = [ "kvm-intel" ];
           home-manager.users.lubsch.imports = [
-            ./home/common
-            ./home/desktop-common
+            (mylib.importDir ./home/common)
+            (mylib.importDir ./home/desktop-common)
             ./home/hyprland.nix
             # ./home/yambar.nix
             ./home/nvim.nix
@@ -55,6 +64,34 @@
             ./home/qutebrowser.nix
           ];
         } ];
+
+      raja = [
+          (mylib.importDir ./nixos/common)
+          ./nixos/impermanence.nix
+          ./nixos/wireless.nix
+          ./nixos/desktop.nix
+          ./nixos/bluetooth.nix
+          {
+            nixpkgs.hostPlatform = "x86_64-linux";
+            main-disk = "/dev/nvme0n1";
+            swap = { size = 16; offset = "1626837"; };
+            hardware.cpu.amd.updateMicrocode = true;
+            boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+            boot.kernelModules = [ "kvm-amd" ];
+            home-manager.users."lubsch".imports = [
+                (mylib.importDir ./home/common)
+                (mylib.importDir ./home/desktop-common)
+                ./home/hyprland.nix
+                # ./home/yambar.nix
+                ./home/nvim.nix
+                ./home/steam.nix
+                ./home/mail.nix
+                ./home/syncthing.nix
+                ./home/keepassxc.nix
+                ./home/qutebrowser.nix
+            ];
+          } ];
+
 
     };
   };

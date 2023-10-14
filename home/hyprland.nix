@@ -5,7 +5,7 @@
     # binde for repeat
     extraConfig = with config; with pkgs; ''
       # See https://wiki.hyprland.org/Configuring/Monitors/
-      monitor=,preferred,auto,auto
+      monitor = ,preferred,auto,auto
 
       # Execute your favorite apps at launch
       exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
@@ -25,6 +25,8 @@
 
       bind = $mainMod, G, exec, steam
 
+      bind = Meta Shift, Enter, exec, systemctl suspend
+
       bind = ,XF86MonBrightnessUp, exec, ${brightnessctl}/bin/brightnessctl set 5%+
       bind = ,XF86MonBrightnessDown, exec, ${brightnessctl}/bin/brightnessctl set 5%-
 
@@ -32,6 +34,7 @@
       binde = ,XF86AudioRaiseVolume, exec, ${pamixer}/bin/pamixer -i 2
 
       bind = ,Xf86AudioPlay, exec, ${playerctl}/bin/playerctl play-pause
+      bind = $mainMod, Space, exec, ${playerctl}/bin/playerctl play-pause
       bind = ,Xf86AudioPrev, exec, ${playerctl}/bin/playerctl previous
       bind = ,Xf86AudioNext, exec, ${playerctl}/bin/playerctl next
 
@@ -104,7 +107,7 @@
 
       general {
           # change when it works again
-          cursor_inactive_timeout = 1
+          # cursor_inactive_timeout = 1
 
           gaps_in = 0
           gaps_out = 0
@@ -116,6 +119,7 @@
       }
 
       misc {
+        vrr = 2
         disable_hyprland_logo = true
         disable_splash_rendering = true
       }

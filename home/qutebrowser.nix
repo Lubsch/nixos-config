@@ -19,6 +19,10 @@ let
 
     config.bind("<esc>", "clear-messages")
 
+    # fullscreen on youtube etc
+    config.bind("<", "fake-key f")
+    config.bind(",", "fake-key f")
+
     c.url.start_pages = "about:blank"
 
     c.colors.webpage.preferred_color_scheme = "dark"

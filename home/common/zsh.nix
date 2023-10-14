@@ -26,6 +26,7 @@ in {
       ns = "nix shell";
       nr = "nix run";
       nd = "nix develop";
+      ne = "nix eval";
 
       iw = "iwctl station wlan0 scan && sleep 1 && iwctl station wlan0 connect earl";
 

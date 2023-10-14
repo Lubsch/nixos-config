@@ -5,6 +5,7 @@
   programs.zsh.initExtra = ''
     function in() {
         while true; do
+            echo --------
             inotifywait -qe modify "$1"; ''${*:2}
         done
     }

@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, ... }: {
+{ lib, config, pkgs, inputs, mylib, ... }: {
 
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
@@ -23,24 +23,24 @@
     };
 
     home-manager = {
-      extraSpecialArgs = { inherit inputs; };
+      extraSpecialArgs = { inherit inputs mylib; };
       useGlobalPkgs = true;
       useUserPackages = true;
     };
 
     # Set user passwords on activation if not yet set
-    system.activationScripts.passwords.text = builtins.concatStringsSep "\n" (
-      map (name: let 
-        file = lib.optionalString (config.fileSystems ? "/persist") "/persist" + "/etc/passwords/${name}";
-      in ''
-        if [ ! -f ${file} ]; then
-          mkdir -m 600 $(dirname ${file})
+    system.activationScripts.passwords.text = let 
+      dir = lib.optionalString (config.fileSystems ? "/persist") "/persist" + "/etc/passwords";
+      script-per-user = (name: ''
+        if [ ! -f ${dir}/${name} ]; then
+          mkdir -p ${dir}
           printf "Enter new ${name} "
-          ${pkgs.mkpasswd}/bin/mkpasswd > ${file}
+          ${pkgs.mkpasswd}/bin/mkpasswd > ${dir}/${name}
+          chmod 600 ${dir}/${name}
         fi
-        usermod ${name} -p $(cat ${file})
-      '') (builtins.attrNames config.home-manager.users)
-    );
+        usermod ${name} -p $(cat ${dir}/${name})
+      '');
+    in builtins.concatStringsSep "\n" (map script-per-user (builtins.attrNames config.home-manager.users));
 
   };
 }

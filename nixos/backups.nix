@@ -25,7 +25,7 @@ in {
 
 
   persist.directories = [
-    { directory = "/var/lib/passwords"; mode = "0600"; }
+    { directory = "/etc/passwords"; mode = "0600"; }
     config.services.syncthing.dataDir
   ];
 
