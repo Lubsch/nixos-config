@@ -18,15 +18,6 @@
       # Returns a list of regular files in a directory
       getDir = dir: map (n: dir + "/${n}") (builtins.attrNames (lib.filterAttrs (_: t: t == "regular") (builtins.readDir dir)));
       importDir = dir: { imports  = getDir dir; };
-      optionalizeModule = name: m: {
-        options = { "${n}".enable = lib.mkEnableOption;  } // m.options;
-        config = builtins.removeAttrs m [ "options" ];
-      };
-      importDirOptionalized = dir: lib.mapAttrsToList
-        (name: type: if type == "regular"
-          then mylib.optionalizeModule (import dir + "/${name}")
-          else mylib.optionalizeModule (mylib.importDir dir + "/${name}"))
-        (readDir dir);
     };
   in {
     inherit inputs;
@@ -41,15 +32,9 @@
       nvim-lsp = pkgs.callPackage ./pkgs/nvim { lsp = true; };
     }) legacyPackages;
 
-    nixosConfigurations = mapAttrs (name: config: lib.nixosSystem {
-      specialArgs = { inherit inputs; };
-      modules = mylib.importDirOptionalized ./nixos ++ [
-        config
-        {
-          networking.hostName = name;
-          home-manager.sharedModules = myLib.importOptionalized ./home;
-        }
-      ];
+    nixosConfigurations = mapAttrs (name: modules: lib.nixosSystem {
+      modules =  modules ++ [ { networking.hostName = name; } ];
+      specialArgs = { inherit inputs mylib; };
     }) {
 
       shah = [
