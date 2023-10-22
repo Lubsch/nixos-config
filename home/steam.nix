@@ -13,6 +13,6 @@ in {
   }) ];
 
   persist.directories = [
-    ".local/share/steamHome"
+    { directory = ".local/share/steamHome"; method = "symlink"; }
   ];
 }
