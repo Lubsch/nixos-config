@@ -107,7 +107,7 @@
 
       general {
           # change when it works again
-          # cursor_inactive_timeout = 1
+          cursor_inactive_timeout = 1
 
           gaps_in = 0
           gaps_out = 0

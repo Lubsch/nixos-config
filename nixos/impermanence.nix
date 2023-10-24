@@ -15,12 +15,16 @@
     })
   ];
 
-  system.activationScripts.create-persist-homes.text = let
-    script-per-user = (name: ''
+  system.activationScripts.create-persist-homes = 
+  let
+    user-script = (name: ''
       mkdir -p /persist/home/"${name}"
       chown "${name}" /persist/home/"${name}"
     '');
-  in builtins.concatStringsSep "\n" (map script-per-user (builtins.attrNames config.home-manager.users));
+  in {
+    text = builtins.concatStringsSep "\n" (map user-script (builtins.attrNames config.home-manager.users));
+    deps = [ "users" ];
+  };
 
   programs.fuse.userAllowOther = true;
 

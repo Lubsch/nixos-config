@@ -11,7 +11,11 @@
       experimental-features = nix-command flakes repl-flake
     '';
 
-    settings.trusted-users = [ "@wheel" ];
+    settings = {
+      trusted-substituters = [ "https://helix.cachix.org" ];
+      trusted-public-keys = [ "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs=" ];
+      trusted-users = [ "@wheel" ];
+    };
 
     registry = {
       n.flake = inputs.nixpkgs;

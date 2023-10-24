@@ -35,11 +35,9 @@ require'telescope'.setup{
     }
 }
 
-
--- Autopair
+require'Comment'.setup()
 require'nvim-autopairs'.setup{}
 
--- treesitter
 require'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
