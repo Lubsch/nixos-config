@@ -16,13 +16,7 @@
   with inputs.nixpkgs; with builtins; {
     inherit inputs;
     templates = import ./templates;
-
-    packages = mapAttrs (system: pkgs:
-      lib.mapAttrs' (n: _: { 
-        name = lib.removeSuffix ".nix" n; 
-        value = pkgs.callPackage (./pkgs + "/${n}") { inherit inputs; };
-      }) (readDir ./pkgs)
-    ) legacyPackages;
+    packages = import ./pkgs inputs;
 
     nixosConfigurations = mapAttrs (name: modules: lib.nixosSystem {
       modules =  modules ++ [ { networking.hostName = name; } ];

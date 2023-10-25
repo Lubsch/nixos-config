@@ -11,6 +11,7 @@
     libqalculate # terminal calculator
     zip unzip
     nix-tree # view a nix derivation's dependencies
+    nix-init # automatically package repos
     deadnix # find dead code in nix projects
     ncdu # disk usage viewing
     tokei # count lines of code
@@ -22,5 +23,6 @@
 
     # PROGRAMMING LANGUAGES ETC.
     (python3.withPackages (ps: with ps; [ sympy ]))
+    lldb # llvm rust, c, cpp debugger (with dap)
   ];
 }
