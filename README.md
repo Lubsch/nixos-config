@@ -28,7 +28,6 @@ This is my NixOS-config.
 ## Todo that's not marked
 
 - Gnu Readline
-- Setup usable Debugger
 - Find solution for android
 - E-Mail
 - Calendar

@@ -7,6 +7,18 @@
     };
   };
 
+  home.sessionVariables.DIRENV_LOG_FORMAT = "";
+
+  programs.zsh.initExtra = ''
+    prompt_char() {
+      if [ $DIRENV_FILE ]; then
+          echo "> "
+      else
+          echo "$ "
+      fi
+    }
+  '';
+
   persist.directories = [ 
     ".local/share/direnv"
   ];
