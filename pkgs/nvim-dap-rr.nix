@@ -5,7 +5,7 @@
 
 vimUtils.buildVimPlugin rec {
   pname = "nvim-dap-rr";
-  version = "unstable-2023-10-25";
+  version = "2023-10-25";
 
   src = fetchFromGitHub {
     owner = "jonboh";
