@@ -1,4 +1,4 @@
-{
+{ lib, ... }: {
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -9,7 +9,7 @@
 
   home.sessionVariables.DIRENV_LOG_FORMAT = "";
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initExtra = lib.mkAfter ''
     prompt_char() {
       if [ $DIRENV_FILE ]; then
           echo "> "

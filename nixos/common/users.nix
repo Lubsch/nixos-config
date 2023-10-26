@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, mylib, ... }: {
+{ config, pkgs, inputs, ... }: {
 
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
@@ -23,14 +23,15 @@
     };
 
     home-manager = {
-      extraSpecialArgs = { inherit inputs mylib; };
+      extraSpecialArgs = { inherit inputs; };
       useGlobalPkgs = true;
       useUserPackages = true;
     };
 
     # Set user passwords on activation if not yet set
+    # Can't use impermanence binds, so tests explicitly
     system.activationScripts.passwords.text = let 
-      dir = lib.optionalString (config.fileSystems ? "/persist") "/persist" + "/etc/passwords";
+      dir = "${if config.impermanence then "/persist" else ""}/etc/passwords";
       script-per-user = (name: ''
         if [ ! -f ${dir}/${name} ]; then
           mkdir -p ${dir}

@@ -55,7 +55,10 @@ in {
         fi
       }
       setopt PROMPT_SUBST
-      prompt='%~ $(git_info)%f$(prompt_char || echo "$ ")'
+      prompt_char() {
+        echo "$ "
+      }
+      prompt='%~ $(git_info)%f$(prompt_char)'
 
       # Disable C-s which freezes the terminal and is annoying
       stty stop undef

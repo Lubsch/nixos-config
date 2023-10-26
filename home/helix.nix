@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ pkgs, ... }: {
 
   # Language servers installed by default
   home.packages = with pkgs; [ 
@@ -11,7 +11,6 @@
   #home.sessionVariables.EDITOR = "helix";
   programs.helix = {
     enable = true;
-    package = inputs.helix.packages.${pkgs.system}.default;
     languages.language = [
       {
         name = "typst";

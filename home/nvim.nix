@@ -14,7 +14,7 @@
   in {
     enable = true;
     extraPackages = with pkgs; [ ghc fd ripgrep gdb ] ++ builtins.attrValues servers;
-    extraConfig = ''
+    extraConfig = /* vim */ ''
       lua vim.loader.enable()
 
       " Remap leader key
@@ -76,16 +76,16 @@
       plugin = x.plugin or pkgs.vimPlugins.${n};
       config = x.config or (if builtins.typeOf x == "string" then x else "");
     }) {
-      vim-startuptime = '''';
-      typst-vim = '''';
-      comment-nvim = ''
+      vim-startuptime = /* lua */ '''';
+      typst-vim = /* lua */ '''';
+      comment-nvim = /* lua */ ''
         require'Comment'.setup{}
       '';
-      nvim-autopairs = ''
+      nvim-autopairs = /* lua */ ''
         require'nvim-autopairs'.setup{}
       '';
 
-      nvim-dap-ui = ''
+      nvim-dap-ui = /* lua */ ''
         local dapui = require'dapui'
         dapui.setup{}
         local opts = { silent=true, noremap = true }
@@ -93,7 +93,7 @@
       '';
       nvim-dap-rr = {
         plugin = pkgs.callPackage ../pkgs/nvim-dap-rr.nix {};
-        config = ''
+        config = /* lua */ ''
           local rr_dap = require("nvim-dap-rr")
           rr_dap.setup{ mappings = {} }
 
@@ -119,7 +119,7 @@
           dap.configurations.rust = { rr_dap.get_rust_config() }
         '';
       };
-      nvim-dap = ''
+      nvim-dap = /* lua */ ''
         local dap = require'dap'
         local opts = { nowait = true, noremap = true, silent = true, }
         vim.keymap.set('n', '<Leader>b', dap.toggle_breakpoint, opts)
@@ -161,7 +161,7 @@
         --local opts = { silent=true, noremap = true }
       '';
 
-      nvim-lspconfig = ''
+      nvim-lspconfig = /* lua */ ''
         -- Enable lsp for all the languages
         ${lib.concatLines (lib.mapAttrsToList (n: _: "require'lspconfig'.${n}.setup{}") servers)}
 
@@ -180,7 +180,7 @@
         vim.keymap.set('n', '<leader>=', function() vim.lsp.buf.format { async = true } end, bufopts)
       '';
 
-      nvim-cmp = ''
+      nvim-cmp = /* lua */ ''
         local cmp = require'cmp'
         cmp.setup{
             window = {
@@ -201,12 +201,12 @@
             },
         }
       '';
-      cmp-nvim-lsp = '' '';
-      cmp-path = '' '';
+      cmp-nvim-lsp = /* lua */ '''';
+      cmp-path = /* lua */ '''';
 
       nvim-treesitter = {
-        plugin = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.lua ]); # fixes not working for lua and c
-        config = ''
+        plugin = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.lua ]); # fix for lua and c
+        config = /* lua */ ''
           require'nvim-treesitter.configs'.setup {
               highlight = {
                   enable = true,
@@ -219,7 +219,7 @@
           } }")
         '';
       };
-      gruvbox-nvim = ''
+      gruvbox-nvim = /* lua */ ''
         -- color scheme
         require'gruvbox'.setup{ 
             transparent_mode = true,
@@ -235,7 +235,7 @@
         }
         vim.cmd("colorscheme gruvbox")
       '';
-      telescope-nvim = ''
+      telescope-nvim = /* lua */ ''
         local actions = require'telescope.actions'
         require'telescope'.setup{
             defaults = require'telescope.themes'.get_ivy {
@@ -264,7 +264,7 @@
     };
   };
 
-  # Persist log, shada, swap and undo (could require manual cleanup)
+  # persist log, shada, swap and undo (could require manual cleanup)
   persist.directories = [ 
     ".local/state/nvim" 
   ];
