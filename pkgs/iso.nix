@@ -4,10 +4,11 @@ inputs.nixos-generators.nixosGenerate {
   format = "install-iso";
   specialArgs = { inherit inputs; };
   modules = [
+    ../nixos/common/misc.nix
+    ../nixos/common/impermanence.nix
     ../nixos/common/layout.nix
     ../nixos/common/nix.nix
     ../nixos/wireless.nix
-    ../nixos/common/misc.nix
     ../nixos/common/doas.nix
     {
       environment.systemPackages = with pkgs; [

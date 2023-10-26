@@ -1,12 +1,13 @@
 { config, pkgs, ... }:
 let
-  configFile = builtins.toFile "config.py" ''
+  configFile = builtins.toFile "config.py" /* python */ ''
     config.unbind("<Ctrl-d>")
     config.unbind("<Ctrl-d>")
     config.unbind("d")
     config.unbind("u")
     config.bind("d", "scroll-page 0 0.5")
     config.bind("u", "scroll-page 0 -0.5")
+
     config.unbind("xo")
     config.unbind("xO")
     config.bind("x", "tab-close")
@@ -17,7 +18,8 @@ let
     config.bind("J", "tab-prev")
     config.bind("K", "tab-next")
 
-    config.bind("<esc>", "clear-messages")
+    # Clear messages, fullscreen, selections, and search on <esc>
+    config.bind("<esc>", "clear-messages ;; clear-keychain ;; fullscreen --leave ;; jseval -qf ${builtins.toFile "deselect.js" "document.activeElement.blur(); window.getSelection().removeAllRanges()"} ;; search")
 
     # fullscreen on youtube etc
     config.bind("<", "fake-key f")
@@ -28,18 +30,17 @@ let
     c.colors.webpage.preferred_color_scheme = "dark"
     c.fonts.default_family = "${config.my-fonts.regular.name}"
     c.fonts.default_size = "12pt"
-    c.tabs.favicons.scale = 1.0
-    c.tabs.padding = {"bottom": 6, "left": 4, "right": 4, "top": 6}
+    c.tabs.padding = {"bottom": 6, "left": 4, "right": 4, "top": 6} # large enough to tap
     c.completion.show = "auto"
 
+    c.downloads.location.directory = "${config.xdg.userDirs.download}"
     c.downloads.position = "bottom"
     c.downloads.remove_finished = 0
-    c.downloads.location.directory = "${config.xdg.userDirs.download}"
   '';
 
   package = pkgs.qutebrowser.override { enableWideVine = true; };
 
-  # don't put .pki in ~, faster hot-start
+  # faster hot-start, keep ~ clean (don't put .pki in it)
   script = pkgs.writeShellScriptBin "qutebrowser" ''
     # initial idea: Florian Bruhin (The-Compiler)
     # author: Thore Bödecker (foxxx0)
@@ -54,6 +55,7 @@ let
         "$_proto_version" \
         "$PWD" | ${pkgs.socat}/bin/socat -lf /dev/null - UNIX-CONNECT:"$_ipc_socket" "$@" || ${package}/bin/qutebrowser -C ${configFile} "$@" &
   '';
+
 in {
   home.sessionVariables.BROWSER = script.name;
 
