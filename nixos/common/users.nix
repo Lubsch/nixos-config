@@ -31,7 +31,7 @@
     # Set user passwords on activation if not yet set
     # Can't use impermanence binds, so saves in /persist if imepermanence is on
     system.activationScripts.passwords.text = let 
-      dir = "${if config.subvolumes ? "/persist" then "/persist" else ""}/etc/passwords";
+      dir = "${if config.extraSubvolumes ? "/persist" then "/persist" else ""}/etc/passwords";
       script-per-user = (name: ''
         if [ ! -f ${dir}/${name} ]; then
           mkdir -p ${dir}

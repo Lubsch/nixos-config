@@ -7,11 +7,13 @@
 
   config = {
 
-    home-manager.sharedModules = [ 
-      inputs.impermanence.nixosModules.home-manager.impermanence 
-      (lib.mkAliasOptionModule [ "persist" ] [ "home" "persistence" "/persist${config.home.homeDirectory}" ])
-      { persist.allowOther = true; }
-    ];
+    home-manager.sharedModules = [ ({ config, ... }: {
+      imports = [
+        inputs.impermanence.nixosModules.home-manager.impermanence 
+        (lib.mkAliasOptionModule [ "persist" ] [ "home" "persistence" "/persist${config.home.homeDirectory}" ])
+      ];
+      persist.allowOther = true; 
+    }) ];
 
     programs.fuse.userAllowOther = true;
 
