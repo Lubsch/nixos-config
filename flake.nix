@@ -20,13 +20,13 @@
 
       shah = [
         ./nixos/common
+        ./nixos/impermanence.nix
         ./nixos/wireless.nix
         ./nixos/desktop.nix
         ./nixos/bluetooth.nix
         # ./nixos/virtualisation.nix
         ./nixos/printing.nix
         {
-          impermanence = true;
           services.keyd.keyboards.default.settings.main.right = "noop";
           nixpkgs.hostPlatform = "x86_64-linux";
           main-disk = "/dev/sda";
@@ -50,12 +50,12 @@
 
       raja = [
           ./nixos/common
+          ./nixos/impermanence.nix
           ./nixos/wireless.nix
           ./nixos/desktop.nix
           ./nixos/bluetooth.nix
           # ./nixos/virtualisation.nix
           {
-            impermanence = true;
             nixpkgs.hostPlatform = "x86_64-linux";
             main-disk = "/dev/nvme0n1";
             swap = { size = 16; offset = "1626837"; };

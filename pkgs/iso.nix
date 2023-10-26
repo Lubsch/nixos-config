@@ -5,7 +5,6 @@ inputs.nixos-generators.nixosGenerate {
   specialArgs = { inherit inputs; };
   modules = [
     ../nixos/common/misc.nix
-    ../nixos/common/impermanence.nix
     ../nixos/common/layout.nix
     ../nixos/common/nix.nix
     ../nixos/wireless.nix

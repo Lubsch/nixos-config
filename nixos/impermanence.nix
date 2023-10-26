@@ -1,16 +1,17 @@
 { lib, config, inputs, ... }: {
 
-  options.impermanence = lib.mkEnableOption "impermanence";
-
   imports = [
     inputs.impermanence.nixosModules.impermanence
     (lib.mkAliasOptionModule [ "persist" ] [ "environment" "persistence" "/persist" ])
-    { persist.enable = config.impermanence; }
   ];
 
-  config = lib.mkIf config.impermanence {
+  config = {
 
-    home-manager.sharedModules = [ { impermanence = true; } ];
+    home-manager.sharedModules = [ 
+      inputs.impermanence.nixosModules.home-manager.impermanence 
+      (lib.mkAliasOptionModule [ "persist" ] [ "home" "persistence" "/persist${config.home.homeDirectory}" ])
+      { persist.allowOther = true; }
+    ];
 
     programs.fuse.userAllowOther = true;
 
