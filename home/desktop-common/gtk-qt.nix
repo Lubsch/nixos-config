@@ -14,16 +14,13 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-      gtk-cursor-blink = false; # doesn't seem to work in qutebrowser
-      gtk-menu-popup-delay = 0;
-      gtk-can-change-accels = 1; # make keyboard shortcuts editable
-      gtk-enable-event-sounds = 0;
-      gtk-enable-input-feedback-sounds = 0;
-    };
-    gtk4.extraConfig = config.gtk.gtk3.extraConfig;
-    gtk2.extraConfig = config.xdg.configFile."gtk-3.0/settings.ini".text;
+  };
+
+  # Some gtk4 applications (e.g. Evince) need "color-scheme"
+  # set here explicitly. "gtk4.extraConfig" doesn't work.
+  dconf.settings."org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      cursor-blink = false;
   };
   
   qt = {

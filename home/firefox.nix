@@ -4,27 +4,26 @@
 
   programs.firefox = {
     enable = true;
-
-    profiles.default = {
-      extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
-        ublock-origin
-        vimium
-        sponsorblock
-      ];
-      settings = {
-        "browser.startup.homepage" = "about:blank";
-        "identity.fxaccounts.enabled" = false;
-        "privacy.trackingprotection.enabled" = true;
-        "dom.security.https_only_mode" = true;
-        "singon.rememberSignons" = false;
-        "browser.shell.checkDefaultBrowser" = false;
-        "browser.shell.defaultBrowserCheckCount" = 1;
-        /* "browser.uiCustomization.state" = ''{"placements":{"widget-overflow-fixed-list":["ublock0_raymondhill_net-browser-action","sponsorblocker_ajay_app-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action"],"nav-bar":["back-button","forward-button","stop-reload-button","urlbar-container","save-to-pocket-button","downloads-button","fxa-toolbar-menu-button","wayback_machine_mozilla_org-browser-action"],"toolbar-menubar":["menubar-items"],"TabsToolbar":["tabbrowser-tabs","new-tab-button","alltabs-button"],"PersonalToolbar":["import-button","personal-bookmarks"]},"seen":["developer-button","ublock0_raymondhill_net-browser-action","sponsorblocker_ajay_app-browser-action","_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action"],"dirtyAreaCache":["nav-bar","PersonalToolbar","toolbar-menubar","TabsToolbar","widget-overflow-fixed-list"],"currentVersion":17,"newElementCount":6}''; */
-      };
-    };
+    # profiles.default = {
+    #   extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
+    #     ublock-origin
+    #     sponsorblock
+    #     vimium-c
+    #     newtab-adapter
+    #   ];
+    #   settings = {
+    #     "identity.fxaccounts.enabled" = false;
+    #     "privacy.trackingprotection.enabled" = true;
+    #     "dom.security.https_only_mode" = true;
+    #     "singon.rememberSignons" = false;
+    #     "browser.shell.checkDefaultBrowser" = false;
+    #     "browser.shell.defaultBrowserCheckCount" = 1;
+    #   };
+    # };
   };
 
   persist.directories = [ 
-    ".mozilla/firefox" 
+    ".mozilla" 
   ];
+
 }

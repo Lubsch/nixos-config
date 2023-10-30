@@ -6,6 +6,7 @@
     disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-gaming = { url = "github:fufexan/nix-gaming"; inputs.nixpkgs.follows = "nixpkgs"; };
+    firefox-addons = { url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
   outputs = inputs: {
@@ -44,7 +45,8 @@
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix
-            ./home/qutebrowser.nix
+            # ./home/qutebrowser.nix
+            ./home/firefox.nix
           ];
         } ];
 
@@ -72,7 +74,8 @@
               ./home/mail.nix
               ./home/syncthing.nix
               ./home/keepassxc.nix
-              ./home/qutebrowser.nix
+              # ./home/qutebrowser.nix
+              ./home/firefox.nix
             ];
           } ];
 

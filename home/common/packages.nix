@@ -5,6 +5,7 @@
     gource # visualize git histories
     file # file information
     fq # explore file formats
+    jq # json pipes
     imagemagick # convert images
     poppler_utils # pdf utils (e.g. pdftotext)
     hyperfine # simple benchmarks
@@ -23,6 +24,6 @@
 
     # PROGRAMMING LANGUAGES ETC.
     (python3.withPackages (ps: with ps; [ sympy ]))
-    lldb # llvm rust, c, cpp debugger (with dap)
+    (sqlite.override { interactive = true; })
   ];
 }

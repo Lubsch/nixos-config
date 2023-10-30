@@ -27,21 +27,24 @@ This is my NixOS-config.
 
 ## Todo that's not marked
 
-- Gnu Readline
-- Find solution for android
+- Readline for real
+- Finish download-mover
+- Modify vimium-c source default config (background/settings.ts)
+- Debugger record script
+- (Modify gtk(/its apps') source code)
 - E-Mail
 - Calendar
 - Statusbar
 - Backups
 - Multiple drives
-- Touch for terminal and image viewer (maybe loupe)
-    - should work in foot but hyprland doesn't disable cursor when using touch
+- Find solution for android
+- Install loupe https://github.com/NixOS/nixpkgs/pull/247766
 
 ## Installation Guide
 
-This guide should include every step to setup a new machine, so I don't have to remember so many details one could get wrong. My config is intended for my own use, but you can of course adapt it to your needs. :)
+This guide should include every step to setup a new machine, so I don't have to remember too many details. This config is primarily intended for my own use, but you can adapt it to your needs, of course. :)
 
-Download the iso from [https://nixos.org/download.html#nixos-iso](https://nixos.org/download.html#nixos-iso):
+Download the iso from [https://nixos.org/download.html#nixos-iso](https://nixos.org/download.html#nixos-iso).
 
 Burn the iso to an empty usb stick:
 ```
@@ -58,4 +61,9 @@ iwctl station <station> connect <ssid>
 Clone and enter nix shell:
 ```
 clone
+```
+
+Follow the instructions and reboot. After that, use `iwctl` to connect to wifi and do some manual setup:
+```
+setup-git
 ```

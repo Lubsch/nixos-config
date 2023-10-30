@@ -1,3 +1,4 @@
+# firefox: toolkit.lazyHiddenWindow false to force load
 { pkgs, config, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -7,9 +8,30 @@
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor = ,preferred,auto,auto
 
-      # Execute your favorite apps at launch
       exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       exec-once = ${home.sessionVariables.TERMINALSERVER}
+      exec-once = ${writeShellScriptBin "script" ''
+        # Runs firefox and moves it to workspace 3 once it appears
+        # Checks if the newly created window really is firefox
+        # firefox `browser.sessionrestore.resume_from_crash` to false
+        # 
+        # Possible race condition: Launch another firefox before
+        # But it seems: (first launched) -> (first opened)
+        # Also broken pipe but it doesn't matter
+        firefox --new-window https://music.apple.com/de/library/recently-added &
+        handle() {
+            case $1 in
+                openwindow*)
+                    echo "$1"
+                    if echo "$1" | grep -Pq ".*firefox.*"; then
+                        hyprctl dispatch movetoworkspacesilent 3
+                        exit 0
+                    fi
+                    ;;
+            esac
+        }
+        ${socat}/bin/socat -U - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock | while read -r line; do handle "$line"; done
+      ''}/bin/script
 
       # Some default env vars.
       env = XCURSOR_SIZE,24
@@ -21,7 +43,7 @@
       bind = $mainMod, V, exec, ${home.sessionVariables.LAUNCHER}
       bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
 
-      bind = $mainMod, R, exec, ${home.sessionVariables.TERMINAL} --hold zsh -ic "re; zsh -i"
+      bind = $mainMod, R, exec, ${home.sessionVariables.TERMINAL} zsh -ic "re; zsh -i"
 
       bind = $mainMod, G, exec, steam
 
@@ -151,6 +173,8 @@
       gestures {
           workspace_swipe = true
       }
+
+      windowrule = float, float
 
       # Example windowrule v1
       # windowrule = float, ^(kitty)$

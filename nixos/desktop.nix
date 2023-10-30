@@ -7,10 +7,10 @@
     jack.enable = true;
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-  };
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  # };
 
   security.polkit.enable = true;
   security.pam.services = { swaylock = {}; waylock = {}; };

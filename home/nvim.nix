@@ -4,7 +4,9 @@
 
   programs.neovim =
   let
+    # Mapping between names (lspconfig = nixpkgs;)
     servers = with pkgs; {
+      rust_analyzer = rust-analyzer;
       hls = haskell-language-server;
       typst_lsp = typst-lsp;
       nixd = nixd;
@@ -178,6 +180,22 @@
         vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
         vim.keymap.set('n', '<leader>=', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+        -- nvim included lsp: Borders around windows
+        local _border = "single"
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+          vim.lsp.handlers.hover, {
+            border = _border
+          }
+        )
+        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+          vim.lsp.handlers.signature_help, {
+            border = _border
+          }
+        )
+        vim.diagnostic.config{
+          float={border=_border}
+        }
       '';
 
       nvim-cmp = /* lua */ ''
