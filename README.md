@@ -27,7 +27,6 @@ This is my NixOS-config.
 
 ## Todo that's not marked
 
-- Readline for real
 - Finish download-mover
 - Modify vimium-c source default config (background/settings.ts)
 - Debugger record script

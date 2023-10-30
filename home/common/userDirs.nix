@@ -1,6 +1,8 @@
-{ config, ... }:
-let homeDir = config.home.homeDirectory; in {
-  xdg.userDirs = {
+{ config, ... }: {
+  xdg.userDirs = 
+  let 
+    homeDir = config.home.homeDirectory; 
+  in {
     enable = true;
     createDirectories = true;
     desktop = homeDir;

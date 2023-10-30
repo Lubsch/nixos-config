@@ -1,5 +1,18 @@
-# firefox: toolkit.lazyHiddenWindow false to force load
-{ pkgs, config, ... }: {
+# TODO fix application env vars
+{ pkgs, config, ... }:
+let
+  # Wait for the application to appear, then do something. Usage:
+  # waiter "<window-pattern>" "<application-command>" "<action-command>"
+  waiter = pkgs.writeShellScriptBin "waiter" ''
+    $2 &
+    ${pkgs.socat}/bin/socat -U - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock | while read -r line; do 
+        if echo "$line" | grep -Pq "openwindow.*$1.*"; then
+            $3
+            exit # broken pipe but it doesn't matter
+        fi
+    done
+  '';
+in {
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -9,29 +22,11 @@
       monitor = ,preferred,auto,auto
 
       exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
+      # firefox `browser.sessionrestore.resume_from_crash` to false
+      exec-once = ${waiter}/bin/waiter "firefox" "firefox --new-window https://music.apple.com/de/library/recently-added" "hyprctl dispatch movetoworkspacesilent 3"
       exec-once = ${home.sessionVariables.TERMINALSERVER}
-      exec-once = ${writeShellScriptBin "script" ''
-        # Runs firefox and moves it to workspace 3 once it appears
-        # Checks if the newly created window really is firefox
-        # firefox `browser.sessionrestore.resume_from_crash` to false
-        # 
-        # Possible race condition: Launch another firefox before
-        # But it seems: (first launched) -> (first opened)
-        # Also broken pipe but it doesn't matter
-        firefox --new-window https://music.apple.com/de/library/recently-added &
-        handle() {
-            case $1 in
-                openwindow*)
-                    echo "$1"
-                    if echo "$1" | grep -Pq ".*firefox.*"; then
-                        hyprctl dispatch movetoworkspacesilent 3
-                        exit 0
-                    fi
-                    ;;
-            esac
-        }
-        ${socat}/bin/socat -U - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock | while read -r line; do handle "$line"; done
-      ''}/bin/script
+      exec-once = [workspace special:keepass silent] keepassxc ${home.sessionVariables.KEEPASS_DATABASE}
+      exec-once = [workspace special:qalc silent] foot qalc
 
       # Some default env vars.
       env = XCURSOR_SIZE,24
@@ -39,7 +34,6 @@
       $mainMod = SUPER
 
       bind = $mainMod, return, exec, ${home.sessionVariables.TERMINAL}
-      bind = $mainMod, P, exec, ${home.sessionVariables.PASSWORDMANAGER}
       bind = $mainMod, V, exec, ${home.sessionVariables.LAUNCHER}
       bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
 
@@ -83,6 +77,9 @@
 
       # Pin floating window
       bind = $mainMod, 0, pin
+
+      bind = $mainMod, P, togglespecialworkspace, keepass
+      bind = $mainMod, C, togglespecialworkspace, qalc
 
       bind = $mainMod, 1, workspace, 1
       bind = $mainMod, 2, workspace, 2
@@ -149,6 +146,8 @@
       decoration {
           rounding = 0
 
+          dim_special = 0.0
+
           blur {
             enabled = true
             size = 3
@@ -185,6 +184,6 @@
   };
 
   programs.zsh.loginExtra = ''
-    [ "$(tty)" = "/dev/tty1" ] && exec Hyprland &> /dev/null
+    [ "$(tty)" = "/dev/tty1" ] && exec Hyprland &> ~/.local/share/hypr.log
   '';
 }

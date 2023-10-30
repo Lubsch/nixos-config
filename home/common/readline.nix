@@ -1,7 +1,11 @@
-{
-  programs.readline.extraConfig = ''
+{ config, ... }: {
+  home.file.".haskeline".text = ''
+    editMode: Vi
+  '';
+  home.sessionVariables.INPUTRC = "${config.xdg.configHome}/inputrc";
+  xdg.configFile."inputrc".text = ''
+    $include /etc/inputrc
     set editing-mode vi
-    set -o vi
     set show-mode-in-prompt on
 
     # check if on virtual console
@@ -15,6 +19,9 @@
 
     # Single tab completion
     set show-all-if-unmodified on
+
+    # Remove pesky delay
+    set keyseq-timeout 0
 
     # Color files by types
     # Note that this may cause completion text blink in some terminals (e.g. xterm).
