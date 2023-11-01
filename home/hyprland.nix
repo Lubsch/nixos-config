@@ -23,7 +23,7 @@ in {
 
       exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       # firefox `browser.sessionrestore.resume_from_crash` to false
-      exec-once = ${waiter}/bin/waiter "firefox" "firefox --new-window https://music.apple.com/de/library/recently-added" "hyprctl dispatch movetoworkspacesilent 3"
+      exec-once = ${waiter}/bin/waiter "firefox" "firefox --new-window https://music.apple.com/de/library/recently-added" "hyprctl dispatch movetoworkspacesilent name:music"
       exec-once = ${home.sessionVariables.TERMINALSERVER}
       exec-once = [workspace special:keepass silent] keepassxc ${home.sessionVariables.KEEPASS_DATABASE}
       exec-once = [workspace special:qalc silent] foot qalc
@@ -81,6 +81,7 @@ in {
       bind = $mainMod, P, togglespecialworkspace, keepass
       bind = $mainMod, C, togglespecialworkspace, qalc
 
+      bind = $mainMod, M, workspace, name:music
       bind = $mainMod, 1, workspace, 1
       bind = $mainMod, 2, workspace, 2
       bind = $mainMod, 3, workspace, 3
@@ -91,7 +92,7 @@ in {
       bind = $mainMod, 8, workspace, 8
       bind = $mainMod, 9, workspace, 9
 
-      bind = $mainMod SHIFT, 1, movetoworkspacesilent, 1
+      bind = $mainMod SHIFT, M, movetoworkspacesilent, name:music
       bind = $mainMod SHIFT, 2, movetoworkspacesilent, 2
       bind = $mainMod SHIFT, 3, movetoworkspacesilent, 3
       bind = $mainMod SHIFT, 4, movetoworkspacesilent, 4

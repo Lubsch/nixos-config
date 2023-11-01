@@ -6,6 +6,7 @@
     userEmail = "33580245+Lubsch@users.noreply.github.com";
     extraConfig = {
       init.defaultBranch = "main";
+      push.autoSetupRemote = true;
     };
   };
 

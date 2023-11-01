@@ -6,6 +6,7 @@
   let
     # Mapping between names (lspconfig = nixpkgs;)
     servers = with pkgs; {
+      pylsp = python311Packages.python-lsp-server;
       rust_analyzer = rust-analyzer;
       hls = haskell-language-server;
       typst_lsp = typst-lsp;

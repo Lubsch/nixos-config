@@ -24,6 +24,7 @@ This is my NixOS-config.
 - Wifi credentials
 - Steam settings and games
 - Website settings
+- Currently: browser settings
 
 ## Todo that's not marked
 

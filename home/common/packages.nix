@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     shellcheck # check script posix compliance
-    gource # visualize git histories
     file # file information
     fq # explore file formats
     jq # json pipes

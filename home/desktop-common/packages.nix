@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
+    gource # visualize git histories
     pavucontrol # audio output manager
     evince # gnome pdf viewer
     wev # show pressed keys
