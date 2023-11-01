@@ -14,6 +14,8 @@
 
     kernel.sysctl."kernel.perf_event_paranoid" = 1; # rr debugger
 
+    binfmt.emulatedSystems = [ "aarch64-linux" ]; # cross compilation
+
     loader = {
       systemd-boot.enable = true;
       timeout = 0;

@@ -8,7 +8,6 @@ inputs.nixos-generators.nixosGenerate {
     ../nixos/common/layout.nix
     ../nixos/common/nix.nix
     ../nixos/wireless.nix
-    ../nixos/common/doas.nix
     {
       environment.systemPackages = with pkgs; [
         inputs.disko.packages.${pkgs.system}.disko

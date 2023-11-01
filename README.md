@@ -28,6 +28,8 @@ This is my NixOS-config.
 
 ## Todo that's not marked
 
+- Shutdown on battery empty
+- Backups
 - Finish download-mover
 - Modify vimium-c source default config (background/settings.ts)
 - Debugger record script
@@ -35,7 +37,6 @@ This is my NixOS-config.
 - E-Mail
 - Calendar
 - Statusbar
-- Backups
 - Multiple drives
 - Find solution for android
 - Install loupe https://github.com/NixOS/nixpkgs/pull/247766
@@ -49,7 +50,7 @@ Download the iso from [https://nixos.org/download.html#nixos-iso](https://nixos.
 Burn the iso to an empty usb stick:
 ```
 umount </dev/usb_drive>
-doas dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
+sudo dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
 ```
 
 You need to connect to the internet (preferably over ethernet). To enable wifi:

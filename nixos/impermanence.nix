@@ -6,7 +6,6 @@
   ];
 
   config = {
-
     home-manager.sharedModules = [ ({ config, ... }: {
       imports = [
         inputs.impermanence.nixosModules.home-manager.impermanence 
@@ -47,6 +46,5 @@
       btrfs subvolume create /mnt/root > /dev/null
       umount /mnt
     '';
-
   };
 }

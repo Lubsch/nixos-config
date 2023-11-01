@@ -22,7 +22,7 @@ in {
     shellAliases = {
       e = "$EDITOR";
 
-      re = "doas nixos-rebuild switch --flake ~/misc/repos/nixos-config";
+      re = "sudo nixos-rebuild switch --flake ~/misc/repos/nixos-config";
       ns = "nix shell";
       nr = "nix run";
       nd = "nix develop";

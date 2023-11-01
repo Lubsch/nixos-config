@@ -6,7 +6,7 @@
   let
     # Mapping between names (lspconfig = nixpkgs;)
     servers = with pkgs; {
-      pylsp = python311Packages.python-lsp-server;
+      pyright = nodePackages.pyright;
       rust_analyzer = rust-analyzer;
       hls = haskell-language-server;
       typst_lsp = typst-lsp;
@@ -70,8 +70,8 @@
       nnoremap <leader>w :w<cr>
       " Go to wiki index
       nnoremap <leader>i :cd $HOME/documents/wiki<cr> :e $HOME/documents/wiki/index.md<cr>
-      ":W doas saves file
-      command! W silent execute 'w !doas tee % > /dev/null' <bar> edit!
+      ":W sudo saves file
+      command! W silent execute 'w !sudo tee % > /dev/null' <bar> edit!
     '';
 
     plugins = lib.mapAttrsToList (n: x: {

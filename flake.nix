@@ -27,6 +27,7 @@
         ./nixos/bluetooth.nix
         # ./nixos/virtualisation.nix
         ./nixos/printing.nix
+        ./nixos/screenlock.nix
         {
           services.keyd.keyboards.default.settings.main.right = "noop";
           nixpkgs.hostPlatform = "x86_64-linux";
@@ -60,7 +61,7 @@
           {
             nixpkgs.hostPlatform = "x86_64-linux";
             main-disk = "/dev/nvme0n1";
-            swap = { size = 16; offset = "1626837"; };
+            swap.size = 16;
             hardware.cpu.amd.updateMicrocode = true;
             boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
             boot.kernelModules = [ "kvm-amd" ];

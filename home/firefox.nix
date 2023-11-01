@@ -1,3 +1,4 @@
+# TODO configure more here
 { pkgs, inputs, ... }: {
 
   home.sessionVariables.BROWSER = "firefox";
