@@ -1,4 +1,4 @@
-{ pkgs, inputs }:
+{ pkgs, inputs, format }:
 inputs.nixos-generators.nixosGenerate {
   inherit (pkgs) system;
   format = "install-iso";

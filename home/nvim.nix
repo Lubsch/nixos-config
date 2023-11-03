@@ -6,6 +6,7 @@
   let
     # Mapping between names (lspconfig = nixpkgs;)
     servers = with pkgs; {
+      bashls = nodePackages.bash-language-server;
       pyright = nodePackages.pyright;
       rust_analyzer = rust-analyzer;
       hls = haskell-language-server;

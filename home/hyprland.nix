@@ -1,5 +1,5 @@
 # TODO fix application env vars
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 let
   # Wait for the application to appear, then do something. Usage:
   # waiter "<window-pattern>" "<application-command>" "<action-command>"
@@ -82,25 +82,14 @@ in {
       bind = $mainMod, C, togglespecialworkspace, qalc
 
       bind = $mainMod, M, workspace, name:music
-      bind = $mainMod, 1, workspace, 1
-      bind = $mainMod, 2, workspace, 2
-      bind = $mainMod, 3, workspace, 3
-      bind = $mainMod, 4, workspace, 4
-      bind = $mainMod, 5, workspace, 5
-      bind = $mainMod, 6, workspace, 6
-      bind = $mainMod, 7, workspace, 7
-      bind = $mainMod, 8, workspace, 8
-      bind = $mainMod, 9, workspace, 9
+      
+      ${lib.concatLines (map (n:
+        let s = builtins.toString n; in ''
+        bind = $mainMod, ${s}, workspace, ${s}
+        bind = $mainMod SHIFT, ${s}, movetoworkspacesilent, ${s}
+      '') (lib.range 1 9))}
 
       bind = $mainMod SHIFT, M, movetoworkspacesilent, name:music
-      bind = $mainMod SHIFT, 2, movetoworkspacesilent, 2
-      bind = $mainMod SHIFT, 3, movetoworkspacesilent, 3
-      bind = $mainMod SHIFT, 4, movetoworkspacesilent, 4
-      bind = $mainMod SHIFT, 5, movetoworkspacesilent, 5
-      bind = $mainMod SHIFT, 6, movetoworkspacesilent, 6
-      bind = $mainMod SHIFT, 7, movetoworkspacesilent, 7
-      bind = $mainMod SHIFT, 8, movetoworkspacesilent, 8
-      bind = $mainMod SHIFT, 9, movetoworkspacesilent, 9
 
       # Scroll through existing workspaces with mainMod + scroll
       bind = $mainMod, mouse_down, workspace, e+1
