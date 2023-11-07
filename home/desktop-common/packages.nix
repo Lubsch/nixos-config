@@ -8,7 +8,7 @@
     ffmpeg-full # media tools (full for ffplay)
     brightnessctl # change brightness
     wl-clipboard # make wl-copy work
-    gnome.nautilus # file manager
+    pcmanfm # file manager
     libnotify # command notify-send
   ];
 }

@@ -43,6 +43,7 @@
             # ./home/yambar.nix
             # ./home/helix.nix
             ./home/nvim.nix
+            ./home/steam.nix
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix
@@ -52,33 +53,33 @@
         } ];
 
       raja = [
-          ./nixos/common
-          ./nixos/impermanence.nix
-          ./nixos/wireless.nix
-          ./nixos/desktop.nix
-          ./nixos/bluetooth.nix
-          # ./nixos/virtualisation.nix
-          {
-            nixpkgs.hostPlatform = "x86_64-linux";
-            main-disk = "/dev/nvme0n1";
-            swap.size = 16;
-            hardware.cpu.amd.updateMicrocode = true;
-            boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-            boot.kernelModules = [ "kvm-amd" ];
-            home-manager.users."lubsch".imports = [
-              ./home/common
-              ./home/desktop-common
-              ./home/hyprland.nix
-              # ./home/yambar.nix
-              ./home/nvim.nix
-              ./home/steam.nix
-              ./home/mail.nix
-              ./home/syncthing.nix
-              ./home/keepassxc.nix
-              # ./home/qutebrowser.nix
-              ./home/firefox.nix
-            ];
-          } ];
+        ./nixos/common
+        ./nixos/impermanence.nix
+        ./nixos/wireless.nix
+        ./nixos/desktop.nix
+        ./nixos/bluetooth.nix
+# ./nixos/virtualisation.nix
+        {
+          nixpkgs.hostPlatform = "x86_64-linux";
+          main-disk = "/dev/nvme0n1";
+          swap.size = 16;
+          hardware.cpu.amd.updateMicrocode = true;
+          boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+          boot.kernelModules = [ "kvm-amd" ];
+          home-manager.users."lubsch".imports = [
+            ./home/common
+            ./home/desktop-common
+            ./home/hyprland.nix
+            # ./home/yambar.nix
+            ./home/nvim.nix
+            ./home/steam.nix
+            ./home/mail.nix
+            ./home/syncthing.nix
+            ./home/keepassxc.nix
+            # ./home/qutebrowser.nix
+            ./home/firefox.nix
+          ];
+        } ];
 
     };
   };
