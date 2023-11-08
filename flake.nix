@@ -43,7 +43,7 @@
             # ./home/yambar.nix
             # ./home/helix.nix
             ./home/nvim.nix
-            ./home/steam.nix
+            # ./home/steam.nix
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix

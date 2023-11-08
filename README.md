@@ -30,7 +30,6 @@ This is my NixOS-config.
 
 - Shutdown on battery empty
 - Backups
-- Finish download-mover
 - Modify vimium-c source default config (background/settings.ts)
 - Debugger record script
 - (Modify gtk(/its apps') source code)

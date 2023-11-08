@@ -12,6 +12,45 @@ let
         fi
     done
   '';
+  path-chooser = pkgs.writeShellScriptBin "path-chooser" ''
+    choose() {
+      echo Save "$bname":
+      read -rep "" -i "$dir/" input
+
+      if [ -d "$input" ]; then
+        target="$input/$bname"
+        return
+      fi
+
+      if [ -e "$target" ]; then
+          echo "File already exists"
+          echo
+          choose
+          return
+      fi
+
+      if [ -d "$(dirname "$target")" ]; then
+          target="$input"
+          return
+      fi
+
+      echo "Directory doesnt't exist"
+      echo
+      choose
+    }
+
+    bname=$(basename "$1")
+    if [ -e /tmp/lastchoice.download-mover ]; then
+      dir=$(cat /tmp/lastchoice.download-mover)
+    else
+      dir="$HOME"
+    fi
+
+    choose
+
+    echo -n "$(dirname "$target")" > /tmp/lastchoice.download-mover
+    echo -n "$target" > "$1".download-mover
+  '';
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -20,11 +59,11 @@ in {
     extraConfig = with config; with pkgs; ''
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor = ,preferred,auto,auto
-
       exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       # firefox `browser.sessionrestore.resume_from_crash` to false
       exec-once = ${waiter}/bin/waiter "firefox" "firefox --new-window https://music.apple.com/de/library/recently-added" "hyprctl dispatch movetoworkspacesilent name:music"
       exec-once = ${home.sessionVariables.TERMINALSERVER}
+      exec-once = ${pkgs.callPackage ../pkgs/download-mover.nix {}}/bin/download-mover footclient --app-id=float bash ${path-chooser}/bin/path-chooser
       exec-once = [workspace special:keepass silent] keepassxc ${home.sessionVariables.KEEPASS_DATABASE}
       exec-once = [workspace special:qalc silent] foot qalc
 
