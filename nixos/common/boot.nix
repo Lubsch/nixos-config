@@ -8,9 +8,9 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
-    # initrd.verbose = false;
-    # kernelParams = [ "quiet" ];
-    # consoleLogLevel = 2;
+    initrd.verbose = false;
+    kernelParams = [ "quiet" ];
+    consoleLogLevel = 2;
 
     kernel.sysctl."kernel.perf_event_paranoid" = 1; # rr debugger
 
