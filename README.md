@@ -28,6 +28,7 @@ This is my NixOS-config.
 
 ## Todo that's not marked
 
+- Move from special workspaces to something more practical (free floating tags)
 - Shutdown on battery empty
 - Backups
 - Modify vimium-c source default config (background/settings.ts)
