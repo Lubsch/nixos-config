@@ -5,8 +5,8 @@
     home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nix-gaming = { url = "github:fufexan/nix-gaming"; inputs.nixpkgs.follows = "nixpkgs"; };
     firefox-addons = { url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; inputs.nixpkgs.follows = "nixpkgs"; };
+    proton = { url = "https://raw.githubusercontent.com/Shawn8901/nix-configuration/main/packages/proton-ge-custom/default.nix"; flake = false; };
   };
 
   outputs = inputs: {
@@ -58,7 +58,7 @@
         ./nixos/wireless.nix
         ./nixos/desktop.nix
         ./nixos/bluetooth.nix
-# ./nixos/virtualisation.nix
+        # ./nixos/virtualisation.nix
         {
           nixpkgs.hostPlatform = "x86_64-linux";
           main-disk = "/dev/nvme0n1";

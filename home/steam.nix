@@ -3,7 +3,7 @@ let
   package = pkgs.steam;
   script = pkgs.writeShellScriptBin "steam" ''
     HOME=$HOME/.local/share/steamHome
-    STEAM_EXTRA_COMPAT_TOOLS_PATHS=${inputs.nix-gaming.packages.${pkgs.system}.proton-ge}
+    export STEAM_EXTRA_COMPAT_TOOLS_PATHS=${pkgs.callPackage inputs.proton {}}
     ${package}/bin/steam
   '';
 in {

@@ -43,24 +43,6 @@
         "type": "gitlab"
       }
     },
-    "flake-parts": {
-      "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib"
-      },
-      "locked": {
-        "lastModified": 1698882062,
-        "narHash": "sha256-HkhafUayIqxXyHH1X8d9RDl1M2CkFgZLjKD3MzabiEo=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "8c9fa2545007b49a5db5f650ae91f227672c3877",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "locked": {
         "lastModified": 1629284811,
@@ -108,27 +90,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "impermanence",
-        "type": "github"
-      }
-    },
-    "nix-gaming": {
-      "inputs": {
-        "flake-parts": "flake-parts",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1699207404,
-        "narHash": "sha256-7qzr0Nne6WpJPbEoW/JAFLoB9Y4Xu7eKfjRriujbI3Y=",
-        "owner": "fufexan",
-        "repo": "nix-gaming",
-        "rev": "40bcc678e41285dbe0d9a306baf2c2123fd19027",
-        "type": "github"
-      },
-      "original": {
-        "owner": "fufexan",
-        "repo": "nix-gaming",
         "type": "github"
       }
     },
@@ -184,22 +145,16 @@
         "type": "github"
       }
     },
-    "nixpkgs-lib": {
+    "proton": {
+      "flake": false,
       "locked": {
-        "dir": "lib",
-        "lastModified": 1698611440,
-        "narHash": "sha256-jPjHjrerhYDy3q9+s5EAsuhyhuknNfowY6yt6pjn9pc=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "0cbe9f69c234a7700596e943bfae7ef27a31b735",
-        "type": "github"
+        "narHash": "sha256-S04Zg5N8a9ZO+VlGMKYhZ62sEwBFLWzwAsffAEj2gHg=",
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/Shawn8901/nix-configuration/main/packages/proton-ge-custom/default.nix"
       },
       "original": {
-        "dir": "lib",
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/Shawn8901/nix-configuration/main/packages/proton-ge-custom/default.nix"
       }
     },
     "root": {
@@ -208,9 +163,9 @@
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
-        "nix-gaming": "nix-gaming",
         "nixos-generators": "nixos-generators",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "proton": "proton"
       }
     }
   },
