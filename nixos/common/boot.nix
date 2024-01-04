@@ -4,7 +4,7 @@
 
   # Remove welcome line from getty
   environment.etc.issue.text = "";
-
+  
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 

@@ -1,28 +1,4 @@
-{ pkgs, ... }: 
-let
-
-  # script = pkgs.writeShellScriptBin "kp" ''
-  #   if [ ! -e "$KEEPASS_DATABASE" ]; then
-  #     notify-send "Keepass database not found" "$KEEPASS_DATABASE"
-  #     $BROWSER localhost:8384
-  #     exit
-  #   fi
-  #   timeout=30
-  #   password=$(fuzzel -d --password)
-  #   [ "$password" ] || exit
-  #   list=$(echo "$password" | keepassxc-cli ls $KEEPASS_DATABASE -q)
-  #   if [ ! "$list" ]; then
-  #     notify-send "Password wrong"
-  #     exit
-  #   fi
-  #   selection=$(echo "$list" | fuzzel -d)
-  #   [ "$selection" ] || exit
-  #     notify-send "Copied to clipboard" "Will be cleared in $timeout seconds"
-  #   echo $password | keepassxc-cli clip -q $KEEPASS_DATABASE $selection $timeout
-  #     exit
-  # '';
-
-in {
+{ pkgs, ... }: {
   xdg.configFile."keepassxc/keepassxc.ini".text = ''
     [General]
     ConfigVersion=2
@@ -44,15 +20,10 @@ in {
     LockDatabaseIdle=true
     LockDatabaseIdleSeconds=30
   '';
-  home = {
-    sessionVariables = {
-      # PASSWORDMANAGER = script.name;
-      KEEPASS_DATABASE = "$HOME/misc/keepass/secrets.kdbx";
-    };
-
-    packages = with pkgs; [ 
-      keepassxc
-      # script
-    ];
-  };
+  home.packages = with pkgs; [ 
+    keepassxc
+    (pkgs.writeShellScriptBin "kp" ''
+      keepassxc $HOME/misc/keepass/secrets.kdbx
+    '')
+  ];
 }

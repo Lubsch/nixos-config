@@ -4,7 +4,7 @@
 
   programs.neovim =
   let
-    # Mapping between names (lspconfig = nixpkgs;)
+    # Mapping between names in each "lspconfig = nixpkgs;"
     servers = with pkgs; {
       zls = zls;
       bashls = nodePackages.bash-language-server;

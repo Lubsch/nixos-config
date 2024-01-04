@@ -6,7 +6,8 @@
     disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     firefox-addons = { url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; inputs.nixpkgs.follows = "nixpkgs"; };
-    proton = { url = "https://raw.githubusercontent.com/Shawn8901/nix-configuration/main/packages/proton-ge-custom/default.nix"; flake = false; };
+    proton = { url = "https://raw.githubusercontent.com/fufexan/nix-gaming/master/pkgs/proton-ge/default.nix"; flake = false; };
+    download-mover = { url = "github:lubsch/download-mover"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
   outputs = inputs: {
@@ -14,7 +15,7 @@
     templates = import ./templates;
     packages = import ./pkgs inputs;
 
-    nixosConfigurations = builtins.mapAttrs (name: modules: inputs.nixpkgs.lib.nixosSystem {
+    nixosConfigurations = with inputs.nixpkgs.lib; mapAttrs (name: modules: nixosSystem {
       modules =  modules ++ [ { networking.hostName = name; } ];
       specialArgs = { inherit inputs; };
     }) {
@@ -26,6 +27,7 @@
         ./nixos/desktop.nix
         ./nixos/bluetooth.nix
         # ./nixos/virtualisation.nix
+        ./nixos/wireshark.nix
         ./nixos/printing.nix
         ./nixos/screenlock.nix
         {

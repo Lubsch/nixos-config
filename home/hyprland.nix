@@ -1,5 +1,5 @@
 # TODO fix application env vars
-{ pkgs, config, lib, ... }:
+{ pkgs, lib, config, inputs, ... }:
 let
   # Wait for the application to appear, then do something. Usage:
   # waiter "<window-pattern>" "<application-command>" "<action-command>"
@@ -12,7 +12,8 @@ let
         fi
     done
   '';
-  path-chooser = pkgs.writeShellScriptBin "path-chooser" ''
+  path-chooser = pkgs.writeScriptBin "path-chooser" ''
+    #!/bin/sh
     choose() {
       echo Save "$bname":
       read -rep "" -i "$dir/" input
@@ -63,8 +64,8 @@ in {
       # firefox `browser.sessionrestore.resume_from_crash` to false
       exec-once = ${waiter}/bin/waiter "firefox" "firefox --new-window https://music.apple.com/de/library/recently-added" "hyprctl dispatch movetoworkspacesilent name:music"
       exec-once = ${home.sessionVariables.TERMINALSERVER}
-      exec-once = ${pkgs.callPackage ../pkgs/download-mover.nix {}}/bin/download-mover footclient --app-id=float bash ${path-chooser}/bin/path-chooser
-      exec-once = [workspace special:keepass silent] keepassxc ${home.sessionVariables.KEEPASS_DATABASE}
+      exec-once = ${inputs.download-mover.packages.${pkgs.system}.default}/bin/download-mover footclient --app-id=float ${path-chooser}/bin/path-chooser
+      exec-once = [workspace special:keepass silent] kp
       exec-once = [workspace special:qalc silent] foot qalc
 
       # Some default env vars.
@@ -212,7 +213,8 @@ in {
     '';
   };
 
+  home.sessionVariables.WM = "Hyprland &> ~/.local/share/hypr.log";
   programs.zsh.loginExtra = ''
-    [ "$(tty)" = "/dev/tty1" ] && exec Hyprland &> ~/.local/share/hypr.log
+    [ "$(tty)" = "/dev/tty1" ] && exec ${config.home.sessionVariables.WM}
   '';
 }

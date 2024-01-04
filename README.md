@@ -36,7 +36,7 @@ This is my NixOS-config.
 - (Modify gtk(/its apps') source code)
 - E-Mail
 - Calendar
-- Statusbar
+- Statusbar (https://github.com/JakeStanger/ironbar)
 - Multiple drives
 - Maybe make it runnable on android, too
 - Install loupe https://github.com/NixOS/nixpkgs/pull/247766
