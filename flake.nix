@@ -61,10 +61,11 @@
         ./nixos/desktop.nix
         ./nixos/bluetooth.nix
         # ./nixos/virtualisation.nix
+        ./nixos/screenlock.nix
         {
           nixpkgs.hostPlatform = "x86_64-linux";
           main-disk = "/dev/nvme0n1";
-          swap.size = 16;
+          swap = { size = 20; offset = "1626837"; };
           hardware.cpu.amd.updateMicrocode = true;
           boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
           boot.kernelModules = [ "kvm-amd" ];
@@ -80,6 +81,7 @@
             ./home/keepassxc.nix
             # ./home/qutebrowser.nix
             ./home/firefox.nix
+            ./home/waybar.nix
           ];
         } ];
 
