@@ -1,17 +1,6 @@
 # TODO fix application env vars
 { pkgs, lib, config, inputs, ... }:
 let
-  # Wait for the application to appear, then do something. Usage:
-  # waiter "<window-pattern>" "<application-command>" "<action-command>"
-  waiter = pkgs.writeShellScriptBin "waiter" ''
-    $2 &
-    ${pkgs.socat}/bin/socat -U - UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock | while read -r line; do 
-        if echo "$line" | grep -Pq "openwindow.*$1.*"; then
-            $3
-            exit # broken pipe but it doesn't matter
-        fi
-    done
-  '';
   path-chooser = pkgs.writeScriptBin "path-chooser" ''
     #!/bin/sh
     choose() {
@@ -60,9 +49,10 @@ in {
     extraConfig = with config; with pkgs; ''
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor = ,preferred,auto,auto
+      exec-once = waybar
       exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       # firefox `browser.sessionrestore.resume_from_crash` to false
-      exec-once = ${waiter}/bin/waiter "firefox" "firefox --new-window https://music.apple.com/de/library/recently-added" "hyprctl dispatch movetoworkspacesilent name:music"
+      exec-once = [workspace special:music silent] firefox --new-window https://music.apple.com/de/library/recently-added
       exec-once = ${home.sessionVariables.TERMINALSERVER}
       exec-once = ${inputs.download-mover.packages.${pkgs.system}.default}/bin/download-mover footclient --app-id=float ${path-chooser}/bin/path-chooser
       exec-once = [workspace special:keepass silent] kp
@@ -121,14 +111,14 @@ in {
       bind = $mainMod, P, togglespecialworkspace, keepass
       bind = $mainMod, C, togglespecialworkspace, qalc
 
+      bind = $mainMod, A, togglespecialworkspace, music
+      bind = $mainMod SHIFT, A, movetoworkspacesilent, special:music
+      
       ${lib.concatLines (map (n:
         let s = builtins.toString n; in ''
         bind = $mainMod, ${s}, workspace, ${s}
         bind = $mainMod SHIFT, ${s}, movetoworkspacesilent, ${s}
       '') (lib.range 1 9))}
-
-      bind = $mainMod, M, workspace, name:music
-      bind = $mainMod SHIFT, M, movetoworkspacesilent, name:music
 
       # Scroll through existing workspaces with mainMod + scroll
       bind = $mainMod, mouse_down, workspace, e+1
