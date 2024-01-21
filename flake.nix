@@ -6,7 +6,7 @@
     disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     firefox-addons = { url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; inputs.nixpkgs.follows = "nixpkgs"; };
-    proton = { url = "https://raw.githubusercontent.com/fufexan/nix-gaming/master/pkgs/proton-ge/default.nix"; flake = false; };
+    nix-gaming = { url = "github:fufexan/nix-gaming"; inputs.nixpkgs.follows = "nixpkgs"; };
     download-mover = { url = "github:lubsch/download-mover"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
