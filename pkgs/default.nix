@@ -6,5 +6,4 @@ builtins.mapAttrs (system: pkgs: {
   nvim = pkgs.callPackage ./nvim-hacky.nix { inherit inputs; };
   mi-engine = pkgs.callPackage ./mi-engine {};
   nvim-dap-rr = pkgs.callPackage ./nvim-dap-rr.nix {};
-  download-mover = pkgs.callPackage ./download-mover.nix {};
 }) inputs.nixpkgs.legacyPackages

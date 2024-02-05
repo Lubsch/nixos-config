@@ -121,14 +121,13 @@ in {
       bind = $mainMod, P, togglespecialworkspace, keepass
       bind = $mainMod, C, togglespecialworkspace, qalc
 
-      bind = $mainMod, M, workspace, name:music
-      
       ${lib.concatLines (map (n:
         let s = builtins.toString n; in ''
         bind = $mainMod, ${s}, workspace, ${s}
         bind = $mainMod SHIFT, ${s}, movetoworkspacesilent, ${s}
       '') (lib.range 1 9))}
 
+      bind = $mainMod, M, workspace, name:music
       bind = $mainMod SHIFT, M, movetoworkspacesilent, name:music
 
       # Scroll through existing workspaces with mainMod + scroll

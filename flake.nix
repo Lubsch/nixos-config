@@ -26,7 +26,6 @@
         ./nixos/wireless.nix
         ./nixos/desktop.nix
         ./nixos/bluetooth.nix
-        # ./nixos/virtualisation.nix
         ./nixos/wireshark.nix
         ./nixos/printing.nix
         ./nixos/screenlock.nix
@@ -42,14 +41,10 @@
             ./home/common
             ./home/desktop-common
             ./home/hyprland.nix
-            # ./home/yambar.nix
-            # ./home/helix.nix
             ./home/nvim.nix
-            # ./home/steam.nix
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix
-            # ./home/qutebrowser.nix
             ./home/firefox.nix
           ];
         } ];
@@ -60,7 +55,6 @@
         ./nixos/wireless.nix
         ./nixos/desktop.nix
         ./nixos/bluetooth.nix
-        # ./nixos/virtualisation.nix
         {
           nixpkgs.hostPlatform = "x86_64-linux";
           main-disk = "/dev/nvme0n1";
@@ -72,16 +66,15 @@
             ./home/common
             ./home/desktop-common
             ./home/hyprland.nix
-            # ./home/yambar.nix
             ./home/nvim.nix
             ./home/steam.nix
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix
-            # ./home/qutebrowser.nix
             ./home/firefox.nix
           ];
         } ];
+
 
 
     };

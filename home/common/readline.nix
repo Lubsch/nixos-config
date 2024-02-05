@@ -1,7 +1,4 @@
 { config, ... }: {
-  home.file.".haskeline".text = ''
-    editMode: Vi
-  '';
   home.sessionVariables.INPUTRC = "${config.xdg.configHome}/inputrc";
   xdg.configFile."inputrc".text = ''
     $include /etc/inputrc

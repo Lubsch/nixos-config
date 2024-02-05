@@ -6,6 +6,7 @@
   let
     # Mapping between names in each "lspconfig = nixpkgs;"
     servers = with pkgs; {
+      ocamllsp = ocamlPackages.ocaml-lsp;
       zls = zls;
       bashls = nodePackages.bash-language-server;
       pyright = nodePackages.pyright;

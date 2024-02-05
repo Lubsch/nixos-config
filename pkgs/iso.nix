@@ -14,7 +14,7 @@ inputs.nixos-generators.nixosGenerate {
         (writeShellScriptBin "clone" ''
           git clone https://github.com/lubsch/nixos-config
           cd nixos-config
-          nix shell .#shell
+          nix develop .#shell
         '')
       ];
     }
