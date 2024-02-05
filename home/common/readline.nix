@@ -1,5 +1,6 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
   home.sessionVariables.INPUTRC = "${config.xdg.configHome}/inputrc";
+  home.packages = [ pkgs.rlwrap ];
   xdg.configFile."inputrc".text = ''
     $include /etc/inputrc
     set editing-mode vi
