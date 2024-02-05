@@ -91,81 +91,83 @@
         require'nvim-autopairs'.setup{}
       '';
 
-      nvim-dap-ui = /* lua */ ''
-        local dapui = require'dapui'
-        dapui.setup{}
-        local opts = { silent=true, noremap = true }
-        vim.keymap.set('n', '<leader>u', dapui.toggle, opts)
-      '';
-      nvim-dap-rr = {
-        plugin = pkgs.callPackage ../pkgs/nvim-dap-rr.nix {};
-        config = /* lua */ ''
-          local rr_dap = require("nvim-dap-rr")
-          rr_dap.setup{ mappings = {} }
+      nvim-gdb = '''';
 
-          local opts = { nowait = true, noremap = true, silent = true, }
-          vim.keymap.set('n', 'ü', rr_dap.continue, opts)
-          vim.keymap.set('n', 'ä', rr_dap.step_over, opts)
-          vim.keymap.set('n', 'Ä', rr_dap.step_into, opts)
-          vim.keymap.set('n', '<c-ä>', rr_dap.step_out, opts)
-          vim.keymap.set('n', 'Ü', rr_dap.reverse_continue, opts)
-          vim.keymap.set('n', 'ö', rr_dap.reverse_step_over, opts)
-          vim.keymap.set('n', 'Ö', rr_dap.reverse_step_into, opts)
-          vim.keymap.set('n', '<c-ö>', rr_dap.reverse_step_out, opts)
+      # nvim-dap-ui = /* lua */ ''
+      #   local dapui = require'dapui'
+      #   dapui.setup{}
+      #   local opts = { silent=true, noremap = true }
+      #   vim.keymap.set('n', '<leader>u', dapui.toggle, opts)
+      # '';
+      # nvim-dap-rr = {
+      #   plugin = pkgs.callPackage ../pkgs/nvim-dap-rr.nix {};
+      #   config = /* lua */ ''
+      #     local rr_dap = require("nvim-dap-rr")
+      #     rr_dap.setup{ mappings = {} }
 
-          local dap = require'dap'
-          dap.adapters.cppdbg = {
-            id = 'cppdbg',
-            type = 'executable',
-            command = '${pkgs.callPackage ../pkgs/mi-engine {}}/bin/OpenDebugAD7'
-          }
+      #     local opts = { nowait = true, noremap = true, silent = true, }
+      #     vim.keymap.set('n', 'ü', rr_dap.continue, opts)
+      #     vim.keymap.set('n', 'ä', rr_dap.step_over, opts)
+      #     vim.keymap.set('n', 'Ä', rr_dap.step_into, opts)
+      #     vim.keymap.set('n', '<c-ä>', rr_dap.step_out, opts)
+      #     vim.keymap.set('n', 'Ü', rr_dap.reverse_continue, opts)
+      #     vim.keymap.set('n', 'ö', rr_dap.reverse_step_over, opts)
+      #     vim.keymap.set('n', 'Ö', rr_dap.reverse_step_into, opts)
+      #     vim.keymap.set('n', '<c-ö>', rr_dap.reverse_step_out, opts)
 
-          dap.configurations.c = { rr_dap.get_config() }
-          dap.configurations.cpp = { rr_dap.get_config() }
-          dap.configurations.rust = { rr_dap.get_rust_config() }
-        '';
-      };
-      nvim-dap = /* lua */ ''
-        local dap = require'dap'
-        local opts = { nowait = true, noremap = true, silent = true, }
-        vim.keymap.set('n', '<Leader>b', dap.toggle_breakpoint, opts)
-        vim.keymap.set({'n', 'v'}, '<Leader>h', require('dap.ui.widgets').hover, opts)
-        vim.keymap.set('n', '<Leader>df', function()
-          local widgets = require('dap.ui.widgets')
-          widgets.centered_float(widgets.frames)
-        end)
-        vim.keymap.set('n', '<Leader>ds', function()
-          local widgets = require('dap.ui.widgets')
-          widgets.centered_float(widgets.scopes)
-        end)
+      #     local dap = require'dap'
+      #     dap.adapters.cppdbg = {
+      #       id = 'cppdbg',
+      #       type = 'executable',
+      #       command = '${pkgs.callPackage ../pkgs/mi-engine {}}/bin/OpenDebugAD7'
+      #     }
 
-        -- dap.adapters.lldb = {
-        --   type = 'executable',
-        --   command = '${pkgs.lldb}/bin/lldb-vscode',
-        --   name = 'lldb',
-        -- }
-        -- dap.configurations.c = {
-        --     {
-        --         name = 'Launch lldb',
-        --         type = 'lldb',
-        --         request = 'launch',
-        --         program = function()
-        --             return vim.fn.input(
-        --                 'Path to executable: ',
-        --                 vim.fn.getcwd() .. '/',
-        --                 'file'
-        --              )
-        --         end,
-        --         cwd = "''${workspaceFolder}",
-        --         stopOnEntry = false,
-        --         args = {},
-        --         runInTerminal = false,
-        --     },
-        -- }
-        -- dap.configurations.cpp = dap.configurations.c
-        -- dap.configurations.rust = dap.configurations.c
-        --local opts = { silent=true, noremap = true }
-      '';
+      #     dap.configurations.c = { rr_dap.get_config() }
+      #     dap.configurations.cpp = { rr_dap.get_config() }
+      #     dap.configurations.rust = { rr_dap.get_rust_config() }
+      #   '';
+      # };
+      # nvim-dap = /* lua */ ''
+      #   local dap = require'dap'
+      #   local opts = { nowait = true, noremap = true, silent = true, }
+      #   vim.keymap.set('n', '<Leader>b', dap.toggle_breakpoint, opts)
+      #   vim.keymap.set({'n', 'v'}, '<Leader>h', require('dap.ui.widgets').hover, opts)
+      #   vim.keymap.set('n', '<Leader>df', function()
+      #     local widgets = require('dap.ui.widgets')
+      #     widgets.centered_float(widgets.frames)
+      #   end)
+      #   vim.keymap.set('n', '<Leader>ds', function()
+      #     local widgets = require('dap.ui.widgets')
+      #     widgets.centered_float(widgets.scopes)
+      #   end)
+
+      #   -- dap.adapters.lldb = {
+      #   --   type = 'executable',
+      #   --   command = '${pkgs.lldb}/bin/lldb-vscode',
+      #   --   name = 'lldb',
+      #   -- }
+      #   -- dap.configurations.c = {
+      #   --     {
+      #   --         name = 'Launch lldb',
+      #   --         type = 'lldb',
+      #   --         request = 'launch',
+      #   --         program = function()
+      #   --             return vim.fn.input(
+      #   --                 'Path to executable: ',
+      #   --                 vim.fn.getcwd() .. '/',
+      #   --                 'file'
+      #   --              )
+      #   --         end,
+      #   --         cwd = "''${workspaceFolder}",
+      #   --         stopOnEntry = false,
+      #   --         args = {},
+      #   --         runInTerminal = false,
+      #   --     },
+      #   -- }
+      #   -- dap.configurations.cpp = dap.configurations.c
+      #   -- dap.configurations.rust = dap.configurations.c
+      #   --local opts = { silent=true, noremap = true }
+      # '';
 
       nvim-lspconfig = /* lua */ ''
         -- Enable lsp for all the languages
