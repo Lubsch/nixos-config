@@ -4,7 +4,7 @@
 
   programs.neovim =
   let
-    # Mapping between names in each "lspconfig = nixpkgs;"
+    # Mapping between "<name in lspconfig> = <package in pkgs>;"
     servers = with pkgs; {
       ocamllsp = ocamlPackages.ocaml-lsp;
       zls = zls;
@@ -19,7 +19,7 @@
     };
   in {
     enable = true;
-    extraPackages = with pkgs; [ ghc fd ripgrep gdb ] ++ builtins.attrValues servers;
+    extraPackages = with pkgs; [ fd ripgrep ] ++ lib.attrValues servers;
     extraConfig = /* vim */ ''
       lua vim.loader.enable()
 
@@ -75,6 +75,9 @@
       nnoremap <leader>i :cd $HOME/documents/wiki<cr> :e $HOME/documents/wiki/index.md<cr>
       ":W sudo saves file
       command! W silent execute 'w !sudo tee % > /dev/null' <bar> edit!
+      "Use quickfix list comfortably
+      nnoremap <leader>n :cnext
+      nnoremap <leader>p :cprev
     '';
 
     plugins = lib.mapAttrsToList (n: x: {
@@ -91,7 +94,7 @@
         require'nvim-autopairs'.setup{}
       '';
 
-      nvim-gdb = '''';
+      # nvim-gdb = '''';
 
       # nvim-dap-ui = /* lua */ ''
       #   local dapui = require'dapui'
@@ -127,47 +130,70 @@
       #     dap.configurations.rust = { rr_dap.get_rust_config() }
       #   '';
       # };
-      # nvim-dap = /* lua */ ''
-      #   local dap = require'dap'
-      #   local opts = { nowait = true, noremap = true, silent = true, }
-      #   vim.keymap.set('n', '<Leader>b', dap.toggle_breakpoint, opts)
-      #   vim.keymap.set({'n', 'v'}, '<Leader>h', require('dap.ui.widgets').hover, opts)
-      #   vim.keymap.set('n', '<Leader>df', function()
-      #     local widgets = require('dap.ui.widgets')
-      #     widgets.centered_float(widgets.frames)
-      #   end)
-      #   vim.keymap.set('n', '<Leader>ds', function()
-      #     local widgets = require('dap.ui.widgets')
-      #     widgets.centered_float(widgets.scopes)
-      #   end)
+      nvim-dap = /* lua */ ''
+        local dap = require'dap'
 
-      #   -- dap.adapters.lldb = {
-      #   --   type = 'executable',
-      #   --   command = '${pkgs.lldb}/bin/lldb-vscode',
-      #   --   name = 'lldb',
-      #   -- }
-      #   -- dap.configurations.c = {
-      #   --     {
-      #   --         name = 'Launch lldb',
-      #   --         type = 'lldb',
-      #   --         request = 'launch',
-      #   --         program = function()
-      #   --             return vim.fn.input(
-      #   --                 'Path to executable: ',
-      #   --                 vim.fn.getcwd() .. '/',
-      #   --                 'file'
-      #   --              )
-      #   --         end,
-      #   --         cwd = "''${workspaceFolder}",
-      #   --         stopOnEntry = false,
-      #   --         args = {},
-      #   --         runInTerminal = false,
-      #   --     },
-      #   -- }
-      #   -- dap.configurations.cpp = dap.configurations.c
-      #   -- dap.configurations.rust = dap.configurations.c
-      #   --local opts = { silent=true, noremap = true }
-      # '';
+        dap.adapters.rr = {
+          type = 'executable',
+          command = 'rr',
+          args = { 'replay', '-i', 'dap' },
+        }
+
+        dap.configurations.c = {
+          {
+            name = 'Launch',
+            type = 'rr',
+            request = 'launch',
+          },
+        }
+
+        local opts = { nowait = true, noremap = true, silent = true, }
+        vim.keymap.set('n', 'ü', dap.continue, opts)
+        vim.keymap.set('n', 'ä', dap.step_over, opts)
+        vim.keymap.set('n', 'Ä', dap.step_into, opts)
+        vim.keymap.set('n', '<c-ä>', dap.step_out, opts)
+        vim.keymap.set('n', 'Ü', function() dap.repl.execute("rc") end, opts)
+        vim.keymap.set('n', 'ö', function() dap.repl.execute("rs") end, opts)
+
+        vim.keymap.set('n', '<Leader>b', dap.toggle_breakpoint, opts)
+        vim.keymap.set('n', '<Leader>B', dap.clear_breakpoints, opts)
+        vim.keymap.set({'n', 'v'}, '<Leader>h', require('dap.ui.widgets').preview, opts)
+        vim.keymap.set('n', '<Leader>df', function()
+          local widgets = require('dap.ui.widgets')
+          widgets.centered_float(widgets.frames)
+        end)
+        vim.keymap.set('n', '<Leader>ds', function()
+          local widgets = require('dap.ui.widgets')
+          widgets.centered_float(widgets.scopes)
+        end)
+
+        -- dap.adapters.lldb = {
+        --   type = 'executable',
+        --   command = '${pkgs.lldb}/bin/lldb-vscode',
+        --   name = 'lldb',
+        -- }
+        -- dap.configurations.c = {
+        --     {
+        --         name = 'Launch lldb',
+        --         type = 'lldb',
+        --         request = 'launch',
+        --         program = function()
+        --             return vim.fn.input(
+        --                 'Path to executable: ',
+        --                 vim.fn.getcwd() .. '/',
+        --                 'file'
+        --              )
+        --         end,
+        --         cwd = "''${workspaceFolder}",
+        --         stopOnEntry = false,
+        --         args = {},
+        --         runInTerminal = false,
+        --     },
+        -- }
+        -- dap.configurations.cpp = dap.configurations.c
+        -- dap.configurations.rust = dap.configurations.c
+        --local opts = { silent=true, noremap = true }
+      '';
 
       nvim-lspconfig = /* lua */ ''
         -- Enable lsp for all the languages
@@ -229,7 +255,8 @@
       cmp-path = /* lua */ '''';
 
       nvim-treesitter = {
-        plugin = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.lua ]); # fix for lua and c
+        # otherwise has weird errors for c, lua and vimdoc
+        plugin = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.lua p.vimdoc ]);
         config = /* lua */ ''
           require'nvim-treesitter.configs'.setup {
               highlight = {

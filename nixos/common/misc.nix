@@ -3,7 +3,6 @@
   config = {
     system.stateVersion = "23.05";
     time.timeZone = "Europe/Berlin";
-    # Because a contour is marked as broken
     # environment.enableAllTerminfo = true;
 
     persist.directories = [

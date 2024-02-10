@@ -16,7 +16,7 @@
     packages = import ./pkgs inputs;
 
     nixosConfigurations = with inputs.nixpkgs.lib; mapAttrs (name: modules: nixosSystem {
-      modules =  modules ++ [ { networking.hostName = name; } ];
+      modules = modules ++ [ ./generated/${name}.nix { networking.hostName = name; } ];
       specialArgs = { inherit inputs; };
     }) {
 
@@ -30,13 +30,9 @@
         ./nixos/printing.nix
         ./nixos/screenlock.nix
         {
-          services.keyd.keyboards.default.settings.main.right = "noop";
-          nixpkgs.hostPlatform = "x86_64-linux";
           main-disk = "/dev/sda";
-          swap = { size = 8; offset = "2106624"; };
-          hardware.cpu.intel.updateMicrocode = true;
-          boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "sd_mod" "sdhci_pci" ];
-          boot.kernelModules = [ "kvm-intel" ];
+          swap-size = 8;
+          services.keyd.keyboards.default.settings.main.right = "noop";
           home-manager.users.lubsch.imports = [
             ./home/common
             ./home/desktop-common
@@ -76,7 +72,6 @@
             ./home/waybar.nix
           ];
         } ];
-
 
 
     };

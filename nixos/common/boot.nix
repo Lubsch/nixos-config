@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
 
   hardware.enableRedistributableFirmware = true;
 
@@ -17,7 +17,10 @@
     binfmt.emulatedSystems = [ "aarch64-linux" ]; # cross compilation
 
     loader = {
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 50;
+      };
       timeout = 0;
       efi.canTouchEfiVariables = true;
     };

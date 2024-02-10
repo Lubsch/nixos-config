@@ -28,7 +28,7 @@ in {
       nd = "nix develop";
       ne = "nix eval";
 
-      iw = "iwctl station wlan0 scan && sleep 1 && iwctl station wlan0 connect earl";
+      iw = "iwctl station wlan0 scan && iwctl station wlan0 connect earl";
 
       myip = "curl ipinfo.io.me;echo";
 

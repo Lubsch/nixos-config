@@ -5,9 +5,14 @@
   options = {
     main-disk = lib.mkOption {};
     extraSubvolumes = lib.mkOption {};
+    swap-size = lib.mkOption {};
   };
 
   config = {
+    swapDevices = [ {
+      device = "/swap/swapfile";
+      size = config.swap-size * 1024;
+    } ];
     disko.devices.disk.main = {
       type = "disk";
       device = config.main-disk;

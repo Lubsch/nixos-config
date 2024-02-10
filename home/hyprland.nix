@@ -1,7 +1,7 @@
 # TODO fix application env vars
 { pkgs, lib, config, inputs, ... }:
 let
-  path-chooser = pkgs.writeScriptBin "path-chooser" ''
+  path-chooser = pkgs.writeScript "path-chooser" ''
     #!/bin/sh
     choose() {
       echo Save "$bname":

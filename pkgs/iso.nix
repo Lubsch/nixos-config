@@ -9,6 +9,7 @@ inputs.nixos-generators.nixosGenerate {
     ../nixos/common/nix.nix
     ../nixos/wireless.nix
     {
+      isoImage.squashfsCompression = "gzip -Xcompression-level 1";
       environment.systemPackages = with pkgs; [
         inputs.disko.packages.${pkgs.system}.disko
         (writeShellScriptBin "clone" ''

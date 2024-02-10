@@ -15,11 +15,8 @@
       echo Creating id key
       ssh-keygen -t ed25519
     fi
-    cat ~/.ssh/id_ed25519.pub | wl-copy
-    cat ~/.ssh/id_ed25519.pub
+    wl-copy < ~/.ssh/id_ed25519.pub
     $BROWSER https://github.com/settings/keys
-    echo Press enter when done pasting keys.
-    read
     $BROWSER https://git.tu-berlin.de/-/profile/keys
     echo Press enter when done pasting keys.
     read

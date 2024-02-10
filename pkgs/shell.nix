@@ -1,52 +1,51 @@
 { pkgs, inputs }:
 pkgs.mkShell rec {
   shellHook = ''
-    echo Available commands:
+    echo
+    echo "  Available commands:"
     ${builtins.concatStringsSep "\n" (map (p: "echo ${p.name}") packages)}
     echo
-    read -p "Hostname: " hostname
-    read -p "Username: " username
-    export hostname="$hostname"
-    export username="$username"
   '';
   packages = with pkgs; [
     inputs.disko.packages.${pkgs.system}.disko
     (writeShellScriptBin "mount-disko" ''
-      read -p "Hostname: " hostname
-      disko -m disko -f git+file:.#"$hostname"
+      disko -m disko -f git+file:.#"$1"
     '')
-    (writeShellScriptBin "generate-config" ''
-      sudo fdisk -l
-      echo
-      echo Remember correct main-disk\!
-      echo Press Enter to continue
-      read
-      generated="$(sudo nixos-generate-config --show-hardware-config --no-filesystems)"
-      echo "$hostname = [" >> flake.nix
-      echo "  ./nixos/common" >> flake.nix
-      echo "  {" >> flake.nix
-      echo "    nixpkgs.hostPlatform = \"${pkgs.system}\";" >> flake.nix
-      echo "    main-disk = CHANGE;" >> flake.nix
-      echo "    swap.size = CHANGE;" >> flake.nix
-      grep "    updateMicrocode" <<< "$generated" >> flake.nix
-      grep "    boot.initrd.available" <<< "$generated" >> flake.nix
-      grep "    boot.kernel" <<< "$generated" >> flake.nix
-      echo "    home-manager.users.\"$username\".imports = [" >> flake.nix
-      echo "      ./home/common" >> flake.nix
-      echo "    ];" >> flake.nix
-      echo "  } ];" >> flake.nix
-      $EDITOR flake.nix
+    (let 
+      config-template = ''
+        HOSTNAME = [
+          ./nixos/common
+          {
+            main-disk = "MAIN-DISK";
+            swap-size = SWAPSIZE;
+            home-manager.users.CHANGE.imports = [
+              ./home/common
+            ];
+          }
+        ];
+      '';
+    in writeShellScriptBin "generate-config" ''
+      $1 || "Enter hostname as first argument!"
+      set -e
+      maindisk=$(lsblk --raw --noheadings --paths | awk '{print $1}' | ${pkgs.skim}/bin/sk --reverse --no-multi --preview='sudo fdisk -l {}' --preview-window='right:70%:wrap')
+      read -p "Swap size in GB: " swapsize
+      mkdir -p generated
+      sudo nixos-generate-config --show-hardware-config --no-filesystems > generated/"$1"/hardware-configuration.nix
+      echo '${config-template}' | sed -e "s|HOSTNAME|$1|" -e "s|MAINDISK|$maindisk|" -e "s|SWAPSIZE|$swapsize|" >> flake.nix
     '')
     (writeShellScriptBin "format-disko" ''
-      sudo disko -m disko -f git+file:.#"$hostname"
+      $1 || "Enter hostname as first argument!"
+      sudo disko -m disko -f git+file:.#"$1"
     '')
     (writeShellScriptBin "install-and-copy-repo" ''
+      $1 || "Enter hostname as first and username as second argument!"
+      $2 || "Enter username as second argument!"
       set -e
-      sudo nixos-install --flake .#"$hostname" --no-root-password
-      sudo mkdir -p /mnt/persist/home/"$username"/misc/repos
-      sudo cp -r . /mnt/persist/home/"$username"/misc/repos/nixos-config
+      sudo nixos-install --flake .#"$1" --no-root-password
+      sudo mkdir -p /mnt/persist/home/"$2"/misc/repos
+      sudo cp -r . /mnt/persist/home/"$2"/misc/repos/nixos-config
       sudo nixos-enter
-      chown $username /persist/home/"$username"/misc -R
+      chown $username /persist/home/"$2"/misc -R
     '')
   ];
 }
