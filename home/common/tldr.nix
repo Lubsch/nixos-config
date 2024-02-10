@@ -1,11 +1,6 @@
-{
-  programs.tealdeer = {
-    enable = true;
-    settings.updates.auto_update = true;
-    updateOnActivation = false;
-  };
-
+{ pkgs, ... }: {
+  home.packages = [ pkgs.tlrc ];
   persist.directories = [ 
-    ".cache/tealdeer"
+    ".cache/tldr"
   ];
 }
