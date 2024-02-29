@@ -22,13 +22,12 @@ in {
     shellAliases = {
       e = "$EDITOR";
 
-      re = "sudo nixos-rebuild switch --flake ~/misc/repos/nixos-config";
       ns = "nix shell";
       nr = "nix run";
       nd = "nix develop";
       ne = "nix eval";
 
-      iw = "iwctl station wlan0 scan && iwctl station wlan0 connect earl";
+      iw = "iwctl station wlan0 scan; while ! iwctl station wlan0 get-networks | grep earl > /dev/null; do done; iwctl station wlan0 connect earl";
 
       myip = "curl ipinfo.io.me;echo";
 
@@ -41,6 +40,14 @@ in {
 
     # TODO improve git time
     initExtra = ''
+      # Rebuild and commit when successful
+      re() {
+        cd ~/misc/repos/nixos-config
+        git add .
+        sudo nixos-rebuild switch --flake . || exit
+        TZ='Europe/Berlin'
+        git commit -m "$(date -u '+%Y-%m-%d %H:%M:%S')"
+      }
       git_info() {
         local ref=$(git symbolic-ref --short HEAD 2> /dev/null)
         if [ -n "$ref" ]; then

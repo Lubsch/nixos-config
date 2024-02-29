@@ -15,7 +15,7 @@
     templates = import ./templates;
     packages = import ./pkgs inputs;
 
-    nixosConfigurations = with inputs.nixpkgs.lib; mapAttrs (name: modules: nixosSystem {
+    nixosConfigurations = builtins.mapAttrs (name: modules: inputs.nixpkgs.lib.nixosSystem {
       modules = modules ++ [ ./generated/${name}.nix { networking.hostName = name; } ];
       specialArgs = { inherit inputs; };
     }) {
@@ -25,14 +25,13 @@
         ./nixos/impermanence.nix
         ./nixos/wireless.nix
         ./nixos/desktop.nix
-        ./nixos/bluetooth.nix
         ./nixos/wireshark.nix
         ./nixos/printing.nix
         ./nixos/screenlock.nix
         {
           main-disk = "/dev/sda";
           swap-size = 8;
-          services.keyd.keyboards.default.settings.main.right = "noop";
+          services.keyd.keyboards.default.settings.main.right = "noop"; # sees altgr as right
           home-manager.users.lubsch.imports = [
             ./home/common
             ./home/desktop-common

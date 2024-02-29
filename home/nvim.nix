@@ -9,7 +9,9 @@
       ocamllsp = ocamlPackages.ocaml-lsp;
       zls = zls;
       bashls = nodePackages.bash-language-server;
-      pyright = nodePackages.pyright;
+      # pyright = nodePackages.pyright;
+      # pylyzer = pylyzer;
+      jedi_language_server = python311Packages.jedi-language-server;
       rust_analyzer = rust-analyzer;
       hls = haskell-language-server;
       typst_lsp = typst-lsp;

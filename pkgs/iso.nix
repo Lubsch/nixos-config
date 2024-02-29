@@ -1,7 +1,7 @@
 { pkgs, inputs, format }:
 inputs.nixos-generators.nixosGenerate {
   inherit (pkgs) system;
-  format = "install-iso";
+  inherit format;
   specialArgs = { inherit inputs; };
   modules = [
     ../nixos/common/misc.nix
@@ -10,6 +10,7 @@ inputs.nixos-generators.nixosGenerate {
     ../nixos/wireless.nix
     {
       isoImage.squashfsCompression = "gzip -Xcompression-level 1";
+      kernelPackages = pkgs.linuxPackages_latest; # avoid downloading older kernel
       environment.systemPackages = with pkgs; [
         inputs.disko.packages.${pkgs.system}.disko
         (writeShellScriptBin "clone" ''

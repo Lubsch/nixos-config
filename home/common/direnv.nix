@@ -7,17 +7,22 @@
     };
   };
 
-  home.sessionVariables.DIRENV_LOG_FORMAT = "";
+  programs.zsh = {
+    shellAliases.da = "direnv allow";
+    # Show in prompt if in direnv directory
+    initExtra = lib.mkAfter ''
+      prompt_char() {
+        if [ $DIRENV_FILE ]; then
+            echo "> "
+        else
+            echo "$ "
+        fi
+      }
+    '';
+  };
 
-  programs.zsh.initExtra = lib.mkAfter ''
-    prompt_char() {
-      if [ $DIRENV_FILE ]; then
-          echo "> "
-      else
-          echo "$ "
-      fi
-    }
-  '';
+  # Avoid big log output whenever using direnv
+  home.sessionVariables.DIRENV_LOG_FORMAT = "";
 
   persist.directories = [ 
     ".local/share/direnv"

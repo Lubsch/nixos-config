@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
+    qemu # vm runner
     shellcheck # check script posix compliance
     file # file information
     fq # explore file formats
