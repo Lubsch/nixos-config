@@ -45,8 +45,7 @@ in {
         cd ~/misc/repos/nixos-config
         git add .
         sudo nixos-rebuild switch --flake . || exit
-        TZ='Europe/Berlin'
-        git commit -m "$(date -u '+%Y-%m-%d %H:%M:%S')"
+        git commit --allow-empty-message
       }
       git_info() {
         local ref=$(git symbolic-ref --short HEAD 2> /dev/null)
