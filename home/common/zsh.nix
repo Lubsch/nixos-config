@@ -41,12 +41,12 @@ in {
     # TODO improve git time
     initExtra = ''
       # Rebuild and commit if successful
-      re() {
+      re() (
         cd ~/misc/repos/nixos-config
         git add .
         sudo nixos-rebuild switch --flake . || exit
         git commit --allow-empty-message
-      }
+      )
       git_info() {
         local ref=$(git symbolic-ref --short HEAD 2> /dev/null)
         if [ -n "$ref" ]; then
