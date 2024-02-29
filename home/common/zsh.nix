@@ -40,7 +40,7 @@ in {
 
     # TODO improve git time
     initExtra = ''
-      # Rebuild and commit when successful
+      # Rebuild and commit if successful
       re() {
         cd ~/misc/repos/nixos-config
         git add .
