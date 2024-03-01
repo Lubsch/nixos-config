@@ -68,7 +68,7 @@
             ./home/syncthing.nix
             ./home/keepassxc.nix
             ./home/firefox.nix
-            ./home/waybar.nix
+            # ./home/waybar.nix
           ];
         } ];
 
