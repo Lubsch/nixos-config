@@ -45,7 +45,7 @@ in {
         cd ~/misc/repos/nixos-config
         git add .
         sudo nixos-rebuild switch --flake . || exit
-        git commit --allow-empty-message
+        git commit --allow-empty-message -m ""
       )
       git_info() {
         local ref=$(git symbolic-ref --short HEAD 2> /dev/null)
