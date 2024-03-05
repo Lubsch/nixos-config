@@ -22,7 +22,7 @@
     magic-wormhole # send files between computers
 
     # PROGRAMMING LANGUAGES ETC.
-    (python3.withPackages (ps: with ps; [ sympy ]))
+    (python3.withPackages (ps: with ps; [ numpy ]))
     (sqlite.override { interactive = true; })
   ];
 }
