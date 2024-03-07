@@ -14,10 +14,10 @@
       entry_path=/boot/loader/entries/"$(grep 'default' /boot/loader/loader.conf | ${pkgs.gawk}/bin/awk '{print $2}')"
 
       # Set offset in entry file
-      ${pkgs.gnused}/bin/sed -i "s/resume_offset=[0-9]*/resume_offset=$offset/" $entry_path
+      ${pkgs.gnused}/bin/sed -i "s/resume_offset=[0-9]*/resume_offset=$offset/" "$entry_path"
 
       # Write offset to currently running session
-      echo $offset > /sys/power/resume_offset
+      echo "$offset" > /sys/power/resume_offset
     fi
   '';
 }

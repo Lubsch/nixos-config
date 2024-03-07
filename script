@@ -67,6 +67,10 @@ if (( _localstatus > 0 )); then
   printf "Activation script snippet '%s' failed (%s)\n" "groups" "$_localstatus"
 fi
 
+# ----------------------------
+56 ms
+#
+
 #### Activation script snippet createPersistentStorageDirs:
 _localstatus=0
 /nix/store/451niqbm5qq9yzla1apldia4i55if3hl-impermanence-run-create-directories

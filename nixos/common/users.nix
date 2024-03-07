@@ -36,12 +36,12 @@
         file = "${if config.extraSubvolumes ? "/persist" then "/persist" else ""}/etc/passwords/${name}";
       in ''
         if [ ! -f ${file} ]; then
-          mkdir -p $(dirname ${file})
+          mkdir -p "$(dirname ${file})"
           printf "Set ${name}'s "
           ${pkgs.mkpasswd}/bin/mkpasswd > ${file}
           chmod 600 ${file}
         fi
-        usermod ${name} -p $(cat ${file})
+        usermod ${name} -p "$(cat ${file})"
       '');
     in builtins.concatStringsSep "\n" (map script-per-user (builtins.attrNames config.home-manager.users));
 
