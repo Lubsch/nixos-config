@@ -1,0 +1,249 @@
+#!/nix/store/087167dfxal194pm54cmcbbxsfy3cjgn-bash-5.2p26/bin/bash
+
+systemConfig='@out@'
+
+export PATH=/empty
+for i in /nix/store/x1xcjw5628crkk1pwr12y7nwbzkc3969-coreutils-9.4 /nix/store/11b3chszacfr9liy829xqknzp3q88iji-gnugrep-3.11 /nix/store/i6y16f2jzcv1g1k12qdkislh3yqk2rl7-findutils-4.9.0 /nix/store/wff29d309mi4vnwbdh7i83rh2cqwdfwq-getent-glibc-2.38-44 /nix/store/ssarggxx3laydmfkq1dlv4ilcsw7phfq-glibc-2.38-44-bin /nix/store/x0s5fd3j414ghqsl0wpcxr9jxxykg0i2-shadow-4.14.3 /nix/store/5q597bnf538683ffbpy9lvcv6fkvv587-net-tools-2.10 /nix/store/8qalcd1aj39whvpampmnarhybm7yz3ac-util-linux-2.39.3-bin; do
+    PATH=$PATH:$i/bin:$i/sbin
+done
+
+_status=0
+trap "_status=1 _localstatus=\$?" ERR
+
+# Ensure a consistent umask.
+umask 0022
+
+#### Activation script snippet stdio:
+_localstatus=0
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "stdio" "$_localstatus"
+fi
+
+#### Activation script snippet binsh:
+_localstatus=0
+# Create the required /bin/sh symlink; otherwise lots of things
+# (notably the system() function) won't work.
+mkdir -p /bin
+chmod 0755 /bin
+ln -sfn "/nix/store/vmgwn3xsbyj860z2bazvg4n10c4kp3xk-bash-interactive-5.2p26/bin/sh" /bin/.sh.tmp
+mv /bin/.sh.tmp /bin/sh # atomically replace /bin/sh
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "binsh" "$_localstatus"
+fi
+
+#### Activation script snippet users:
+_localstatus=0
+install -m 0700 -d /root
+install -m 0755 -d /home
+
+/nix/store/z70d55rnqzlv53fgawj48m54ynv0mjbr-perl-5.38.2-env/bin/perl \
+-w /nix/store/38hbyd1gwyszqslh3wycv5ly03dr75gj-update-users-groups.pl /nix/store/c2h4j83d2r4zmnnmka6wzy3c81pkjy5d-users-groups.json
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "users" "$_localstatus"
+fi
+
+#### Activation script snippet create-persist-homes:
+_localstatus=0
+mkdir -p /persist/home/"lubsch"
+chown "lubsch" /persist/home/"lubsch" -R
+
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "create-persist-homes" "$_localstatus"
+fi
+
+#### Activation script snippet groups:
+_localstatus=0
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "groups" "$_localstatus"
+fi
+
+#### Activation script snippet createPersistentStorageDirs:
+_localstatus=0
+/nix/store/451niqbm5qq9yzla1apldia4i55if3hl-impermanence-run-create-directories
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "createPersistentStorageDirs" "$_localstatus"
+fi
+
+#### Activation script snippet etc:
+_localstatus=0
+# Set up the statically computed bits of /etc.
+echo "setting up /etc..."
+/nix/store/840i61ym6kcpc55yqni7rnirb3figpql-perl-5.38.2-env/bin/perl /nix/store/rg5rf512szdxmnj9qal3wfdnpfsx38qi-setup-etc.pl /nix/store/cp03ndf2j40zz7lny7l52kp86a0djg4v-etc/etc
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "etc" "$_localstatus"
+fi
+
+#### Activation script snippet hashes:
+_localstatus=0
+users=()
+while IFS=: read -r user hash _; do
+  if [[ "$hash" = "$"* && ! "$hash" =~ ^\$(y|gy|7|2b|2y|2a|6)\$ ]]; then
+    users+=("$user")
+  fi
+done </etc/shadow
+
+if (( "${#users[@]}" )); then
+  echo "
+WARNING: The following user accounts rely on password hashing algorithms
+that have been removed. They need to be renewed as soon as possible, as
+they do prevent their users from logging in."
+  printf ' - %s\n' "${users[@]}"
+fi
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "hashes" "$_localstatus"
+fi
+
+#### Activation script snippet specialfs:
+_localstatus=0
+specialMount() {
+  local device="$1"
+  local mountPoint="$2"
+  local options="$3"
+  local fsType="$4"
+
+  if mountpoint -q "$mountPoint"; then
+    local options="remount,$options"
+  else
+    mkdir -p "$mountPoint"
+    chmod 0755 "$mountPoint"
+  fi
+  mount -t "$fsType" -o "$options" "$device" "$mountPoint"
+}
+source /nix/store/mhrmx9g4z8mkaxy4ky752chdlck69p2d-mounts.sh
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "specialfs" "$_localstatus"
+fi
+
+#### Activation script snippet modprobe:
+_localstatus=0
+# Allow the kernel to find our wrapped modprobe (which searches
+# in the right location in the Nix store for kernel modules).
+# We need this when the kernel (or some module) auto-loads a
+# module.
+echo /nix/store/0hwybzni8lrr9dcfmnnsskkvavp7zqh2-kmod-31/bin/modprobe > /proc/sys/kernel/modprobe
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "modprobe" "$_localstatus"
+fi
+
+#### Activation script snippet passwords:
+_localstatus=0
+if [ ! -f /persist/etc/passwords/lubsch ]; then
+  mkdir -p $(dirname /persist/etc/passwords/lubsch)
+  printf "Set lubsch's "
+  /nix/store/xcxblc8y3lf0qgcl9rmilkc103y2mill-mkpasswd-5.5.21/bin/mkpasswd > /persist/etc/passwords/lubsch
+  chmod 600 /persist/etc/passwords/lubsch
+fi
+usermod lubsch -p $(cat /persist/etc/passwords/lubsch)
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "passwords" "$_localstatus"
+fi
+
+#### Activation script snippet persist-files:
+_localstatus=0
+/nix/store/d58nd58gg24s4sx222gj9pch1nr5rkjb-impermanence-persist-files
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "persist-files" "$_localstatus"
+fi
+
+#### Activation script snippet set-resume-offset:
+_localstatus=0
+# only run if / is mounted
+if [ -e /swap/swapfile ]; then
+  # Get offset
+  offset=$(/nix/store/v03zcarx3w0fa1clia0gal6p6m6f4wqf-btrfs-progs-6.7.1/bin/btrfs inspect-internal map-swapfile -r /swap/swapfile)
+
+  # Extract boot entry path of current generation "/boot/loader/nixos-generation-xxx.conf"
+  entry_path=/boot/loader/entries/"$(grep 'default' /boot/loader/loader.conf | /nix/store/78q5np4llnqhshx72kxm7w7q31pj0v7b-gawk-5.2.2/bin/awk '{print $2}')"
+
+  # Set offset in entry file
+  /nix/store/y1y3rml47qnh0giqd32mj07qxxqy13qg-gnused-4.9/bin/sed -i "s/resume_offset=[0-9]*/resume_offset=$offset/" $entry_path
+
+  # Write offset to currently running session
+  echo $offset > /sys/power/resume_offset
+fi
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "set-resume-offset" "$_localstatus"
+fi
+
+#### Activation script snippet udevd:
+_localstatus=0
+# The deprecated hotplug uevent helper is not used anymore
+if [ -e /proc/sys/kernel/hotplug ]; then
+  echo "" > /proc/sys/kernel/hotplug
+fi
+
+# Allow the kernel to find our firmware.
+if [ -e /sys/module/firmware_class/parameters/path ]; then
+  echo -n "/nix/store/af182sadl5fqb6c3l5ymbd6gx92japjd-firmware/lib/firmware" > /sys/module/firmware_class/parameters/path
+fi
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "udevd" "$_localstatus"
+fi
+
+#### Activation script snippet update-lingering:
+_localstatus=0
+if [ -e /var/lib/systemd/linger ] ; then
+  cd /var/lib/systemd/linger
+  ls /var/lib/systemd/linger | sort | comm -3 -1 /nix/store/bn8y1ibzcvbqbl7d43zszl180ghy4rsn-lingering-users - | xargs -r /nix/store/s5dx34869kl4fd5p913j5mis32c7f98k-systemd-255.2/bin/loginctl disable-linger
+  ls /var/lib/systemd/linger | sort | comm -3 -2 /nix/store/bn8y1ibzcvbqbl7d43zszl180ghy4rsn-lingering-users - | xargs -r /nix/store/s5dx34869kl4fd5p913j5mis32c7f98k-systemd-255.2/bin/loginctl  enable-linger
+fi
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "update-lingering" "$_localstatus"
+fi
+
+#### Activation script snippet usrbinenv:
+_localstatus=0
+mkdir -p /usr/bin
+chmod 0755 /usr/bin
+ln -sfn /nix/store/x1xcjw5628crkk1pwr12y7nwbzkc3969-coreutils-9.4/bin/env /usr/bin/.env.tmp
+mv /usr/bin/.env.tmp /usr/bin/env # atomically replace /usr/bin/env
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "usrbinenv" "$_localstatus"
+fi
+
+#### Activation script snippet var:
+_localstatus=0
+
+
+if (( _localstatus > 0 )); then
+  printf "Activation script snippet '%s' failed (%s)\n" "var" "$_localstatus"
+fi
+
+
+# Make this configuration the current configuration.
+# The readlink is there to ensure that when $systemConfig = /system
+# (which is a symlink to the store), /run/current-system is still
+# used as a garbage collection root.
+ln -sfn "$(readlink -f "$systemConfig")" /run/current-system
+
+exit $_status

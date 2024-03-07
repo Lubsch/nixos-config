@@ -16,9 +16,9 @@
   programs.fuse.userAllowOther = true;
 
   system.activationScripts.create-persist-homes = {
-    text = lib.concatLines (lib.mapAttrsToList (n: _: ''
-      mkdir -p /persist/home/"${n}"
-      chown "${n}" /persist/home/"${n}" -R
+    text = lib.concatLines (lib.mapAttrsToList (name: _: ''
+      mkdir -p /persist/home/"${name}"
+      chown "${name}" /persist/home/"${name}"
     '') config.home-manager.users);
     deps = [ "users" ];
   };

@@ -20,7 +20,6 @@ This is my NixOS-config.
 ## Where state lingers on
 
 - Desktop Wallpaper (set to `~/pictures/wallpapers/current`)
-- Hibernation resume offset and swap size (see `flake.nix`)
 - Wifi credentials
 - Steam settings and games
 - Website settings
