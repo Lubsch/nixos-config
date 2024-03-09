@@ -8,7 +8,6 @@
     firefox-addons = { url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; inputs.nixpkgs.follows = "nixpkgs"; };
     nix-gaming = { url = "github:fufexan/nix-gaming"; inputs.nixpkgs.follows = "nixpkgs"; };
     download-mover = { url = "github:lubsch/download-mover"; inputs.nixpkgs.follows = "nixpkgs"; };
-    flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
   };
 
   outputs = inputs: {
@@ -37,7 +36,7 @@
             ./home/common
             ./home/desktop-common
             ./home/hyprland.nix
-            ./home/nvim.nix
+            ./home/nvim
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix
@@ -59,7 +58,7 @@
             ./home/common
             ./home/desktop-common
             ./home/hyprland.nix
-            ./home/nvim.nix
+            ./home/nvim
             ./home/steam.nix
             ./home/mail.nix
             ./home/syncthing.nix
