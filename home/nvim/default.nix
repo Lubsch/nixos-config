@@ -36,6 +36,7 @@ in {
       telescope-nvim
       telescope-fzf-native-nvim
       {
+        type = "lua";
         plugin = nvim-dap;
         config = /*lua*/ ''
           -- Enable lsp for all the languages
@@ -44,6 +45,7 @@ in {
       }
       {
         # otherwise has weird errors for c, lua and vimdoc
+        type = "lua";
         plugin = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.lua p.vimdoc ]);
         config = /*lua*/ ''
           require'nvim-treesitter.configs'.setup {
