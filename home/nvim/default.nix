@@ -1,4 +1,5 @@
 { lib, pkgs, config, ... }:
+#
 let
   # Mapping between "<name in lspconfig> = <package in pkgs>;"
   servers = with pkgs; {
@@ -18,11 +19,12 @@ let
 in {
 
   home.sessionVariables.EDITOR = "nvim";
-  xdg.configFile."nvim/init.lua".source = config.lib.file.mkOutOfStoreSymlink ./init.lua;
+  xdg.configFile."nvim/config.lua".source = config.lib.file.mkOutOfStoreSymlink ./config.lua;
 
   programs.neovim = {
     enable = true;
     extraPackages = with pkgs; [ fd ripgrep ] ++ lib.attrValues servers;
+    extraConfig = "require('config')";
     plugins = with pkgs.vimPlugins; [
       vim-startuptime
       typst-vim
