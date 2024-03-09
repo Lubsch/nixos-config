@@ -19,12 +19,11 @@ let
 in {
 
   home.sessionVariables.EDITOR = "nvim";
-  xdg.configFile."nvim/lua/config.lua".source = config.lib.file.mkOutOfStoreSymlink ./config.lua;
 
   programs.neovim = {
     enable = true;
     extraPackages = with pkgs; [ fd ripgrep ] ++ lib.attrValues servers;
-    extraLuaConfig = "require'config'";
+    extraLuaConfig = builtins.readFile ./init.lua;
     plugins = with pkgs.vimPlugins; [
       vim-startuptime
       typst-vim
