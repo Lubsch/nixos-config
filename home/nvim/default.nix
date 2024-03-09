@@ -19,7 +19,6 @@ in {
 
   home.sessionVariables.EDITOR = "nvim";
   xdg.configFile."nvim/init.lua".source = config.lib.file.mkOutOfStoreSymlink ./init.lua;
-  xdg.configFile."nvim/init.vim".source = config.lib.file.mkOutOfStoreSymlink ./init.vim;
 
   programs.neovim = {
     enable = true;
