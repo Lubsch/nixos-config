@@ -24,7 +24,7 @@ in {
   programs.neovim = {
     enable = true;
     extraPackages = with pkgs; [ fd ripgrep ] ++ lib.attrValues servers;
-    extraConfig = "require('config')";
+    extraLuaConfig = "require('config')";
     plugins = with pkgs.vimPlugins; [
       vim-startuptime
       typst-vim
