@@ -60,7 +60,7 @@ in {
     policies = {
       ExtensionSettings = {
         "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
-          installation_url = "file:////${
+          install_url = "file:///${
             (pkgs.callPackage ../../pkgs/vimium { inherit inputs; })
           }/result/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/{d7742d87-e61d-4b78-b8a1-b469842139fa}.xpi";
           installation_mode = "force_installed";
