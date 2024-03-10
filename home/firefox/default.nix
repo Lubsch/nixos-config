@@ -42,7 +42,7 @@ let
   '';
 in {
 
-  home.sessionVariables.BROWSER = "firefox-devedition";
+  home.sessionVariables.BROWSER = config.programs.firefox.package.meta.mainProgram;
 
   systemd.user.services = {
     download-mover = {
@@ -68,7 +68,7 @@ in {
         };
       };
     };
-    profiles.${config.home.username} = {
+    profiles.default = {
       extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
         ublock-origin
         sponsorblock
