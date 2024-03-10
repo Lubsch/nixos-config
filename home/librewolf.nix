@@ -21,9 +21,6 @@
     settings = {
       "xpinstall.whitelist.required" = false;
       "xpinstall.signature.required" = false;
-      # "identity.fxaccounts.enabled" = false;
-      # "privacy.trackingprotection.enabled" = true;
-      # "dom.security.https_only_mode" = true;
       # "singon.rememberSignons" = false;
       # "browser.shell.checkDefaultBrowser" = false;
       # "browser.shell.defaultBrowserCheckCount" = 1;
@@ -33,5 +30,4 @@
   # persist.directories = [ 
   #   ".librewolf" 
   # ];
-
 }
