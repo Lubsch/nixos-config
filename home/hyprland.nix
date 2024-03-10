@@ -7,7 +7,7 @@
     extraConfig = with config; with pkgs; ''
       # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor = ,preferred,auto,auto
-      exec-once = waybar
+      # exec-once = waybar
       exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       # firefox `browser.sessionrestore.resume_from_crash` to false
       exec-once = [workspace special:music silent] firefox --new-window https://music.apple.com/de/library/recently-added
@@ -160,7 +160,7 @@
   };
 
   home.sessionVariables.WM = "${pkgs.writeShellScriptBin "wm" '' # to be used by greetd
-    Hyprland &> ${config.xdg.dataHome}/hypr.log
+    Hyprland > ${config.xdg.dataHome}/hypr.log 2>&1
   ''}/bin/wm";
   programs.zsh.loginExtra = ''
     [ "$(tty)" = "/dev/tty1" ] && exec ${config.home.sessionVariables.WM}
