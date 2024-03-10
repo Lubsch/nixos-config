@@ -15,12 +15,21 @@ let
   };
 in {
 
-  home.sessionVariables.EDITOR = "nvim";
-
   programs.neovim = {
     enable = true;
+    defaultEditor = true;
     extraPackages = with pkgs; [ fd ripgrep ] ++ lib.attrValues servers;
-    extraLuaConfig = lib.readFile ./init.lua;
+
+    extraLuaConfig = (lib.readFile ./init.lua) + "\n" + /*lua*/ ''
+      -- install all grammars without slowing down startup
+      vim.opt.runtimepath:append("${pkgs.symlinkJoin {
+        name = "nvim-treesitter-grammars";
+        paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+      } }")
+      -- Enable lsp for all the languages
+      ${lib.concatLines (lib.mapAttrsToList (n: _: "require'lspconfig'.${n}.setup{}") servers)}
+    '';
+
     plugins = with pkgs.vimPlugins; [
       vim-startuptime
       typst-vim
@@ -33,31 +42,8 @@ in {
       gruvbox-nvim
       telescope-nvim
       telescope-fzf-native-nvim
-      {
-        type = "lua";
-        plugin = nvim-dap;
-        config = /*lua*/ ''
-          -- Enable lsp for all the languages
-          ${lib.concatLines (lib.mapAttrsToList (n: _: "require'lspconfig'.${n}.setup{}") servers)}
-        '';
-      }
-      {
-        type = "lua";
-        # has weird errors for c, lua and vimdoc otherwise
-        plugin = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.lua p.vimdoc ]);
-        config = /*lua*/ ''
-          require'nvim-treesitter.configs'.setup {
-              highlight = {
-                  enable = true,
-              },
-          }
-          -- install all grammars without slowing down startup
-          vim.opt.runtimepath:append("${pkgs.symlinkJoin {
-            name = "nvim-treesitter-grammars";
-            paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
-          } }")
-        '';
-      }
+      nvim-dap
+      (nvim-treesitter.withPlugins (p: [ p.c p.lua p.vimdoc ])) # has weird errors for c, lua and vimdoc otherwise
     ];
   };
 

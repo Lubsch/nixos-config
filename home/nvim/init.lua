@@ -5,6 +5,7 @@ vim.cmd([[
     nmap <Space> <leader>
     nmap <leader> <localleader>
 
+    "Singe mouse scroll
     set mousescroll=ver:1
 
     " Conceal **emph** tags, for example
@@ -53,8 +54,8 @@ vim.cmd([[
     ":W sudo saves file
     command! W silent execute "w !sudo tee % > /dev/null" <bar> edit!
     "Use quickfix list comfortably
-    nnoremap <leader>n :cnext
-    nnoremap <leader>p :cprev
+    nnoremap <leader>n :cnext<cr>
+    nnoremap <leader>p :cprev<cr>
 ]])
 
 
@@ -63,6 +64,12 @@ require'Comment'.setup{}
 
 require'nvim-autopairs'.setup{}
 
+
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+      enable = true,
+  },
+}
 
 
 local dap = require'dap'
