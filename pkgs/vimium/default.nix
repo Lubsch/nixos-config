@@ -3,8 +3,8 @@
   system,
   fetchurl,
   stdenv,
+  zip,
   unzip,
-  web-ext,
 }:
 let
   fetcher = { url, sha256 }:
@@ -17,9 +17,8 @@ let
         ${unzip}/bin/unzip "$src" -d dir
         cd dir
         patch -p1 < ${./patch}
-        ${web-ext}/bin/web-ext build -n patched.xpi
         mkdir -p "$out"
-        mv web-ext-artifacts/patched.xpi "$out"
+        ${zip}/bin/zip -r -FS "$out/patched.xpi" *
       '';
     };
   in "${drv}/patched.xpi";

@@ -63,7 +63,7 @@
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix
-            ./home/firefox
+            ./home/librewolf.nix
             # ./home/waybar.nix
           ];
         } ];
