@@ -2,7 +2,6 @@
 { pkgs, inputs, ... }:
 let
   path-chooser = pkgs.writeShellScriptBin "path-chooser" ''
-    #!/bin/sh
     choose() {
       echo Save "$bname":
       read -rep "" -i "$dir/" input

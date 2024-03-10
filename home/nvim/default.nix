@@ -1,13 +1,10 @@
-{ lib, pkgs, config, ... }:
-#
+{ lib, pkgs, ... }:
 let
   # Mapping between "<name in lspconfig> = <package in pkgs>;"
   servers = with pkgs; {
     ocamllsp = ocamlPackages.ocaml-lsp;
     zls = zls;
     bashls = nodePackages.bash-language-server;
-    # pyright = nodePackages.pyright;
-    # pylyzer = pylyzer;
     jedi_language_server = python311Packages.jedi-language-server;
     rust_analyzer = rust-analyzer;
     hls = haskell-language-server;
@@ -23,7 +20,7 @@ in {
   programs.neovim = {
     enable = true;
     extraPackages = with pkgs; [ fd ripgrep ] ++ lib.attrValues servers;
-    extraLuaConfig = builtins.readFile ./init.lua;
+    extraLuaConfig = lib.readFile ./init.lua;
     plugins = with pkgs.vimPlugins; [
       vim-startuptime
       typst-vim
@@ -45,8 +42,8 @@ in {
         '';
       }
       {
-        # otherwise has weird errors for c, lua and vimdoc
         type = "lua";
+        # has weird errors for c, lua and vimdoc otherwise
         plugin = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.lua p.vimdoc ]);
         config = /*lua*/ ''
           require'nvim-treesitter.configs'.setup {

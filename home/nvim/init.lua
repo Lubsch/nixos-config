@@ -40,7 +40,6 @@ vim.cmd([[
     "Disable automatic commenting on new line
     autocmd FileType * setlocal formatoptions-=r formatoptions-=o
 
-
     "Break lines between words
     set linebreak
 
@@ -58,19 +57,20 @@ vim.cmd([[
     nnoremap <leader>p :cprev
 ]])
 
-require'Comment'.setup{}
 
+
+require'Comment'.setup{}
 
 require'nvim-autopairs'.setup{}
 
-local dap = require'dap'
 
+
+local dap = require'dap'
 dap.adapters.rr = {
   type = 'executable',
   command = 'rr',
   args = { 'replay', '-i', 'dap' },
 }
-
 dap.configurations.c = {
   {
     name = 'Launch',
@@ -78,7 +78,6 @@ dap.configurations.c = {
     request = 'launch',
   },
 }
-
 local opts = { nowait = true, noremap = true, silent = true, }
 vim.keymap.set('n', 'ü', dap.continue, opts)
 vim.keymap.set('n', 'ä', dap.step_over, opts)
@@ -98,7 +97,6 @@ vim.keymap.set('n', '<Leader>ds', function()
   local widgets = require('dap.ui.widgets')
   widgets.centered_float(widgets.scopes)
 end)
-
 -- dap.adapters.lldb = {
 --   type = 'executable',
 --   command = '${pkgs.lldb}/bin/lldb-vscode',
@@ -126,6 +124,8 @@ end)
 -- dap.configurations.rust = dap.configurations.c
 --local opts = { silent=true, noremap = true }
 
+
+
 -- Mappings.
 -- See `:help vim.lsp.*` for documentation on any of the below functions
 local bufopts = { silent=true, buffer=bufnr }
@@ -139,7 +139,6 @@ vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
 vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
 vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 vim.keymap.set('n', '<leader>=', function() vim.lsp.buf.format { async = true } end, bufopts)
-
 -- nvim included lsp: Borders around windows
 local _border = "single"
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
@@ -155,6 +154,9 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 vim.diagnostic.config{
   float={border=_border}
 }
+
+
+
 local cmp = require'cmp'
 cmp.setup{
     window = {
@@ -174,6 +176,7 @@ cmp.setup{
       { name = 'nvim_lsp' },
     },
 }
+
 
 
 local actions = require'telescope.actions'
@@ -199,6 +202,8 @@ vim.keymap.set('n', '<leader>f', ':Telescope find_files<cr>', opts)
 -- CONFLICT breakpoints vim.keymap.set('n', '<leader>b', ':Telescope buffers<cr>', opts) 
 vim.keymap.set('n', '<leader>g', ':Telescope live_grep<cr>', opts)
 vim.keymap.set('n', '<leader>t', ':Telescope<cr>', opts)
+
+
 
 -- color scheme
 require'gruvbox'.setup{ 

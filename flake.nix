@@ -40,7 +40,7 @@
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix
-            ./home/firefox.nix
+            ./home/firefox
           ];
         } ];
 
@@ -63,7 +63,7 @@
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix
-            ./home/firefox.nix
+            ./home/firefox
             # ./home/waybar.nix
           ];
         } ];
