@@ -25,7 +25,7 @@
         sponsorblock
       ];
       settings = {
-        xpinstall.whitelist.required = false;
+        # xpinstall.whitelist.required = false;
         # "identity.fxaccounts.enabled" = false;
         # "privacy.trackingprotection.enabled" = true;
         # "dom.security.https_only_mode" = true;

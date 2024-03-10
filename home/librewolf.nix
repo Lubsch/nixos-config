@@ -1,5 +1,4 @@
 { config, pkgs, inputs, ... }: {
-
   home.sessionVariables.BROWSER = config.programs.librewolf.package.meta.mainProgram;
 
   programs.librewolf = {
