@@ -36,7 +36,7 @@
     mkdir -p ~/.librewolf/native-messaging-hosts
   '';
 
-  persist.directories = [ 
-    ".librewolf" 
-  ];
+  # persist.directories = [ 
+  #   ".librewolf" 
+  # ];
 }
