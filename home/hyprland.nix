@@ -159,7 +159,9 @@
     '';
   };
 
-  home.sessionVariables.WM = "Hyprland &> ${config.xdg.dataHome}/hypr.log"; # to be used by greetd
+  home.sessionVariables.WM = "${pkgs.writeShellScriptBin "wm" '' # to be used by greetd
+    Hyprland &> ${config.xdg.dataHome}/hypr.log
+  ''}/bin/wm";
   programs.zsh.loginExtra = ''
     [ "$(tty)" = "/dev/tty1" ] && exec ${config.home.sessionVariables.WM}
   '';
