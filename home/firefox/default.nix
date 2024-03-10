@@ -57,7 +57,9 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox;
+    package = (pkgs.firefox.overrideAttrs {
+      enableOfficialBrandng = false;
+    });
     policies = {
       ExtensionSettings = {
         "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
