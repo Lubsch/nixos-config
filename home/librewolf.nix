@@ -22,7 +22,7 @@
 
     settings = {
       "xpinstall.whitelist.required" = false;
-      "xpinstall.signature.required" = false;
+      "xpinstall.signatures.required" = false;
       # "browser.toolbars.bookmarks.visibility" = "never";
       "privacy.resistFingerprinting" = false;
       # "singon.rememberSignons" = false;
