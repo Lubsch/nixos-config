@@ -57,9 +57,13 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-devedition;
+    package = pkgs.firefox-esr;
     policies = {
       ExtensionSettings = {
+        "uBlock0@raymondhill.net" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+            installation_mode = "force_installed";
+          };
         "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
           install_url = "file://${
             (pkgs.callPackage ../../pkgs/vimium { inherit inputs; })
