@@ -57,7 +57,9 @@ in {
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-devedition;
+    package = (pkgs.firefox-devedition.overrideAttrs {
+      branding = null;
+    });
     policies = {
       ExtensionSettings = {
         "uBlock0@raymondhill.net" = {
