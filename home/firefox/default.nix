@@ -1,5 +1,5 @@
 # TODO configure more here
-{ pkgs, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 let
   path-chooser = pkgs.writeShellScriptBin "path-chooser" ''
     choose() {
@@ -57,7 +57,7 @@ in {
 
   programs.firefox = {
     enable = true;
-    profiles.default = {
+    profiles.${config.home.username} = {
       extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
         ublock-origin
         sponsorblock
