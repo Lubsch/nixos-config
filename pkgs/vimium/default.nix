@@ -18,7 +18,7 @@ let
         cd dir
         patch -p1 < ${./patch}
         mkdir -p "$out"
-        ${zip}/bin/zip -r "$out/patched.xpi" *
+        ${zip}/bin/zip -0 -r "$out/patched.xpi" *
       '';
     };
   in "${drv}/patched.xpi";
