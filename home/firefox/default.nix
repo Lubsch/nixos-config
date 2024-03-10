@@ -57,13 +57,12 @@ in {
 
   programs.firefox = {
     enable = true;
-    # profiles.default = {
-    #   extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
-    #     ublock-origin
-    #     sponsorblock
-    #     vimium-c
-    #     newtab-adapter
-    #   ];
+    profiles.default = {
+      extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
+        ublock-origin
+        sponsorblock
+        (pkgs.callPackage ../../pkgs/vimium { inherit inputs; })
+      ];
     #   settings = {
     #     "identity.fxaccounts.enabled" = false;
     #     "privacy.trackingprotection.enabled" = true;
@@ -72,7 +71,7 @@ in {
     #     "browser.shell.checkDefaultBrowser" = false;
     #     "browser.shell.defaultBrowserCheckCount" = 1;
     #   };
-    # };
+    };
   };
 
   persist.directories = [ 
