@@ -74,8 +74,8 @@ in {
     };
   };
 
-  persist.directories = [ 
-    ".mozilla" 
-  ];
+  # persist.directories = [ 
+  #   ".mozilla" 
+  # ];
 
 }
