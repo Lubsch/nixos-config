@@ -41,6 +41,7 @@ let
     "privacy.resistFingerprinting" = false; # enables dark theme for example
     "privacy.clearOnShutdown.history" = false;
     "privacy.clearOnShutdown.cache" = false;
+    "hii" = false;
   };
 
 in {
