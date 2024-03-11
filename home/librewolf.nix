@@ -7,6 +7,7 @@ let
   # install extensions using policies
   package = pkgs.librewolf.override {
     extraPolicies = {
+
       ExtensionSettings = {
         "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
           install_url = "file://${
@@ -20,6 +21,21 @@ let
         };
       };
     };
+
+    # about:config preferences
+    extraPrefs = lib.concatStrings (lib.mapAttrsToList (name: value: ''
+        defaultPref("${name}", ${builtins.toJSON value});
+    '') {
+      "xpinstall.whitelist.required" = false;
+      "xpinstall.signatures.required" = false;
+      "browser.download.dir" = config.xdg.userDirs.download; # else it'd be $BROWSERHOME/Downloads
+      "browser.toolbars.bookmarks.visibility" = "never";
+      "privacy.resistFingerprinting" = false; # enables dark theme for example
+      "privacy.clearOnShutdown.history" = false;
+      "privacy.clearOnShutdown.cache" = false;
+      "hii" = false;
+    });
+
   };
 
   # Set its own home dir
@@ -32,18 +48,6 @@ let
     '';
   };
 
-  # about:config preferences
-  prefs = {
-    "xpinstall.whitelist.required" = false;
-    "xpinstall.signatures.required" = false;
-    "browser.download.dir" = config.xdg.userDirs.download; # else it'd be $BROWSERHOME/Downloads
-    "browser.toolbars.bookmarks.visibility" = "never";
-    "privacy.resistFingerprinting" = false; # enables dark theme for example
-    "privacy.clearOnShutdown.history" = false;
-    "privacy.clearOnShutdown.cache" = false;
-    "hii" = false;
-  };
-
 in {
   home.sessionVariables = { inherit BROWSER BROWSERHOME; };
 
@@ -51,10 +55,8 @@ in {
   home = {
     packages = [ wrapped ];
 
-    file."${BROWSERHOME}/.librewolf/librewolf.overrides.cfg".text =
-      lib.concatStrings (lib.mapAttrsToList (name: value: ''
-        defaultPref("${name}", ${builtins.toJSON value});
-      '') prefs);
+    # file."${BROWSERHOME}/.librewolf/librewolf.overrides.cfg".text =
+      
   };
 
   # keepassxc expects firefox

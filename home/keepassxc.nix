@@ -1,5 +1,5 @@
 { pkgs, config, ... }: {
-  xdg.configFile."keepassxc/keepassxc.ini".text = ''
+  home.file."${config.home.sessionVariables.BROWSERHOME}/.config/keepassxc/keepassxc.ini".text = ''
     [General]
     ConfigVersion=2
     MinimizeAfterUnlock=true
