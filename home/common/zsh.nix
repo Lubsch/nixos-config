@@ -26,6 +26,7 @@ in {
       nr = "nix run";
       nd = "nix develop";
       ne = "nix eval";
+      nb = "nix build";
 
       iw = "iwctl station wlan0 scan; while ! iwctl station wlan0 get-networks | grep earl > /dev/null; do done; iwctl station wlan0 connect earl";
 

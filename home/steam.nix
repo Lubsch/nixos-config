@@ -1,18 +1,19 @@
-{ pkgs, inputs, ... }: 
+{ pkgs, inputs, config, ... }: 
 let
-  package = pkgs.steam;
-  script = pkgs.writeShellScriptBin "steam" ''
-    HOME=$HOME/.local/share/steamHome
-    export STEAM_EXTRA_COMPAT_TOOLS_PATHS=${inputs.nix-gaming.packages.${pkgs.system}.proton-ge}
-    ${package}/bin/steam
-  '';
+  steamHome = "${config.xdg.dataHome}/steamHome";
 in {
-  home.packages = [ (pkgs.symlinkJoin {
-    name = "steam-script-and-package";
-    paths = [ script package ];
-  }) ];
+
+  # Set its own home dir and add proton-ge
+  home.packages = [ (pkgs.runCommand "steam-wrapped" {
+    buildInputs  = [ pkgs.makeBinaryWrapper ]; # faster than shell based wrapper
+  } ''
+    makeBinaryWrapper ${pkgs.steam}/bin/steam $out/bin/steam \
+      --set HOME ${steamHome} \
+      --set STEAM_EXTRA_COMPAT_TOOLS_PATHS ${inputs.nix-gaming.packages.${pkgs.system}.proton-ge}
+  ''
+  ) ];
 
   persist.directories = [
-    { directory = ".local/share/steamHome"; method = "symlink"; }
+    { directory = steamHome; method = "symlink"; }
   ];
 }

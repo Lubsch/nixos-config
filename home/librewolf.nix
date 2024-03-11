@@ -23,15 +23,11 @@ let
   };
 
   # Set its own home dir
-  wrapped = pkgs.symlinkJoin {
-    name = "librewolf-wrapped";
-    paths = [ package ];
-    buildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      wrapProgram $out/bin/librewolf \
-        --set HOME ${BROWSERHOME} \
-    '';
-  };
+  wrapped = pkgs.runCommand "librewolf-wrapped" {
+    buildInputs  = [ pkgs.makeBinaryWrapper ]; # faster than shell based wrapper
+  } ''
+    makeBinaryWrapper ${package}/bin/librewolf $out/bin/librewolf --set HOME ${BROWSERHOME}
+  '';
 
   # about:config preferences
   prefs = {
