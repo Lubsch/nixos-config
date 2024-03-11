@@ -10,7 +10,7 @@
       # exec-once = waybar
       exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       # firefox `browser.sessionrestore.resume_from_crash` to false
-      exec-once = [workspace special:music silent] firefox --new-window https://music.apple.com/de/library/recently-added
+      exec-once = [workspace special:music silent] ${home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/library/recently-added
       exec-once = ${home.sessionVariables.TERMINALSERVER}
       exec-once = [workspace special:keepass silent] kp
       exec-once = [workspace special:qalc silent] foot qalc

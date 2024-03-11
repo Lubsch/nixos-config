@@ -1,9 +1,19 @@
-{ config, pkgs, inputs, ... }: {
-  home.sessionVariables.BROWSER = config.programs.librewolf.package.meta.mainProgram;
+{ config, pkgs, inputs, ... }:
+let
+  BROWSER = "librewolf";
+  BROWSERHOME = "${config.xdg.dataHome}/${BROWSER}Home";
+in {
+  home.sessionVariables = { inherit BROWSER BROWSERHOME; };
 
   programs.librewolf = {
     enable = true;
-    package = (pkgs.librewolf.override {
+    package = ((pkgs.librewolf.overrideAttrs (old: {
+      postInstall = old.postInstall or "" + /*bash*/''
+        wrapProgram $out/bin/librewolf \
+          --set HOME ${config.home.sessionVariables.BROWSERHOME}
+
+      '';
+    })).override {
       extraPolicies = {
         ExtensionSettings = {
           "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
@@ -23,7 +33,7 @@
     settings = {
       "xpinstall.whitelist.required" = false;
       "xpinstall.signatures.required" = false;
-      # "browser.toolbars.bookmarks.visibility" = "never";
+      "browser.toolbars.bookmarks.visibility" = "never";
       "privacy.resistFingerprinting" = false;
       # "singon.rememberSignons" = false;
       # "browser.shell.checkDefaultBrowser" = false;
