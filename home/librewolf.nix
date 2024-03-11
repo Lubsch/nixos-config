@@ -23,11 +23,14 @@ let
   };
 
   # Set its own home dir
-  wrapped = pkgs.runCommand "librewolf-wrapped" {
+  wrapped = pkgs.symlinkJoin {
+    name = "librewolf-wrapped";
     buildInputs  = [ pkgs.makeBinaryWrapper ]; # faster than shell based wrapper
-  } ''
-    makeBinaryWrapper ${package}/bin/librewolf $out/bin/librewolf --set HOME ${BROWSERHOME}
-  '';
+    paths = [ package ];
+    postBuild = ''
+      wrapProgram $out/bin/librewolf --set HOME ${BROWSERHOME}
+    '';
+  };
 
   # about:config preferences
   prefs = {
@@ -36,9 +39,6 @@ let
     "browser.download.dir" = config.xdg.userDirs.download; # else it is BROWSERHOME/Downloads
     "browser.toolbars.bookmarks.visibility" = "never";
     "privacy.resistFingerprinting" = false;
-    # "singon.rememberSignons" = false;
-    # "browser.shell.checkDefaultBrowser" = false;
-    # "browser.shell.defaultBrowserCheckCount" = 1;
   };
 
 in {
