@@ -30,7 +30,6 @@ let
     postBuild = ''
       wrapProgram $out/bin/librewolf \
         --set HOME ${BROWSERHOME} \
-        --set XDG_DOWNLOAD_DIR ${config.xdg.userDirs.download}
     '';
   };
 
@@ -38,7 +37,8 @@ let
   prefs = {
     "xpinstall.whitelist.required" = false;
     "xpinstall.signatures.required" = false;
-    # "browser.toolbars.bookmarks.visibility" = "never";
+    "browser.download.dir" = config.xdg.userDirs.download;
+    "browser.toolbars.bookmarks.visibility" = "never";
     "privacy.resistFingerprinting" = false;
     # "singon.rememberSignons" = false;
     # "browser.shell.checkDefaultBrowser" = false;
