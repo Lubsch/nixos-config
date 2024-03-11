@@ -1,4 +1,5 @@
 # Librewolf instead of firefox so I can install unsigned extensions
+# not using hm-module so we can give it custom home location
 { config, pkgs, inputs, lib, ... }:
 let
   BROWSER = "librewolf";
@@ -38,26 +39,20 @@ let
 
   };
 
-  # Set its own home dir
-  wrapped = pkgs.symlinkJoin {
-    name = "librewolf-wrapped";
-    buildInputs  = [ pkgs.makeBinaryWrapper ]; # faster than shell based wrapper (hello: 4.5ms vs 3ms)
-    paths = [ package ];
-    postBuild = ''
-      wrapProgram $out/bin/librewolf --set HOME ${BROWSERHOME}
-    '';
-  };
-
 in {
   home.sessionVariables = { inherit BROWSER BROWSERHOME; };
 
-  # not using the librewolf hm-module because it makes assumptions about location of home
-  home = {
-    packages = [ wrapped ];
-
-    # file."${BROWSERHOME}/.librewolf/librewolf.overrides.cfg".text =
-      
-  };
+  home.packages = [ 
+    # change home location
+    (pkgs.symlinkJoin {
+      name = "librewolf-wrapped";
+      buildInputs  = [ pkgs.makeBinaryWrapper ]; # faster than shell based wrapper (hello: 4.5ms vs 3ms)
+      paths = [ package ];
+      postBuild = ''
+        wrapProgram $out/bin/librewolf --set HOME ${BROWSERHOME}
+      '';
+    })
+  ];
 
   # keepassxc expects firefox
   home.activation.librewolf-keepassxc = ''
@@ -67,7 +62,9 @@ in {
   '';
 
 
-  # persist.directories = [ 
-  #   ".librewolf" 
-  # ];
+  persist.directories = [ 
+    "${BROWSERHOME}/.librewolf" 
+    "${BROWSERHOME}/.cache/librewolf" # can be deleted but why not
+  ];
+
 }

@@ -1,6 +1,6 @@
-{ lib, ... }:
+{ lib, config, ... }:
 let 
-  historyPath = "$HOME/.local/share/zsh/history";
+  historyPath = "${config.xdg.dataHome}/zsh/history";
 in {
 
   # Prevents collision with zsh history, hacky but works
@@ -96,7 +96,7 @@ in {
   };
 
   persist.files = [ 
-    ".local/share/zsh/history"
+    historyPath
   ];
 
 }

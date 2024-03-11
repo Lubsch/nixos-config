@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   services.syncthing = {
     enable = true;
     extraOptions = [
@@ -7,6 +7,6 @@
   };
 
   persist.directories = [ 
-    ".config/syncthing"
+    "${config.xdg.configHome}/syncthing"
   ];
 }

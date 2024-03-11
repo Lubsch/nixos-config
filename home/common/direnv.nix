@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ lib, config, ... }: {
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -25,6 +25,6 @@
   home.sessionVariables.DIRENV_LOG_FORMAT = "";
 
   persist.directories = [ 
-    ".local/share/direnv"
+    "${config.xdg.dataHome}/direnv"
   ];
 }
