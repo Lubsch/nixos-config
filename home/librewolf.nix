@@ -22,14 +22,15 @@ let
     };
   };
 
-  # Set its own isolated home
+  # Set its own home dir
   wrapped = pkgs.symlinkJoin {
     name = "librewolf-wrapped";
     paths = [ package ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/librewolf \
-        --set HOME ${BROWSERHOME}
+        --set HOME ${BROWSERHOME} \
+        --set XDG_DOWNLOAD_DIR ${config.xdg.userDirs.download}
     '';
   };
 
@@ -47,7 +48,7 @@ let
 in {
   home.sessionVariables = { inherit BROWSER BROWSERHOME; };
 
-  # not using the hm-module because it makes assumptions about location of home
+  # not using the librewolf hm-module because it makes assumptions about location of home
   home = {
     packages = [ wrapped ];
 
