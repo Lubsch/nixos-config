@@ -25,7 +25,7 @@ let
   # Set its own home dir
   wrapped = pkgs.symlinkJoin {
     name = "librewolf-wrapped";
-    buildInputs  = [ pkgs.makeBinaryWrapper ]; # faster than shell based wrapper
+    buildInputs  = [ pkgs.makeBinaryWrapper ]; # faster than shell based wrapper (hello: 4.5ms vs 3ms)
     paths = [ package ];
     postBuild = ''
       wrapProgram $out/bin/librewolf --set HOME ${BROWSERHOME}
@@ -36,9 +36,11 @@ let
   prefs = {
     "xpinstall.whitelist.required" = false;
     "xpinstall.signatures.required" = false;
-    "browser.download.dir" = config.xdg.userDirs.download; # else it is BROWSERHOME/Downloads
+    "browser.download.dir" = config.xdg.userDirs.download; # else it'd be $BROWSERHOME/Downloads
     "browser.toolbars.bookmarks.visibility" = "never";
-    "privacy.resistFingerprinting" = false;
+    "privacy.resistFingerprinting" = false; # enables dark theme for example
+    "privacy.clearOnShutdown.history" = false;
+    "privacy.clearOnShutdown.cache" = false;
   };
 
 in {
@@ -54,9 +56,12 @@ in {
       '') prefs);
   };
 
-  # home.activation.librewolf-keepassxc = ''
-  #   mkdir -p ~/.librewolf/native-messaging-hosts
-  # '';
+  # keepassxc expects firefox
+  home.activation.librewolf-keepassxc = ''
+    mkdir -p ${BROWSERHOME}/.librewolf/native-messaging-hosts
+    mkdir -p ${BROWSERHOME}/.mozilla
+    ln -sf ${BROWSERHOME}/.librewolf/native-messaging-hosts ${BROWSERHOME}/.mozilla/native-messaging-hosts
+  '';
 
 
   # persist.directories = [ 

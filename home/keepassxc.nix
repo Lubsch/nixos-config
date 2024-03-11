@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   xdg.configFile."keepassxc/keepassxc.ini".text = ''
     [General]
     ConfigVersion=2
@@ -21,8 +21,16 @@
     LockDatabaseIdleSeconds=30
   '';
   home.packages = with pkgs; [ 
-    keepassxc
-    (pkgs.writeShellScriptBin "kp" ''
+    # same home as browser (librewolf/firefox) for interop
+    (symlinkJoin {
+      name = "keepassxc-wrapped";
+      paths = [ keepassxc ];
+      buildInputs = [ makeBinaryWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/keepassxc --set HOME ${config.home.sessionVariables.BROWSERHOME}
+      '';
+    })
+    (writeShellScriptBin "kp" ''
       keepassxc $HOME/misc/keepass/secrets.kdbx
     '')
   ];
