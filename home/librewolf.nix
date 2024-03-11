@@ -37,7 +37,7 @@ let
   prefs = {
     "xpinstall.whitelist.required" = false;
     "xpinstall.signatures.required" = false;
-    "browser.download.dir" = config.xdg.userDirs.download;
+    "browser.download.dir" = config.xdg.userDirs.download; # else it is BROWSERHOME/Downloads
     "browser.toolbars.bookmarks.visibility" = "never";
     "privacy.resistFingerprinting" = false;
     # "singon.rememberSignons" = false;
