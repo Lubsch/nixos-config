@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ lib, config, ... }: {
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
@@ -15,6 +15,6 @@
   '';
 
   persist.directories = [
-    "${config.xdg.dataHome}/zoxide"
+    "${lib.removePrefix "${config.home.homeDirectory}/" config.xdg.dataHome}/zoxide"
   ];
 }

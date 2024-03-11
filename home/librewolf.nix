@@ -31,10 +31,13 @@ let
       "xpinstall.signatures.required" = false;
       "browser.download.dir" = config.xdg.userDirs.download; # else it'd be $BROWSERHOME/Downloads
       "browser.toolbars.bookmarks.visibility" = "never";
+      "browser.tabs.delayHidingAudioPlayingIconMS" = 0; # no delay for "playing" in tab (eg. youtube)
+      "extensions.pictureinpicture.enable_picture_in_picture_overrides" = true;
+      "media.videocontrols.picture-in-picture.respect-disablePictureInPicture" = true;
       "privacy.resistFingerprinting" = false; # enables dark theme for example
       "privacy.clearOnShutdown.history" = false;
       "privacy.clearOnShutdown.cache" = false;
-      "hii" = false;
+      "privacy.clearOnShutdown.cookies" = false;
     });
 
   };
@@ -63,8 +66,8 @@ in {
 
 
   persist.directories = [ 
-    "${BROWSERHOME}/.librewolf" 
-    "${BROWSERHOME}/.cache/librewolf" # can be deleted but why not
+    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.librewolf" 
+    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.cache/librewolf" # can be deleted but why not
   ];
 
 }

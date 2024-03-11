@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, ... }: 
+{ lib, pkgs, inputs, config, ... }: 
 let
   steamHome = "${config.xdg.dataHome}/steamHome";
 in {
@@ -17,7 +17,8 @@ in {
     })
   ];
 
-  persist.directories = [
-    { directory = steamHome; method = "symlink"; } # steam requires symlink (doesn't like fuse)
-  ];
+  persist.directories = [ { 
+    directory = lib.removePrefix "${config.home.homeDirectory}/" steamHome;
+    method = "symlink"; # steam requires symlink (doesn't like fuse
+  } ];
 }

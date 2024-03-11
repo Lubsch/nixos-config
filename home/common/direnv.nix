@@ -25,6 +25,6 @@
   home.sessionVariables.DIRENV_LOG_FORMAT = "";
 
   persist.directories = [ 
-    "${config.xdg.dataHome}/direnv"
+    "${lib.removePrefix "${config.home.homeDirectory}/" config.xdg.dataHome}/direnv"
   ];
 }
