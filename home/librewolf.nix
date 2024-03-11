@@ -1,10 +1,10 @@
-# Librewolf in order to install unsigned extensions
-{ config, pkgs, inputs, ... }:
+# Librewolf instead of firefox so I can install unsigned extensions
+{ config, pkgs, inputs, lib, ... }:
 let
   BROWSER = "librewolf";
   BROWSERHOME = "${config.xdg.dataHome}/${BROWSER}Home";
 
-  # Set policies to install extensions
+  # install extensions using policies
   package = pkgs.librewolf.override {
     extraPolicies = {
       ExtensionSettings = {
@@ -22,31 +22,39 @@ let
     };
   };
 
+  # Set its own isolated home
+  wrapped = pkgs.symlinkJoin {
+    name = "librewolf-wrapped";
+    paths = [ package ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/librewolf \
+        --set HOME ${BROWSERHOME}
+    '';
+  };
+
+  # about:config preferences
+  prefs = {
+    "xpinstall.whitelist.required" = false;
+    "xpinstall.signatures.required" = false;
+    # "browser.toolbars.bookmarks.visibility" = "never";
+    "privacy.resistFingerprinting" = false;
+    # "singon.rememberSignons" = false;
+    # "browser.shell.checkDefaultBrowser" = false;
+    # "browser.shell.defaultBrowserCheckCount" = 1;
+  };
+
 in {
   home.sessionVariables = { inherit BROWSER BROWSERHOME; };
 
-  # Wrap to set its own home
-  programs.librewolf = {
-    enable = true;
-    package = pkgs.symlinkJoin {
-      name = "librewolf-wrapped";
-      paths = [ package ];
-      buildInputs = [ pkgs.makeWrapper ];
-      postBuild = ''
-        wrapProgram $out/bin/librewolf \
-          --set HOME ${BROWSERHOME}
-      '';
-    };
+  # not using the hm-module because it makes assumptions about location of home
+  home = {
+    packages = [ wrapped ];
 
-    settings = {
-      "xpinstall.whitelist.required" = false;
-      "xpinstall.signatures.required" = false;
-      # "browser.toolbars.bookmarks.visibility" = "never";
-      "privacy.resistFingerprinting" = false;
-      # "singon.rememberSignons" = false;
-      # "browser.shell.checkDefaultBrowser" = false;
-      # "browser.shell.defaultBrowserCheckCount" = 1;
-    };
+    file."${BROWSERHOME}/.librewolf/librewolf.overrides.cfg".text =
+      lib.concatStrings (lib.mapAttrsToList (name: value: ''
+        defaultPref("${name}", ${builtins.toJSON value});
+      '') prefs);
   };
 
   # home.activation.librewolf-keepassxc = ''
@@ -57,5 +65,4 @@ in {
   # persist.directories = [ 
   #   ".librewolf" 
   # ];
-
 }
