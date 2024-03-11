@@ -43,7 +43,6 @@ let
     "privacy.clearOnShutdown.cache" = false;
   };
 
-
 in {
   home.sessionVariables = { inherit BROWSER BROWSERHOME; };
 
