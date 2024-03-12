@@ -9,15 +9,14 @@ let
   package = pkgs.librewolf.override {
     extraPolicies = {
 
-      ExtensionSettings = lib.mapAttrs 
-        (name: pkg: {
-          install_url = "file://${pkg}/share/mozilla/extension/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${name}.xpi";
-        })
-        (with inputs.firefox-addons.packages.${pkgs.system}; {
-          "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = pkgs.callPackage ../pkgs/vimium { inherit inputs; };
-          "keepassxc-browser@keepassxc.org" = keepassxc-browser;
-          "uBlock@raymondhill.net" = ublock-origin;
-        });
+      ExtensionSettings = map (pkg: {
+        install_url = "file://${pkg}/share/mozilla/extension/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${pkg.name}.xpi";
+      }) (with inputs.firefox-addons.packages.${pkgs.system}; [
+        (pkgs.callPackage ../pkgs/vimium { inherit inputs; })
+        keepassxc-browser
+        sponsorblock
+        ublock-origin
+      ]);
 
     };
 
