@@ -9,14 +9,29 @@ let
   package = pkgs.librewolf.override {
     extraPolicies = {
 
-      ExtensionSettings = map (pkg: {
-        install_url = "file://${pkg}/share/mozilla/extension/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${pkg.name}.xpi";
-      }) (with inputs.firefox-addons.packages.${pkgs.system}; [
-        (pkgs.callPackage ../pkgs/vimium { inherit inputs; })
-        keepassxc-browser
-        sponsorblock
-        ublock-origin
-      ]);
+      ExtensionSettings = map
+        (pkg: {
+          install_url = "file://${pkg}/share/mozilla/extension/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${pkg.name}.xpi";
+        }) 
+        (with inputs.firefox-addons.packages.${pkgs.system}; [
+          ((pkgs.callPackage ../pkgs/vimium { inherit inputs; }).override {
+            settings = {
+              smoothScroll = false;
+              keyMappings = ''
+                map s passNextKey
+              '';
+              searchUrl = "https://duckduckgo.com/?q=";
+              searchEngines = ''
+                p: https://search.nixos.org/packages?query=%s
+                o: https://search.nixos.org/options?query=%s
+                h: https://mipmip.github.io/home-manager-option-search/?query=%s
+              '';
+            };
+           })
+          keepassxc-browser
+          sponsorblock
+          ublock-origin
+        ]);
 
     };
 
