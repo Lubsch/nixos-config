@@ -9,18 +9,17 @@ let
   package = pkgs.librewolf.override {
     extraPolicies = {
 
-      ExtensionSettings = {
-        "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
-          install_url = "file://${
-            (pkgs.callPackage ../pkgs/vimium { inherit inputs; })
-          }/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/{d7742d87-e61d-4b78-b8a1-b469842139fa}.xpi";
+      ExtensionSettings = lib.mapAttrs 
+        (name: pkg: {
+          install_url = "file://${pkg}/share/mozilla/extension/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${name}.xpi";
           installation_mode = "force_installed";
-        };
-        "keepassxc-browser@keepassxc.org" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/file/4246845/keepassxc_browser-latest.xpi";
-          installation_mode = "force_installed";
-        };
-      };
+        })
+        (with inputs.firefox-addons.packages.${pkgs.system}; {
+          "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = pkgs.callPackage ../pkgs/vimium { inherit inputs; };
+          "keepassxc-browser@keepassxc.org" = keepassxc-browser;
+          "uBlock@raymondhill.net" = ublock-origin;
+        });
+
     };
 
     # about:config preferences
@@ -32,6 +31,7 @@ let
       "browser.download.dir" = config.xdg.userDirs.download; # else it'd be $BROWSERHOME/Downloads
       "browser.toolbars.bookmarks.visibility" = "never";
       "browser.tabs.delayHidingAudioPlayingIconMS" = 0; # no delay for "playing" in tab (eg. youtube)
+      "full-screen-api.warning.timeout" = 0;
       "extensions.pictureinpicture.enable_picture_in_picture_overrides" = true;
       "media.videocontrols.picture-in-picture.respect-disablePictureInPicture" = true;
       "privacy.resistFingerprinting" = false; # enables dark theme for example
@@ -43,6 +43,7 @@ let
   };
 
 in {
+
   home.sessionVariables = { inherit BROWSER BROWSERHOME; };
 
   home.packages = [ 
