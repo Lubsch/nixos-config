@@ -9,6 +9,8 @@ let
   package = pkgs.librewolf.override {
     extraPolicies = {
 
+      RequestedLocales = [ "en-US" "de" ];
+
       ExtensionSettings = map
         (pkg: {
           install_url = "file://${pkg}/share/mozilla/extension/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${if lib.hasPrefix pkg.addonId "{" then pkg.addonId else pkg.name}.xpi";
@@ -42,6 +44,7 @@ let
       "xpinstall.whitelist.required" = false;
       "xpinstall.signatures.required" = false;
       "browser.download.dir" = config.xdg.userDirs.download; # else it'd be $BROWSERHOME/Downloads
+      "browser.translation.automaticallyPopup" = false;
       "browser.toolbars.bookmarks.visibility" = "never";
       "browser.tabs.delayHidingAudioPlayingIconMS" = 0; # no delay for "playing" in tab (eg. youtube)
       "full-screen-api.warning.timeout" = 0;
