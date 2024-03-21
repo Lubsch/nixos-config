@@ -47,6 +47,7 @@
         ./nixos/common
         ./nixos/impermanence.nix
         ./nixos/wireless.nix
+        ./nixos/printing.nix
         ./nixos/desktop.nix
         ./nixos/bluetooth.nix
         ./nixos/screenlock.nix
