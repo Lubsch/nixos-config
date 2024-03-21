@@ -13,12 +13,13 @@
 let
   pkg = inputs.firefox-addons.packages.${system}.vimium;
 
+  # Original default settings, but escaped characters removed that js can't handle
+  defaultSettings = builtins.fromJSON (builtins.readFile ./default-settings.json);
+
+  mergedSettings = defaultSettings // settings;
+
   fetcher = { url, sha256 }:
   let
-    # Original default settings, but escaped characters removed that js can't handle
-    defaultSettings = builtins.fromJSON (builtins.readFile ./default-settings.json);
-
-    mergedSettings = defaultSettings // settings;
 
     drv = stdenv.mkDerivation {
       name = "patched-xpi";
@@ -46,5 +47,8 @@ let
 in
 pkg.override {
   fetchurl = fetcher;
-  meta.broken = pkg.meta.name != "vimium-2.0.6"; # break on updates
+  meta = { 
+    inherit defaultSettings mergedSettings;
+    broken = pkg.meta.name != "vimium-2.0.6"; # break on updates
+  };
 }
