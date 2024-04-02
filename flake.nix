@@ -51,6 +51,7 @@
         ./nixos/desktop.nix
         ./nixos/bluetooth.nix
         ./nixos/screenlock.nix
+        ./nixos/printing.nix
         {
           main-disk = "/dev/nvme0n1";
           swap-size = 16;
