@@ -5,18 +5,24 @@
   # - Commits if successful (with empty message)
 
 
-  home.packages = [
-    (pkgs.writeShellScriptBin "re" /*bash*/ ''
-      cd ~/misc/repos/nixos-config
-      git add .
+  home.packages = with pkgs; [
+    (writeScriptBin "re" /*python*/ ''
+      #!${pkgs.python3}
 
-      systems=$(nix eval --json .#nixosConfigurations --apply builtins.attrNames  | jq -cr '.[]')
-      for system in $systems; do
-        echo $system
-      done
+      import os
+      import subprocess
+      import json
 
-      sudo nixos-rebuild switch --flake . || exit
-      git commit --allow-empty-message -m ""
+      os.chdir(os.path.expanduser("~/misc/repos/nixos-config"))
+      os.system("git add .")
+
+      nix_cmd = [ "nix" "eval" "--json" ".#nixosConfigurations" "--apply" "builtins.attrNames" ]
+      systems = json.loads(subprocess.check_output(nix_cmd))
+      for system in systems:
+        print(system)
+
+      os.system("sudo nixos-rebuild switch --flake . || exit")
+      os.system("git commit --allow-empty-message -m \"\"")
     '')
   ];
 }
