@@ -21,7 +21,7 @@
       for system in systems:
         print(system)
 
-      os.system("sudo nixos-rebuild switch --flake . || exit")
+      subprocess.run("sudo nixos-rebuild switch --flake . || exit", check=true)
       os.system("git commit --allow-empty-message -m \"\"")
     '')
   ];
