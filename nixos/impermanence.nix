@@ -23,11 +23,12 @@
     deps = [ "users" ];
   };
 
-  fileSystems."/persist".neededForBoot = true;
+  # See ./common/drives.nix
   extraSubvolumes."/persist" = {
     mountpoint = "/persist";
     mountOptions = [ "compress=zstd" "noatime" ];
   };
+  fileSystems."/persist".neededForBoot = true;
 
   # TODO keep old snapshots
   boot.initrd.postDeviceCommands = ''

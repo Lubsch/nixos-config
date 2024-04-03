@@ -1,9 +1,10 @@
 { config, pkgs, ... }:
 let
-  passwordFile = ""/persist"
+  passwordFile = "${
+    if config.extraSubvolumes ? "/persist"
     then "/persist"
     else ""}
-  /etc/password/restic";
+  /etc/passwords/restic";
 in {
   services.restic.backups = {
     initialize = true;
@@ -15,7 +16,7 @@ in {
   system.activationScripts.restic-password = {
     text = ''
       if [ ! -e ${passwordFile} ]; then
-        printf "Set the restic "
+        echo "Set the password for restic"
         ${pkgs.mkpasswd}/bin/mkpasswd -m sha-512 > ${passwordFile}
       fi
     '';
@@ -29,6 +30,7 @@ in {
 
   persist.directories = [
     config.services.syncthing.dataDir
+    "/etc/passwords"
   ];
 
 }

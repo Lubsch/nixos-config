@@ -33,11 +33,11 @@
     system.activationScripts.passwords.text = let 
       script-per-user = (name: 
       let
-        file = "${if config.extraSubvolumes ? "/persist" then "/persist" else ""}/etc/passwords/${name}";
+        file = "${if config ? persist then "/persist" else ""}/etc/passwords/${name}";
       in ''
         if [ ! -f ${file} ]; then
           mkdir -p "$(dirname ${file})"
-          printf "Set ${name}'s "
+          echo "Set the user password for ${name}"
           ${pkgs.mkpasswd}/bin/mkpasswd > ${file}
           chmod 600 ${file}
         fi

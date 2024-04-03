@@ -9,8 +9,7 @@ let
     rust_analyzer = rust-analyzer;
     hls = haskell-language-server;
     typst_lsp = typst-lsp;
-    # nixd = nixd;
-    rnix = rnix-lsp; # nixd requires nix-1.16 which has a cve
+    nixd = nixd;
     clangd = clang-tools;
     jdtls = writeShellScriptBin "jdtls" "${jdt-language-server}/bin/jdt-language-server $*";
   };
