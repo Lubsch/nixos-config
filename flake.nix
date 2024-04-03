@@ -10,11 +10,11 @@
     download-mover = { url = "github:lubsch/download-mover"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
-  outputs = { self, ... }: rec {
-    inherit (self) inputs outputs;
+  outputs = inputs: rec {
+    inherit inputs;
     templates = import ./templates;
     packages = import ./pkgs inputs;
-    utils = import ./utils.nix { inherit inputs outputs; };
+    utils = import ./utils.nix inputs;
 
     nixosConfigurations = utils.mkSystems {
 
