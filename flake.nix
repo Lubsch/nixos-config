@@ -14,7 +14,7 @@
     inherit (self) inputs outputs;
     templates = import ./templates;
     packages = import ./pkgs inputs;
-    utils = import ./utils.nix inputs;
+    utils = import ./utils.nix { inherit inputs outputs; };
 
     nixosConfigurations = utils.mkSystems {
 

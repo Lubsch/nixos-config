@@ -1,4 +1,4 @@
-inputs: {
+{ inputs, outputs }: {
 
   mkSystems = configs:
     builtins.mapAttrs (name: modules: inputs.nixpkgs.lib.nixosSystem {
@@ -6,7 +6,7 @@ inputs: {
         ((p: if builtins.pathExists p then p else {}) ./generated/${name}.nix)
         { networking.hostName = name; }
       ];
-      specialArgs = { inherit inputs; };
+      specialArgs = { inherit inputs outputs; };
     })
     configs;
 
