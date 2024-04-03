@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }: {
+{ lib, config, pkgs, inputs, ... }: {
 
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
@@ -30,20 +30,20 @@
 
     # Set user passwords on activation if not yet set
     # Can't use impermanence binds, so saves in /persist if imepermanence is on
-    system.activationScripts.passwords.text = let 
-      script-per-user = (name: 
-      let
-        file = "${if config ? persist then "/persist" else ""}/etc/passwords/${name}";
-      in ''
-        if [ ! -f ${file} ]; then
-          mkdir -p "$(dirname ${file})"
-          echo "Set the user password for ${name}"
-          ${pkgs.mkpasswd}/bin/mkpasswd > ${file}
-          chmod 600 ${file}
-        fi
-        usermod ${name} -p "$(cat ${file})"
-      '');
-    in builtins.concatStringsSep "\n" (map script-per-user (builtins.attrNames config.home-manager.users));
+    system.activationScripts.passwords.text = lib.concatLines 
+      (lib.mapAttrsToList (name: _: 
+        let
+          file = "${if config ? persist then "/persist" else ""}/etc/passwords/${name}";
+        in ''
+          if [ ! -f ${file} ]; then
+            mkdir -p "$(dirname ${file})"
+            echo "Set the user password for ${name}"
+            ${pkgs.mkpasswd}/bin/mkpasswd > ${file}
+            chmod 600 ${file}
+          fi
+          usermod ${name} -p "$(cat ${file})"
+        '') 
+        config.home-manager.users);
 
   };
 }

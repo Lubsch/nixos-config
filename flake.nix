@@ -10,15 +10,13 @@
     download-mover = { url = "github:lubsch/download-mover"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
-  outputs = inputs: {
-    inherit inputs;
+  outputs = { self, ... }: rec {
+    inherit (self) inputs outputs;
     templates = import ./templates;
     packages = import ./pkgs inputs;
+    utils = import ./utils.nix inputs;
 
-    nixosConfigurations = builtins.mapAttrs (name: modules: inputs.nixpkgs.lib.nixosSystem {
-      modules = modules ++ [ ./generated/${name}.nix { networking.hostName = name; } ];
-      specialArgs = { inherit inputs; };
-    }) {
+    nixosConfigurations = utils.mkSystems {
 
       shah = [
         ./nixos/common
@@ -69,6 +67,15 @@
           ];
         } ];
 
+      serf = [
+        ./nixos/common
+        ./nixos/impermanence.nix
+        ./nixos/backups.nix
+        ./nixos/wireless.nix
+        {
+          main-disk = "/dev/sda";
+        }
+      ]; 
 
     };
   };
