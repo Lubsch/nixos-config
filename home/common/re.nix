@@ -10,7 +10,7 @@
       cd ~/misc/repos/nixos-config
       git add .
 
-      systems=$(nix eval --json .#nixosConfigurations --apply builtins.attrNames  | jq -c '.[]')
+      systems=$(nix eval --json .#nixosConfigurations --apply builtins.attrNames  | jq -cr '.[]')
       for system in $systems; do
         echo $system
       done
