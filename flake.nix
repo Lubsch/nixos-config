@@ -39,6 +39,7 @@
             ./home/syncthing.nix
             ./home/keepassxc.nix
             ./home/librewolf.nix
+            ./home/gpg.nix
           ];
         } ];
 

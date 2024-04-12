@@ -1,7 +1,8 @@
 {
-  programs.ssh.enable = true;
-
-  # TODO agent
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+  };
 
   persist.directories = [ 
     ".ssh"

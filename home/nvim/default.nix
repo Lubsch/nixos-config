@@ -2,6 +2,7 @@
 let
   # Mapping between "<name in lspconfig> = <package in pkgs>;"
   servers = with pkgs; {
+    gopls = gopls;
     ocamllsp = ocamlPackages.ocaml-lsp;
     zls = zls;
     bashls = nodePackages.bash-language-server;
