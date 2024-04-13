@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, config, ... }: 
+{ lib, pkgs, config, ... }: 
 let
   steamHome = "${config.xdg.dataHome}/steamHome";
 in {
@@ -8,7 +8,7 @@ in {
     (pkgs.steam.override {
       extraEnv = {
         HOME = steamHome;
-        STEAM_EXTRA_COMPAT_TOOLS_PATHS = pkgs.proton-ge;
+        STEAM_EXTRA_COMPAT_TOOLS_PATHS = lib.makeSearchPathOutput "steamcompattool" "" [ pkgs.proton-ge-bin ];
       };
     })
   ];

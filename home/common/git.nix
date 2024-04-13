@@ -2,8 +2,20 @@
 
   programs.git = {
     enable = true;
-    userName = "Lubsch";
-    userEmail = "33580245+Lubsch@users.noreply.github.com";
+    includes = [ 
+      {
+        condition = "gitdir:~/misc/repos/";
+        path = "~/misc/repos/.gitconfig";
+      }
+      {
+        condition = "gitdir:~/documents/uni/";
+        path = "~/documents/uni/.gitconfig";
+      }
+      {
+        condition = "gitdir:~/documents/arbeit/";
+        path = "~/documents/arbeit/.gitconfig";
+      }
+    ];
     extraConfig = {
       init.defaultBranch = "main";
       push.autoSetupRemote = true;

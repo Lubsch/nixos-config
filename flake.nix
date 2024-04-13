@@ -65,6 +65,7 @@
             ./home/keepassxc.nix
             ./home/librewolf.nix
             # ./home/waybar.nix
+            ./home/gpg.nix
           ];
         } ];
 
