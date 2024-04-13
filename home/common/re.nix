@@ -16,12 +16,14 @@
       os.chdir(os.path.expanduser("~/misc/repos/nixos-config"))
       os.system("git add .")
 
-      nix_cmd = [ "nix", "eval", "--json" ".#nixosConfigurations" "--apply" "builtins.attrNames" ]
+      nix_cmd = ["nix", "eval", "--json", ".#nixosConfigurations", "--apply", "builtins.attrNames"]
       systems = json.loads(subprocess.check_output(nix_cmd))
       for system in systems:
-        print(system)
+          print(system)
 
-      subprocess.run("sudo nixos-rebuild switch --flake . || exit", check=true)
+# "check" makes script exit on falure
+      subprocess.run(["sudo", "nixos-rebuild", "switch", "--flake", "."], check=True)
+
       os.system("git commit --allow-empty-message -m \"\"")
     '')
   ];
