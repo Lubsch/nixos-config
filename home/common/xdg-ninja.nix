@@ -3,6 +3,8 @@
     home = {
       packages = [ pkgs.xdg-ninja ]; # helper program
       sessionVariables = with config.xdg; {
+        HISFILE = ""; # dont do bash history
+        GNUPGHOME = "${dataHome}/gnupg";
         CARGO_HOME = "${dataHome}/cargo";
         STACK_ROOT = "${dataHome}/stack";
         SQLITE_HISTORY = "${cacheHome}/sqlite_history";

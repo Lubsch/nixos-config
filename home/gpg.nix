@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ pkgs, config, ... }: 
 let
   pinentryPackage = pkgs.pinentry-gnome3;
 in {
@@ -14,5 +14,6 @@ in {
 
   programs.gpg = {
     enable = true;
+    homedir = "${config.xdg.dataHome}/gnupg";
   };
 }
