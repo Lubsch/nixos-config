@@ -51,6 +51,7 @@
         ./nixos/bluetooth.nix
         ./nixos/screenlock.nix
         ./nixos/printing.nix
+        ./nixos/droidcam.nix
         {
           main-disk = "/dev/nvme0n1";
           swap-size = 16;
