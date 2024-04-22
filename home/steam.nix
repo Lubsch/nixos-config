@@ -8,6 +8,7 @@ in {
     (pkgs.steam.override {
       extraEnv = {
         HOME = steamHome;
+        XDG_DATA_DIR = steamHome + "/.local/share";
         STEAM_EXTRA_COMPAT_TOOLS_PATHS = lib.makeSearchPathOutput "steamcompattool" "" [ pkgs.proton-ge-bin ];
       };
     })
