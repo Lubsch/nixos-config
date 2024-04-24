@@ -49,6 +49,6 @@ pkg.override {
   fetchurl = fetcher;
   meta = { 
     inherit defaultSettings mergedSettings;
-    broken = pkg.meta.name != "vimium-2.0.6"; # break on updates
+    broken = pkg.meta.name != "vimium-2.1.2"; # break on updates
   };
 }

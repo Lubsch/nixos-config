@@ -39,6 +39,7 @@
             ./home/keepassxc.nix
             ./home/librewolf.nix
             ./home/gpg.nix
+            ./home/steam.nix
           ];
         } ];
 

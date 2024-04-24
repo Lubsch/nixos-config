@@ -18,8 +18,8 @@
 
       nix_cmd = ["nix", "eval", "--json", ".#nixosConfigurations", "--apply", "builtins.attrNames"]
       systems = json.loads(subprocess.check_output(nix_cmd))
-      for system in systems:
-          # TODO
+      # TODO
+      # for system in systems:
 
       # "check" makes script exit on falure
       subprocess.run(["sudo", "nixos-rebuild", "switch", "--flake", "."], check=True)

@@ -19,6 +19,7 @@
     extraConfig = {
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
+      url."ssh://git@git.tu-berlin.de".insteadOf = "https://git.tu-berlin.de";
     };
   };
 

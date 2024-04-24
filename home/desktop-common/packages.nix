@@ -12,5 +12,6 @@
     wl-clipboard # make wl-copy work
     pcmanfm # file manager
     libnotify # command notify-send
+    wpa_supplicant_gui # wireless manager
   ];
 }
