@@ -10,12 +10,10 @@ let
     extraPolicies = {
 
       ExtensionSettings = builtins.listToAttrs (map
-        (pkg: let
-          id = if lib.hasPrefix pkg.addonId "{" then pkg.addonId else pkg.name;
-        in {
-          name = id;
+        (pkg: {
+          name = pkg.addonId;
           value = {
-            install_url = "file://${pkg}/share/mozilla/extension/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${id}.xpi";
+            install_url = "file://${pkg}/share/mozilla/extension/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${pkg.addonId}.xpi";
           };
         }) 
         (with inputs.firefox-addons.packages.${pkgs.system}; [
