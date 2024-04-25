@@ -80,8 +80,7 @@ in {
   # keepassxc expects firefox
   home.activation.librewolf-keepassxc = ''
     mkdir -p ${BROWSERHOME}/.librewolf/native-messaging-hosts
-    mkdir -p ${BROWSERHOME}/.mozilla
-    ln -sf ${BROWSERHOME}/.librewolf/native-messaging-hosts ${BROWSERHOME}/.mozilla/native-messaging-hosts
+    ln -sf ${BROWSERHOME}/.librewolf ${BROWSERHOME}/.mozilla
   '';
 
 
