@@ -13,6 +13,7 @@ let
         (pkg: {
           name = pkg.addonId;
           value = {
+            installation_mode = "force_installed";
             install_url = "file://${pkg}/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${pkg.addonId}.xpi";
           };
         })
@@ -33,7 +34,6 @@ let
           #  })
           keepassxc-browser
           sponsorblock
-          ublock-origin
         ])
       );
 
