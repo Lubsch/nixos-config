@@ -17,7 +17,7 @@
         root.openssh.authorizedKeys = { inherit keys; };
       } else builtins.mapAttrs (_: _: {
         isNormalUser = true;
-        extraGroups = [ "wheel" ];
+        extraGroups = [ "wheel" "network" ];
         # openssh.authorizedKeys = { inherit keys; };
       }) config.home-manager.users;
     };
