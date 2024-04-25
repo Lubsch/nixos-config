@@ -13,9 +13,9 @@ let
         (pkg: {
           name = pkg.addonId;
           value = {
-            install_url = "file://${pkg}/share/mozilla/extension/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${pkg.addonId}.xpi";
+            install_url = "file://${pkg}/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${pkg.addonId}.xpi";
           };
-        }) 
+        })
         (with inputs.firefox-addons.packages.${pkgs.system}; [
           # ((pkgs.callPackage ../pkgs/vimium { inherit inputs; }).override {
           #   settings = {
