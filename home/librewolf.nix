@@ -19,20 +19,20 @@ let
           };
         }) 
         (with inputs.firefox-addons.packages.${pkgs.system}; [
-          ((pkgs.callPackage ../pkgs/vimium { inherit inputs; }).override {
-            settings = {
-              smoothScroll = false;
-              keyMappings = ''
-                map s passNextKey
-              '';
-              searchUrl = "https://duckduckgo.com/?q=";
-              searchEngines = ''
-                p: https://search.nixos.org/packages?query=%s
-                o: https://search.nixos.org/options?query=%s
-                h: https://mipmip.github.io/home-manager-option-search/?query=%s
-              '';
-            };
-           })
+          # ((pkgs.callPackage ../pkgs/vimium { inherit inputs; }).override {
+          #   settings = {
+          #     smoothScroll = false;
+          #     keyMappings = ''
+          #       map s passNextKey
+          #     '';
+          #     searchUrl = "https://duckduckgo.com/?q=";
+          #     searchEngines = ''
+          #       p: https://search.nixos.org/packages?query=%s
+          #       o: https://search.nixos.org/options?query=%s
+          #       h: https://mipmip.github.io/home-manager-option-search/?query=%s
+          #     '';
+          #   };
+          #  })
           keepassxc-browser
           sponsorblock
           ublock-origin
