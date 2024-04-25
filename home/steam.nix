@@ -19,6 +19,6 @@ in {
       directory = lib.removePrefix "${config.home.homeDirectory}/" steamHome;
       method = "symlink"; # steam requires symlink (doesn't like fuse)
     }
-    ".local/share/Paradox Interactive"
+    ".local/share/Paradox Interactive" # ugly but better than nothing
   ];
 }

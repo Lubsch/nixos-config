@@ -43,6 +43,11 @@
         } ];
 
       raja = [
+        {
+          users.users.lubsch.openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILT2hUBw9sDjvv+hlFuKrvu5wh13VGXLOPOJDVZBMc+N lubsch@shah"
+          ];
+        }
         ./nixos/common
         ./nixos/impermanence.nix
         ./nixos/wireless.nix
