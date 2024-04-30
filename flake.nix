@@ -44,7 +44,7 @@
 
       raja = [
         {
-          services.openssh.ports = [ 25565 ];
+          services.openssh.ports = [ 22 ];
           users.users.lubsch.openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILT2hUBw9sDjvv+hlFuKrvu5wh13VGXLOPOJDVZBMc+N lubsch@shah"
           ];
