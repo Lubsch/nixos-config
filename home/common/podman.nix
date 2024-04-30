@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     slirp4netns
     podman
+    podman-compose
   ];
 
   xdg.configFile."containers/policy.json".text = ''

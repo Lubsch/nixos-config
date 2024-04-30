@@ -44,6 +44,7 @@ let
     extraPrefs = lib.concatStrings (lib.mapAttrsToList (name: value: ''
         defaultPref("${name}", ${builtins.toJSON value});
     '') {
+      "general.useragent.override" = true;
       "xpinstall.whitelist.required" = false;
       "xpinstall.signatures.required" = false;
       "browser.download.dir" = config.xdg.userDirs.download; # else it'd be $BROWSERHOME/Downloads
