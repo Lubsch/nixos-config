@@ -1,0 +1,3 @@
+{
+  nix.sshServe.enable = true;
+}
