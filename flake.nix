@@ -7,6 +7,7 @@
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     firefox-addons = { url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; inputs.nixpkgs.follows = "nixpkgs"; };
     download-mover = { url = "github:lubsch/download-mover"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nix-serve-ng.url = "github:aristanetworks/nix-serve-ng";
   };
 
   outputs = inputs: rec {
