@@ -6,6 +6,8 @@ let
 in
 {
   # Automatic login if there is only one user
+  # using greetd so it only works on vt1
+  # otherwise you could switch out of screenlock
   services.greetd = lib.mkIf (user != null) {
     enable = true;
     settings = {
