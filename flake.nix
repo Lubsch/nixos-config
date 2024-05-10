@@ -50,7 +50,7 @@
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILT2hUBw9sDjvv+hlFuKrvu5wh13VGXLOPOJDVZBMc+N lubsch@shah"
           ];
           networking.hosts = {
-            "127.0.0.1" = [ "okayy" ];
+            "127.0.0.1" = [ "proofbuddy.tu-berlin.de" ];
           };
         }
         ./nixos/common
