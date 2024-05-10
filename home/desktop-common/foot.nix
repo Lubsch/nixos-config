@@ -2,7 +2,14 @@
 
   home.sessionVariables.TERMINAL = "footclient";
 
-  xdg.mimeApps.defaultApplications = { "x-scheme-handler/terminal" = "foot.desktop"; };
+  xdg.mimeApps = {
+    associations.added = {
+      "x-scheme-handler/terminal" = "foot.desktop";
+    };
+    defaultApplications = {
+      "x-scheme-handler/terminal" = "foot.desktop";
+    };
+  };
 
   programs.foot = {
     enable = true;
