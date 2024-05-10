@@ -49,9 +49,6 @@
           users.users.lubsch.openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILT2hUBw9sDjvv+hlFuKrvu5wh13VGXLOPOJDVZBMc+N lubsch@shah"
           ];
-          networking.hosts = {
-            "127.0.0.1" = [ "hii" ];
-          };
         }
         ./nixos/common
         ./nixos/impermanence.nix
