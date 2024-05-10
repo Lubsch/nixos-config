@@ -4,16 +4,17 @@
 
   xdg.mimeApps = {
     associations.added = {
-      "x-scheme-handler/terminal" = "foot.desktop";
+      "x-scheme-handler/terminal" = "org.codeberg.dnkl.footclient.desktop";
     };
     defaultApplications = {
-      "x-scheme-handler/terminal" = "foot.desktop";
+      "x-scheme-handler/terminal" = "org.codeberg.dnkl.footclient.desktop";
     };
   };
 
+  systemd.user.services.foot-server.Install.WantedBy = [ "graphical-session.target" ];
+
   programs.foot = {
     enable = true;
-    server.enable = true;
     settings = {
       main = {
         font = "${config.my-fonts.mono.name}:size=10";
