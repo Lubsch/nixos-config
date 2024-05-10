@@ -2,6 +2,8 @@
 
   home.sessionVariables.TERMINAL = "footclient";
 
+  xdg.mimeApps.defaultApplications = { "x-scheme-handler/terminal" = "foot.desktop"; };
+
   programs.foot = {
     enable = true;
     server.enable = true;
