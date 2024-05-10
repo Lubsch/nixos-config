@@ -5,13 +5,10 @@
 
     # binde for repeat
     extraConfig = with config; with pkgs; ''
-      # See https://wiki.hyprland.org/Configuring/Monitors/
       monitor = ,preferred,auto,auto
-      # exec-once = waybar
       exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       # firefox `browser.sessionrestore.resume_from_crash` to false
       exec-once = [workspace special:music silent] ${home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/library/recently-added
-      exec-once = ${home.sessionVariables.TERMINALSERVER}
       exec-once = [workspace special:keepass silent] kp
       exec-once = [workspace special:qalc silent] foot qalc
 
@@ -48,7 +45,7 @@
       bind = $mainMod, F, fullscreen, 1
       bind = $mainMod SHIFT, F, fullscreen, 0
 
-      # 59 mean comma (,), 60 means dot (.)
+      # 59 means comma (,), 60 means dot (.)
       bind = $mainMod, 59, layoutmsg, removemaster
       bind = $mainMod, 60, layoutmsg, addmaster
 
@@ -121,18 +118,15 @@
 
       decoration {
           rounding = 0
-
           dim_special = 0.0
-
           blur {
             enabled = true
             size = 3
           }
-
           drop_shadow = false
-          shadow_range = 4
-          shadow_render_power = 3
-          col.shadow = rgba(1a1a1aee)
+          # shadow_range = 4
+          # shadow_render_power = 3
+          # col.shadow = rgba(1a1a1aee)
       }
 
       animations {
@@ -149,20 +143,12 @@
           workspace_swipe = true
       }
 
+      # float windows with class float
       windowrule = float, float
-
-      # Example windowrule v1
-      # windowrule = float, ^(kitty)$
-      # Example windowrule v2
-      # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
-      # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
     '';
   };
 
   home.sessionVariables.WM = "${pkgs.writeShellScriptBin "wm" '' # to be used by greetd
     Hyprland > ${config.xdg.dataHome}/hypr.log 2>&1
   ''}/bin/wm";
-  programs.zsh.loginExtra = ''
-    [ "$(tty)" = "/dev/tty1" ] && exec ${config.home.sessionVariables.WM}
-  '';
 }
