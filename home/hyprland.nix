@@ -1,5 +1,5 @@
 # TODO fix application env vars
-{ pkgs, lib, config, ... }: {
+{ pkgs, config, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
 

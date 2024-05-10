@@ -37,7 +37,6 @@ let
           ublock-origin
         ])
       );
-
     };
 
     # about:config preferences
