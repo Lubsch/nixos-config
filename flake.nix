@@ -63,7 +63,6 @@
         ./nixos/bluetooth.nix
         ./nixos/screenlock.nix
         ./nixos/nix-cache.nix
-        ./nixos/wireguard.nix
         {
           main-disk = "/dev/nvme0n1";
           swap-size = 16;
