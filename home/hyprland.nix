@@ -22,7 +22,7 @@
       bind = $mainMod, V, exec, ${home.sessionVariables.LAUNCHER}
       bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
 
-      bind = $mainMod, R, exec, handlr launch x-scheme-handler/terminal zsh -ic "re; zsh -i"
+      bind = $mainMod, R, exec, ${home.sessionVariables.TERMINAL} zsh -ic "re; zsh -i"
 
       bind = $mainMod, I, exec, cd ~/documents/wiki; xdg-open $EDITOR ~/documents/wiki/Agenda.md
 
