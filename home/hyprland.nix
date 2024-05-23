@@ -10,6 +10,7 @@
       exec-once = [workspace special:music silent] ${home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/library/recently-added
       exec-once = [workspace special:keepass silent] kp
       exec-once = [workspace special:qalc silent] foot qalc
+      exec-once = foot --server
 
       # Some default env vars.
       env = XCURSOR_SIZE,24
