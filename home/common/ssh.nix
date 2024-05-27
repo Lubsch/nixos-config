@@ -2,7 +2,7 @@
   programs.ssh = {
     enable = true;
     addKeysToAgent = "yes";
-    controlMaster = "yes";
+    controlMaster = "auto";
     controlPersist = "10m";
   };
 
