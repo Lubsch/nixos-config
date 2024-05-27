@@ -20,7 +20,7 @@ vim.cmd([[
     filetype plugin indent on
 
     " Search
-    set smartcase hlsearch incsearch magic
+    set ignorecase smartcase hlsearch incsearch magic
     "Clear search highlighting with esc
     nnoremap <silent> <esc> :noh<CR><esc>
 
