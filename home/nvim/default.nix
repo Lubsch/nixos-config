@@ -9,7 +9,7 @@ let
     bashls = nodePackages.bash-language-server;
     jedi_language_server = python311Packages.jedi-language-server;
     rust_analyzer = rust-analyzer;
-    hls = haskell-language-server;
+    hls = writeShellScriptBin "haskell-language-server" "${haskell-language-server}/bin/haskell-language-server-wrapper $*";
     typst_lsp = typst-lsp;
     nixd = nixd;
     clangd = clang-tools;
