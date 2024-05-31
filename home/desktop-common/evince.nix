@@ -1,4 +1,4 @@
 { pkgs, ... }: {
   home.packages = [ pkgs.evince ];
-  xdg.mimeApps.defaultApplications.".pdf" = [ "evince.desktop" ];
+  xdg.mimeApps.defaultApplications."application/pdf" = [ "evince.desktop" ];
 }
