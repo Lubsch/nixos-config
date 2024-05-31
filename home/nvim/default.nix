@@ -33,6 +33,7 @@ in {
     '';
 
     plugins = with pkgs.vimPlugins; [
+      diffview-nvim
       vim-startuptime
       typst-vim
       comment-nvim
