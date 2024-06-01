@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   services.logind.lidSwitch = "hybrid-sleep";
 
   security.pam.services.swaylock = {};

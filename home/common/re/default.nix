@@ -4,10 +4,10 @@
   # - Rebuilds nixos system
   # - Commits if successful (with empty message)
 
-  home.packages = with pkgs; [
-    (writeScriptBin "re" /*python*/ ''
+  home.packages = [
+    (pkgs.writeScriptBin "re" /*python*/ ''
       #!${pkgs.python3}/bin/python
-      ${builtins.readFile ./re.py}
+      ${builtins.readFile ./re-script.py}
     '')
   ];
 }

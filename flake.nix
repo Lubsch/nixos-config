@@ -6,17 +6,22 @@
     disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     firefox-addons = { url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; inputs.nixpkgs.follows = "nixpkgs"; };
-    download-mover = { url = "github:lubsch/download-mover"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nix-serve-ng.url = "github:aristanetworks/nix-serve-ng";
   };
 
   outputs = inputs: rec {
     inherit inputs;
     templates = import ./templates;
     packages = import ./pkgs inputs;
-    utils = import ./utils.nix inputs;
 
-    nixosConfigurations = utils.mkSystems {
+    nixosConfigurations = builtins.mapAttrs (name: modules: 
+      inputs.nixpkgs.lib.nixosSystem {
+        modules = modules ++ [ 
+          ((p: if builtins.pathExists p then p else {}) ./generated/${name}.nix)
+          { networking.hostName = name; }
+        ];
+        specialArgs = { inherit inputs; };
+      })
+    {
 
       shah = [
         ./nixos/common

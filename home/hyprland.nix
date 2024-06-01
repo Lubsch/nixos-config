@@ -10,6 +10,7 @@
       exec-once = [workspace special:music silent] ${home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/library/recently-added
       exec-once = [workspace special:keepass silent] kp
       exec-once = [workspace special:qalc silent] foot qalc
+      exec-once = foot --server
 
       # Some default env vars.
       env = XCURSOR_SIZE,24
@@ -21,7 +22,7 @@
       bind = $mainMod, V, exec, ${home.sessionVariables.LAUNCHER}
       bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
 
-      bind = $mainMod, R, exec, handlr launch x-scheme-handler/terminal zsh -ic "re; zsh -i"
+      bind = $mainMod, R, exec, ${home.sessionVariables.TERMINAL} zsh -ic "re; zsh -i"
 
       bind = $mainMod, I, exec, cd ~/documents/wiki; xdg-open $EDITOR ~/documents/wiki/Agenda.md
 
