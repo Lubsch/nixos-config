@@ -57,7 +57,7 @@
         ./nixos/bluetooth.nix
         ./nixos/screenlock.nix
         ./nixos/printing.nix
-        ./nixos/droidcam.nix
+        # ./nixos/droidcam.nix
         ./nixos/wireguard.nix
         {
           main-disk = "/dev/nvme0n1";
