@@ -1,4 +1,5 @@
 {
+  networking.wireless.enable = false;
   networking.networkmanager.enable = true;
 
   persist.directories = [
