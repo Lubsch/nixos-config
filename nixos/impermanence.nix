@@ -15,13 +15,9 @@
 
   programs.fuse.userAllowOther = true;
 
-  system.activationScripts.create-persist-homes = {
-    text = lib.concatLines (lib.mapAttrsToList (name: _: ''
-      mkdir -p /persist/home/"${name}"
-      chown "${name}" /persist/home/"${name}"
-    '') config.home-manager.users);
-    deps = [ "users" ];
-  };
+  systemd.tmpfiles.rules = map
+    (name: "d /persist/home/${name} 0700 lubsch users")
+    (lib.attrNames config.home-manager.users);
 
   # See ./common/drives.nix
   extraSubvolumes."/persist" = {
