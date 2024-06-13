@@ -16,9 +16,6 @@ vim.cmd([[
 
     set undofile
 
-    " Enable file type detection and do language-dependent indenting.
-    filetype plugin indent on
-
     " Search
     set ignorecase smartcase hlsearch incsearch magic
     "Clear search highlighting with esc
@@ -34,9 +31,13 @@ vim.cmd([[
     "Make split windows open at the bottom
     set splitbelow splitright
 
+    " Enable file type detection and do language-dependent indenting.
+    filetype plugin indent on
+
     "Indentation
     set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent smartindent
     autocmd FileType nix setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    set cinkey '0{,0},0),0],:,!^F,o,O,e'
 
     "Disable automatic commenting on new line
     autocmd FileType * setlocal formatoptions-=r formatoptions-=o
