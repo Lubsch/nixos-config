@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
 
   hardware.enableRedistributableFirmware = true;
 
@@ -8,7 +8,10 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
-    initrd.verbose = false;
+    initrd = {
+      systemd.enable = true; # experimental, for concurrent stage 1
+      verbose = false;
+    };
     kernelParams = [ "quiet" ];
     consoleLogLevel = 2;
 

@@ -19,7 +19,7 @@ let
       "browser.download.dir" = config.xdg.userDirs.download; # else it'd be $BROWSERHOME/Downloads
       "browser.translation.automaticallyPopup" = false;
       "browser.toolbars.bookmarks.visibility" = "never";
-      "browser.tabs.delayHidingAudioPlayingIconMS" = 0; # no delay for "playing" in tab (eg. youtube)
+      "browser.tabs.delayHidingAudioPlayingIconMS" = 0; # no delay for "playing" in tabbar (eg. youtube)
       "full-screen-api.warning.timeout" = 0;
       "extensions.pictureinpicture.enable_picture_in_picture_overrides" = true;
       "media.videocontrols.picture-in-picture.respect-disablePictureInPicture" = true;
@@ -78,16 +78,11 @@ in {
     })
   ];
 
-  # systemd.user.tmpfiles.rules = [
-  #   "d "
-  # ];
-
-  # keepassxc expects firefox
-  home.activation.librewolf-keepassxc = ''
-    mkdir -p ${BROWSERHOME}/.librewolf/native-messaging-hosts
-    ln -sf ${BROWSERHOME}/.librewolf ${BROWSERHOME}/.mozilla
-  '';
-
+  # keepassxc expects firefox, so create symlink
+  systemd.user.tmpfiles.rules = [
+    "d ${BROWSERHOME}/.librewolf/native-messaging-hosts"
+    "L ${BROWSERHOME}/.lirewolf - - - - ${BROWSERHOME}/.mozilla"
+  ];
 
   persist.directories = [ 
     "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.librewolf" 

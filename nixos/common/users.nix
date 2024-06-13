@@ -29,9 +29,9 @@
     };
 
     # Set user passwords on activation if not yet set
-    # Can't use impermanence binds, so saves in /persist if imepermanence is on
-    system.activationScripts.user-passwords.text = lib.concatLines 
-      (lib.mapAttrsToList (name: _: 
+    # Can't use impermanence binds, so saves in /persist if impermanence is on
+    system.activationScripts.user-passwords.text = lib.concatLines (lib.mapAttrsToList 
+      (name: _: 
         let
           file = "${if config ? persist then "/persist" else ""}/etc/passwords/${name}";
         in ''
@@ -43,7 +43,7 @@
           fi
           usermod ${name} -p "$(cat ${file})"
         '')
-        config.home-manager.users);
+      config.home-manager.users);
 
   };
 }
