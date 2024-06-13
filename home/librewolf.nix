@@ -78,6 +78,10 @@ in {
     })
   ];
 
+  # systemd.user.tmpfiles.rules = [
+  #   "d "
+  # ];
+
   # keepassxc expects firefox
   home.activation.librewolf-keepassxc = ''
     mkdir -p ${BROWSERHOME}/.librewolf/native-messaging-hosts

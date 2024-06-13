@@ -15,9 +15,9 @@
 
   programs.fuse.userAllowOther = true;
 
-  systemd.tmpfiles.rules = map
-    (name: "d /persist/home/${name} 0700 lubsch users")
-    (lib.attrNames config.home-manager.users);
+  # systemd.tmpfiles.rules = map
+  #   (name: "d /persist/home/${name} 0700 lubsch users")
+  #   (lib.attrNames config.home-manager.users);
 
   # See ./common/drives.nix
   extraSubvolumes."/persist" = {
