@@ -15,6 +15,9 @@
 
   programs.fuse.userAllowOther = true;
 
+  systemd.tmpfiles.rules = [
+    "d /home/lubsch/asdf 0700 lubsch users"
+  ];
   # systemd.tmpfiles.rules = map
   #   (name: "d /persist/home/${name} 0700 lubsch users")
   #   (lib.attrNames config.home-manager.users);
