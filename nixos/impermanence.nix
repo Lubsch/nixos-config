@@ -1,4 +1,4 @@
-{ lib, config, inputs, ... }: {
+{ lib, pkgs, config, inputs, ... }: {
 
   imports = [
     inputs.impermanence.nixosModules.impermanence
@@ -29,8 +29,7 @@
   # TODO keep old snapshots
   boot.initrd.systemd.services.wipe-root = {
     wantedBy = [ "initrd.target" ];
-    # after = [
-    # ];
+    after = [ "systemd-cryptsetup@main.service" ];
     before = [ "sysroot.mount" ];
     unitConfig.DefaultDependencies = "no";
     serviceConfig.Type = "oneshot";
@@ -41,7 +40,7 @@
       btrfs subvolume delete /mnt/root-old > /dev/null
       btrfs subvolume snapshot /mnt/root /mnt/root-old > /dev/null
 
-      btrfs subvolume list -o /mnt/root | awk '{print $NF}' |
+      btrfs subvolume list -o /mnt/root | cut -f9 -d ' ' |
       while read -r subvolume; do
         btrfs subvolume delete /mnt/$subvolume > /dev/null
       done && btrfs subvolume delete /mnt/root > /dev/null
