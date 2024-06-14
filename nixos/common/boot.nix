@@ -8,6 +8,10 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
+    plymouth = {
+      enable = true;
+    };
+
     initrd = {
       systemd.enable = true; # experimental, for concurrent stage 1
       verbose = false;
