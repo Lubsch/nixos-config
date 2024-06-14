@@ -1,8 +1,13 @@
 {
-  networking.networkmanager.enable = true;
+  # networking.networkmanager.enable = true;
+  networking.wireless.iwd.enable = true;
 
+  # persist.directories = [
+  #   "/etc/NetworkManager/system-connections"
+  # ];
+  
   persist.directories = [
-    "/etc/NetworkManager/system-connections"
+    "/var/lib/iwd"
   ];
   
   # TODO automate this
