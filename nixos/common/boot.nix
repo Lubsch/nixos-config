@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: {
 
   hardware.enableRedistributableFirmware = true;
 
@@ -6,7 +6,7 @@
   environment.etc.issue.text = "";
 
   # Remove (unnecessary, I hope) delay from waiting on network
-  systemd.services.network-online.enable = false;
+  systemd.targets.network-online.wantedBy = lib.mkForce [];
   
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
