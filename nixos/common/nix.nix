@@ -26,20 +26,10 @@
     };
 
     distributedBuilds = true;
-    # buildMachines = [ {
-    #   hostName = "raja";
-    #   system
-    # } ];
   };
 
   nixpkgs.config = {
     allowUnfree = true; 
     enableParallelBuilding = true;
-
-    # "nixos-config" requires it (cve)
-    permittedInsecurePackages = [
-      "nix-2.15.3"
-    ];
-
   };
 }

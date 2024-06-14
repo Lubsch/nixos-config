@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, ... }: {
 
   hardware.enableRedistributableFirmware = true;
 
@@ -7,11 +7,6 @@
   
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-
-    plymouth = {
-      enable = true;
-      theme = "breeze";
-    };
 
     initrd = {
       systemd.enable = true; # experimental, for concurrent stage 1
@@ -28,7 +23,7 @@
       systemd-boot = {
         enable = true;
         configurationLimit = 50;
-        consoleMode = "max"; # resolution
+        consoleMode = "auto";
       };
       timeout = 0;
       efi.canTouchEfiVariables = true;
