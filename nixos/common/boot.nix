@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
 
   hardware.enableRedistributableFirmware = true;
 
@@ -10,6 +10,7 @@
 
     plymouth = {
       enable = true;
+      theme = "breeze";
     };
 
     initrd = {
@@ -19,7 +20,7 @@
     kernelParams = [ "quiet" ];
     consoleLogLevel = 2;
 
-    kernel.sysctl."kernel.perf_event_paranoid" = 1; # rr debugger
+    kernel.sysctl."kernel.perf_event_paranoid" = 1; # for rr debugger
 
     binfmt.emulatedSystems = [ "aarch64-linux" ]; # cross compilation
 
@@ -27,6 +28,7 @@
       systemd-boot = {
         enable = true;
         configurationLimit = 50;
+        consoleMode = "auto";
       };
       timeout = 0;
       efi.canTouchEfiVariables = true;
