@@ -41,7 +41,10 @@ This is my NixOS-config.
 
 This guide should include every step to setup a new machine. This config is primarily intended for my own use, but you can of course adapt it to your own needs. :)
 
-Download the iso from [https://nixos.org/download.html#nixos-iso](https://nixos.org/download.html#nixos-iso).
+Build the iso (requires nix):
+```
+nix build .#iso
+```
 
 Burn the iso to an empty usb stick:
 ```
@@ -51,8 +54,7 @@ sudo dd if=</path/to/file.iso> of=</dev/usb_drive> status=progress
 
 An internet connection is required. These commands configure wifi:
 ```
-iwctl station <station> scan
-iwctl station <station> connect <ssid>
+nmtui
 ```
 
 Clone and enter nix shell:
@@ -60,7 +62,7 @@ Clone and enter nix shell:
 clone
 ```
 
-Follow the instructions and reboot. Then, use `iwctl` to connect to wifi and do some manual setup:
+Follow the instructions and reboot. Then, connect to wifi and do some manual setup:
 ```
 setup-git
 ```

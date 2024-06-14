@@ -11,7 +11,6 @@
       warn-dirty = false
       auto-optimise-store = true
       experimental-features = nix-command flakes
-      builders-use-substitutes = true
     '';
 
     settings.trusted-users = [ "@wheel" ];
@@ -26,8 +25,6 @@
       automatic = true;
       dates = "weekly";
     };
-
-    distributedBuilds = true;
   };
 
   nixpkgs.config = {
