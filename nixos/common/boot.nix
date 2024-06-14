@@ -8,6 +8,9 @@
 
   # Remove (unnecessary, I hope) delay from waiting on network
   systemd.targets.network-online.wantedBy = lib.mkForce [];
+  # Don't flush journals from volataile storage which are persistent anyway
+  # see https://www.freedesktop.org/software/systemd/man/latest/journald.conf.html
+  systemd.services.systemd-journal-flush.enable = false;
   
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
