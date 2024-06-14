@@ -88,7 +88,6 @@ in {
     "L ${BROWSERHOME}/.config/dconf - - - - ${config.xdg.configHome}/dconf"
   ];
 
-  
 
   persist.directories = [ 
     "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.librewolf" 

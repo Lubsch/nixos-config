@@ -4,11 +4,13 @@
   environment.systemPackages = [ pkgs.git ];
 
   nix = {
+    package = pkgs.nixVersions.latest; # for features like showing packages as their path
+
     extraOptions = ''
       use-xdg-base-directories = true
       warn-dirty = false
       auto-optimise-store = true
-      experimental-features = nix-command flakes repl-flake
+      experimental-features = nix-command flakes
       builders-use-substitutes = true
     '';
 
