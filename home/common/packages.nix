@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
+    nixfmt-rfc-style
     wireguard-tools # wg-quick for vpns
     qemu # vm runner
     shellcheck # check script posix compliance
