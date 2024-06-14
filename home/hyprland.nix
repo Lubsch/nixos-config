@@ -1,13 +1,13 @@
 # TODO fix application env vars
-{ pkgs, config, ... }: {
+{ pkgs, config, lib, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
 
-    extraConfig = with config; with pkgs; ''
+    extraConfig = ''
       monitor = ,preferred,auto,auto
-      exec-once = ${swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
+      exec-once = ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       # firefox `browser.sessionrestore.resume_from_crash` to false
-      exec-once = [workspace special:music silent] ${home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/library/recently-added
+      exec-once = [workspace special:music silent] ${config.home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/library/recently-added
       exec-once = [workspace special:keepass silent] kp
       exec-once = [workspace special:qalc silent] foot qalc
       exec-once = foot --server
@@ -18,11 +18,11 @@
       $mainMod = SUPER
 
       # binde for repeat
-      bind = $mainMod, return, exec, ${home.sessionVariables.TERMINAL}
-      bind = $mainMod, V, exec, ${home.sessionVariables.LAUNCHER}
-      bind = $mainMod, W, exec, ${home.sessionVariables.BROWSER}
+      bind = $mainMod, return, exec, ${config.home.sessionVariables.TERMINAL}
+      bind = $mainMod, V, exec, ${config.home.sessionVariables.LAUNCHER}
+      bind = $mainMod, W, exec, ${config.home.sessionVariables.BROWSER}
 
-      bind = $mainMod, R, exec, ${home.sessionVariables.TERMINAL} zsh -ic "re; zsh -i"
+      bind = $mainMod, R, exec, ${config.home.sessionVariables.TERMINAL} zsh -ic "re; zsh -i"
 
       bind = $mainMod, I, exec, cd ~/documents/wiki; xdg-open $EDITOR ~/documents/wiki/Agenda.md
 
@@ -30,16 +30,16 @@
 
       bind = Meta Shift, Enter, exec, systemctl suspend
 
-      bind = ,XF86MonBrightnessUp, exec, ${brightnessctl}/bin/brightnessctl set 5%+
-      bind = ,XF86MonBrightnessDown, exec, ${brightnessctl}/bin/brightnessctl set 5%-
+      bind = ,XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%+
+      bind = ,XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-
 
-      binde = ,XF86AudioLowerVolume, exec, ${pamixer}/bin/pamixer -d 2
-      binde = ,XF86AudioRaiseVolume, exec, ${pamixer}/bin/pamixer -i 2
+      binde = ,XF86AudioLowerVolume, exec, ${pkgs.pamixer}/bin/pamixer -d 2
+      binde = ,XF86AudioRaiseVolume, exec, ${pkgs.pamixer}/bin/pamixer -i 2
 
-      bind = ,Xf86AudioPlay, exec, ${playerctl}/bin/playerctl play-pause
-      bind = $mainMod, Space, exec, ${playerctl}/bin/playerctl play-pause
-      bind = ,Xf86AudioPrev, exec, ${playerctl}/bin/playerctl previous
-      bind = ,Xf86AudioNext, exec, ${playerctl}/bin/playerctl next
+      bind = ,Xf86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause
+      bind = $mainMod, Space, exec, ${pkgs.playerctl}/bin/playerctl play-pause
+      bind = ,Xf86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous
+      bind = ,Xf86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next
 
       bind = $mainMod SHIFT, E, exit,
       bind = $mainMod, D, killactive,
@@ -107,7 +107,7 @@
           gaps_in = 0
           gaps_out = 0
           border_size = 1
-          col.active_border = rgb(${colors.foreground})
+          col.active_border = rgb(${config.colors.foreground})
           col.inactive_border = rgb(000000)
 
           layout = master

@@ -30,15 +30,12 @@ This is my NixOS-config.
 - Move from special workspaces to something more practical (floating tags)
 - Shutdown before battery is empty
 - Backups
-- Modify vimium-c source default config (background/settings.ts)
-- Debugger record script
 - (Modify gtk(/its apps') source code)
 - E-Mail
 - Calendar
 - Statusbar (https://github.com/JakeStanger/ironbar)
 - Multiple drives
 - Maybe make it runnable on android, too
-- Install loupe https://github.com/NixOS/nixpkgs/pull/247766
 
 ## Installation Guide
 

@@ -21,7 +21,7 @@ let
       "browser.translation.automaticallyPopup" = false;
       "browser.toolbars.bookmarks.visibility" = "never";
       "browser.tabs.delayHidingAudioPlayingIconMS" = 0; # no delay for "playing" in tabbar (eg. youtube)
-      "full-screen-api.warning.timeout" = 0;
+      "full-screen-api.warning.timeout" = 0; # no fullscreen warning
       "extensions.pictureinpicture.enable_picture_in_picture_overrides" = true;
       "media.videocontrols.picture-in-picture.respect-disablePictureInPicture" = true;
       "privacy.resistFingerprinting" = false; # enables dark theme for example
@@ -82,7 +82,7 @@ in {
   # keepassxc expects firefox, so create symlink
   systemd.user.tmpfiles.rules = [
     "d ${BROWSERHOME}/.librewolf/native-messaging-hosts"
-    "L ${BROWSERHOME}/.lirewolf - - - - ${BROWSERHOME}/.mozilla"
+    "L ${BROWSERHOME}/.mozilla - - - - ${BROWSERHOME}/.librewolf"
   ];
 
   persist.directories = [ 
