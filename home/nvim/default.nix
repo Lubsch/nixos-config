@@ -7,7 +7,7 @@ let
     ocamllsp = ocamlPackages.ocaml-lsp;
     zls = zls;
     bashls = nodePackages.bash-language-server;
-    pylyzer = writeShellScriptBin "pylyzer" "RUST_BACKTRACE=1 ${pylyzer}/bin/pylyzer $*";
+    pylyzer = pylyzer;
     rust_analyzer = rust-analyzer;
     hls = haskell-language-server;
     typst_lsp = typst-lsp;

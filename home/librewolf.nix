@@ -50,6 +50,7 @@ let
                 map s passNextKey
               '';
               searchUrl = "https://duckduckgo.com/?q=";
+              exclusionRules = [];
               searchEngines = ''
                 p: https://search.nixos.org/packages?query=%s
                 o: https://search.nixos.org/options?query=%s
@@ -79,11 +80,15 @@ in {
     })
   ];
 
-  # keepassxc expects firefox, so create symlink
   systemd.user.tmpfiles.rules = [
+    # keepassxc expects firefox, so create symlink
     "d ${BROWSERHOME}/.librewolf/native-messaging-hosts 700"
     "L ${BROWSERHOME}/.mozilla - - - - ${BROWSERHOME}/.librewolf"
+    # make dconf settings also apply to librewolf
+    "L ${BROWSERHOME}/.config/dconf - - - - ${config.xdg.configHome}/dconf"
   ];
+
+  
 
   persist.directories = [ 
     "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.librewolf" 
