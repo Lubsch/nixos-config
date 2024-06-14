@@ -35,9 +35,8 @@ vim.cmd([[
     filetype plugin indent on
 
     "Indentation
-    set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent smartindent
-    autocmd FileType nix setlocal tabstop=2 softtabstop=2 shiftwidth=2
-    set cinkeys='0{,0},0),0],:,!^F,o,O,e'
+    set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent
+    " autocmd FileType nix setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
     "Disable automatic commenting on new line
     autocmd FileType * setlocal formatoptions-=r formatoptions-=o
