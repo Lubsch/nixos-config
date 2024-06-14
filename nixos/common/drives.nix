@@ -28,8 +28,7 @@
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
-              # save a few ms on startup by lazy-mounting /boot
-              mountOptions = [ "noauto" "x-systemd.automount" "umask=0077" ];
+              mountOptions = [ "umask=0077" ];
             };
           };
           luks = {
