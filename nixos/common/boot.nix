@@ -1,3 +1,4 @@
+# has also accumulated config for speeding up startup
 { lib, pkgs, ... }: {
 
   hardware.enableRedistributableFirmware = true;
