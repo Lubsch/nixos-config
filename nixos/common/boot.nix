@@ -4,6 +4,9 @@
 
   # Remove welcome line from getty
   environment.etc.issue.text = "";
+
+  # Remove (unnecessary, I hope) delay from waiting on network
+  systemd.services.network-online.enable = false;
   
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
