@@ -12,6 +12,7 @@ let
     extraPrefs = lib.concatStrings (lib.mapAttrsToList (name: value: ''
         defaultPref("${name}", ${builtins.toJSON value});
     '') {
+      "intl.accept_languages" = "en-US, en, de";
       "browser.urlbar.resultMenu.keyboardAccessible" = false; # not 3 dots when tabbing through suggestions
       "general.useragent.override" = true;
       "xpinstall.whitelist.required" = false;
