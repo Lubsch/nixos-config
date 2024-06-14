@@ -81,7 +81,7 @@ in {
 
   # keepassxc expects firefox, so create symlink
   systemd.user.tmpfiles.rules = [
-    "d ${BROWSERHOME}/.librewolf/native-messaging-hosts"
+    "d ${BROWSERHOME}/.librewolf/native-messaging-hosts 700"
     "L ${BROWSERHOME}/.mozilla - - - - ${BROWSERHOME}/.librewolf"
   ];
 
