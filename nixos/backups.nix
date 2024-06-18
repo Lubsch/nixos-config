@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  passwordFile = "${if config ? persist then "/persist" else ""}/etc/passwords/restic";
+  passwordFile = "/persist/etc/passwords/restic";
 in {
   services.restic.backups = {
     inherit passwordFile;

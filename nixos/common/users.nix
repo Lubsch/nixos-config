@@ -33,7 +33,7 @@
     system.activationScripts.user-passwords.text = lib.concatLines (lib.mapAttrsToList 
       (name: _: 
         let
-          file = "${if config ? persist then "/persist" else ""}/etc/passwords/${name}";
+          file = "/persist/etc/passwords/${name}";
         in ''
           if [ ! -f ${file} ]; then
             mkdir -p "$(dirname ${file})"
