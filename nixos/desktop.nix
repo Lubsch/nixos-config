@@ -22,7 +22,7 @@
     driSupport32Bit = true;
   };
 
-  environment.systemPackages = [ pkgs.dconf ];
+  environment.systemPackages = [ pkgs.gnome.dconf-editor ];
   programs.dconf.enable = true;
 
   fonts.enableDefaultPackages = true;
