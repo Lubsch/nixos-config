@@ -94,6 +94,7 @@
 
           touchpad {
               disable_while_typing = false
+              natural_scroll = true
           }
 
           sensitivity = 0
