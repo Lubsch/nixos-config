@@ -17,11 +17,13 @@
   };
 
   security.polkit.enable = true;
-  programs.dconf.enable = true;
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true;
   };
+
+  environment.systemPackages = [ pkgs.dconf ];
+  programs.dconf.enable = true;
 
   fonts.enableDefaultPackages = true;
 }
