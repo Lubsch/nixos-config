@@ -1,11 +1,15 @@
-{
+{ config, ... }: {
   networking.wireless.enable = false;
   networking.networkmanager.enable = true;
 
   persist.directories = [
     "/etc/NetworkManager/system-connections"
   ];
-  
+
+  users.users = builtins.mapAttrs (_: _: {
+    extraGroups = [ "network" ];
+  }) config.home-manager.users;
+
   # TODO automate this
   # eduroam:
   # https://www.tu.berlin/en/campusmanagement/it-support/wlan-eduroam-setup-in-linux

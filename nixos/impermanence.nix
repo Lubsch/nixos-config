@@ -37,15 +37,17 @@
       mkdir -p /mnt
       mount -o subvol=/ "/dev/mapper/main" /mnt
 
-      btrfs subvolume delete /mnt/root-old > /dev/null
-      btrfs subvolume snapshot /mnt/root /mnt/root-old > /dev/null
+      if [ -f /mnt/root-old ]; then
+        btrfs subvolume delete /mnt/root-old
+        btrfs subvolume snapshot /mnt/root /mnt/root-old > /dev/null
+      fi
 
       btrfs subvolume list -o /mnt/root | cut -f9 -d ' ' |
       while read -r subvolume; do
         btrfs subvolume delete /mnt/$subvolume > /dev/null
       done && btrfs subvolume delete /mnt/root > /dev/null
 
-      btrfs subvolume create /mnt/root > /dev/null
+      btrfs subvolume create /mnt/root
       umount /mnt
     '';
   };

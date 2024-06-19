@@ -23,6 +23,31 @@
       })
     {
 
+      graf = [
+        ./nixos/common
+        ./nixos/impermanence.nix
+        ./nixos/wireless.nix
+        ./nixos/desktop.nix
+        ./nixos/wireshark.nix
+        ./nixos/printing.nix
+        ./nixos/screenlock.nix
+        {
+          main-disk = "/dev/nvme0n1";
+          swap-size = 16;
+          home-manager.users.lubsch.imports = [
+            ./home/common
+            ./home/desktop-common
+            ./home/hyprland.nix
+            ./home/nvim
+            ./home/mail.nix
+            ./home/syncthing.nix
+            ./home/keepassxc.nix
+            ./home/librewolf.nix
+            ./home/gpg.nix
+          ];
+        }
+      ];
+
       shah = [
         ./nixos/common
         ./nixos/impermanence.nix

@@ -34,6 +34,7 @@ in {
 
     plugins = with pkgs.vimPlugins; [
       diffview-nvim
+      nvim-web-devicons
       vim-startuptime
       typst-vim
       comment-nvim
