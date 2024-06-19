@@ -1,14 +1,12 @@
-{ config, ... }: {
+{
   networking.wireless.enable = false;
   networking.networkmanager.enable = true;
+
+  # see nixos/users.nix where network group is added
 
   persist.directories = [
     "/etc/NetworkManager/system-connections"
   ];
-
-  users.users = builtins.mapAttrs (_: _: {
-    extraGroups = [ "network" ];
-  }) config.home-manager.users;
 
   # TODO automate this
   # eduroam:

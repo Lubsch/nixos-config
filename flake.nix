@@ -4,7 +4,6 @@
     impermanence.url = "github:nix-community/impermanence";
     home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nixos-generators = { url = "github:nix-community/nixos-generators"; inputs.nixpkgs.follows = "nixpkgs"; };
     firefox-addons = { url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
@@ -24,6 +23,7 @@
     {
 
       graf = [
+        ./nixos/bluetooth.nix
         ./nixos/common
         ./nixos/impermanence.nix
         ./nixos/wireless.nix

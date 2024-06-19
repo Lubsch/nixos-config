@@ -1,7 +1,6 @@
 inputs:
 builtins.mapAttrs (system: pkgs: {
-  iso = pkgs.callPackage ./iso.nix { inherit inputs; format = "install-iso"; };
-  iso-sd = pkgs.callPackage ./iso.nix { inherit inputs; format = "sd-aarch64-installer"; };
+  iso = pkgs.callPackage ./iso.nix { inherit inputs; };
   shell = pkgs.callPackage ./shell.nix { inherit inputs; };
   nvim = pkgs.callPackage ./nvim-hacky.nix { inherit inputs; };
   nvim-dap-rr = pkgs.callPackage ./nvim-dap-rr.nix {};
