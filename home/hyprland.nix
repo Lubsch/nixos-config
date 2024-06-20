@@ -28,7 +28,7 @@
 
       bind = $mainMod, G, exec, steam
 
-      bind = Meta Shift, Enter, exec, systemctl suspend
+      bind = SUPER_SHIFT, Enter, exec, systemctl hybrid-sleep
 
       bind = ,XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%+
       bind = ,XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-
