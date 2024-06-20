@@ -5,6 +5,7 @@ let
   BROWSER = "librewolf";
   BROWSERHOME = "${config.xdg.dataHome}/librewolfHome";
 
+
   vimium-overridden = (pkgs.callPackage ../pkgs/vimium { inherit inputs; }).override {
     settings = {
       smoothScroll = false;
