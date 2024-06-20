@@ -29,6 +29,7 @@ let
     });
 
     extraPolicies = {
+      SearchEngines.Default = "DuckDuckGo";
       DisableFirefoxStudies = true;
       DisablePocket = true;
       DisableTelemetry = true;
