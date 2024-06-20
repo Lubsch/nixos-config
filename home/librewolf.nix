@@ -50,6 +50,7 @@ let
     extraPolicies = {
       ExtensionSettings = builtins.listToAttrs (map
         (pkg: {
+          # name is complicated because firefox applies updates when the name changes
           name = "${builtins.hashString "sha256" pkg.outPath}-${pkg.addonId}";
           value = {
             installation_mode = "force_installed";
