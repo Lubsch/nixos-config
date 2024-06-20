@@ -3,12 +3,29 @@
 { config, pkgs, inputs, lib, ... }:
 let
   BROWSER = "librewolf";
-  BROWSERHOME = "${config.xdg.dataHome}/${BROWSER}Home";
+  BROWSERHOME = "${config.xdg.dataHome}/librewolfHome";
+
+  vimium-overridden = (pkgs.callPackage ../pkgs/vimium { inherit inputs; }).override {
+    settings = {
+      smoothScroll = false;
+      keyMappings = ''
+        map s passNextKey
+      '';
+      searchUrl = "https://duckduckgo.com/?q=";
+      exclusionRules = [];
+      searchEngines = ''
+        p: https://search.nixos.org/packages?query=%s
+        o: https://search.nixos.org/options?query=%s
+        h: https://home-manager-options.extranix.com/?query=%s
+        n: https://noogle.dev/q?term=%s
+      '';
+    };
+   };
 
   # install extensions using policies
   package = pkgs.librewolf.override {
 
-    # about:config preferences
+    # about:config defaults
     extraPrefs = lib.concatStrings (lib.mapAttrsToList (name: value: ''
         defaultPref("${name}", ${builtins.toJSON value});
     '') {
@@ -40,30 +57,16 @@ let
           };
         })
         (with inputs.firefox-addons.packages.${pkgs.system}; [
+          vimium-overridden
           keepassxc-browser
           sponsorblock
           ublock-origin
-          ((pkgs.callPackage ../pkgs/vimium { inherit inputs; }).override {
-            settings = {
-              smoothScroll = false;
-              keyMappings = ''
-                map s passNextKey
-              '';
-              searchUrl = "https://duckduckgo.com/?q=";
-              exclusionRules = [];
-              searchEngines = ''
-                p: https://search.nixos.org/packages?query=%s
-                o: https://search.nixos.org/options?query=%s
-                h: https://mipmip.github.io/home-manager-option-search/?query=%s
-              '';
-            };
-           })
         ])
       );
     };
 
   };
-
+  
 in {
 
   home.sessionVariables = { inherit BROWSER BROWSERHOME; };

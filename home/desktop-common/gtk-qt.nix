@@ -10,7 +10,7 @@
     };
     # font = {
     #   inherit (config.my-fonts.regular) package name;
-    #   size = 12;
+    #   size = 11;
     # };
     iconTheme = {
       name = "Papirus-Dark";
