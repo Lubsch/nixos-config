@@ -35,28 +35,7 @@ pkgs.mkShell rec {
       mkdir -p generated
       sudo nixos-generate-config --show-hardware-config --no-filesystems > generated/"$1".nix
       echo '${config-template}' | sed -e "s|HOSTNAME|$1|" -e "s|MAINDISK|$maindisk|" -e "s|SWAPSIZE|$swapsize|" >> flake.nix
-      $EDITOR flake.nix
-    '')
-    (writeShellScriptBin "format-disko" ''
-      if [ ! $1 ]; then
-        echo "Enter hostname as first argument!"
-        exit 1
-      fi
-      disko -m disko -f git+file:.#"$1"
-    '')
-    (writeShellScriptBin "install-and-copy-repo" ''
-      if [ ! $1 ]; then
-        echo "Enter hostname as first and username as second argument!"
-        exit 1
-      fi
-      if [ ! $2 ]; then
-        echo "Enter username as second argument!"
-        exit 1
-      fi
-      set -e
-      nixos-install --flake .#"$1" --no-root-password
-      mkdir -p /mnt/persist/home/"$2"/misc/repos
-      cp -r . /mnt/persist/home/"$2"/misc/repos/nixos-config
+      vim flake.nix
     '')
   ];
 }
