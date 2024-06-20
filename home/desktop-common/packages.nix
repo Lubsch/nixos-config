@@ -1,8 +1,8 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     loupe # gnome image viewer
-    gimp
-    libreoffice
+    # gimp
+    # libreoffice
     gource # visualize git histories
     pavucontrol # audio output manager
     evince # gnome pdf viewer
