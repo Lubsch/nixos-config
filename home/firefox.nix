@@ -2,7 +2,7 @@
 # not using hm-module so we can give it custom home location
 { config, pkgs, inputs, lib, ... }:
 let
-  BROWSER = "firefox-devedition";
+  BROWSER = "firefox";
   BROWSERHOME = "${config.xdg.dataHome}/firefoxHome";
 
 
@@ -28,11 +28,12 @@ let
 
     # about:config defaults
     extraPrefs = lib.concatStrings (lib.mapAttrsToList (name: value: ''
-        defaultPref("${name}", ${builtins.toJSON value});
+        pref("${name}", ${builtins.toJSON value});
     '') {
+      "extensions.activeThemeID" = "default-theme@mozilla.org"; # use gtk theme
+      "browser.aboutConfig.showWarning" = false;
       "intl.accept_languages" = "en-US, en, de";
       "browser.urlbar.resultMenu.keyboardAccessible" = false; # not 3 dots when tabbing through suggestions
-      "general.useragent.override" = true;
       "xpinstall.whitelist.required" = false;
       "xpinstall.signatures.required" = false;
       "browser.download.dir" = config.xdg.userDirs.download; # else it'd be $BROWSERHOME/Downloads
@@ -49,6 +50,18 @@ let
     });
 
     extraPolicies = {
+      DisableFirefoxStudies = true;
+      DisablePocket = true;
+      DisableTelemetry = true;
+      DisableFirefoxAccounts = true;
+      FirefoxHome = {
+        Pocket = false;
+        Snippets = false;
+      };
+      UserMessaging = {
+        ExtensionRecommendations = false;
+        SkipOnboarding = true;
+      };
       ExtensionSettings = builtins.listToAttrs (map
         (pkg: {
           # name is complicated because firefox applies updates when the name changes
