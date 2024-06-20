@@ -50,9 +50,14 @@ let
       DisablePocket = true;
       DisableTelemetry = true;
       DisableFirefoxAccounts = true;
+      PasswordManagerEnabled = false;
       FirefoxHome = {
         Pocket = false;
         Snippets = false;
+      };
+      FirefoxSuggest = {
+        SponsoredSuggesiostions = false;
+        ImproveSuggest = false;
       };
       UserMessaging = {
         ExtensionRecommendations = false;
