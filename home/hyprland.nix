@@ -10,7 +10,8 @@
       # firefox `browser.sessionrestore.resume_from_crash` to false
       exec-once = [workspace special:music silent] ${config.home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/library/recently-added
       exec-once = [workspace special:keepass silent] kp
-      exec-once = [workspace special:qalc silent] sleep 1; ${config.home.sessionVariables.TERMINAL} zsh -ic "qalc"
+      workspace = special:qalc, on-created-empty: ${config.home.sessionVariables.TERMINAL} zsh -ic "qalc"
+
 
       # Some default env vars.
       env = XCURSOR_SIZE,24
