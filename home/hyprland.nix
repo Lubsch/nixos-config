@@ -8,8 +8,8 @@
       exec-once = ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       exec-once = foot --server
       # firefox `browser.sessionrestore.resume_from_crash` to false
-      exec-once = [workspace special:music silent] ${config.home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/library/recently-added
       exec-once = [workspace special:keepass silent] kp
+      workspace = special:music, on-created-empty: ${config.home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/library/recently-added
       workspace = special:qalc, on-created-empty: ${config.home.sessionVariables.TERMINAL} zsh -ic "qalc"
 
 
@@ -25,7 +25,7 @@
 
       bind = $mainMod, R, exec, ${config.home.sessionVariables.TERMINAL} zsh -ic "re; zsh -i"
 
-      bind = $mainMod, I, exec, cd ~/documents/wiki; xdg-open $EDITOR ~/documents/wiki/Agenda.md
+      bind = $mainMod, I, exec, cd ~/documents/wiki; xdg-open ~/documents/wiki/Agenda.md
 
       bind = $mainMod, G, exec, steam
 
