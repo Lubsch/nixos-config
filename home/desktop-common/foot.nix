@@ -11,8 +11,6 @@
     };
   };
 
-  systemd.user.services.foot-server.Install.WantedBy = [ "graphical-session.target" ];
-
   programs.foot = {
     enable = true;
     settings = {
