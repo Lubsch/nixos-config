@@ -5,6 +5,9 @@
     gtk4.extraConfig = {
       gtk-application-prefer-dark-theme = true;
     };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
     # font = {
     #   inherit (config.my-fonts.regular) package name;
     #   size = 12;
