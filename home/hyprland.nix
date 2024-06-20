@@ -7,8 +7,8 @@
       monitor = ,preferred,auto,auto
       exec-once = ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       exec-once = foot --server
-      # firefox `browser.sessionrestore.resume_from_crash` to false
       exec-once = [workspace special:keepass silent] kp
+      # firefox `browser.sessionrestore.resume_from_crash` to false
       workspace = special:music, on-created-empty: ${config.home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/library/recently-added
       workspace = special:qalc, on-created-empty: ${config.home.sessionVariables.TERMINAL} zsh -ic "qalc"
 
