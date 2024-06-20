@@ -30,9 +30,9 @@ let
     extraPrefs = lib.concatStrings (lib.mapAttrsToList (name: value: ''
         pref("${name}", ${builtins.toJSON value});
     '') {
-      "extensions.activeThemeID" = "default-theme@mozilla.org"; # use gtk theme
-      "browser.aboutConfig.showWarning" = false;
       "intl.accept_languages" = "en-US, en, de";
+      "browser.aboutConfig.showWarning" = false;
+      "extensions.activeThemeID" = "default-theme@mozilla.org"; # use gtk theme
       "browser.urlbar.resultMenu.keyboardAccessible" = false; # not 3 dots when tabbing through suggestions
       "xpinstall.whitelist.required" = false;
       "xpinstall.signatures.required" = false;
@@ -43,10 +43,6 @@ let
       "full-screen-api.warning.timeout" = 0; # no fullscreen warning
       "extensions.pictureinpicture.enable_picture_in_picture_overrides" = true;
       "media.videocontrols.picture-in-picture.respect-disablePictureInPicture" = true;
-      "privacy.resistFingerprinting" = false; # enables dark theme for example
-      "privacy.clearOnShutdown.history" = false;
-      "privacy.clearOnShutdown.cache" = false;
-      "privacy.clearOnShutdown.cookies" = false;
     });
 
     extraPolicies = {
