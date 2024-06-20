@@ -28,7 +28,7 @@
   };
 
   nixpkgs.config = {
-    allowUnfree = true; 
+    # allowUnfree = true; 
     enableParallelBuilding = true;
   };
 }
