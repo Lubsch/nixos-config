@@ -24,7 +24,7 @@ let
    };
 
   # install extensions using policies
-  package = pkgs.firefox-devedition.override {
+  package = pkgs.wrapFirefox pkgs.firefox-devedition-unwrapped {
 
     # about:config defaults
     extraPrefs = lib.concatStrings (lib.mapAttrsToList (name: value: ''
@@ -80,7 +80,7 @@ in {
       buildInputs  = [ pkgs.makeBinaryWrapper ]; # faster than shell based wrapper (hello: 4.5ms vs 3ms)
       paths = [ package ];
       postBuild = ''
-        wrapProgram $out/bin/firefox-devedition --set HOME ${BROWSERHOME}
+        wrapProgram $out/bin/firefox --set HOME ${BROWSERHOME}
       '';
     })
   ];
