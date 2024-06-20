@@ -12,10 +12,6 @@
     #   inherit (config.my-fonts.regular) package name;
     #   size = 12;
     # };
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gtk4;
-    };
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
