@@ -6,23 +6,6 @@ let
   BROWSERHOME = "${config.xdg.dataHome}/firefoxHome";
 
 
-  vimium-overridden = (pkgs.callPackage ../pkgs/vimium { inherit inputs; }).override {
-    settings = {
-      smoothScroll = false;
-      keyMappings = ''
-        map s passNextKey
-      '';
-      searchUrl = "https://duckduckgo.com/?q=";
-      exclusionRules = [];
-      searchEngines = ''
-        p: https://search.nixos.org/packages?query=%s
-        o: https://search.nixos.org/options?query=%s
-        h: https://home-manager-options.extranix.com/?query=%s
-        n: https://noogle.dev/q?term=%s
-      '';
-    };
-   };
-
   # install extensions using policies
   package = pkgs.wrapFirefox pkgs.firefox-devedition-unwrapped {
 
@@ -83,6 +66,24 @@ let
 
   };
   
+  vimium-overridden = (pkgs.callPackage ../pkgs/vimium { inherit inputs; }).override {
+    settings = {
+      smoothScroll = false;
+      keyMappings = ''
+        map s passNextKey
+      '';
+      searchUrl = "https://duckduckgo.com/?q=";
+      exclusionRules = [];
+      searchEngines = ''
+        p: https://search.nixos.org/packages?query=%s
+        o: https://search.nixos.org/options?query=%s
+        h: https://home-manager-options.extranix.com/?query=%s
+        n: https://noogle.dev/q?term=%s
+      '';
+    };
+   };
+
+
 in {
 
   home.sessionVariables = { inherit BROWSER BROWSERHOME; };
@@ -108,7 +109,8 @@ in {
 
 
   persist.directories = [ 
-    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.firefox" 
+    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.mozilla/firefox" 
+    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.mozilla/native-messaging-hosts" 
     "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.cache/firefox" # can be deleted but why not
   ];
 
