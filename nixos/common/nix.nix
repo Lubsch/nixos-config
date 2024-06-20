@@ -27,8 +27,5 @@
     };
   };
 
-  nixpkgs.config = {
-    # allowUnfree = true; 
-    enableParallelBuilding = true;
-  };
+  nixpkgs.config.enableParallelBuilding = true;
 }
