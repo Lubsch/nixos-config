@@ -74,7 +74,7 @@ let
         map s passNextKey
       '';
       searchUrl = "https://duckduckgo.com/?q=";
-      exclusionRules = [];
+      exclusionRules = [ "https?://typst.app/project/*" ];
       searchEngines = ''
         p: https://search.nixos.org/packages?query=%s
         o: https://search.nixos.org/options?query=%s

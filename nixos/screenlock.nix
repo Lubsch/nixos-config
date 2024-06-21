@@ -1,5 +1,5 @@
 {
-  services.logind.lidSwitch = "hybrid-sleep";
+  services.logind.lidSwitch = "suspend-then-hibernate";
 
   security.pam.services.swaylock = {};
   home-manager.sharedModules = [ ({ pkgs, ... }: {
