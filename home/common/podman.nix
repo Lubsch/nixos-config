@@ -23,6 +23,7 @@
   '';
 
   persist.directories = [
+    # ".local/share/containers"
     # Podman doesn't play well with bindfs
     { directory = ".local/share/containers"; method = "symlink"; }
   ];
