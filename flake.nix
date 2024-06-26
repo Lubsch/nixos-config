@@ -32,6 +32,7 @@
         ./nixos/printing.nix
         ./nixos/screenlock.nix
         {
+          virtualisation.docker.enable = true;
           main-disk = "/dev/nvme0n1";
           swap-size = 32;
           home-manager.users.lubsch.imports = [
