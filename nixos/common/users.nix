@@ -17,7 +17,7 @@
         root.openssh.authorizedKeys = { inherit keys; };
       } else builtins.mapAttrs (_: _: {
         isNormalUser = true;
-        extraGroups = [ "wheel" "network" ];
+        extraGroups = [ "wheel" "network" "ydotool" ];
         # openssh.authorizedKeys = { inherit keys; };
       }) config.home-manager.users;
     };
