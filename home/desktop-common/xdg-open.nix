@@ -4,7 +4,7 @@
   home.packages = [
     pkgs.handlr
     (pkgs.writeShellScriptBin "xdg-open" ''
-      handlr open $@
+      handlr open "$@"
     '')
   ];
 
