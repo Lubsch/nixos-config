@@ -59,6 +59,7 @@ vim.cmd([[
 ]])
 
 
+require 'nvim-surrourn'.setup{}
 
 require'Comment'.setup{}
 
