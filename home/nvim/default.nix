@@ -33,6 +33,7 @@ in {
     '';
 
     plugins = with pkgs.vimPlugins; [
+      nvim-surround
       diffview-nvim
       nvim-web-devicons
       vim-startuptime
