@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    nixfmt-rfc-style
+    visidata # spreadsheet alternative
     prefetch-npm-deps # for updating proofbuddy
     wireguard-tools # wg-quick for vpns
     qemu # vm runner
@@ -13,6 +13,7 @@
     hyperfine # simple benchmarks
     libqalculate # terminal calculator
     zip unzip
+    nixfmt-rfc-style # nix formatter
     nix-tree # view a nix derivation's dependencies
     nix-init # automatically package repos
     deadnix # find dead code in nix projects
@@ -26,7 +27,7 @@
     openconnect
 
     # PROGRAMMING LANGUAGES ETC.
-    (python3.withPackages (ps: with ps; [ numpy ]))
+    python3
     (sqlite.override { interactive = true; })
   ];
 }
