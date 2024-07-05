@@ -44,9 +44,11 @@
             ./home/mail.nix
             ./home/syncthing.nix
             ./home/keepassxc.nix
-            # ./home/librewolf.nix
             ./home/firefox.nix
             ./home/gpg.nix
+            {
+              persist.directories = [ ".stack" ]; # until i get it to save to data dir
+            }
           ];
         }
       ];
