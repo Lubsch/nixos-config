@@ -9,6 +9,7 @@
         STACK_ROOT = "${dataHome}/stack";
         SQLITE_HISTORY = "${cacheHome}/sqlite_history";
         GOPATH="${dataHome}/go";
+        XDG_CONFIG_HOME = configHome;
         # PYTHONSTARTUP = "${builtins.toFile "pythonrc" ''
         #   import os
         #   import atexit
