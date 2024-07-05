@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    visidata # spreadsheet alternative
+    visidata # data viewer in sheets
     prefetch-npm-deps # for updating proofbuddy
     wireguard-tools # wg-quick for vpns
     qemu # vm runner
@@ -17,7 +17,7 @@
     nix-tree # view a nix derivation's dependencies
     nix-init # automatically package repos
     deadnix # find dead code in nix projects
-    ncdu # disk usage viewing
+    ncdu dust # disk usage viewing
     tokei # count lines of code
     btop # resource usage viewer
     neofetch # quickly show system info

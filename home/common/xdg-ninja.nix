@@ -29,12 +29,6 @@
         #
         #     atexit.register(write_history)
         # ''}";
-        # NPM_CONFIG_USERCONFIG = "${builtins.toFile "npmrc" ''
-        #   prefix=${dataHome}/npm
-        #   cache=${cacheHome}/npm
-        #   tmp=$XDG_RUNTIME_DIR/npm
-        #   init-module=${configHome}/npm/config/npm-init.js
-        # ''}";
       };
     };
 }
