@@ -20,7 +20,7 @@ in {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    extraPackages = with pkgs; [ fd ripgrep ] ++ lib.attrValues servers;
+    extraPackages =  lib.attrValues servers ++ (with pkgs; [ fd ripgrep ]);
 
     extraLuaConfig = (lib.readFile ./init.lua) + "\n" + /*lua*/ ''
       -- install all grammars without slowing down startup

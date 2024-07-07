@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     visidata # data viewer in sheets
-    prefetch-npm-deps # for updating proofbuddy
+    prefetch-npm-deps # for updating npm projects
     wireguard-tools # wg-quick for vpns
     qemu # vm runner
     shellcheck # check script posix compliance
