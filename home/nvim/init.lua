@@ -54,8 +54,8 @@ vim.cmd([[
     ":W sudo saves file
     command! W silent execute "w !sudo tee % > /dev/null" <bar> edit!
     "Use quickfix list comfortably
-    nnoremap <leader>j :cnext<cr>
-    nnoremap <leader>k :cprev<cr>
+    nnoremap <leader>n :cnext<cr>
+    nnoremap <leader>p :cprev<cr>
 ]])
 
 

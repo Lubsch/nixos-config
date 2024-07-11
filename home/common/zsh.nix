@@ -28,9 +28,8 @@ in {
       ne = "nix eval";
       nb = "nix build";
 
-      iw = "iwctl station wlan0 scan; while ! iwctl station wlan0 get-networks | grep earl > /dev/null; do done; iwctl station wlan0 connect earl";
-
-      myip = "curl ipinfo.io.me;echo";
+      # TODO use a service that works
+      # myip = "curl ipinfo.io.me;echo";
 
       cp = "cp -ivr";
       mv = "mv -iv";
