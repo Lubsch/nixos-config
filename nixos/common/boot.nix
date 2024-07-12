@@ -1,5 +1,5 @@
 # has also accumulated config for speeding up startup
-{ lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
 
   hardware.enableRedistributableFirmware = true;
 
@@ -13,7 +13,7 @@
   systemd.services.systemd-journal-flush.enable = false;
   
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
     initrd = {
       systemd.enable = true; # experimental, for concurrent stage 1
