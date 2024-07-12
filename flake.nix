@@ -35,6 +35,7 @@
           programs.ydotool.enable = true;
           main-disk = "/dev/nvme0n1";
           swap-size = 32;
+          networking.hostId = "007f0200";
           home-manager.users.lubsch.imports = [
             ./home/waybar.nix
             ./home/common

@@ -13,7 +13,9 @@
   systemd.services.systemd-journal-flush.enable = false;
   
   boot = {
+    # for building images with zfs
     kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+    supportedFilesystems = [ "zfs" ];
 
     initrd = {
       systemd.enable = true; # experimental, for concurrent stage 1
