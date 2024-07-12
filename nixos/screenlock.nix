@@ -3,6 +3,7 @@
 
   security.pam.services.swaylock = {};
   home-manager.sharedModules = [ ({ pkgs, ... }: {
+    home.packages = [ pkgs.swaylock ];
     services.swayidle =
     let
       command = "${pkgs.swaylock}/bin/swaylock";
