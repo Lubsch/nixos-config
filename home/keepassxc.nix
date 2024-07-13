@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   home.file."${config.home.sessionVariables.BROWSERHOME}/.config/keepassxc/keepassxc.ini".text = ''
     [General]
     ConfigVersion=2
@@ -20,7 +21,7 @@
     LockDatabaseIdle=true
     LockDatabaseIdleSeconds=30
   '';
-  home.packages = with pkgs; [ 
+  home.packages = with pkgs; [
     # same home as browser (librewolf/firefox) for interop
     (symlinkJoin {
       name = "keepassxc-wrapped";

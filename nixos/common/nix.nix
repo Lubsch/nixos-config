@@ -1,4 +1,5 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, ... }:
+{
 
   # Required for nix command
   environment.systemPackages = [ pkgs.git ];

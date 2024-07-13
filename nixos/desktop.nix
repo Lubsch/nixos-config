@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -10,7 +11,7 @@
   xdg.portal = {
     enable = true;
     config.common.default = [ "gtk" ];
-    extraPortals = [ 
+    extraPortals = [
       pkgs.xdg-desktop-portal-gtk
       pkgs.xdg-desktop-portal-hyprland
     ];

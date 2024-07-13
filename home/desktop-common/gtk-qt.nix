@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   gtk = {
     enable = true;
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
@@ -25,7 +26,7 @@
     # set here explicitly. "gtk4.extraConfig" doesn't work.
     color-scheme = "prefer-dark";
   };
-  
+
   qt = {
     enable = true;
     style = {

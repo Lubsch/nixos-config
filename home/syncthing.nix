@@ -1,12 +1,11 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
   services.syncthing = {
     enable = true;
-    extraOptions = [
-      "--no-default-folder"
-    ];
+    extraOptions = [ "--no-default-folder" ];
   };
 
-  persist.directories = [ 
+  persist.directories = [
     "${lib.removePrefix "${config.home.homeDirectory}/" config.xdg.stateHome}/syncthing"
   ];
 }

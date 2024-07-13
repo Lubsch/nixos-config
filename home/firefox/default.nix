@@ -1,4 +1,10 @@
-{ config, pkgs, inputs, ... }: {
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
 
   home.sessionVariables.BROWSER = config.programs.firefox.package.meta.mainProgram;
 
@@ -8,9 +14,9 @@
     policies = {
       ExtensionSettings = {
         "uBlock0@raymondhill.net" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-            installation_mode = "force_installed";
-          };
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+          installation_mode = "force_installed";
+        };
         "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
           install_url = "file://${
             (pkgs.callPackage ../../pkgs/vimium { inherit inputs; })

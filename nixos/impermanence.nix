@@ -1,28 +1,50 @@
-{ lib, config, inputs, ... }: {
+{
+  lib,
+  config,
+  inputs,
+  ...
+}:
+{
 
   imports = [
     inputs.impermanence.nixosModules.impermanence
-    (lib.mkAliasOptionModule [ "persist" ] [ "environment" "persistence" "/persist" ])
+    (lib.mkAliasOptionModule [ "persist" ] [
+      "environment"
+      "persistence"
+      "/persist"
+    ])
   ];
 
-  home-manager.sharedModules = [ ({ config, lib, ... }: {
-    imports = [
-      inputs.impermanence.nixosModules.home-manager.impermanence 
-      (lib.mkAliasOptionModule [ "persist" ] [ "home" "persistence" "/persist${config.home.homeDirectory}" ])
-    ];
-    persist.allowOther = true; 
-  }) ];
+  home-manager.sharedModules = [
+    (
+      { config, lib, ... }:
+      {
+        imports = [
+          inputs.impermanence.nixosModules.home-manager.impermanence
+          (lib.mkAliasOptionModule [ "persist" ] [
+            "home"
+            "persistence"
+            "/persist${config.home.homeDirectory}"
+          ])
+        ];
+        persist.allowOther = true;
+      }
+    )
+  ];
 
   programs.fuse.userAllowOther = true;
 
-  systemd.tmpfiles.rules = map
-    (name: "d /persist/home/${name} 0700 lubsch users")
-    (lib.attrNames config.home-manager.users);
+  systemd.tmpfiles.rules = map (name: "d /persist/home/${name} 0700 lubsch users") (
+    lib.attrNames config.home-manager.users
+  );
 
   # See ./common/drives.nix
   extraSubvolumes."/persist" = {
     mountpoint = "/persist";
-    mountOptions = [ "compress=zstd" "noatime" ];
+    mountOptions = [
+      "compress=zstd"
+      "noatime"
+    ];
   };
   fileSystems."/persist".neededForBoot = true;
 

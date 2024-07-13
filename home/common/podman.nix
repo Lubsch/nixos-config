@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     slirp4netns
     podman
@@ -6,13 +7,13 @@
   ];
 
   xdg.configFile."containers/policy.json".text = ''
-  {
-      "default": [
-          {
-              "type": "insecureAcceptAnything"
-          }
-      ]
-  }
+    {
+        "default": [
+            {
+                "type": "insecureAcceptAnything"
+            }
+        ]
+    }
   '';
 
   xdg.configFile."containers/registries.conf".text = ''
@@ -25,6 +26,9 @@
   persist.directories = [
     # ".local/share/containers"
     # Podman doesn't play well with bindfs
-    { directory = ".local/share/containers"; method = "symlink"; }
+    {
+      directory = ".local/share/containers";
+      method = "symlink";
+    }
   ];
 }

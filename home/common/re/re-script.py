@@ -5,6 +5,7 @@ import json
 # suppress python exception output
 try:
     os.chdir(os.path.expanduser("~/misc/repos/nixos-config"))
+    os.system("nixfmt .")
     os.system("git add .")
 
     nix_cmd = ["nix", "eval", "--json", ".#nixosConfigurations", "--apply", "builtins.attrNames"]

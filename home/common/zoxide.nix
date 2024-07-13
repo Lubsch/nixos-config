@@ -1,4 +1,5 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;

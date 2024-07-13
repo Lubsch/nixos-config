@@ -1,3 +1,4 @@
-builtins.mapAttrs 
-  (n: _: { description = n; path = ./. + "/${n}"; })
-  (builtins.readDir ./.)
+builtins.mapAttrs (n: _: {
+  description = n;
+  path = ./. + "/${n}";
+}) (builtins.readDir ./.)

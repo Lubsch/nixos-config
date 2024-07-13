@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
 
   options.my-fonts = lib.mkOption {
     default = {
@@ -7,20 +13,19 @@
         package = pkgs.roboto;
       };
       mono = {
-        name = "JetBrains Mono Nerd Font"; 
-        package = (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }); 
+        name = "JetBrains Mono Nerd Font";
+        package = (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; });
       };
     };
   };
 
   config = {
-    home.packages = with config.my-fonts; [ 
-      regular.package 
-      mono.package 
+    home.packages = with config.my-fonts; [
+      regular.package
+      mono.package
     ];
 
     # Program that auto-detects fonts on system
     fonts.fontconfig.enable = true;
   };
 }
-

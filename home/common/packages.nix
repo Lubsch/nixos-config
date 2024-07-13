@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     visidata # data viewer in sheets
     prefetch-npm-deps # for updating npm projects
@@ -12,12 +13,14 @@
     poppler_utils # pdf utils (e.g. pdftotext)
     hyperfine # simple benchmarks
     libqalculate # terminal calculator
-    zip unzip
+    zip
+    unzip
     nixfmt-rfc-style # nix formatter
     nix-tree # view a nix derivation's dependencies
     nix-init # automatically package repos
     deadnix # find dead code in nix projects
-    ncdu dust # disk usage viewing
+    ncdu
+    dust # disk usage viewing
     tokei # count lines of code
     btop # resource usage viewer
     neofetch # quickly show system info

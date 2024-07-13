@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   options.colors = lib.mkOption {
     default = {
       alpha = "0.9";

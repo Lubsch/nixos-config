@@ -1,4 +1,5 @@
-{ pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = [ pkgs.ironbar ];
 
   xdg.configFile."ironbar/config.toml".text = ''

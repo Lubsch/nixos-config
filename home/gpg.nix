@@ -1,10 +1,14 @@
-{ pkgs, config, ... }: 
+{ pkgs, config, ... }:
 let
   pinentryPackage = pkgs.pinentry-gnome3;
-in {
+in
+{
 
   # gcr is a gnome dependency
-  home.packages = [ pinentryPackage pkgs.gcr ];
+  home.packages = [
+    pinentryPackage
+    pkgs.gcr
+  ];
 
   services.gpg-agent = {
     enable = true;

@@ -4,9 +4,7 @@
 
   # see nixos/users.nix where network group is added
 
-  persist.directories = [
-    "/etc/NetworkManager/system-connections"
-  ];
+  persist.directories = [ "/etc/NetworkManager/system-connections" ];
 
   # TODO automate this
   # eduroam:

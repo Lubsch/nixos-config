@@ -1,7 +1,13 @@
-{ inputs, system, writeShellScriptBin }:
+{
+  inputs,
+  system,
+  writeShellScriptBin,
+}:
 (inputs.nixpkgs.lib.nixosSystem {
   inherit system;
-  specialArgs = { inherit inputs; };
+  specialArgs = {
+    inherit inputs;
+  };
   modules = [
     "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
     ../nixos/common/misc.nix

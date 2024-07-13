@@ -16,22 +16,34 @@ let
     clangd = clang-tools;
     jdtls = writeShellScriptBin "jdtls" "${jdt-language-server}/bin/jdt-language-server $*";
   };
-in {
+in
+{
 
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    extraPackages =  lib.attrValues servers ++ (with pkgs; [ fd ripgrep ]);
+    extraPackages =
+      lib.attrValues servers
+      ++ (with pkgs; [
+        fd
+        ripgrep
+      ]);
 
-    extraLuaConfig = (lib.readFile ./init.lua) + "\n" + /*lua*/ ''
-      -- install all grammars without slowing down startup
-      vim.opt.runtimepath:append("${pkgs.symlinkJoin {
-        name = "nvim-treesitter-grammars";
-        paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
-      } }")
-      -- Enable lsp for all the languages
-      ${lib.concatLines (lib.mapAttrsToList (n: _: "require'lspconfig'.${n}.setup{}") servers)}
-    '';
+    extraLuaConfig =
+      (lib.readFile ./init.lua)
+      + "\n"
+      # lua
+      + ''
+        -- install all grammars without slowing down startup
+        vim.opt.runtimepath:append("${
+          pkgs.symlinkJoin {
+            name = "nvim-treesitter-grammars";
+            paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies;
+          }
+        }")
+        -- Enable lsp for all the languages
+        ${lib.concatLines (lib.mapAttrsToList (n: _: "require'lspconfig'.${n}.setup{}") servers)}
+      '';
 
     plugins = with pkgs.vimPlugins; [
       nvim-surround
@@ -49,12 +61,14 @@ in {
       telescope-nvim
       telescope-fzf-native-nvim
       nvim-dap
-      (nvim-treesitter.withPlugins (p: [ p.c p.lua p.vimdoc ])) # has weird errors for c, lua and vimdoc otherwise
+      (nvim-treesitter.withPlugins (p: [
+        p.c
+        p.lua
+        p.vimdoc
+      ])) # has weird errors for c, lua and vimdoc otherwise
     ];
   };
 
   # persist log, shada, swap and undo (could require manual cleanup)
-  persist.directories = [ 
-    ".local/state/nvim" 
-  ];
+  persist.directories = [ ".local/state/nvim" ];
 }

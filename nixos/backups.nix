@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 let
   passwordFile = "/persist/etc/passwords/restic";
-in {
+in
+{
   services.restic.backups = {
     inherit passwordFile;
     initialize = true;
@@ -22,8 +23,6 @@ in {
     enable = true;
   };
 
-  persist.directories = [
-    config.services.syncthing.dataDir
-  ];
+  persist.directories = [ config.services.syncthing.dataDir ];
 
 }

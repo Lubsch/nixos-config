@@ -1,5 +1,11 @@
 # TODO fix application env vars
-{ pkgs, config, lib, ... }: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -71,12 +77,19 @@
 
       bind = $mainMod, A, togglespecialworkspace, music
       bind = $mainMod SHIFT, A, movetoworkspacesilent, special:music
-      
-      ${lib.concatLines (map (n:
-        let s = builtins.toString n; in ''
-        bind = $mainMod, ${s}, workspace, ${s}
-        bind = $mainMod SHIFT, ${s}, movetoworkspacesilent, ${s}
-      '') (lib.range 1 9))}
+
+      ${lib.concatLines (
+        map (
+          n:
+          let
+            s = builtins.toString n;
+          in
+          ''
+            bind = $mainMod, ${s}, workspace, ${s}
+            bind = $mainMod SHIFT, ${s}, movetoworkspacesilent, ${s}
+          ''
+        ) (lib.range 1 9)
+      )}
 
       # Scroll through existing workspaces with mainMod + scroll
       bind = $mainMod, mouse_down, workspace, e+1
@@ -154,7 +167,8 @@
     '';
   };
 
-  home.sessionVariables.WM = "${pkgs.writeShellScriptBin "wm" '' # to be used by greetd
-    Hyprland > ${config.xdg.dataHome}/hypr.log 2>&1
+  home.sessionVariables.WM = "${pkgs.writeShellScriptBin "wm" ''
+    # to be used by greetd
+       Hyprland > ${config.xdg.dataHome}/hypr.log 2>&1
   ''}/bin/wm";
 }

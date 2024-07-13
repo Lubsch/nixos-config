@@ -1,7 +1,8 @@
 { lib, config, ... }:
-let 
+let
   historyPath = "${config.xdg.dataHome}/zsh/history";
-in {
+in
+{
 
   # Prevents collision with zsh history, hacky but works
   home.activation.delete-zsh-history = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
@@ -87,8 +88,6 @@ in {
     '';
   };
 
-  persist.files = [ 
-    (lib.removePrefix "${config.home.homeDirectory}/" historyPath)
-  ];
+  persist.files = [ (lib.removePrefix "${config.home.homeDirectory}/" historyPath) ];
 
 }

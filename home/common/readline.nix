@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   home.sessionVariables.INPUTRC = "${config.xdg.configHome}/inputrc";
   home.packages = [ pkgs.rlwrap ];
   xdg.configFile."inputrc".text = ''

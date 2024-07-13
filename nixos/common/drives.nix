@@ -1,18 +1,26 @@
-{ lib, config, inputs, ... }: {
+{
+  lib,
+  config,
+  inputs,
+  ...
+}:
+{
 
   imports = [ inputs.disko.nixosModules.disko ];
 
   options = {
-    main-disk = lib.mkOption {};
-    extraSubvolumes = lib.mkOption {};
-    swap-size = lib.mkOption {};
+    main-disk = lib.mkOption { };
+    extraSubvolumes = lib.mkOption { };
+    swap-size = lib.mkOption { };
   };
 
   config = {
-    swapDevices = [ {
-      device = "/swap/swapfile";
-      size = config.swap-size * 1024;
-    } ];
+    swapDevices = [
+      {
+        device = "/swap/swapfile";
+        size = config.swap-size * 1024;
+      }
+    ];
     disko.devices.disk.main = {
       type = "disk";
       device = config.main-disk;
@@ -42,11 +50,17 @@
                 subvolumes = config.extraSubvolumes // {
                   "/root" = {
                     mountpoint = "/";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   "/nix" = {
                     mountpoint = "/nix";
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   "/swap" = {
                     mountpoint = "/swap";

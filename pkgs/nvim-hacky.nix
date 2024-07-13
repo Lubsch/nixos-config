@@ -1,7 +1,7 @@
 { pkgs, inputs }:
 (inputs.home-manager.lib.homeManagerConfiguration {
   inherit pkgs;
-  modules = [ 
+  modules = [
     ../home/nvim.nix
     ../home/common/misc.nix # Persist option has to exist, stateVersion must be set
     {

@@ -1,3 +1,1 @@
-{
-  programs.droidcam.enable = true;
-}
+{ programs.droidcam.enable = true; }

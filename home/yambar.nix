@@ -1,5 +1,6 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [ 
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
     yambar
     (pkgs.rustPlatform.buildRustPackage rec {
       name = "yambar-hyprland-wses";

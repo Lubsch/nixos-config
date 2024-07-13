@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   xdg.mimeApps.enable = true;
 
   home.packages = [
@@ -8,5 +9,7 @@
     '')
   ];
 
-  programs.zsh.shellAliases = { o = "xdg-open"; };
+  programs.zsh.shellAliases = {
+    o = "xdg-open";
+  };
 }

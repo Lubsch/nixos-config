@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
   boot.resumeDevice = config.fileSystems."/".device;
 
   # Sets resume_offset kernel parameter in the bootloader on every system activation
