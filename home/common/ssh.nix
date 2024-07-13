@@ -5,11 +5,12 @@
     controlPersist = "10m";
     serverAliveInterval = 60; # keep sessions alive
     includes = [ "*_config" ];
+    # Always use identityFiles
     extraConfig = "IdentitiesOnly yes";
 
     matchBlocks = {
       "*" = {
-        identityFile = "%n";
+        identityFile = "%d/.ssh/%n";
       };
     };
   };
