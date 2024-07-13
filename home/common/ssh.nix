@@ -1,22 +1,20 @@
 {
   programs.ssh = {
     enable = true;
+
     controlMaster = "auto";
     controlPersist = "10m";
-    serverAliveInterval = 60; # keep sessions alive
+    controlPath = "/run/user/1000/master-%r@%n:%p";
+
+    # keep sessions alive
+    serverAliveInterval = 60;
+
     includes = [ "*_config" ];
-    # Always use identityFiles
+
+    # Always use identityfile with name "<hostname which was used when calling ssh>"
     extraConfig = "IdentitiesOnly yes";
-
-    matchBlocks = {
-      "*" = {
-        identityFile = "%d/.ssh/%n";
-      };
-    };
+    matchBlocks."*".identityFile = "%d/.ssh/%n";
   };
-
-  # add missing "/" at end
-  home.sessionVariables.XDG_RUNTIME_DIR = "/run/user/1000/";
 
   persist.directories = [ 
     ".ssh"
