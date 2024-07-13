@@ -46,6 +46,7 @@
             ./nixos/wireshark.nix
             ./nixos/printing.nix
             ./nixos/screenlock.nix
+            ./nixos/fingerprint.nix
             {
               main-disk = "/dev/nvme0n1";
               swap-size = 32;
