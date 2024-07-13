@@ -10,7 +10,7 @@
     # keep sessions alive
     serverAliveInterval = 60;
 
-    # include additional configs for individual hosts
+    # for additional configs for individual hosts
     includes = [ "*_config" ];
 
     # always use identityfile "~/.ssh/<hostname as called>"
