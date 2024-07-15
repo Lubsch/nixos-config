@@ -4,7 +4,7 @@
     visidata # data viewer in sheets
     prefetch-npm-deps # for updating npm projects
     wireguard-tools # wg-quick for vpns
-    qemu # vm runner
+    qemu # emualator
     shellcheck # check script posix compliance
     file # file information
     fq # explore file formats

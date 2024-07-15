@@ -16,7 +16,7 @@
     # always use identityfile "~/.ssh/<hostname as called>"
     # unless overridden in individual host's config
     extraConfig = "IdentitiesOnly yes";
-    matchBlocks."*".identityFile = "%d/.ssh/%n";
+    # matchBlocks."*".identityFile = "%d/.ssh/%n";
   };
 
   persist.directories = [ ".ssh" ];
