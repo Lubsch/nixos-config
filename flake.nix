@@ -48,6 +48,8 @@
             ./nixos/screenlock.nix
             ./nixos/fingerprint.nix
             {
+              programs.virt-manager.enable = true;
+              virtualisation.libvirtd.enable = true;
               main-disk = "/dev/nvme0n1";
               swap-size = 32;
               home-manager.users.lubsch.imports = [

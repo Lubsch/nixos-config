@@ -35,6 +35,7 @@
                 "wheel"
                 "network"
                 "input"
+                "libvirtd"
               ];
               # openssh.authorizedKeys = { inherit keys; };
             }) config.home-manager.users;
