@@ -116,10 +116,11 @@
           accel_profile = flat
       }
 
-      general {
-          # change when it works again
-          cursor_inactive_timeout = 1
+      cursor {
+          inactive_timeout = 1
+      }
 
+      general {
           gaps_in = 0
           gaps_out = 0
           border_size = 1
