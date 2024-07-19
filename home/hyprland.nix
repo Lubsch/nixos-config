@@ -154,6 +154,7 @@
       }
 
       master {
+        new_on_top = true
         no_gaps_when_only = true
         new_on_top = true
         orientation = right
