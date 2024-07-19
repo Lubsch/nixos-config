@@ -1,7 +1,8 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    visidata # data viewer in sheets
+    # TODO uncomment when not broken
+    # visidata # data viewer in sheets
     prefetch-npm-deps # for updating npm projects
     wireguard-tools # wg-quick for vpns
     qemu # emualator
