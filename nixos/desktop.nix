@@ -18,12 +18,12 @@
   };
 
   security.polkit.enable = true;
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
-  environment.systemPackages = [ pkgs.gnome.dconf-editor ];
+  environment.systemPackages = [ pkgs.dconf-editor ];
   programs.dconf.enable = true;
 
   fonts.enableDefaultPackages = true;

@@ -5,7 +5,7 @@
   environment.systemPackages = [ pkgs.git ];
 
   nix = {
-    package = pkgs.nixVersions.latest; # for features like showing packages as their path
+    package = pkgs.lix; # for features like showing packages as their path
 
     extraOptions = ''
       use-xdg-base-directories = true
