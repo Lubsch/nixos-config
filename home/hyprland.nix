@@ -127,7 +127,7 @@
           col.active_border = rgb(${config.colors.foreground})
           col.inactive_border = rgb(000000)
 
-          layout = master
+          layout = dwindle
       }
 
       misc {
