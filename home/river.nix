@@ -8,14 +8,6 @@
 
         foot --server &!
 
-        # This is the example configuration file for river.
-        #
-        # If you wish to edit this, you will probably want to copy it to
-        # $XDG_CONFIG_HOME/river/init or $HOME/.config/river/init first.
-        #
-        # See the river(1), riverctl(1), and rivertile(1) man pages for complete
-        # documentation.
-
         # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
 
         # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
@@ -144,13 +136,15 @@
         # Make all views with an app-id that starts with "float" and title "foo" start floating.
         riverctl rule-add -app-id 'float*' -title 'foo' float
 
+        keyboard-layout de
+
         # Make all views with app-id "bar" and any title use client-side decorations
         # riverctl rule-add -app-id "bar" csd
 
         # Set the default layout generator to be rivertile and start it.
         # River will send the process group of the init executable SIGTERM on exit.
         riverctl default-layout rivertile
-        rivertile -view-padding 6 -outer-padding 6 &
+        rivertile &
       '';
   };
 }
