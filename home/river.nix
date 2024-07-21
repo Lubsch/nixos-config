@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   wayland.windowManager.river = {
     enable = true;
@@ -17,7 +17,7 @@
         # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
 
         # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
-        riverctl map normal Super Return spawn $TERMINAL
+        riverctl map normal Super Return spawn ${config.home.sessionVariables.TERMINAL}
 
         # Super+Q to close the focused view
         riverctl map normal Super D close
