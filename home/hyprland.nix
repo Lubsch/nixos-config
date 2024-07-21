@@ -127,7 +127,7 @@
           col.active_border = rgb(${config.colors.foreground})
           col.inactive_border = rgb(000000)
 
-          layout = dwindle
+          layout = master
       }
 
       misc {
@@ -156,7 +156,6 @@
       master {
         new_status = master
         new_on_top = true
-        new_on_active = after
         inherit_fullscreen = false
         no_gaps_when_only = true
         orientation = right
