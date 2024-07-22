@@ -8,7 +8,6 @@
     description = "run swaylock before sleeping";
     wantedBy = [ "pre-sleep.service" ];
     script = ''
-      ${pkgs.playerctl}/bin/playerctl pause
       ${pkgs.swaylock}/bin/swaylock
     '';
     serviceConfig.type = "oneshot";
