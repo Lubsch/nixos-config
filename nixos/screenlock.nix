@@ -10,8 +10,8 @@
         services.swayidle =
           let
             command = "${pkgs.writeShellScriptBin "lock" ''
-              ${pkgs.playerctl}/bin/playerctl pause
-              ${pkgs.swaylock}/bin/swaylock
+              ${pkgs.playerctl}/bin/playerctl pause &!
+              ${pkgs.swaylock}/bin/swaylock &!
             ''}/bin/lock";
           in
           {
