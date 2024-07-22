@@ -31,7 +31,7 @@ in
 
     extraLuaConfig = # lua
       ''
-        ${lib.readFile ./init.lua}\n
+        ${lib.readFile ./init.lua}
         -- install all grammars without slowing down startup
         vim.opt.runtimepath:append("${
           pkgs.symlinkJoin {
