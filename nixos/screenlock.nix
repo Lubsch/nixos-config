@@ -7,14 +7,23 @@
       { pkgs, ... }:
       {
         home.packages = [ pkgs.swaylock ];
-        systemd.user.services.lock = {
-          Unit.Description = "Lock screen before sleeping";
-          Install.WantedBy = [ "pre-sleep.service" ];
-          Service.ExecStart = "${pkgs.writeShellScriptBin "pre-sleep-lock" ''
-            ${pkgs.playerctl}/bin/playerctl pause
-            ${pkgs.swaylock}/bin/swaylock
-          ''}/bin/pre-sleep-lock";
-        };
+        services.swayidle =
+          let
+            command = "${pkgs.writeShellScriptBin "lock" ''
+              ${pkgs.playerctl}/bin/playerctl pause
+              ${pkgs.swaylock}/bin/swaylock
+            ''}/bin/lock";
+          in
+          {
+            enable = true;
+            events = [
+              {
+                event = "before-sleep";
+                inherit command;
+              }
+            ];
+            # timeouts = [ { timeout = 60; inherit command; } ];
+          };
       }
     )
   ];
