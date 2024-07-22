@@ -1,5 +1,4 @@
 {
-  lib,
   inputs,
   system,
   fetchurl,
@@ -7,7 +6,6 @@
   zip,
   unzip,
   writeTextFile,
-  diffutils, # to check if updates are necessary
   settings ? { },
 }:
 let

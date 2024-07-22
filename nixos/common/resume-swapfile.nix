@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 {
-  boot.resumeDevice = config.fileSystems."/".device;
+  boot.resumeDevice = config.fileSystems."/swap".device;
 
   # Sets resume_offset kernel parameter in the bootloader on every system activation
   # So you don't have to define it in the config on every swapfile regeneration

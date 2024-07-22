@@ -38,21 +38,19 @@
         {
 
           vm = [
-            ./nixos/filetered-common
-            ./nixos/experimental-drives
+            ./nixos/filtered-common.nix
+            ./nixos/experimental-drives.nix
             ./nixos/impermanence.nix
             {
-              filtered-common = [ "drives.nix" ];
-              main-disk = "/dev/vda";
-              swap-size = 32;
-              home-manager.users.lubsch.imports = [
-                ./home/common
-                ./home/nvim
-              ];
+              main-disk = "/dev/sda";
+              nixpkgs.hostPlatform = "x86_64-linux";
+              swap-size = 2;
+              home-manager.users.lubsch.imports = [ ./home/common ];
             }
           ];
 
           graf = [
+            ./nixos/virtualisation.nix
             ./nixos/bluetooth.nix
             ./nixos/common
             ./nixos/impermanence.nix
@@ -67,7 +65,7 @@
               main-disk = "/dev/nvme0n1";
               swap-size = 32;
               home-manager.users.lubsch.imports = [
-                ./home/waybar.nix
+                # ./home/waybar.nix
                 ./home/common
                 ./home/desktop-common
                 ./home/hyprland.nix
