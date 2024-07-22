@@ -1,27 +1,15 @@
+{ pkgs, ... }:
 {
   services.logind.lidSwitch = "suspend-then-hibernate";
 
   security.pam.services.swaylock = { };
-  home-manager.sharedModules = [
-    (
-      { pkgs, ... }:
-      {
-        home.packages = [ pkgs.swaylock ];
-        services.swayidle =
-          let
-            command = "${pkgs.swaylock}/bin/swaylock";
-          in
-          {
-            enable = true;
-            events = [
-              {
-                event = "before-sleep";
-                inherit command;
-              }
-            ];
-            # timeouts = [ { timeout = 60; inherit command; } ];
-          };
-      }
-    )
-  ];
+  environment.systemPackages = [ pkgs.swaylock ];
+  systemd.services.lock = {
+    description = "run swaylock before sleeping";
+    wantedBy = [ "pre-sleep.service" ];
+    script = ''
+      swaylock
+    '';
+    serviceConfig.type = "oneshot";
+  };
 }

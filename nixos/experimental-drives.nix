@@ -38,6 +38,10 @@
       content = {
         type = "gpt";
         partitions = {
+          boot = {
+            size = "1M";
+            type = "EF02";
+          };
           ESP = {
             label = "EFI";
             name = "ESP";

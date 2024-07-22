@@ -50,7 +50,6 @@
           ];
 
           graf = [
-            ./nixos/virtualisation.nix
             ./nixos/bluetooth.nix
             ./nixos/common
             ./nixos/impermanence.nix
