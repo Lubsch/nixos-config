@@ -8,7 +8,7 @@
     description = "run swaylock before sleeping";
     wantedBy = [ "pre-sleep.service" ];
     script = ''
-      swaylock
+      ${pkgs.swaylock}/bin/swaylock
     '';
     serviceConfig.type = "oneshot";
   };

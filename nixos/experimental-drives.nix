@@ -15,6 +15,7 @@
   };
 
   config = {
+
     swapDevices = [
       {
         device = "/swap/swapfile";
