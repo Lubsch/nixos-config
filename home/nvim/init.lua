@@ -58,6 +58,7 @@ vim.cmd([[
     nnoremap <leader>p :cprev<cr>
 ]])
 
+require'oil'.setup{}
 
 require 'nvim-surround'.setup{}
 

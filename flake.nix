@@ -37,6 +37,21 @@
         )
         {
 
+          vm = [
+            ./nixos/filetered-common
+            ./nixos/experimental-drives
+            ./nixos/impermanence.nix
+            {
+              filtered-common = [ "drives.nix" ];
+              main-disk = "/dev/vda";
+              swap-size = 32;
+              home-manager.users.lubsch.imports = [
+                ./home/common
+                ./home/nvim
+              ];
+            }
+          ];
+
           graf = [
             ./nixos/bluetooth.nix
             ./nixos/common
@@ -56,7 +71,6 @@
                 ./home/common
                 ./home/desktop-common
                 ./home/hyprland.nix
-                ./home/river.nix
                 ./home/nvim
                 ./home/mail.nix
                 ./home/syncthing.nix

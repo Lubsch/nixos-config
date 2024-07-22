@@ -29,11 +29,9 @@ in
         ripgrep
       ]);
 
-    extraLuaConfig =
-      (lib.readFile ./init.lua)
-      + "\n"
-      # lua
-      + ''
+    extraLuaConfig = # lua
+      ''
+        ${lib.readFile ./init.lua}\n
         -- install all grammars without slowing down startup
         vim.opt.runtimepath:append("${
           pkgs.symlinkJoin {
@@ -46,6 +44,7 @@ in
       '';
 
     plugins = with pkgs.vimPlugins; [
+      oil-nvim
       nvim-surround
       diffview-nvim
       nvim-web-devicons
