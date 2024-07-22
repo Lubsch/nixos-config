@@ -13,7 +13,7 @@
           Service.ExecStart = "${pkgs.writeShellScriptBin "pre-sleep-lock" ''
             ${pkgs.playerctl}/bin/playerctl pause
             ${pkgs.swaylock}/bin/swaylock
-          ''}";
+          ''}/bin/pre-sleep-lock";
         };
       }
     )
