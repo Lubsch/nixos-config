@@ -32,6 +32,5 @@ in
       directory = ".local/share/Paradox Interactive";
       method = "symlink"; # steam requires symlink (doesn't like fuse)
     }
-
   ];
 }

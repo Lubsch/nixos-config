@@ -57,7 +57,6 @@ let
         "$_proto_version" \
         "$PWD" | ${pkgs.socat}/bin/socat -lf /dev/null - UNIX-CONNECT:"$_ipc_socket" "$@" || ${package}/bin/qutebrowser -C ${configFile} "$@" &
   '';
-
 in
 {
   home.sessionVariables.BROWSER = script.name;

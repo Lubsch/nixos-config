@@ -77,7 +77,6 @@ let
           )
       );
     };
-
   };
 
   vimium-overridden = (pkgs.callPackage ../pkgs/vimium { inherit inputs; }).override {
@@ -96,7 +95,6 @@ let
       '';
     };
   };
-
 in
 {
 
@@ -128,5 +126,4 @@ in
     "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.mozilla/native-messaging-hosts"
     "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.cache/firefox" # can be deleted but why not
   ];
-
 }

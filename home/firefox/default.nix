@@ -45,5 +45,4 @@
   # persist.directories = [ 
   #   ".mozilla" 
   # ];
-
 }

@@ -34,5 +34,4 @@
       package = pkgs.adwaita-qt6;
     };
   };
-
 }

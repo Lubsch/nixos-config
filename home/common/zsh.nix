@@ -89,5 +89,4 @@ in
   };
 
   persist.files = [ (lib.removePrefix "${config.home.homeDirectory}/" historyPath) ];
-
 }

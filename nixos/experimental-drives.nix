@@ -15,7 +15,6 @@
   };
 
   config = {
-
     swapDevices = [
       {
         device = "/swap/swapfile";
@@ -33,6 +32,7 @@
         ];
       };
     };
+    disko.devices.disk.main.imageSize = "5G";
     disko.devices.disk.main = {
       type = "disk";
       device = config.main-disk;
@@ -78,5 +78,4 @@
       };
     };
   };
-
 }

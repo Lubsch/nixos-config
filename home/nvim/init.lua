@@ -56,6 +56,7 @@ vim.cmd([[
     "Use quickfix list comfortably
     nnoremap <leader>n :cnext<cr>
     nnoremap <leader>p :cprev<cr>
+    nnoremap <leader><esc> :cclose<cr>
 ]])
 
 require'oil'.setup{}

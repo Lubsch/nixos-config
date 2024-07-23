@@ -51,23 +51,22 @@
 
       # Set user passwords on activation if not yet set
       # Can't use impermanence binds, so saves in /persist if impermanence is on
-      system.activationScripts.user-passwords.text = lib.concatLines (
-        lib.mapAttrsToList (
-          name: _:
-          let
-            file = "/persist/etc/passwords/${name}";
-          in
-          ''
-            if [ ! -f ${file} ]; then
-              mkdir -p "$(dirname ${file})"
-              echo "Set the user password for ${name}"
-              ${pkgs.mkpasswd}/bin/mkpasswd > ${file}
-              chmod 600 ${file}
-            fi
-            usermod ${name} -p "$(cat ${file})"
-          ''
-        ) config.home-manager.users
-      );
-
+      # system.activationScripts.user-passwords.text = lib.concatLines (
+      #   lib.mapAttrsToList (
+      #     name: _:
+      #     let
+      #       file = "/persist/etc/passwords/${name}";
+      #     in
+      #     ''
+      #       if [ ! -f ${file} ]; then
+      #         mkdir -p "$(dirname ${file})"
+      #         echo "Set the user password for ${name}"
+      #         ${pkgs.mkpasswd}/bin/mkpasswd > ${file}
+      #         chmod 600 ${file}
+      #       fi
+      #       usermod ${name} -p "$(cat ${file})"
+      #     ''
+      #   ) config.home-manager.users
+      # );
     };
 }

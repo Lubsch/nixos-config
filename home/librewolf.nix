@@ -79,9 +79,7 @@ let
           )
       );
     };
-
   };
-
 in
 {
 
@@ -113,5 +111,4 @@ in
     "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.librewolf"
     "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.cache/librewolf" # can be deleted but why not
   ];
-
 }

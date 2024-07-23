@@ -24,5 +24,4 @@ in
   };
 
   persist.directories = [ config.services.syncthing.dataDir ];
-
 }

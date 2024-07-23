@@ -8,5 +8,4 @@
   };
 
   home-manager.sharedModules = [ { home.file.".zshenv".enable = false; } ];
-
 }

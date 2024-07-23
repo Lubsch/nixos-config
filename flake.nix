@@ -150,7 +150,6 @@
             ./nixos/wireless.nix
             { main-disk = "/dev/sda"; }
           ];
-
         };
   };
 }

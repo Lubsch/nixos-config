@@ -45,7 +45,6 @@ let
       };
     in
     "${drv}/patched.xpi";
-
 in
 pkg.override {
   fetchurl = fetcher;
