@@ -60,20 +60,15 @@ vim.cmd([[
 ]])
 
 require'oil'.setup{}
-
 require 'nvim-surround'.setup{}
-
 require'Comment'.setup{}
-
 require'nvim-autopairs'.setup{}
-
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
       enable = true,
   },
 }
-
 
 local dap = require'dap'
 dap.adapters.rr = {
@@ -108,7 +103,7 @@ vim.keymap.set('n', '<Leader>ds', function()
   widgets.centered_float(widgets.scopes)
 end)
 
--- Mappings.
+-- lsp mappings.
 -- See `:help vim.lsp.*` for documentation on any of the below functions
 local bufopts = { silent=true, buffer=bufnr }
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
@@ -138,7 +133,6 @@ vim.diagnostic.config{
 }
 
 
-
 local cmp = require'cmp'
 cmp.setup{
     window = {
@@ -158,7 +152,6 @@ cmp.setup{
       { name = 'nvim_lsp' },
     },
 }
-
 
 
 local actions = require'telescope.actions'
@@ -187,7 +180,7 @@ vim.keymap.set('n', '<leader>t', ':Telescope<cr>', opts)
 
 
 
--- color scheme
+-- colorscheme
 require'gruvbox'.setup{ 
     transparent_mode = true,
     italic = {
