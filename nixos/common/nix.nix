@@ -1,8 +1,19 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
 {
 
   # Required for nix command
   environment.systemPackages = [ pkgs.git ];
+
+  system.activationScripts.diff = ''
+    if [[ -e /run/current-system ]]; then
+      ${config.nix.package}/bin/nix store diff-closures /run/current-system "$systemConfig"
+    fi
+  '';
 
   nix = {
     package = pkgs.lix; # for features like showing packages as their path
