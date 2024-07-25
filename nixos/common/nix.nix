@@ -7,7 +7,10 @@
 {
 
   # Required for nix command
-  environment.systemPackages = [ pkgs.git ];
+  environment.systemPackages = with pkgs; [
+    git
+    cntr
+  ];
 
   system.activationScripts.diff = ''
     if [[ -e /run/current-system ]]; then
