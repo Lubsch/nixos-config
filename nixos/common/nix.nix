@@ -6,9 +6,10 @@
 }:
 {
 
-  # Required for nix command
   environment.systemPackages = with pkgs; [
+    # Required for nix command
     git
+    # enter build containers
     cntr
   ];
 
