@@ -12,22 +12,6 @@
   #home.sessionVariables.EDITOR = "helix";
   programs.helix = {
     enable = true;
-    languages.language = [
-      {
-        name = "typst";
-        scope = "source.typst";
-        injection-regex = "typst";
-        comment-token = "//";
-        file-types = [ "typ" ];
-        indent = {
-          tab-width = 2;
-          unit = " ";
-        };
-        language-server = {
-          command = "typst-lsp";
-        };
-      }
-    ];
     settings = (
       builtins.fromTOML ''
         theme = "gruvbox"
