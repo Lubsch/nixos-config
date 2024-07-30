@@ -22,7 +22,7 @@ vim.cmd([[
     nnoremap <silent> <esc> :noh<CR><esc>
 
     "Relative line numbers
-    set number relativenumber numberwidth=1
+    set number relativenumber numberwidth=2
     "Always show debug sign column
     set signcolumn=yes
     "Color signcolumn correctly
