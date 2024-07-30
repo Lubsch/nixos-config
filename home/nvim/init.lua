@@ -94,7 +94,6 @@ require'lspconfig'.cadence.setup{}
 require'lspconfig'.cairo_ls.setup{}
 require'lspconfig'.ccls.setup{}
 require'lspconfig'.cds_lsp.setup{}
-require'lspconfig'.circom-lsp.setup{}
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.clarity_lsp.setup{}
 require'lspconfig'.clojure_lsp.setup{}
