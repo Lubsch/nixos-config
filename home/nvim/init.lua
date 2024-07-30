@@ -22,7 +22,9 @@ vim.cmd([[
     nnoremap <silent> <esc> :noh<CR><esc>
 
     "Relative line numbers
-    set number relativenumber numberwidth=2
+    set number relativenumber
+    "Assume 10 or more lines, expand only at 100, 1000...
+    set numberwidth=3
     "Always show debug sign column
     set signcolumn=yes
     "Color signcolumn correctly
