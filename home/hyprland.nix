@@ -29,7 +29,7 @@
       bind = $mainMod, V, exec, ${config.home.sessionVariables.LAUNCHER}
       bind = $mainMod, W, exec, ${config.home.sessionVariables.BROWSER}
 
-      bind = $mainMod, R, exec, ${config.home.sessionVariables.TERMINAL} zsh -ic "echo re >> $HISTFILE; re; zsh -i"
+      bind = $mainMod, R, exec, ${config.home.sessionVariables.TERMINAL} zsh -ic "echo re >> "$HISTFILE" ; re; zsh -i"
 
       bind = $mainMod, I, exec, cd ~/documents/wiki; xdg-open ~/documents/wiki/Agenda.md
 
