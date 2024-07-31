@@ -21,6 +21,9 @@
         resize-delay-ms = "0";
         pad = "1x1";
       };
+      key-bindings = {
+        pipe-command-output = "[wl-copy] Super+O";
+      };
       colors =
         {
           inherit (config.colors) background foreground alpha;
