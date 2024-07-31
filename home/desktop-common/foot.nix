@@ -23,8 +23,8 @@
       };
       key-bindings = {
         pipe-command-output = "[wl-copy] Control+o";
-        scrollback-up-half-page = "Control+k";
-        scrollback-down-half-page = "Control+j";
+        scrollback-up-half-page = "Control+d";
+        scrollback-down-half-page = "Control+u";
       };
       colors =
         {
