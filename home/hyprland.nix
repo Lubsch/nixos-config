@@ -48,8 +48,11 @@
       bind = ,Xf86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous
       bind = ,Xf86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next
 
-      bind = $mainMod SHIFT, E, exit,
+      # because the layout doesn't do what i like :/
+      bind = $mainMod, D, swapnext prev,
       bind = $mainMod, D, killactive,
+
+      bind = $mainMod SHIFT, E, exit,
       bind = $mainMod, T, togglefloating,
       bind = $mainMod, S, layoutmsg, swapwithmaster
       bind = $mainMod, F, fullscreen, 1
