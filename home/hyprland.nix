@@ -49,7 +49,7 @@
       bind = ,Xf86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next
 
       # because the layout doesn't do what i like :/
-      bind = $mainMod, D, swapnext prev,
+      bind = $mainMod, D, swapnext, prev
       bind = $mainMod, D, killactive,
 
       bind = $mainMod SHIFT, E, exit,
