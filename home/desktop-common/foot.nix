@@ -22,7 +22,9 @@
         pad = "1x1";
       };
       key-bindings = {
-        pipe-command-output = "[wl-copy] Super+O";
+        pipe-command-output = "[wl-copy] Alt+o";
+        scrollback-up-half-page = "Alt+d";
+        scrollback-down-half-page = "Alt+u";
       };
       colors =
         {
