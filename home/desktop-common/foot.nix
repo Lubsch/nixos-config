@@ -23,8 +23,9 @@
       };
       key-bindings = {
         pipe-command-output = "[wl-copy] Control+o";
-        scrollback-down-half-page = "Control+d";
-        scrollback-up-half-page = "Control+u";
+        scrollback-down-half-page = "Control+j";
+        scrollback-up-half-page = "Control+k";
+        spawn-terminal = "Control+n";
       };
       colors =
         {
