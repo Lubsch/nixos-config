@@ -27,6 +27,7 @@
         scrollback-up-half-page = "Control+k";
         spawn-terminal = "Control+n";
       };
+      scrollback.lines = 50000;
       colors =
         {
           inherit (config.colors) background foreground alpha;

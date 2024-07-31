@@ -86,6 +86,7 @@ in
       autoload edit-command-line; zle -N edit-command-line
       bindkey '^e' edit-command-line
 
+      # tell terminal PWD to create new windows in PWD
       function osc7-pwd() {
         emulate -L zsh # also sets localoptions for us
         setopt extendedglob
@@ -97,6 +98,17 @@ in
           (( ZSH_SUBSHELL )) || osc7-pwd
       }
       add-zsh-hook -Uz chpwd chpwd-osc7-pwd
+
+      # tell terminal where command output starts and ends to copy it
+      function precmd {
+          if ! builtin zle; then
+              print -n "\e]133;D\e\\"
+          fi
+      }
+
+      function preexec {
+          print -n "\e]133;C\e\\"
+      }
     '';
   };
 
