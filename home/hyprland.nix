@@ -51,7 +51,7 @@
       # because the layout doesn't do what i like :/
       bind = $mainMod, D, swapnext, prev
       bind = $mainMod, D, killactive,
-      bind = $mainMod, D, layoutmsg, foc
+      bind = $mainMod, D, layoutmsg, focusmaster
 
       bind = $mainMod SHIFT, E, exit,
       bind = $mainMod, T, togglefloating,
