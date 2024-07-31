@@ -37,10 +37,10 @@
       c.flake.outPath = ../..;
     };
 
-    gc = {
-      automatic = true;
-      dates = "weekly";
-    };
+    # gc = {
+    #   automatic = true;
+    #   dates = "weekly";
+    # };
   };
 
   nixpkgs.config.enableParallelBuilding = true;
