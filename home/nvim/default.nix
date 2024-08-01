@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  inputs,
+  pkgs,
+  ...
+}:
 let
   # Mapping between "<name in lspconfig> = <package in pkgs>;"
   servers = with pkgs; {
@@ -15,6 +20,7 @@ let
     nixd = nixd;
     clangd = clang-tools;
     jdtls = writeShellScriptBin "jdtls" "${jdt-language-server}/bin/jdt-language-server $*";
+    roc_ls = inputs.roc-lang.packages.${pkgs.system}.full;
   };
 in
 {

@@ -22,7 +22,7 @@
         pad = "1x1";
       };
       key-bindings = {
-        pipe-command-output = "[wl-copy] Control+o";
+        pipe-command-output = "[wl-copy] Control+Shift+o";
         scrollback-down-half-page = "Control+j";
         scrollback-up-half-page = "Control+k";
         spawn-terminal = "Control+n";
