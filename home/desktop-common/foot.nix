@@ -22,7 +22,7 @@
         pad = "1x1";
       };
       key-bindings = {
-        pipe-command-output = "[${config.home.sessionVariables.EDITOR}] Control+o";
+        pipe-command-output = "[wl-copy] Control+o";
         scrollback-down-half-page = "Control+j";
         scrollback-up-half-page = "Control+k";
         spawn-terminal = "Control+n";
