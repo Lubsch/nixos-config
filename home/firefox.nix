@@ -84,6 +84,10 @@ let
       smoothScroll = false;
       keyMappings = ''
         map s passNextKey
+        unmap <<
+        unmap >>
+        map < moveTabLeft
+        map > moveTabRight
       '';
       searchUrl = "https://duckduckgo.com/?q=";
       exclusionRules = [ "https?://typst.app/project/*" ];
