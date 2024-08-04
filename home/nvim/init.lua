@@ -125,10 +125,6 @@ for _, bracket in pairs(brackets) do
   }
 end
 
-require'nvim-autopairs'.setup{
-    enable_bracket_in_
-}
-
 require'nvim-treesitter.configs'.setup {
   highlight = {
       enable = true,
