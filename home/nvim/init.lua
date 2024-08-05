@@ -1,8 +1,4 @@
 vim.loader.enable()
-
-
-
-
 vim.cmd([[
     " Remap leader key
     nmap <Space> <leader>
