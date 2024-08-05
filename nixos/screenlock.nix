@@ -1,5 +1,5 @@
 {
-  services.logind.lidSwitch = "suspend-then-hibernate";
+  services.logind.lidSwitch = "suspend";
 
   security.pam.services.swaylock = { };
   home-manager.sharedModules = [

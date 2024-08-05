@@ -1,6 +1,6 @@
 import os
 import subprocess
-import json
+# import json
 
 # suppress python exception output
 try:
@@ -8,8 +8,8 @@ try:
     subprocess.run(["nixfmt", "."])
     subprocess.run(["git", "add", "."])
 
-    nix_cmd = ["nix", "eval", "--json", ".#nixosConfigurations", "--apply", "builtins.attrNames"]
-    systems = json.loads(subprocess.check_output(nix_cmd))
+    # nix_cmd = ["nix", "eval", "--json", ".#nixosConfigurations", "--apply", "builtins.attrNames"]
+    # systems = json.loads(subprocess.check_output(nix_cmd))
     # TODO
     # for system in systems:
 
