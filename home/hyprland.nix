@@ -127,7 +127,7 @@
           gaps_out = 0
           border_size = 1
           col.active_border = rgb(${config.colors.foreground})
-          col.inactive_border = rgb(282828)
+          col.inactive_border = rgb(242424)
 
           layout = master
       }
