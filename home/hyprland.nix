@@ -126,7 +126,7 @@
       general {
           gaps_in = 0
           gaps_out = 0
-          border_size = 1
+          border_size = 0.5
           col.active_border = rgb(${config.colors.foreground})
           col.inactive_border = rgb(101010)
 
