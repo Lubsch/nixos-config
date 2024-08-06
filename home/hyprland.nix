@@ -87,6 +87,7 @@
             s = builtins.toString n;
           in
           ''
+            workspace = ${s}, persistent:true
             bind = $mainMod, ${s}, workspace, ${s}
             bind = $mainMod SHIFT, ${s}, movetoworkspacesilent, ${s}
           ''
