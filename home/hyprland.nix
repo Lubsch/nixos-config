@@ -11,6 +11,7 @@
 
     extraConfig = ''
       monitor = ,preferred,auto,auto
+      exec-once = waybar
       exec-once = ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       exec-once = foot --server
       exec-once = [workspace special:keepass silent] kp
