@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    hyprpicker # color picker
+    hyprshot # screenshots
     loupe # gnome image viewer
     # gimp
     # libreoffice

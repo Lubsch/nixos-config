@@ -167,8 +167,6 @@
 
       gestures {
           workspace_swipe = true
-          # skip empty workspaces
-          workspace_swipe_use_r = true
       }
 
       # float windows with class float
