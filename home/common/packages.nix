@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     # TODO uncomment when not broken
     # visidata # data viewer in sheets
+    entr # file watcher, eg: echo .config/waybar/config | entr -r waybar
     prefetch-npm-deps # for updating npm projects
     wireguard-tools # wg-quick for vpns
     qemu # emualator
