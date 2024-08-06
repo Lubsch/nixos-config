@@ -1,6 +1,6 @@
 {
   programs.waybar.enable = true;
-  xdg.configFile."waybar/config.jsonc".text = # jsonc
+  xdg.configFile."waybar/config".text = # jsonc
     ''
       // -*- mode: jsonc -*-
       {
