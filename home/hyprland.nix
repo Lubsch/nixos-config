@@ -161,7 +161,7 @@
         new_on_top = true
         new_on_active = none
         inherit_fullscreen = false
-        # no_gaps_when_only = true
+        no_gaps_when_only = true
         orientation = right
       }
 
