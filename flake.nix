@@ -68,7 +68,7 @@
               main-disk = "/dev/nvme0n1";
               swap-size = 32;
               home-manager.users.lubsch.imports = [
-                # ./home/waybar.nix
+                ./home/waybar.nix
                 ./home/common
                 ./home/desktop-common
                 ./home/hyprland.nix
