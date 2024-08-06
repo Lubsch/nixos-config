@@ -98,29 +98,29 @@
           //         "deactivated": ""
           //     }
           // },
-          "tray": {
-              // "icon-size": 21,
-              "spacing": 10
-          },
+          // "tray": {
+          //     // "icon-size": 21,
+          //     "spacing": 10
+          // },
           "clock": {
               // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-              "format-alt": "{:%Y-%m-%d %H:%M}"
+              "format": "{:%Y-%m-%d  %H:%M}"
           },
-          "cpu": {
-              "format": "{usage}% ",
-              "tooltip": false
-          },
-          "memory": {
-              "format": "{}% "
-          },
-          "temperature": {
-              // "thermal-zone": 2,
-              // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-              "critical-threshold": 80,
-              // "format-critical": "{temperatureC}°C {icon}",
-              "format": "{temperatureC}°C {icon}",
-              "format-icons": ["", "", ""]
-          },
+          // "cpu": {
+          //     "format": "{usage}% ",
+          //     "tooltip": false
+          // },
+          // "memory": {
+          //     "format": "{}% "
+          // },
+          // "temperature": {
+          //     // "thermal-zone": 2,
+          //     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+          //     "critical-threshold": 80,
+          //     // "format-critical": "{temperatureC}°C {icon}",
+          //     "format": "{temperatureC}°C {icon}",
+          //     "format-icons": ["", "", ""]
+          // },
           // "backlight": {
           //     // "device": "acpi_video1",
           //     "format": "{percent}% {icon}",
