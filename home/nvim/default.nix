@@ -52,7 +52,7 @@ in
     plugins = with pkgs.vimPlugins; [
       oil-nvim
       nvim-surround
-      # neogit
+      neogit
       diffview-nvim
       nvim-web-devicons
       comment-nvim
