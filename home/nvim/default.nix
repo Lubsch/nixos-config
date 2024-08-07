@@ -66,6 +66,7 @@ in
       telescope-nvim
       telescope-fzf-native-nvim
       nvim-dap
+      nvim-treesitter-context
       (nvim-treesitter.withPlugins (p: [
         p.c
         p.lua
