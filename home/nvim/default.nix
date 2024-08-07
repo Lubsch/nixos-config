@@ -28,12 +28,7 @@ in
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    extraPackages =
-      lib.attrValues servers
-      ++ (with pkgs; [
-        fd
-        ripgrep
-      ]);
+    extraPackages = lib.attrValues servers ++ (with pkgs; [ ripgrep ]);
 
     extraLuaConfig = # lua
       ''
@@ -54,8 +49,7 @@ in
       nvim-surround
       diffview-nvim
       nvim-web-devicons
-      vim-startuptime
-      typst-vim
+      # typst-vim
       comment-nvim
       nvim-autopairs
       nvim-lspconfig
@@ -64,9 +58,7 @@ in
       cmp-path
       gruvbox-nvim
       telescope-nvim
-      telescope-fzf-native-nvim
       nvim-dap
-      nvim-treesitter-context
       (nvim-treesitter.withPlugins (p: [
         p.c
         p.lua
