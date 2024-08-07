@@ -19,7 +19,7 @@ let
     typst_lsp = typst-lsp;
     nixd = nixd;
     clangd = clang-tools;
-    jdtls = writeShellScriptBin "jdtls" "${jdt-language-server}/bin/jdt-language-server $*";
+    jdtls = writeShellScriptBin "jdtls" "${jdt-language-server}/bin/jdt-language-server \"$@\"";
     roc_ls = inputs.roc-lang.packages.${pkgs.system}.full;
   };
 in
@@ -28,7 +28,12 @@ in
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    extraPackages = lib.attrValues servers ++ (with pkgs; [ ripgrep ]);
+    extraPackages =
+      lib.attrValues servers
+      ++ (with pkgs; [
+        fd
+        ripgrep
+      ]);
 
     extraLuaConfig = # lua
       ''
@@ -47,9 +52,9 @@ in
     plugins = with pkgs.vimPlugins; [
       oil-nvim
       nvim-surround
+      # neogit
       diffview-nvim
       nvim-web-devicons
-      # typst-vim
       comment-nvim
       nvim-autopairs
       nvim-lspconfig
