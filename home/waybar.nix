@@ -3,6 +3,7 @@
   programs.waybar = {
     enable = true;
     settings = lib.mkForce { };
+    style = null;
   };
   xdg.configFile."waybar/config".text = # jsonc
     ''
