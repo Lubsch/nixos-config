@@ -62,6 +62,7 @@ vim.cmd([[
 
 require'oil'.setup{}
 require'Comment'.setup{}
+require'neogit'.setup{}
 
 require'nvim-surround'.setup{
     keymaps = {
