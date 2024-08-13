@@ -153,7 +153,7 @@
       // -*- mode: jsonc -*-
       {
           // "layer": "top", // Waybar at top layer
-          "position": "bottom", // Waybar position (top|bottom|left|right)
+          "position": "left", // Waybar position (top|bottom|left|right)
           // "spacing": 4, // Gaps between modules (4px)
           // Choose the order of the modules
           "modules-left": [
