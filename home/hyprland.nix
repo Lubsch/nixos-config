@@ -134,6 +134,10 @@
           layout = master
       }
 
+      xwayland {
+        force_zero_scaling = true
+      }
+
       misc {
         vrr = 2
         disable_hyprland_logo = true
