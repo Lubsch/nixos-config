@@ -33,6 +33,7 @@ in {
     '';
 
     plugins = with pkgs.vimPlugins; [
+      vim-better-whitespace
       diffview-nvim
       vim-startuptime
       typst-vim
@@ -51,7 +52,7 @@ in {
   };
 
   # persist log, shada, swap and undo (could require manual cleanup)
-  persist.directories = [ 
-    ".local/state/nvim" 
+  persist.directories = [
+    ".local/state/nvim"
   ];
 }

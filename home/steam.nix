@@ -1,10 +1,10 @@
-{ lib, pkgs, config, ... }: 
+{ lib, pkgs, config, ... }:
 let
   steamHome = "${config.xdg.dataHome}/steamHome";
 in {
 
   # Set its own home dir and add proton-ge
-  home.packages = [ 
+  home.packages = [
     (pkgs.steam.override {
       extraEnv = {
         HOME = steamHome;
@@ -14,8 +14,8 @@ in {
     })
   ];
 
-  persist.directories = [ 
-    { 
+  persist.directories = [
+    {
       directory = lib.removePrefix "${config.home.homeDirectory}/" steamHome;
       method = "symlink"; # steam requires symlink (doesn't like fuse)
     }
