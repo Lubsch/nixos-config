@@ -26,5 +26,7 @@
   environment.systemPackages = [ pkgs.dconf-editor ];
   programs.dconf.enable = true;
 
+  programs.nm-applet.enable = true;
+
   fonts.enableDefaultPackages = true;
 }
