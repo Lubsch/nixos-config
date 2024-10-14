@@ -1,8 +1,6 @@
-{ pkgs, ... }:
 {
   networking.wireless.enable = false;
   networking.networkmanager.enable = true;
-  networking.networkmanager.plugins = [ pkgs.gnome.networkmanager-openconnect ];
 
   # see nixos/users.nix where network group is added
 
