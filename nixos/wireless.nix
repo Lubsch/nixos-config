@@ -1,7 +1,12 @@
+{ config, ... }:
 {
   networking.wireless.enable = false;
   networking.networkmanager.enable = true;
   programs.nm-applet.enable = true;
+
+  users.users = builtins.mapAttrs (_: _: {
+    extraGroups = [ "networkmanager" ];
+  }) config.home-manager.users;
 
   # see nixos/users.nix where network group is added
 
