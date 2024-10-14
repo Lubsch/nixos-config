@@ -1,6 +1,7 @@
 {
   networking.wireless.enable = false;
   networking.networkmanager.enable = true;
+  programs.nm-applet.enable = true;
 
   # see nixos/users.nix where network group is added
 
