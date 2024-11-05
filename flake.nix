@@ -14,10 +14,10 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    roc-lang = {
-      url = "github:roc-lang/roc";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # roc-lang = {
+    #   url = "github:roc-lang/roc";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
