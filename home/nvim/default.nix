@@ -7,7 +7,7 @@
 let
   # Mapping between "<name in lspconfig> = <package in pkgs>;"
   servers = with pkgs; {
-    tsserver = nodePackages.typescript-language-server;
+    ts_ls = nodePackages.typescript-language-server;
     marksman = marksman;
     gopls = gopls;
     ocamllsp = ocamlPackages.ocaml-lsp;
