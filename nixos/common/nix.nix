@@ -32,14 +32,14 @@
 
     settings = {
       trusted-users = [ "@wheel" ];
-      # substituters = [
-      #   "https://buddy.mtv.tu-berlin.de/nix-cache"
-      #   "https://mockingbird.mtv.tu-berlin.de/nix-cache"
-      # ];
-      # trusted-public-keys = [
-      #   "buddy.mtv.tu-berlin.de:sAU8vPixv/kTzVRiNHpJbSpXHefs3tXCnxKtqzkItZw="
-      #   "mockingbird.mtv.tu-berlin.de-1:baCbaUbG7PKcHaawcBSmR7TTeClKlhKEAs5R3EpRwrM="
-      # ];
+      substituters = [
+        "https://buddy.mtv.tu-berlin.de/nix-cache"
+        "https://mockingbird.mtv.tu-berlin.de/nix-cache"
+      ];
+      trusted-public-keys = [
+        "buddy.mtv.tu-berlin.de:sAU8vPixv/kTzVRiNHpJbSpXHefs3tXCnxKtqzkItZw="
+        "mockingbird.mtv.tu-berlin.de-1:baCbaUbG7PKcHaawcBSmR7TTeClKlhKEAs5R3EpRwrM="
+      ];
     };
 
     registry = {
