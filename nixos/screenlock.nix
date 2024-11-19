@@ -2,6 +2,7 @@
   services.logind.lidSwitch = "suspend";
 
   security.pam.services.swaylock = { };
+  security.pam.services.waylock = { };
   home-manager.sharedModules = [
     (
       { pkgs, ... }:
