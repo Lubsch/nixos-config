@@ -12,9 +12,13 @@ let
     ;
     @   IN  NS  ns1.lubsch.me.
     @   IN  NS  ns2.lubsch.me.
-    *   IN  A   127.0.0.1
-    ns1 IN  A   127.0.0.1
-    ns2 IN  A   127.0.0.1
+
+    ns1   IN  A   127.0.0.1
+    ns2   IN  A   127.0.0.1
+
+    @     IN  A   127.0.0.1
+    www   IN  A   127.0.0.1
+    test  IN  A   127.0.0.1
   '';
 in
 {
