@@ -11,7 +11,7 @@
 
       zone:
         - domain: lubsch.de
-          storage: /var/lib/knot/zones/
+          # storage: /var/lib/knot/zones/
           # file: lubsch.de.zone
 
       log:
