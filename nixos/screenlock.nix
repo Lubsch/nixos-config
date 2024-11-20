@@ -45,6 +45,7 @@
           in
           {
             enable = true;
+            extraArgs = [ "-w" ]; # wait for command to finish
             events = [
               {
                 event = "before-sleep";
