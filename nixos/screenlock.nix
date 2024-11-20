@@ -9,6 +9,9 @@
       { pkgs, ... }:
       {
         home.packages = [ pkgs.swaylock ];
+        programs.hyprlock = {
+          enable = true;
+        };
         services.swayidle =
           let
             command = "${pkgs.writeShellScriptBin "lock" ''
