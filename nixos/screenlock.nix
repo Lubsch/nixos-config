@@ -40,9 +40,7 @@
         };
         services.swayidle =
           let
-            command = "${pkgs.writeShellScriptBin "lock" ''
-              ${pkgs.swaylock}/bin/swaylock
-            ''}/bin/lock";
+            command = "${pkgs.hyprlock}/bin/hyprlock";
           in
           {
             enable = true;
