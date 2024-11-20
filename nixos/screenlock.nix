@@ -13,9 +13,15 @@
           enable = true;
           settings = {
 
+            general = {
+              hide_cursor = true;
+              no_fade_in = true;
+              immediate_render = true;
+            };
+
             background = [
               {
-                path = "screenshot";
+                path = "~/pictures/wallpapers/current";
                 blur_passes = 3;
                 blur_size = 8;
               }
@@ -45,7 +51,6 @@
           in
           {
             enable = true;
-            extraArgs = [ "-w" ]; # wait for command to finish
             events = [
               {
                 event = "before-sleep";
