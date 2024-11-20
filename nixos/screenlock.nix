@@ -3,6 +3,7 @@
 
   security.pam.services.swaylock = { };
   security.pam.services.waylock = { };
+  security.pam.services.hyprlock = { };
   home-manager.sharedModules = [
     (
       { pkgs, ... }:
