@@ -67,9 +67,6 @@
               ./nixos/screenlock.nix
               ./nixos/fingerprint.nix
               {
-                networking.networkmanager.insertNameservers = [
-                  "130.149.110.209"
-                ];
                 programs.ydotool.enable = true;
                 main-disk = "/dev/nvme0n1";
                 swap-size = 32;
