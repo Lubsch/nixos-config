@@ -68,7 +68,7 @@
               ./nixos/fingerprint.nix
               {
                 networking.networkmanager.insertNameservers = [
-                  "proofbuddy.tu-berlin.de"
+                  "130.149.110.209"
                 ];
                 programs.ydotool.enable = true;
                 main-disk = "/dev/nvme0n1";
