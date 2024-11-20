@@ -86,18 +86,8 @@
         #temperature,
         #backlight,
         #network,
-        #pulseaudio,
-        #wireplumber,
-        #custom-media,
-        #tray,
         #mode,
-        #idle_inhibitor,
         #scratchpad,
-        #power-profiles-daemon,
-        #mpd {
-            padding: 0 10px;
-            color: #ffffff;
-        }
 
         #window,
         #workspaces {
@@ -138,7 +128,7 @@
         /* Using steps() instead of linear as a timing function to limit cpu usage */
         #battery.critical:not(.charging) {
             background-color: #f53c3c;
-            color: #ffffff;
+            color: #ebdbb2;
             /* animation-name: blink; */
             /* animation-duration: 0.5s; */
             /* animation-timing-function: steps(12); */
