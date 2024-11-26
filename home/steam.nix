@@ -1,8 +1,8 @@
 { lib, pkgs, config, ... }:
 let
   steamHome = "${config.xdg.dataHome}/steamHome";
-in {
-
+in
+{
   # Set its own home dir and add proton-ge
   home.packages = [
     (pkgs.steam.override {
@@ -23,6 +23,5 @@ in {
       directory = ".local/share/Paradox Interactive";
       method = "symlink"; # steam requires symlink (doesn't like fuse)
     }
-    
   ];
 }

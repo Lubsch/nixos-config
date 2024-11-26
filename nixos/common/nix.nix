@@ -1,4 +1,10 @@
-{ pkgs, inputs, ... }: {
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
+{
 
   # Required for nix command
   environment.systemPackages = [ pkgs.git ];
@@ -26,7 +32,12 @@
   };
 
   nixpkgs.config = {
-    allowUnfree = true; 
     enableParallelBuilding = true;
+    allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "steam"
+      "steam-original"
+    ];
   };
 }
