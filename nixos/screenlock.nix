@@ -6,12 +6,10 @@
     (
       { pkgs, ... }:
       {
-        home.packages = [ pkgs.swaylock ];
+        home.packages = [ pkgs.hyprlock ];
         services.swayidle =
           let
-            command = "${pkgs.writeShellScriptBin "lock" ''
-              ${pkgs.swaylock}/bin/swaylock
-            ''}/bin/lock";
+            command = "${pkgs.swaylock}/bin/hyprlock";
           in
           {
             enable = true;

@@ -1,4 +1,5 @@
-{ pkgs, ... }:
+# NOTE re-add hplip when printer needs to be rediscovered or it's not working
+# { pkgs, ... }:
 {
 
   services.printing = {
