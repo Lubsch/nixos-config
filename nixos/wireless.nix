@@ -14,4 +14,8 @@
   # anonymous-identity: wlan@<domain>
   # MSCHAPv2
   # username: <name>@<domain>
+
+  persist.directories = [
+    "/var/lib/iwd"
+  ];
 }
