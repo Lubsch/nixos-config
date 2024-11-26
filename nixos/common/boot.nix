@@ -8,7 +8,7 @@
   environment.etc.issue.text = "";
 
   # Remove (unnecessary, I hope) delay from waiting on network
-  systemd.targets.network-online.wantedBy = lib.mkForce [ ];
+  systemd.targets.network-online.enable = lib.mkForce false;
 
   # Prevent long wait times for network
   networking.dhcpcd.wait = "background";
