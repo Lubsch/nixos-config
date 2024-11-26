@@ -5,6 +5,9 @@
     system.stateVersion = "23.05";
     time.timeZone = "Europe/Berlin";
 
+    # unnecessary large dependency
+    services.speechd.enable = false;
+
     persist.directories = [
       "/var/lib/systemd/coredump"
       "/var/log"
