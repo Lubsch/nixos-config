@@ -14,6 +14,9 @@ let
   # install extensions using policies
   package = pkgs.wrapFirefox pkgs.firefox-devedition-unwrapped {
 
+    # pulls in large dependency (speechd)
+    cfg.speechSynthesisSupport = false;
+
     # about:config defaults
     extraPrefs = lib.concatStrings (
       lib.mapAttrsToList
