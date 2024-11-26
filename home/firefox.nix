@@ -122,7 +122,6 @@ in
   ];
 
   systemd.user.tmpfiles.rules = [
-    # keepassxc expects firefox, so create symlink
     "d ${BROWSERHOME}/.mozilla/native-messaging-hosts 700"
     # make dconf settings also apply to firefox
     "L ${BROWSERHOME}/.config/dconf - - - - ${config.xdg.configHome}/dconf"

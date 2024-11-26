@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     # TODO uncomment when not broken
     # visidata # data viewer in sheets
+    nix-inspect # browse nix attrsets like ncdu
     dig # dns debugging
     entr # file watcher: echo <FILE> | entr -r <PROGRAM>
     prefetch-npm-deps # for updating npm projects
