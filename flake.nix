@@ -14,10 +14,10 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # roc-lang = {
-    #   url = "github:roc-lang/roc";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    roc-lang = {
+      url = "github:roc-lang/roc";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: {
@@ -50,6 +50,7 @@
             ./nixos/wireshark.nix
             ./nixos/printing.nix
             ./nixos/screenlock.nix
+            ./nixos/fingerprint.nix
             {
               main-disk = "/dev/nvme0n1";
               swap-size = 32;
@@ -62,7 +63,39 @@
                 ./home/syncthing.nix
                 ./home/keepassxc.nix
                 ./home/librewolf.nix
-                ./home/gpg.nix
+                ./home/firefox.nix
+                # ./home/gpg.nix
+                ./home/waybar.nix
+              ];
+            }
+          ];
+
+          raja = [
+            ./nixos/common
+            ./nixos/impermanence.nix
+            ./nixos/wireless.nix
+            ./nixos/printing.nix
+            ./nixos/desktop.nix
+            ./nixos/bluetooth.nix
+            ./nixos/screenlock.nix
+            ./nixos/printing.nix
+            # ./nixos/droidcam.nix
+            ./nixos/wireguard.nix
+            {
+              main-disk = "/dev/nvme0n1";
+              swap-size = 16;
+              home-manager.users."lubsch".imports = [
+                ./home/common
+                ./home/desktop-common
+                ./home/hyprland.nix
+                ./home/nvim
+                ./home/steam.nix
+                ./home/mail.nix
+                ./home/syncthing.nix
+                ./home/keepassxc.nix
+                ./home/firefox.nix
+                # ./home/gpg.nix
+                ./home/waybar.nix
               ];
             }
           ];
@@ -93,45 +126,13 @@
             }
           ];
 
-          raja = [
+          serf = [
             ./nixos/common
             ./nixos/impermanence.nix
+            ./nixos/backups.nix
             ./nixos/wireless.nix
-            ./nixos/printing.nix
-            ./nixos/desktop.nix
-            ./nixos/bluetooth.nix
-            ./nixos/screenlock.nix
-            ./nixos/printing.nix
-            # ./nixos/droidcam.nix
-            ./nixos/wireguard.nix
-            {
-              main-disk = "/dev/nvme0n1";
-              swap-size = 16;
-              home-manager.users."lubsch".imports = [
-                ./home/common
-                ./home/desktop-common
-                ./home/hyprland.nix
-                ./home/nvim
-                ./home/steam.nix
-                ./home/mail.nix
-                ./home/syncthing.nix
-                ./home/keepassxc.nix
-                ./home/librewolf.nix
-                # ./home/waybar.nix
-                ./home/gpg.nix
-              ];
-            }
+            { main-disk = "/dev/sda"; }
           ];
-
-        serf = [
-          ./nixos/common
-          ./nixos/impermanence.nix
-          ./nixos/backups.nix
-          ./nixos/wireless.nix
-          {
-            main-disk = "/dev/sda";
-          }
-        ];
-    };
+        };
   };
 }
