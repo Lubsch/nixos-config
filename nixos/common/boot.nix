@@ -9,6 +9,10 @@
 
   # Remove (unnecessary, I hope) delay from waiting on network
   systemd.targets.network-online.wantedBy = lib.mkForce [ ];
+
+  # Prevent long wait times for network
+  networking.dhcpcd.wait = "background";
+
   # Don't flush journals from volataile storage which are impermanent anyway
   # see https://www.freedesktop.org/software/systemd/man/latest/journald.conf.html
   systemd.services.systemd-journal-flush.enable = false;
