@@ -9,5 +9,8 @@
       "/var/lib/systemd/coredump"
       "/var/log"
     ];
+    persist.files = [
+      "/etc/machine-id" # required for journal persistence
+    ];
   };
 }

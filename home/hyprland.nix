@@ -18,6 +18,8 @@
       # firefox `browser.sessionrestore.resume_from_crash` to false
       workspace = special:music, on-created-empty: ${config.home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/home?l=en
       workspace = special:qalc, on-created-empty: ${config.home.sessionVariables.TERMINAL} zsh -ic "qalc"
+      # replaces no_gaps_when_only
+      workspace = w[t1], gapsin:0, gapsout:0, border:0
 
 
       # Some default env vars.
@@ -151,7 +153,9 @@
             enabled = true
             size = 3
           }
-          drop_shadow = false
+          shadow {
+            enabled = false
+          }
           # shadow_range = 4
           # shadow_render_power = 3
           # col.shadow = rgba(1a1a1aee)
@@ -166,7 +170,6 @@
         new_on_top = true
         new_on_active = none
         inherit_fullscreen = false
-        no_gaps_when_only = true
         orientation = right
       }
 

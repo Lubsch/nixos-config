@@ -56,7 +56,7 @@
             ];
 
             graf = [
-              ./nixos/dns.nix
+              # ./nixos/dns.nix
               ./nixos/bluetooth.nix
               ./nixos/common
               ./nixos/impermanence.nix

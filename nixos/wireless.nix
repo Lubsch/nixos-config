@@ -2,7 +2,7 @@
 {
   networking.wireless.enable = false;
   networking.networkmanager.enable = true;
-  programs.nm-applet.enable = true;
+  # programs.nm-applet.enable = true;
 
   users.users = builtins.mapAttrs (_: _: {
     extraGroups = [ "networkmanager" ];
