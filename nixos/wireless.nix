@@ -1,6 +1,6 @@
 {
-  networking.wireless.enable = false;
-  networking.networkmanager.enable = true;
+  networking.wireless.iwd.enable = false;
+  # networking.networkmanager.enable = true;
 
   # see nixos/users.nix where network group is added
 

@@ -8,6 +8,7 @@
     persist.directories = [
       "/var/lib/systemd/coredump"
       "/var/log"
+      "/var/lib/nixos" # preserve uids/guids
     ];
   };
 }
