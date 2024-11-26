@@ -151,7 +151,9 @@
             enabled = true
             size = 3
           }
-          drop_shadow = false
+          shadow {
+            enabled = false
+          }
           # shadow_range = 4
           # shadow_render_power = 3
           # col.shadow = rgba(1a1a1aee)
@@ -166,7 +168,6 @@
         new_on_top = true
         new_on_active = none
         inherit_fullscreen = false
-        no_gaps_when_only = true
         orientation = right
       }
 
@@ -176,6 +177,14 @@
 
       # float windows with class float
       windowrule = float, float
+
+      # replicate no_gaps_when_only
+      workspace = w[tv1], gapsout:0, gapsin:0
+      workspace = f[1], gapsout:0, gapsin:0
+      windowrulev2 = bordersize 0, floating:0, onworkspace:w[tv1]
+      windowrulev2 = rounding 0, floating:0, onworkspace:w[tv1]
+      windowrulev2 = bordersize 0, floating:0, onworkspace:f[1]
+      windowrulev2 = rounding 0, floating:0, onworkspace:f[1]
     '';
   };
 

@@ -20,7 +20,7 @@ let
     nixd = nixd;
     clangd = clang-tools;
     jdtls = writeShellScriptBin "jdtls" "${jdt-language-server}/bin/jdt-language-server \"$@\"";
-    roc_ls = inputs.roc-lang.packages.${pkgs.system}.full;
+    # roc_ls = inputs.roc-lang.packages.${pkgs.system}.full;
   };
 in
 {

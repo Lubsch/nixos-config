@@ -57,11 +57,6 @@
 
   nixpkgs.config = {
     enableParallelBuilding = true;
-    allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "steam"
-        "steam-original"
-      ];
+    allowUnfreePredicate = pkg: lib.hasPrefix "steam" (lib.getName pkg);
   };
 }
