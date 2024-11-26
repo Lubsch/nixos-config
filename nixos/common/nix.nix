@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   config,
+  lib,
   ...
 }:
 {
@@ -54,5 +55,14 @@
     # };
   };
 
-  nixpkgs.config.enableParallelBuilding = true;
+
+  nixpkgs.config = {
+    enableParallelBuilding = true;
+    allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "steam"
+      "steam-original"
+    ];
+  };
 }

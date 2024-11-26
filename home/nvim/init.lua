@@ -155,6 +155,7 @@ vim.keymap.set('n', 'ö', function() dap.repl.execute("rs") end, opts)
 vim.keymap.set('n', '<Leader>b', dap.toggle_breakpoint, opts)
 vim.keymap.set('n', '<Leader>B', dap.clear_breakpoints, opts)
 vim.keymap.set({'n', 'v'}, '<Leader>h', require('dap.ui.widgets').preview, opts)
+
 -- vim.keymap.set('n', '<Leader>df', function()
 --   local widgets = require('dap.ui.widgets')
 --   widgets.centered_float(widgets.frames)

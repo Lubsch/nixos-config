@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, pkgs, config, ... }:
 let
   steamHome = "${config.xdg.dataHome}/steamHome";
 in
