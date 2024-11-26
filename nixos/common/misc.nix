@@ -14,7 +14,7 @@
       "/var/lib/nixos" # preserve uids/guids
     ];
     persist.files = [
-      # "/etc/machine-id" # required for journal persistence
+      "/etc/machine-id" # required for journal persistence
     ];
   };
 }
