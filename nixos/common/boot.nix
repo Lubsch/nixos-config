@@ -29,7 +29,8 @@
 
     kernel.sysctl."kernel.perf_event_paranoid" = 1; # for rr debugger
 
-    binfmt.emulatedSystems = [ "aarch64-linux" ]; # cross compilation
+    # slows down boot by ca. 1s
+    # binfmt.emulatedSystems = [ "aarch64-linux" ]; # cross compilation
 
     loader = {
       systemd-boot = {

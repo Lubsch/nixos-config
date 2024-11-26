@@ -22,6 +22,9 @@
         size = config.swap-size * 1024;
       }
     ];
+    disko.devices.nodev."/" = {
+      fsType = "tmpfs";
+    };
     disko.devices.disk.main = {
       type = "disk";
       device = config.main-disk;
@@ -49,13 +52,13 @@
               content = {
                 type = "btrfs";
                 subvolumes = config.extraSubvolumes // {
-                  "/root" = {
-                    mountpoint = "/";
-                    mountOptions = [
-                      "compress=zstd"
-                      "noatime"
-                    ];
-                  };
+                  # "/root" = {
+                  #   mountpoint = "/";
+                  #   mountOptions = [
+                  #     "compress=zstd"
+                  #     "noatime"
+                  #   ];
+                  # };
                   "/nix" = {
                     mountpoint = "/nix";
                     mountOptions = [
