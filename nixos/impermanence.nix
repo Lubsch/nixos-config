@@ -6,6 +6,10 @@
 }:
 {
 
+  # TODO remove workaround
+  boot.initrd.systemd.suppressedUnits = [ "systemd-machine-id-commit.service" ];
+  systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
+
   imports = [
     inputs.impermanence.nixosModules.impermanence
     (lib.mkAliasOptionModule [ "persist" ] [
