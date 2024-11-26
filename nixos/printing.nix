@@ -4,7 +4,7 @@
   services.printing = {
     enable = true;
     webInterface = false;
-    drivers = [ pkgs.hplip ];
+    # drivers = [ pkgs.hplip ];
   };
 
   # Use hp-setup from hpclip,
@@ -24,6 +24,6 @@
   # Scanners
   hardware.sane = {
     enable = true;
-    extraBackends = [ pkgs.hplip ];
+    # extraBackends = [ pkgs.hplip ];
   };
 }
