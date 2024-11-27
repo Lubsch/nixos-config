@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ pkgs, config, ... }: {
   # networking.wireless.enable = false;
   # networking.wireless.iwd.enable = true;
   networking.networkmanager = {
@@ -6,8 +6,7 @@
     wifi.backend = "iwd";
   };
 
-  # notifications and gui
-  programs.nm-applet.enable = true;
+  environment.systemPackages = [ pkgs.networkmanagerapplet ];
 
   users.users = builtins.mapAttrs (_: _: {
     extraGroups = [ "networkmanager" ];
