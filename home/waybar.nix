@@ -92,7 +92,7 @@
         #tray,
         #mode,
         #mpd {
-          padding: 0 10pt;
+          padding: 0 6pt;
         }
 
         #window,
@@ -114,17 +114,14 @@
 
         #clock {
             color: inherit;
-            margin: 0 6pt;
         }
 
         #battery {
             color: inherit;
-            margin: 0 10pt;
         }
 
         #network {
           color: inherit;
-          margin: 0 10pt;
         }
 
         /* #battery.charging, #battery.plugged { */
