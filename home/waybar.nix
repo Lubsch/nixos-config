@@ -9,7 +9,6 @@
             /* `otf-font-awesome` is required to be installed for icons */
             /* font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif; */
             font-size: 10pt;
-            margin: 0 5pt;
         }
 
         window#waybar {
@@ -117,10 +116,12 @@
 
         #battery {
             color: inherit;
+            margin-right: 4pt;
         }
 
         #network {
           color: inherit;
+          margin-right: 4pt;
         }
 
         /* #battery.charging, #battery.plugged { */
