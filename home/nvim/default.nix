@@ -65,11 +65,12 @@ in
       gruvbox-nvim
       telescope-nvim
       nvim-dap
-      (nvim-treesitter.withPlugins (p: [
-        p.c
-        p.lua
-        p.vimdoc
-      ])) # has weird errors for c, lua and vimdoc otherwise
+      nvim-treesitter
+      # (nvim-treesitter.withPlugins (p: [
+      #   p.c
+      #   p.lua
+      #   p.vimdoc
+      # ])) # has weird errors for c, lua and vimdoc otherwise
     ];
   };
 
