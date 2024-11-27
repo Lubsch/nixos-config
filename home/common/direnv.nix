@@ -11,7 +11,8 @@
   programs.zsh = {
     shellAliases.da = "direnv allow";
     shellAliases.de = "echo use flake > .envrc";
-    # Show in prompt if in direnv directory
+
+    # Change prompt if in direnv directory
     initExtra = lib.mkAfter ''
       prompt_char() {
         if [ $DIRENV_FILE ]; then

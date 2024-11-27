@@ -91,6 +91,9 @@
         #custom-media,
         #tray,
         #mode,
+        #mpd {
+          padding: 0 10pt;
+        }
 
         #window,
         #workspaces {
