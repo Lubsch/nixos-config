@@ -47,10 +47,10 @@
             ./nixos/impermanence.nix
             ./nixos/wireless.nix
             ./nixos/desktop.nix
-            ./nixos/wireshark.nix
+            # ./nixos/wireshark.nix
             ./nixos/printing.nix
             ./nixos/screenlock.nix
-            ./nixos/fingerprint.nix
+            # ./nixos/fingerprint.nix
             {
               main-disk = "/dev/nvme0n1";
               swap-size = 32;
