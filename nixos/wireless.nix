@@ -1,18 +1,16 @@
 { config, ... }: {
-  # networking.wireless.enable = false;
+  networking.wireless.enable = false;
   networking.wireless.iwd.enable = true;
   networking.networkmanager = {
     enable = true;
     wifi.backend = "iwd";
   };
 
-  persist.directories = [ "/etc/NetworkManager/system-connections" ];
-
   users.users = builtins.mapAttrs (_: _: {
     extraGroups = [ "networkmanager" ];
   }) config.home-manager.users;
 
-  # see nixos/users.nix where network group is added
+  persist.directories = [ "/etc/NetworkManager/system-connections" ];
 
   # TODO automate this
   # eduroam:
