@@ -6,6 +6,9 @@
     wifi.backend = "iwd";
   };
 
+  # notifications and gui
+  programs.nm-applet.enable = true;
+
   users.users = builtins.mapAttrs (_: _: {
     extraGroups = [ "networkmanager" ];
   }) config.home-manager.users;
