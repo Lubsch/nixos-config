@@ -94,7 +94,7 @@
 
         #window,
         #workspaces {
-            margin: 0 4px;
+            margin: 0 4pt;
         }
 
         /* If workspaces is the leftmost module, omit left margin */
@@ -109,6 +109,7 @@
 
         #clock {
             color: inherit;
+            /* margin-left: */
         }
 
         #battery {
@@ -244,8 +245,7 @@
               // "interface": "wlp2*", // (Optional) To force the use of this interface
               "format-wifi": "",
               "format-ethernet": "󰈀",
-              "tooltip-format": "{ifname} ({signalStrength}%)",
-              "format-linked": "{ifname}",
+              "tooltip-format": "{essid} ({signalStrength}%)",
               "format-disconnected": "󰖪",
           },
           // "pulseaudio": {
