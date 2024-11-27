@@ -90,10 +90,10 @@
         #mode,
         #scratchpad,
         #power-profiles-daemon,
-        /* #mpd { */
-        /*     padding: 0 10px; */
-        /*     color: #ffffff; */
-        /* } */
+        #mpd {
+            padding: 0 10px;
+            color: #ffffff;
+        }
 
         #window,
         #workspaces {
