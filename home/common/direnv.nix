@@ -24,7 +24,7 @@
   };
 
   # Avoid big log output whenever using direnv
-  # home.sessionVariables.DIRENV_LOG_FORMAT = "";
+  home.sessionVariables.DIRENV_LOG_FORMAT = "";
 
   persist.directories = [
     "${lib.removePrefix "${config.home.homeDirectory}/" config.xdg.dataHome}/direnv"
