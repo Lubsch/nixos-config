@@ -10,7 +10,10 @@
     extraGroups = [ "networkmanager" ];
   }) config.home-manager.users;
 
-  persist.directories = [ "/etc/NetworkManager/system-connections" ];
+  persist.directories = [
+    "/etc/NetworkManager/system-connections"
+    "/var/lib/iwd" # for storing eduroam
+  ];
 
   # TODO automate this
   # eduroam:
