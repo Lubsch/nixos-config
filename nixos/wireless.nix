@@ -1,11 +1,13 @@
 {
-  networking.wireless.iwd.enable = true;
+  networking.wireless.enable = false;
+  networking.networkmanager = {
+    enable = true;
+    wifi.backend = "iwd";
+  };
 
-  # networking.networkmanager.enable = true;
+  persist.directories = [ "/etc/NetworkManager/system-connections" ];
 
   # see nixos/users.nix where network group is added
-
-  # persist.directories = [ "/etc/NetworkManager/system-connections" ];
 
   # TODO automate this
   # eduroam:
@@ -15,8 +17,4 @@
   # anonymous-identity: wlan@<domain>
   # MSCHAPv2
   # username: <name>@<domain>
-
-  persist.directories = [
-    "/var/lib/iwd"
-  ];
 }
