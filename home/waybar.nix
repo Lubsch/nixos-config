@@ -111,7 +111,7 @@
 
         #clock {
             color: inherit;
-            margin-left: 10pt;
+            margin: 0 6pt;
         }
 
         #battery {
