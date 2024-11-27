@@ -121,7 +121,7 @@
 
         #network {
           color: inherit;
-          margin: 0 6pt;
+          margin: 0 12pt;
         }
 
         /* #battery.charging, #battery.plugged { */
