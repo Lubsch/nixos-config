@@ -111,17 +111,17 @@
 
         #clock {
             color: inherit;
-            margin: 0 10pt;
+            margin-left: 10pt;
         }
 
         #battery {
             color: inherit;
-            margin: 0 6pt;
+            margin: 0 10pt;
         }
 
         #network {
           color: inherit;
-          margin: 0 12pt;
+          margin: 0 10pt;
         }
 
         /* #battery.charging, #battery.plugged { */
