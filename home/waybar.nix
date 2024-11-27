@@ -9,6 +9,7 @@
             /* `otf-font-awesome` is required to be installed for icons */
             /* font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif; */
             font-size: 10pt;
+            margin-right: 5pt;
         }
 
         window#waybar {
@@ -106,6 +107,8 @@
         .modules-right > widget:last-child > #workspaces {
             margin-right: 0;
         }
+
+
 
         #clock {
             color: inherit;
