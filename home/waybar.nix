@@ -86,12 +86,8 @@
         #temperature,
         #backlight,
         #network,
-        #pulseaudio,
-        #wireplumber,
-        #custom-media,
         #tray,
         #mode,
-        #idle_inhibitor,
         #scratchpad,
         #power-profiles-daemon,
         #mpd {

@@ -15,7 +15,6 @@
   };
 
   config = {
-    boot.tmp.useTmpfs = true;
     swapDevices = [
       {
         device = "/swap/swapfile";
