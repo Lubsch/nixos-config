@@ -62,7 +62,6 @@
                 ./home/mail.nix
                 ./home/syncthing.nix
                 ./home/keepassxc.nix
-                ./home/librewolf.nix
                 ./home/firefox.nix
                 # ./home/gpg.nix
                 ./home/waybar.nix
@@ -120,7 +119,7 @@
                 ./home/mail.nix
                 ./home/syncthing.nix
                 ./home/keepassxc.nix
-                ./home/librewolf.nix
+                # ./home/librewolf.nix
                 ./home/gpg.nix
               ];
             }
