@@ -109,11 +109,14 @@
 
         #clock {
             color: inherit;
-            background-color: inherit;
         }
 
         #battery {
             color: inherit;
+        }
+
+        #network {
+          color: inherit;
         }
 
         /* #battery.charging, #battery.plugged { */
@@ -237,15 +240,15 @@
           //     "power-saver": ""
           //   }
           // },
-          // "network": {
-          //     // "interface": "wlp2*", // (Optional) To force the use of this interface
-          //     "format-wifi": "{essid} ({signalStrength}%) ",
-          //     "format-ethernet": "{ipaddr}/{cidr} ",
-          //     "tooltip-format": "{ifname} via {gwaddr} ",
-          //     "format-linked": "{ifname} (No IP) ",
-          //     "format-disconnected": "Disconnected ⚠",
-          //     "format-alt": "{ifname}: {ipaddr}/{cidr}"
-          // },
+          "network": {
+              // "interface": "wlp2*", // (Optional) To force the use of this interface
+              "format-wifi": "{essid} ({signalStrength}%) ",
+              "format-ethernet": "{ipaddr}/{cidr} ",
+              "tooltip-format": "{ifname} via {gwaddr} ",
+              "format-linked": "{ifname} (No IP) ",
+              "format-disconnected": "Disconnected ⚠",
+              "format-alt": "{ifname}: {ipaddr}/{cidr}"
+          },
           // "pulseaudio": {
           //     // "scroll-step": 1, // %, can be a float
           //     "format": "{volume}% {icon} {format_source}",
