@@ -50,27 +50,22 @@ in
       '';
 
     plugins = with pkgs.vimPlugins; [
-      oil-nvim
+      oil-nvim # file explorer
       nvim-surround
-      neogit
-      vim-better-whitespace
+      neogit # git integration
+      vim-better-whitespace # show trailing spaces
       diffview-nvim
-      nvim-web-devicons
+      nvim-web-devicons # dependency of diffview
       comment-nvim
       nvim-autopairs
       nvim-lspconfig
-      nvim-cmp
+      nvim-cmp # completion
       cmp-nvim-lsp
       cmp-path
-      gruvbox-nvim
-      telescope-nvim
-      nvim-dap
-      nvim-treesitter
-      # (nvim-treesitter.withPlugins (p: [
-      #   p.c
-      #   p.lua
-      #   p.vimdoc
-      # ])) # has weird errors for c, lua and vimdoc otherwise
+      gruvbox-nvim # color scheme
+      telescope-nvim # fuzzy search
+      nvim-dap # debugger
+      nvim-treesitter # highlighting
     ];
   };
 
