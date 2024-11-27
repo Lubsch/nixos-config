@@ -63,7 +63,7 @@
                 ./home/syncthing.nix
                 ./home/keepassxc.nix
                 ./home/firefox.nix
-                # ./home/gpg.nix
+                ./home/gpg.nix
                 ./home/waybar.nix
               ];
             }
