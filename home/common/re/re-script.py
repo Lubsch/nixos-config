@@ -5,7 +5,7 @@ import subprocess
 # suppress python exception output
 try:
     os.chdir(os.path.expanduser("~/misc/repos/nixos-config"))
-    subprocess.run(["nixfmt", "."])
+    subprocess.run(["fd", "-e", "nix", "f", "-X", "nixfmt"])
     subprocess.run(["git", "add", "."])
 
     # nix_cmd = ["nix", "eval", "--json", ".#nixosConfigurations", "--apply", "builtins.attrNames"]
