@@ -9,7 +9,7 @@
             /* `otf-font-awesome` is required to be installed for icons */
             /* font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif; */
             font-size: 10pt;
-            /* margin: 0 5pt; */
+            margin: 0 5pt;
         }
 
         window#waybar {
