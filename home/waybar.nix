@@ -92,7 +92,7 @@
         #tray,
         #mode,
         #mpd {
-          padding: 0 6pt;
+          padding: 0 8pt;
         }
 
         #window,
