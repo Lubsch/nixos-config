@@ -2,7 +2,7 @@
   networking.wireless.enable = false;
   networking.networkmanager = {
     enable = true;
-    # wifi.backend = "iwd";
+    wifi.backend = "iwd";
   };
 
   persist.directories = [ "/etc/NetworkManager/system-connections" ];
