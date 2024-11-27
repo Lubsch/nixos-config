@@ -1,11 +1,15 @@
-{
+{ config, ... }: {
   networking.wireless.enable = false;
   networking.networkmanager = {
     enable = true;
-    wifi.backend = "iwd";
+    # wifi.backend = "iwd";
   };
 
   persist.directories = [ "/etc/NetworkManager/system-connections" ];
+
+  users.users = builtins.mapAttrs (_: _: {
+    extraGroups = [ "networkmanager" ];
+  }) config.home-manager.users;
 
   # see nixos/users.nix where network group is added
 
