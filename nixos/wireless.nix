@@ -1,5 +1,5 @@
 { config, ... }: {
-  networking.wireless.enable = false;
+  # networking.wireless.enable = false;
   networking.wireless.iwd.enable = true;
   networking.networkmanager = {
     enable = true;
