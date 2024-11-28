@@ -14,7 +14,7 @@
       exec-once = waybar
       exec-once = ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       exec-once = foot --server
-      exec-once = [workspace special:keepass silent] kp
+      exec-once = [workspace special:keepass silent; move 0 0] kp
       # firefox `browser.sessionrestore.resume_from_crash` to false
       workspace = special:music, on-created-empty: ${config.home.sessionVariables.BROWSER} --new-window https://music.apple.com/de/home?l=en
       workspace = special:qalc, on-created-empty: ${config.home.sessionVariables.TERMINAL} zsh -ic "qalc"
