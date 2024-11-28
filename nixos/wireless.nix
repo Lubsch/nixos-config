@@ -1,9 +1,6 @@
 { pkgs, config, ... }: {
-  # networking.wireless.enable = false;
-  # networking.wireless.iwd.enable = true;
   networking.networkmanager = {
     enable = true;
-    wifi.backend = "iwd";
   };
 
   environment.systemPackages = [ pkgs.networkmanagerapplet ];
@@ -14,7 +11,6 @@
 
   persist.directories = [
     "/etc/NetworkManager/system-connections"
-    "/var/lib/iwd" # for storing eduroam
   ];
 
   # TODO automate this
