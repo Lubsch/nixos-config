@@ -52,7 +52,6 @@
             ./nixos/screenlock.nix
             # ./nixos/fingerprint.nix
             {
-              environment.etc.machine-id.source = "/persist/etc/machine-id";
               main-disk = "/dev/nvme0n1";
               swap-size = 32;
               home-manager.users.lubsch.imports = [
