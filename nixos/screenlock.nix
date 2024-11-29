@@ -9,7 +9,7 @@ in {
   # systemd.services.systemd-hibernate = sleep-fix;
   # systemd.services.systemd-suspend-then-hibernate = sleep-fix;
 
-  systemd.sleep.extraConfig = "SuspendState=freeze";
+  systemd.sleep.extraConfig = "SuspendState=mem";
 
   security.pam.services.swaylock = { };
   security.pam.services.waylock = { };
