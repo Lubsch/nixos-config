@@ -1,8 +1,6 @@
 {
   services.logind.lidSwitch = "suspend";
 
-  security.pam.services.swaylock = { };
-  security.pam.services.waylock = { };
   security.pam.services.hyprlock = { };
   home-manager.sharedModules = [
     (
@@ -47,8 +45,8 @@
           };
         };
         services.hypridle = {
-            enable = true;
-            settings.general.before_sleep_cmd = "${pkgs.hyprlock}/bin/hyprlock";
+          enable = true;
+          settings.general.before_sleep_cmd = "${pkgs.hyprlock}/bin/hyprlock";
         };
       }
     )
