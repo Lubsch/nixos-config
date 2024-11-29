@@ -15,6 +15,7 @@
   ];
 
   # special case for /etc/machine-id which we need for journald early in boot
+  # symlink to /persist/etc/machine-id
   environment.etc.machine-id.source = "/persist/etc/machine-id";
 
   home-manager.sharedModules = [
