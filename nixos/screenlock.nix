@@ -1,10 +1,6 @@
 {
   services.logind.lidSwitch = "suspend";
 
-  systemd.sleep.extraConfig = ''
-    SuspendState=mem
-  '';
-
   security.pam.services.swaylock = { };
   security.pam.services.waylock = { };
   security.pam.services.hyprlock = { };
