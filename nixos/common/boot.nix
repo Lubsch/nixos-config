@@ -7,10 +7,8 @@
   # Remove welcome line from getty
   environment.etc.issue.text = "";
 
-  # Remove (unnecessary, I hope) delay from waiting on network
+  # Remove (unnecessary, I hope) delay from waiting for network
   systemd.targets.network-online.enable = lib.mkForce false;
-
-  # Prevent long wait times for network
   networking.dhcpcd.wait = "background";
 
   boot = {
