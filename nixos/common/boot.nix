@@ -1,5 +1,5 @@
 # has also accumulated config for speeding up startup
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
 
   hardware.enableRedistributableFirmware = true;
@@ -8,11 +8,8 @@
   environment.etc.issue.text = "";
 
   # Remove (unnecessary, I hope) delay from waiting for network
-  systemd.targets.network-online.enable = lib.mkForce false;
+  systemd.targets.network-online.enable = false;
   networking.dhcpcd.wait = "background";
-
-  # disable this directory outright to prevent warning
-  environment.etc."systemd/system-generators".enable = lib.mkForce false;
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -21,7 +18,7 @@
       systemd.enable = true; # experimental, for concurrent stage 1
       verbose = false;
     };
-    kernelParams = [ "quiet" "i8042=dumbkbd=1" ]; # second one to fix keyboard unresponsiveness (maybe?)
+    kernelParams = [ "quiet" "i8042.unlock=1" ]; # second one to fix keyboard unresponsiveness (maybe?)
     consoleLogLevel = 2;
 
     kernel.sysctl."kernel.perf_event_paranoid" = 1; # for rr debugger
