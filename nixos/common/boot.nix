@@ -11,6 +11,9 @@
   systemd.targets.network-online.enable = lib.mkForce false;
   networking.dhcpcd.wait = "background";
 
+  # disable this directory outright to prevent warning
+  environment.etc."systemd/system-generators".enable = lib.mkForce false;
+
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
