@@ -46,20 +46,10 @@
             ];
           };
         };
-        services.swayidle =
-          let
-            command = "${pkgs.hyprlock}/bin/hyprlock";
-          in
-          {
+        services.hypridle = {
             enable = true;
-            events = [
-              {
-                event = "before-sleep";
-                inherit command;
-              }
-            ];
-            # timeouts = [ { timeout = 60; inherit command; } ];
-          };
+            settings.general.before_sleep_cmd = "${pkgs.hyprlock}/bin/hyprlock";
+        };
       }
     )
   ];
