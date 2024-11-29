@@ -11,6 +11,8 @@
   systemd.targets.network-online.enable = false;
   networking.dhcpcd.wait = "background";
 
+  systemd.services.systemd-user-sessions.serviceConfig.LogLevel = "debug";
+
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
