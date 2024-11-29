@@ -11,8 +11,6 @@
   systemd.targets.network-online.enable = lib.mkForce false;
   networking.dhcpcd.wait = "background";
 
-  environment.etc."systemd/system-generators".mode = "444";
-
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
 
