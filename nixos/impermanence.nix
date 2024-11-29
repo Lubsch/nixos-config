@@ -14,21 +14,6 @@
     ])
   ];
 
-  # special case for /etc/machine-id which we need for journald early in boot
-  # symlink to /persist/etc/machine-id
-  # should work because /persist is "neededForBoot"
-  boot.initrd.systemd.services.persist-machine-id = {
-    description = "Create symlink to /persist/etc/machine-id early in boot";
-    after = [ "create-needed-for-boot-dirs.service" ];
-    wantedBy = [ "initrd.target" ];
-    serviceConfig.Type = "oneshot";
-    script = ''
-      touch /script-starting
-      ln -snfT /persist-tmp-mnt/persist/etc/machine-id /etc/machine-id
-      touch /script-stopping
-    '';
-  };
-
   home-manager.sharedModules = [
     (
       { config, lib, ... }:
