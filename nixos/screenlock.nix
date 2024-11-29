@@ -46,20 +46,20 @@
             ];
           };
         };
-        # services.swayidle =
-        #   let
-        #     command = "${pkgs.hyprlock}/bin/hyprlock";
-        #   in
-        #   {
-        #     enable = true;
-        #     events = [
-        #       {
-        #         event = "before-sleep";
-        #         inherit command;
-        #       }
-        #     ];
-        #     # timeouts = [ { timeout = 60; inherit command; } ];
-        #   };
+        services.swayidle =
+          let
+            command = "${pkgs.hyprlock}/bin/hyprlock";
+          in
+          {
+            enable = true;
+            events = [
+              {
+                event = "before-sleep";
+                inherit command;
+              }
+            ];
+            # timeouts = [ { timeout = 60; inherit command; } ];
+          };
       }
     )
   ];
