@@ -60,7 +60,7 @@
                 ./home/hyprland.nix
                 ./home/nvim
                 ./home/mail.nix
-                ./home/syncthing.nix
+                # ./home/syncthing.nix
                 ./home/keepassxc.nix
                 ./home/firefox.nix
                 ./home/gpg.nix
