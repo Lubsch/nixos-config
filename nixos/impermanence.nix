@@ -19,10 +19,13 @@
   # should work because /persist is "neededForBoot"
   boot.initrd.systemd.services.persist-machine-id = {
     description = "Create symlink to /persist/etc/machine-id early in boot";
+    after = [ "create-needed-for-boot-dirs.service" ];
     wantedBy = [ "initrd.target" ];
     serviceConfig.Type = "oneshot";
     script = ''
-      ln -snfT /persist/etc/machine-id /etc/machine-id
+      touch /script-starting
+      ln -snfT /persist-tmp-mnt/persist/etc/machine-id /etc/machine-id
+      touch /script-stopping
     '';
   };
 
