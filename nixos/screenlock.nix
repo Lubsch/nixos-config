@@ -1,16 +1,8 @@
-let
-  sleep-fix = {
-    serviceConfig.Environment="SYSTEMD_SLEEP_FREEZE_USER_SESSIONS=false";
-  };
-in {
+{
   services.logind.lidSwitch = "suspend";
 
-  # systemd.services.systemd-suspend = sleep-fix;
-  # systemd.services.systemd-hibernate = sleep-fix;
-  # systemd.services.systemd-suspend-then-hibernate = sleep-fix;
-
   systemd.sleep.extraConfig = ''
-    SuspendState=freeze
+    SuspendState=mem
   '';
 
   security.pam.services.swaylock = { };
