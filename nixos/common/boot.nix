@@ -21,7 +21,7 @@
       systemd.enable = true; # experimental, for concurrent stage 1
       verbose = false;
     };
-    kernelParams = [ "quiet" ];
+    kernelParams = [ "quiet" "i8042=dumbkbd=1" ]; # second one to fix keyboard unresponsiveness (maybe?)
     consoleLogLevel = 2;
 
     kernel.sysctl."kernel.perf_event_paranoid" = 1; # for rr debugger
