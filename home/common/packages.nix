@@ -30,6 +30,7 @@
     neofetch # quickly show system info
     ripgrep # better grep
     fd # better find
+    lsof # usage of files and ports
     magic-wormhole # send files between computers
 
     # PROGRAMMING LANGUAGES ETC.
