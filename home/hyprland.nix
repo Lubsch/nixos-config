@@ -14,7 +14,7 @@
 
        # disable vrr for hdmi monitors
       monitor = HDMI-A-1,preferred,auto,auto
-      monitor = , vrr, 0
+      monitor = ,vrr,0
 
       exec-once = waybar
       exec-once = ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
