@@ -11,7 +11,11 @@
 
     extraConfig = ''
       monitor = ,preferred,auto,auto
-      monitor = HDMI-A-1,vrr,2 # disable vrr for hdmi monitors
+
+       # disable vrr for hdmi monitors
+      monitor = HDMI-A-1, enable
+      monitor = , vrr, 0
+
       exec-once = waybar
       exec-once = ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
       exec-once = foot --server
