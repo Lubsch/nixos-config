@@ -13,7 +13,7 @@
       monitor = ,preferred,auto,auto
 
        # disable vrr for hdmi monitors
-      monitor = HDMI-A-1, enable
+      monitor = HDMI-A-1,preferred,auto,auto
       monitor = , vrr, 0
 
       exec-once = waybar
