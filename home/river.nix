@@ -7,16 +7,13 @@
         #!/bin/sh
 
         foot --server &!
-
-        # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
+        waybar &!
 
         # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
         riverctl map normal Super Return spawn ${config.home.sessionVariables.TERMINAL}
 
-        # Super+Q to close the focused view
         riverctl map normal Super D close
 
-        # Super+Shift+E to exit river
         riverctl map normal Super+Shift E exit
 
         # Super+J and Super+K to focus the next/previous view in the layout stack
@@ -40,8 +37,8 @@
         riverctl map normal Super S zoom
 
         # Super+H and Super+L to decrease/increase the main ratio of rivertile(1)
-        riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
-        riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+        riverctl map --repeat normal Super H send-layout-cmd rivertile "main-ratio -0.05"
+        riverctl map --repeat normal Super L send-layout-cmd rivertile "main-ratio +0.05"
 
         # Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
         riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
@@ -144,7 +141,7 @@
         # Set the default layout generator to be rivertile and start it.
         # River will send the process group of the init executable SIGTERM on exit.
         riverctl default-layout rivertile
-        rivertile &
+        rivertile -main-location right -view-padding 0 -outer-padding 0 &
       '';
   };
 }
