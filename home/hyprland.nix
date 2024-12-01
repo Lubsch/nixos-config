@@ -170,7 +170,7 @@
       }
 
       master {
-        new_status = master
+        new_status = slave
         new_on_top = true
         inherit_fullscreen = false
         orientation = right
