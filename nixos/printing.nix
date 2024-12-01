@@ -2,9 +2,10 @@
 { pkgs, ... }:
 {
 
+  # cups webinterface:
+  # http://localhost:631
   services.printing = {
     enable = true;
-    webInterface = false;
     drivers = [ pkgs.hplip ];
   };
 
