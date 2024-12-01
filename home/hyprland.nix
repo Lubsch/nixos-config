@@ -171,8 +171,8 @@
 
       master {
         new_status = master
-        new_on_top = false
-        new_on_active = after
+        new_on_top = true
+        new_on_active = none
         inherit_fullscreen = false
         orientation = right
       }
