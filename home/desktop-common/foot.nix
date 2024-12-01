@@ -16,7 +16,7 @@
     enable = true;
     settings = {
       main = {
-        font = "${config.my-fonts.mono.name}:size=11";
+        font = "${config.my-fonts.mono.name}:size=12";
         # dpi-aware = "yes";
         resize-delay-ms = "0";
         pad = "1x1";
