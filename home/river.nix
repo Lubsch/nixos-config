@@ -8,24 +8,22 @@
 
         foot --server &!
         waybar &!
-
-        # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
-        riverctl map normal Super Return spawn ${config.home.sessionVariables.TERMINAL}
-
-        riverctl map normal Super D close
+        ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current
 
         riverctl map normal Super+Shift E exit
 
-        # Super+J and Super+K to focus the next/previous view in the layout stack
+        # Opening, closing
+        riverctl map normal Super Return spawn ${config.home.sessionVariables.TERMINAL}
+        riverctl map normal Super D close
+
+
+        # Window switching
         riverctl map normal Super J focus-view next
         riverctl map normal Super K focus-view previous
-
-        # Super+Shift+J and Super+Shift+K to swap the focused view with the next/previous
-        # view in the layout stack
         riverctl map normal Super+Shift J swap next
         riverctl map normal Super+Shift K swap previous
 
-        # Super+Period and Super+Comma to focus the next/previous output
+        # Monitor switching
         riverctl map normal Super Period focus-output next
         riverctl map normal Super Comma focus-output previous
 
@@ -37,8 +35,8 @@
         riverctl map normal Super S zoom
 
         # Super+H and Super+L to decrease/increase the main ratio of rivertile(1)
-        riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
-        riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+        riverctl map normal Super H send-layout-cmd rivertile "main-ratio +0.03"
+        riverctl map normal Super L send-layout-cmd rivertile "main-ratio -0.03"
 
         # Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
         riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
