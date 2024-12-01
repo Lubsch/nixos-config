@@ -7,7 +7,7 @@
         #!/bin/sh
 
         foot --server &
-        waybar &
+        (pkill waybar && waybar) &
         ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current &
 
         riverctl map normal Super+Shift E exit
