@@ -1,5 +1,5 @@
 # NOTE re-add hplip when printer needs to be rediscovered or it's not working
-{ config, ... }:
+{ config, pkgs, ... }:
 {
 
   # cups webinterface:
@@ -34,6 +34,9 @@
     enable = true;
     # extraBackends = [ pkgs.hplip ];
   };
+
+  hardware.sane.extraBackends = [ pkgs.sane-airscan ];
+  services.udev.packages = [ pkgs.sane-airscan ];
 
   users.users = builtins.mapAttrs (_: _: {
     extraGroups = [ "lp" "scanner" ];
