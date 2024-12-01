@@ -16,6 +16,7 @@
     wl-clipboard # make wl-copy work
     pcmanfm # file manager
     libnotify # command notify-send
+    simple-scan # rather not have all the gnome deps if unnecessary
     # wpa_supplicant_gui # wireless manager
   ];
 }
