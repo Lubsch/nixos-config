@@ -35,8 +35,8 @@
     # extraBackends = [ pkgs.hplip ];
   };
 
-  hardware.sane.extraBackends = [ pkgs.sane-airscan ];
-  services.udev.packages = [ pkgs.sane-airscan ];
+  # hardware.sane.extraBackends = [ pkgs.sane-airscan ];
+  # services.udev.packages = [ pkgs.sane-airscan ];
 
   users.users = builtins.mapAttrs (_: _: {
     extraGroups = [ "lp" "scanner" ];
