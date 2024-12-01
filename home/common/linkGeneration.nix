@@ -59,21 +59,23 @@
   # '');
     home.activation.linkGeneration = lib.mkForce (lib.hm.dag.entryAfter ["writeBoundary"] (
       let
-        link = pkgs.writeShellScript "link" ''
-          ${config.lib.bash.initHomeManagerLib}
+        link = pkgs.writers.writeDash "link" ''
+          export TEXTDOMAIN=hm-modules
+          export TEXTDOMAINDIR=/nix/store/y9h1j5d6shkqd47clmcnd75kwwadgw4s-hm-modules-messages
+          . /nix/store/zhrjg6wxrxmdlpn6iapzpp2z2vylpvw5-home-manager.sh
 
           newGenFiles="$1"
           shift
           for sourcePath in "$@" ; do
             relativePath="''${sourcePath#$newGenFiles/}"
             targetPath="$HOME/$relativePath"
-            if [[ -e "$targetPath" && ! -L "$targetPath" && -n "$HOME_MANAGER_BACKUP_EXT" ]] ; then
+            if [ -e "$targetPath" ] && [ ! -L "$targetPath" ] && [ -n "$HOME_MANAGER_BACKUP_EXT" ] ; then
               # The target exists, back it up
               backup="$targetPath.$HOME_MANAGER_BACKUP_EXT"
               run mv $VERBOSE_ARG "$targetPath" "$backup" || errorEcho "Moving '$targetPath' failed!"
             fi
 
-            if [[ -e "$targetPath" && ! -L "$targetPath" ]] && cmp -s "$sourcePath" "$targetPath" ; then
+            if [ -e "$targetPath" ] && [ ! -L "$targetPath" ] && cmp -s "$sourcePath" "$targetPath" ; then
               # The target exists but is identical – don't do anything.
               verboseEcho "Skipping '$targetPath' as it is identical to '$sourcePath'"
             else
