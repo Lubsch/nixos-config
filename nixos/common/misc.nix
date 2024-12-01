@@ -8,8 +8,6 @@
     # unnecessary large dependency
     services.speechd.enable = false;
 
-    system.switch.enableNg = true;
-
     persist.directories = [
       "/var/lib/systemd/coredump"
       "/var/log"
