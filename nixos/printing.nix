@@ -1,5 +1,5 @@
 # NOTE re-add hplip when printer needs to be rediscovered or it's not working
-# { pkgs, ... }:
+{ config, ... }:
 {
 
   # cups webinterface:
@@ -34,4 +34,8 @@
     enable = true;
     # extraBackends = [ pkgs.hplip ];
   };
+
+  users.users = builtins.mapAttrs (_: _: {
+    extraGroups = [ "lp" "scanner" ];
+  }) config.home-manager.users;
 }
