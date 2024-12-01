@@ -3,7 +3,7 @@
 {
 
   # cups webinterface:
-  # http://localhost:631
+  # http://localhost:631/printers
   services.printing = {
     enable = true;
     drivers = [ pkgs.hplip ];
