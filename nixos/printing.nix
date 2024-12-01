@@ -1,16 +1,22 @@
 # NOTE re-add hplip when printer needs to be rediscovered or it's not working
-{ pkgs, ... }:
+# { pkgs, ... }:
 {
 
   # cups webinterface:
   # http://localhost:631
   services.printing = {
     enable = true;
-    drivers = [ pkgs.hplip ];
+    # drivers = [ pkgs.hplip ];
   };
 
-  # Use hp-setup from hpclip,
-  # inspect /var/lib/cups/printers.conf
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  # # Use hp-setup from hpclip,
+  # # inspect /var/lib/cups/printers.conf
   # hardware.printers.ensurePrinters = [
   #   {
   #     name = "Deskjet-3050A-J611";
@@ -26,6 +32,6 @@
   # Scanners
   hardware.sane = {
     enable = true;
-    extraBackends = [ pkgs.hplip ];
+    # extraBackends = [ pkgs.hplip ];
   };
 }
