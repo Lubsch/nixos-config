@@ -6,9 +6,9 @@
       ''
         #!/bin/sh
 
-        foot --server &!
-        waybar &!
-        ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current &!
+        foot --server &
+        waybar &
+        ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current &
 
         riverctl map normal Super+Shift E exit
 
