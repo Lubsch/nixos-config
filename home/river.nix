@@ -16,6 +16,9 @@
         riverctl map normal Super Return spawn ${config.home.sessionVariables.TERMINAL}
         riverctl map normal Super D close
 
+        # cursor and focus
+        riverctl set-cursor-warp on-focus-change
+        riverctl focus-follows-cursor always
 
         # Window switching
         riverctl map normal Super J focus-view next
@@ -121,9 +124,9 @@
         riverctl map normal None XF86MonBrightnessDown spawn '${pkgs.brightnessctl}/bin/brightnessctl set 5%-'
 
         # Set background and border color
-        riverctl background-color 0x002b36
-        riverctl border-color-focused 0x93a1a1
-        riverctl border-color-unfocused 0x586e75
+        riverctl border-width 1
+        riverctl border-color-focused 0x${config.colors.foreground}
+        riverctl border-color-unfocused 0x101010
 
         # Set keyboard repeat rate
         riverctl set-repeat 30 240
