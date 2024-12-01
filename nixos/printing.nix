@@ -35,6 +35,8 @@
     # extraBackends = [ pkgs.hplip ];
   };
 
+  services.saned.enable = true;
+
   # hardware.sane.extraBackends = [ pkgs.sane-airscan ];
   # services.udev.packages = [ pkgs.sane-airscan ];
 
