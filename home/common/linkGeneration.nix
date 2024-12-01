@@ -55,7 +55,6 @@ in
 {
   home.activation.linkGeneration = lib.mkForce (lib.hm.dag.entryAfter ["writeBoundary"]  # bash
   ''
-    time {
     function linkNewGen() {
       _i "Creating home file links in %s" "$HOME"
 
@@ -79,8 +78,10 @@ in
       # Apply the cleanup script on each leaf in the old
       # generation. The find command below will print the
       # relative path of the entry.
+      time {
       find "$oldGenFiles" '(' -type f -or -type l ')' -printf '%P\0' \
         | xargs -0 bash /nix/store/s9p3c8fwpjnzdkyky4qbdfg339yqrb9a-cleanup "$newGenFiles"
+      }
     }
 
     cleanOldGen
@@ -107,6 +108,5 @@ in
     fi
 
     linkNewGen
-    }
   '');
 }
