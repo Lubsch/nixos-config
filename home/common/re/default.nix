@@ -6,6 +6,7 @@
   # - Commits if successful (with empty message)
 
   home.packages = [
+    pkgs.nixos-rebuild-ng
     (pkgs.writeScriptBin "re" # python
       ''
         #!${pkgs.python3}/bin/python

@@ -14,7 +14,7 @@ try:
     # for system in systems:
 
     # "check" makes script exit on falure
-    subprocess.run(["sudo", "nixos-rebuild", "switch", "--flake", "."], check=True)
+    subprocess.run(["sudo", "nixos-rebuild-ng", "switch", "--flake", "."], check=True)
 
     child_pid = os.fork()
 
