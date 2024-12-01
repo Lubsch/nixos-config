@@ -58,6 +58,7 @@
                 ./home/common
                 ./home/desktop-common
                 ./home/hyprland.nix
+                ./home/river.nix
                 ./home/nvim
                 ./home/mail.nix
                 # ./home/syncthing.nix
