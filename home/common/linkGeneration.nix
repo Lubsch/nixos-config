@@ -40,7 +40,7 @@ let
             }
 
             // create symlink
-            std.debug.print("source_path: {s}\nrelative_path: {s}\n", .{ source_path, relative_path });
+            // std.debug.print("source_path: {s}\nrelative_path: {s}\n", .{ source_path, relative_path });
             try home.symLink(source_path, relative_path, .{});
         }
     }
@@ -48,7 +48,7 @@ let
   link = pkgs.runCommand "link" {} ''
     cp ${link-src} ./link.zig
     export XDG_CACHE_HOME=$(mktemp -d)
-    ${pkgs.zig}/bin/zig build-exe link.zig
+    ${pkgs.zig}/bin/zig build-exe link.zig -O ReleaseSafe
     cp link $out
   '';
 in
