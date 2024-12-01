@@ -1,8 +1,9 @@
 # this activation script is *slow* because it uses find
-# I replace it with rsync
+# I replace it with a simple zig program
+# NOTE it doesnt do backups and deletes files to override them
 { lib, pkgs, ... }:
 let
-  link-src = builtins.toFile "link.zig"
+  link-src = builtins.toFile "link.zig" # zig
   ''
     const std = @import("std");
 
@@ -77,8 +78,10 @@ in
       # Apply the cleanup script on each leaf in the old
       # generation. The find command below will print the
       # relative path of the entry.
+      time {
       find "$oldGenFiles" '(' -type f -or -type l ')' -printf '%P\0' \
         | xargs -0 bash /nix/store/s9p3c8fwpjnzdkyky4qbdfg339yqrb9a-cleanup "$newGenFiles"
+      }
     }
 
     cleanOldGen
