@@ -121,7 +121,7 @@
         # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
         riverctl map normal None XF86AudioMedia spawn '${pkgs.playerctl}/bin/playerctl play-pause'
         riverctl map normal None XF86AudioPlay  spawn '${pkgs.playerctl}/bin/playerctl play-pause'
-        riverctl map normal None Super Space  spawn '${pkgs.playerctl}/bin/playerctl play-pause'
+        riverctl map normal Super Space    spawn '${pkgs.playerctl}/bin/playerctl play-pause'
         riverctl map normal None XF86AudioPrev  spawn '${pkgs.playerctl}/bin/playerctl previous'
         riverctl map normal None XF86AudioNext  spawn '${pkgs.playerctl}/bin/playerctl next'
 
