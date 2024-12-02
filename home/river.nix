@@ -158,13 +158,14 @@
         riverctl border-color-focused 0x${config.colors.foreground}
         riverctl border-color-unfocused 0x101010
 
-        # Set keyboard repeat rate
+        # Set keyboard repeat rate and layout
         riverctl set-repeat 30 240
+        riverctl keyboard-layout de
 
         # Make all views with an app-id that starts with "float" and title "foo" start floating.
         riverctl rule-add -app-id 'float*' float
-
-        riverctl keyboard-layout de
+        # server side decorations for firefox
+        riverctl rule-add -app-id 'firefox' ssd
 
         # Make all views with app-id "bar" and any title use client-side decorations
         # riverctl rule-add -app-id "bar" csd
