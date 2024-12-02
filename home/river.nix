@@ -1,6 +1,17 @@
 { pkgs, config, ... }:
 {
   home.packages = [ pkgs.way-displays ];
+  systemd.user.services.river-init.Service = {
+    Type = "oneshot";
+    ExecStart = "${config.xdg.configHome}/river/init";
+  };
+  systemd.user.paths = {
+    way-displays = {
+      Unit.Wants = [ "river-init" ];
+      Path.PathModified = "${config.xdg.configHome}/way-displays/cfg.yaml";
+      Install.WantedBy = [ "multi-user.target" ];
+    };
+  };
   xdg.configFile."way-displays/cfg.yaml".text = # yaml
   ''
     ARRANGE: COLUMN # on top of eachother
@@ -29,7 +40,7 @@
       ''
         #!/bin/sh
 
-        # TODO only kill children
+        # NOTE killing all processes with these names
         foot --server & # detects automatically if already running
         (old_pid=$(pidof way-displays) ; kill $old_pid ; ${pkgs.way-displays}/bin/way-displays) &
         (old_pid=$(pidof swaybg) ; ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current & sleep 1 ; kill $old_pid) &
