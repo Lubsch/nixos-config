@@ -1,21 +1,26 @@
 const std = @import("std");
 
 pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    const allocator = gpa.allocator();
-
-    var env_map = try std.process.getEnvMap(allocator);
-    defer env_map.deinit();
-
-    const home_path = env_map.get("HOME").?;
+    const home_path = std.posix.getenv("HOME").?;
     const home = try std.fs.openDirAbsolute(home_path, .{ .no_follow = true });
 
     var args = std.process.args();
     _ = args.next(); // discard program path
 
-    const new_gen_path = args.next().?;
+    // ensure trailing / (without using allocations)
+    var new_gen_path = args.next().?;
+    if (new_gen_path[new_gen_path.len - 1] != '/') {
+        var buffer: [1024]u8 = undefined;
+        @memcpy(&buffer, new_gen_path.ptr);
+        buffer[new_gen_path.len] = '/';
+        buffer[new_gen_path.len + 1] = 0;
+        new_gen_path = buffer[0 .. new_gen_path.len + 1 :0];
+    }
+
     while (args.next()) |source_path| {
-        const relative_path = try std.fs.path.relative(allocator, new_gen_path, source_path);
+        var it = std.mem.splitSequence(u8, source_path, new_gen_path);
+        _ = it.next();
+        const relative_path = it.next().?;
 
         // file exists -> delete it
         // if (home.access(relative_path, .{})) |_| {
@@ -33,8 +38,7 @@ pub fn main() !void {
         }
 
         // create symlink
-        // std.debug.print("source_path: {s}\nrelative_path: {s}\n", .{ source_path, relative_path });
+        std.debug.print("new_gen_path: {s}\nsource_path: {s}\nrelative_path: {s}\n", .{ new_gen_path, source_path, relative_path });
         try home.symLink(source_path, relative_path, .{});
     }
 }
-
