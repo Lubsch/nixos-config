@@ -1,4 +1,4 @@
-# this activation script is *slow* because it uses find
+# this activation script was *slow* because it uses find
 # I replace it with a simple zig program
 # this cuts it down from ca. 300ms to ca. 30ms for that step
 # NOTE it doesnt do backups and deletes files to override them
