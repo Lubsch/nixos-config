@@ -186,6 +186,6 @@
 
   home.sessionVariables.WM = "${pkgs.writeShellScriptBin "wm" ''
     # to be used by greetd
-       river > ${config.xdg.dataHome}/river.log 2>&1
+    river > ${config.xdg.dataHome}/river.log 2>&1
   ''}/bin/wm";
 }
