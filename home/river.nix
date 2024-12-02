@@ -196,7 +196,7 @@
     ''
       #!/bin/sh
       find ${config.xdg.configHome}/{way-displays,river,waybar} \
-        | entr -r exec ${config.xdg.configHome}/.config/river/init
+        | entr -r ${config.xdg.configHome}/.config/river/init
     '';
   };
 
