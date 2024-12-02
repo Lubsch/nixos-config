@@ -8,6 +8,9 @@
     # unnecessary large dependency
     services.speechd.enable = false;
 
+    # maybe speeds up firewall
+    networking.nftables.enable = true;
+
     persist.directories = [
       "/var/lib/systemd/coredump"
       "/var/log"
