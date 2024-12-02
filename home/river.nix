@@ -46,14 +46,14 @@
         riverctl map -repeat normal Super L send-layout-cmd rivertile "main-ratio -0.01"
 
         # Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
-        riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
-        riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
+        riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count -1"
+        riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count +1"
 
         # Super+Alt+{H,J,K,L} to move views
-        riverctl map normal Super+Alt H move left 100
-        riverctl map normal Super+Alt J move down 100
-        riverctl map normal Super+Alt K move up 100
-        riverctl map normal Super+Alt L move right 100
+        riverctl map -repeat normal Super+Alt H move left 100
+        riverctl map -repeat normal Super+Alt J move down 100
+        riverctl map -repeat normal Super+Alt K move up 100
+        riverctl map -repeat normal Super+Alt L move right 100
 
         # Super+Alt+Control+{H,J,K,L} to snap views to screen edges
         riverctl map normal Super+Alt+Control H snap left
@@ -62,10 +62,10 @@
         riverctl map normal Super+Alt+Control L snap right
 
         # Super+Alt+Shift+{H,J,K,L} to resize views
-        riverctl map normal Super+Alt+Shift H resize horizontal -100
-        riverctl map normal Super+Alt+Shift J resize vertical 100
-        riverctl map normal Super+Alt+Shift K resize vertical -100
-        riverctl map normal Super+Alt+Shift L resize horizontal 100
+        riverctl map -repeat normal Super+Alt+Shift H resize horizontal -100
+        riverctl map -repeat normal Super+Alt+Shift J resize vertical 100
+        riverctl map -repeat normal Super+Alt+Shift K resize vertical -100
+        riverctl map -repeat normal Super+Alt+Shift L resize horizontal 100
 
         # Super + Left Mouse Button to move views
         riverctl map-pointer normal Super BTN_LEFT move-view
@@ -99,22 +99,22 @@
         riverctl map normal Super 0 set-focused-tags $all_tags
         riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
-        # Super+Space to toggle float
         riverctl map normal Super T toggle-float
 
         # Super+F to toggle fullscreen
+        # TODO windowed fullscreen
         riverctl map normal Super F toggle-fullscreen
 
         # Super+{Up,Right,Down,Left} to change layout orientation
-        riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
-        riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
-        riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
-        riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
+        riverctl map -repeat normal Super Up    send-layout-cmd rivertile "main-location top"
+        riverctl map -repeat normal Super Right send-layout-cmd rivertile "main-location right"
+        riverctl map -repeat normal Super Down  send-layout-cmd rivertile "main-location bottom"
+        riverctl map -repeat normal Super Left  send-layout-cmd rivertile "main-location left"
 
 
         # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
-        riverctl map normal None XF86AudioRaiseVolume  spawn '${pkgs.pamixer}/bin/pamixer -i 5'
-        riverctl map normal None XF86AudioLowerVolume  spawn '${pkgs.pamixer}/bin/pamixer -d 5'
+        riverctl map -repeat normal None XF86AudioRaiseVolume  spawn '${pkgs.pamixer}/bin/pamixer -i 5'
+        riverctl map -repeat normal None XF86AudioLowerVolume  spawn '${pkgs.pamixer}/bin/pamixer -d 5'
         riverctl map normal None XF86AudioMute         spawn '${pkgs.pamixer}/bin/pamixer --toggle-mute'
 
         # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
@@ -136,7 +136,7 @@
         riverctl set-repeat 30 240
 
         # Make all views with an app-id that starts with "float" and title "foo" start floating.
-        riverctl rule-add -app-id 'float*' -title 'foo' float
+        riverctl rule-add -app-id 'float*' float
 
         riverctl keyboard-layout de
 
