@@ -190,9 +190,8 @@
         riverctl default-layout rivertile
         rivertile -main-location right -view-padding 0 -outer-padding 0 &
 
-        #
-        # # restart this script on config change
-        # (${pkgs.inotify-tools}/bin/inotifywait --event modify ~/.config/river/init ; ~/.config/river/init) &
+        echo ${config.xdg.configHome}/{way-displays/cfg.yaml,river/init,waybar/*} \
+          | entr -r exec ${config.xdg.configHome}/.config/river/init
       '';
   };
 
