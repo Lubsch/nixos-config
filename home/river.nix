@@ -186,7 +186,7 @@
     enable = true;
     extraConfig = command;
     systemd.extraCommands = [ /* sh */ ''
-      find ${config.xdg.configHome}/{way-displays,river,waybar} | entr -r ${command}
+      (find ${config.xdg.configHome}/{way-displays,river,waybar} | entr -rn ${command})
     ''];
   };
 
