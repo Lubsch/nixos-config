@@ -182,10 +182,14 @@
   wayland.windowManager.river = {
     enable = true;
     extraConfig = # sh
-    ''
-      #!/bin/sh
+    let
+      command = config.xdg.configHome + "/river/start_proper";
+    in ''
+      ${command} &
+      (
       find ${config.xdg.configHome}/{way-displays,river,waybar} \
-        | entr -r ${config.xdg.configHome}/river/start_proper
+        | entr -r ${command}
+      ) &
     '';
   };
 
