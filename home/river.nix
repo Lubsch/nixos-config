@@ -17,7 +17,9 @@
       - HDMI
   '';
 
-  # TODO hot reload
+  # TODO
+  # hot reload
+  # ponder about using shell variables instead
   wayland.windowManager.river = {
     enable = true;
     extraConfig = # sh
@@ -177,4 +179,9 @@
         # (${pkgs.inotify-tools}/bin/inotifywait --event modify ~/.config/river/init ; ~/.config/river/init) &
       '';
   };
+
+  home.sessionVariables.WM = "${pkgs.writeShellScriptBin "wm" ''
+    # to be used by greetd
+       river > ${config.xdg.dataHome}/river.log 2>&1
+  ''}/bin/wm";
 }
