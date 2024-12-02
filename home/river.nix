@@ -3,19 +3,21 @@
   home.packages = [ pkgs.way-displays ];
   xdg.configFile."way-displays/cfg.yaml".text = # yaml
   ''
-    ARRANGE: COLUMN
+    ARRANGE: COLUMN # on top of eachother
     ALIGN: MIDDLE
+    ORDER:
+      - DP
+      - HDMI
+      - eDP # embedded dp (laptop) bottom
     SCALING: TRUE
     AUTO_SCALE: TRUE
     AUTO_SCALE_MIN: 1
     AUTO_SCALE_MAX: -1
     SCALE:
-      - NAME_DESC: eDP-1
-        SCALE: 1.5
       - NAME_DESC: LG Display 0x06ED (eDP-1)
         SCALE: 1.5
     VRR_OFF:
-      - HDMI
+      - HDMI # no vrr on hdmi (I don't have HDMI 2.1)
   '';
 
   # TODO
