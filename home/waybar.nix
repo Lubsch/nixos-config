@@ -34,35 +34,28 @@
         }
 
         #tags button {
-            /* margin: 10px; */
             padding: 0 5px;
-            /* background-color: #ebdbb2; */
-            color: inherit;
+            color: #101010;
         }
 
-        #tags button.visible.hosting-monitor {
+        #tags button.occupied {
             color: #101010;
             background-color: #665c54;
         }
 
-        #tags button.active.hosting-monitor {
+        #tags button.focused {
             color: #101010;
             background-color: #ebdbb2;
         }
 
-        #tags button.hosting-monitor {
-            background-color: inherit;
-            color: inherit;
-        }
+        /* #tags button.hosting-monitor { */
+        /*     color: inherit; */
+        /* } */
 
-        #tags button.empty {
-            color: #101010;
-            /* background-color: inherit; */
-        }
-
-        #tags button {
-            color: #665c54;
-        }
+        /* #tags button.empty { */
+        /*     color: #101010; */
+        /*     /* background-color: inherit; */ */
+        /* } */
 
         /* #tags button.hosting-monitor { */
         /*     background-color: #ebdbb2; */
