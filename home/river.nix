@@ -24,11 +24,10 @@
   # TODO
   # hot reload
   # ponder about using shell variables instead
-  xdg.configFile."river/start_proper".executable = true;
-  xdg.configFile."river/start_proper".text = # sh
-  ''
-    #!/bin/sh
-
+  wayland.windowManager.river = {
+    enable = true;
+    extraConfig = # sh
+    ''
     # NOTE killing all processes with these names
     foot --server & # detects automatically if already running
     (old_pid=$(pidof way-displays) ; kill $old_pid ; ${pkgs.way-displays}/bin/way-displays) &
@@ -177,17 +176,12 @@
     # River will send the process group of the init executable SIGTERM on exit.
     riverctl default-layout rivertile
     rivertile -main-location right -view-padding 0 -outer-padding 0 &
-  '';
 
-  wayland.windowManager.river =
-  let
-    command = config.xdg.configHome + "/river/start_proper";
-  in {
-    enable = true;
-    extraConfig = command;
-    systemd.extraCommands = [ /* sh */ ''
-      (find ${config.xdg.configHome}/{way-displays,river,waybar} | entr -rn ${command})
-    ''];
+    ${pkgs.writeShellScript "hot-reload" ''
+      ${pkgs.inotify-tools}/bin/inotifywait --event modify --event delete --event modify --event create .config/{river,waybar,way-displays}
+      ${config.xdg.configHome}/river/init
+    ''} &
+    '';
   };
 
   home.sessionVariables.WM = "${pkgs.writeShellScriptBin "wm" ''
