@@ -181,14 +181,10 @@
 
   wayland.windowManager.river = {
     enable = true;
-    extraConfig =
-    let
-      command = config.xdg.configHome + "/river/start_proper";
-    in # sh
-    ''
-      ${command}
-      find ${config.xdg.configHome}/{way-displays,river,waybar} | entr -r ${command} &
-    '';
+    systemd.extraCommands =
+    [ /* sh */ ''
+      find ${config.xdg.configHome}/{way-displays,river,waybar} | entr -r ${config.xdg.configHome}/river/start_proper
+    ''];
   };
 
   home.sessionVariables.WM = "${pkgs.writeShellScriptBin "wm" ''
