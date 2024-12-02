@@ -1,5 +1,22 @@
 { pkgs, config, ... }:
 {
+  xdg.configFile."way-displays/cfg.yaml".text = # yaml
+  ''
+    ARRANGE: COLUMN
+    ALIGN: MIDDLE
+    SCALING: TRUE
+    AUTO_SCALE: TRUE
+    AUTO_SCALE_MIN: 1
+    AUTO_SCALE_MAX: -1
+    SCALE:
+      - NAME_DESC: eDP-1
+        SCALE: 1.5
+      - NAME_DESC: LG Display 0x06ED (eDP-1)
+        SCALE: 1.5
+    VRR_OFF:
+      - HDMI
+  '';
+
   wayland.windowManager.river = {
     enable = true;
     extraConfig = # sh
@@ -8,6 +25,7 @@
 
         # TODO only kill children
         foot --server &
+        (pkill way-displays ; ${pkgs.way-displays}/bin/way-displays) &
         (pkill swaybg ; ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current) &
         (pkill waybar ; waybar) &
 
@@ -149,6 +167,9 @@
         # River will send the process group of the init executable SIGTERM on exit.
         riverctl default-layout rivertile
         rivertile -main-location right -view-padding 0 -outer-padding 0 &
+
+        # restart this script on config change
+        inotifywait --event modify ~/.config/river/init ; entr -r .config/river/init
       '';
   };
 }
