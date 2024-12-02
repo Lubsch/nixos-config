@@ -20,8 +20,10 @@ in
 
           local newGenFiles
           newGenFiles="$(readlink -e "$newGenPath/home-files")"
+          time {
           find "$newGenFiles" \( -type f -or -type l \) \
             -exec ${link} "$newGenFiles" {} +
+          }
         }
 
         function cleanOldGen() {
@@ -38,10 +40,8 @@ in
           # Apply the cleanup script on each leaf in the old
           # generation. The find command below will print the
           # relative path of the entry.
-          time {
           find "$oldGenFiles" '(' -type f -or -type l ')' -printf '%P\0' \
             | xargs -0 bash /nix/store/s9p3c8fwpjnzdkyky4qbdfg339yqrb9a-cleanup "$newGenFiles"
-          }
         }
 
         cleanOldGen
