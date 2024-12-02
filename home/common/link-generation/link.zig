@@ -31,11 +31,12 @@ pub fn main() !void {
         }
 
         var buf = std.mem.zeroes([path_max]u8);
-        const target_path = try home.readLink(relative_path, &buf);
-        if (std.mem.eql(u8, target_path, source_path)) {
-            // we don't need to do anything
-            return;
-        }
+        if (home.readLink(relative_path, &buf)) |target_path| {
+            if (std.mem.eql(u8, target_path, source_path)) {
+                // we don't need to do anything
+                return;
+            }
+        } else |_| {}
 
         home.deleteFile(relative_path) catch {};
 
