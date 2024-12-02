@@ -21,7 +21,7 @@
   '';
 
   nix = {
-    # package = pkgs.lix; # for features like showing packages as their path
+    package = pkgs.lix; # for features like showing packages as their path
 
     extraOptions = ''
       fallback = true
