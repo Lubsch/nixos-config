@@ -39,8 +39,8 @@
         }
 
         #tags button.occupied {
-            color: #101010;
-            background-color: #665c54;
+            color: #ebdbb2;
+            background-color: inherit;
         }
 
         #tags button.focused {
