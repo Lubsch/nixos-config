@@ -17,6 +17,7 @@
       - HDMI
   '';
 
+  # TODO hot reload
   wayland.windowManager.river = {
     enable = true;
     extraConfig = # sh

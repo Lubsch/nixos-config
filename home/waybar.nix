@@ -160,7 +160,7 @@
           // Choose the order of the modules
           "modules-left": [
               // "hyprland/workspaces"
-              "river/workspaces"
+              "river/tags"
               // "hyprland/mode",
               // "hyprland/scratchpad",
           ],
