@@ -159,7 +159,8 @@
           // "spacing": 4, // Gaps between modules (4px)
           // Choose the order of the modules
           "modules-left": [
-              "hyprland/workspaces"
+              // "hyprland/workspaces"
+              "river/workspaces"
               // "hyprland/mode",
               // "hyprland/scratchpad",
           ],
