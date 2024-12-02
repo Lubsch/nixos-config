@@ -38,7 +38,7 @@ pub fn main() !void {
         }
 
         // create symlink
-        std.debug.print("new_gen_path: {s}\nsource_path: {s}\nrelative_path: {s}\n", .{ new_gen_path, source_path, relative_path });
+        // std.debug.print("new_gen_path: {s}\nsource_path: {s}\nrelative_path: {s}\n", .{ new_gen_path, source_path, relative_path });
         try home.symLink(source_path, relative_path, .{});
     }
 }
