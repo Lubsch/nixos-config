@@ -169,7 +169,7 @@
         rivertile -main-location right -view-padding 0 -outer-padding 0 &
 
         # restart this script on config change
-        inotifywait --event modify ~/.config/river/init ; entr -r .config/river/init
+        ${pkgs.inotify-tools}/bin/inotifywait --event modify ~/.config/river/init ; .config/river/init
       '';
   };
 }
