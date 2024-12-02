@@ -1,20 +1,6 @@
 { pkgs, config, ... }:
 {
   home.packages = [ pkgs.way-displays ];
-  systemd.user.services.watch-config = {
-    Service = {
-      User = config.home.username;
-      Restart = "always";
-      ExecStart = pkgs.writeShellScript "watch-config" # bash
-      ''
-        (
-        echo ${config.xdg.configHome}/{way-displays/cfg.yaml,river/init,waybar/*} \
-          | entr -r ${config.xdg.configHome}/river/start_proper
-        ) &
-      '';
-    };
-    Install.WantedBy = [ "graphical.target" ];
-  };
 
   xdg.configFile."way-displays/cfg.yaml".text = # yaml
   ''
@@ -198,7 +184,7 @@
     ''
       #!/bin/sh
       find ${config.xdg.configHome}/{way-displays,river,waybar} \
-        | entr -r ${config.xdg.configHome}/.config/river/init
+        | entr -r ${config.xdg.configHome}/river/start_proper
     '';
   };
 
