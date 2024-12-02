@@ -7,7 +7,7 @@
   };
   systemd.user.paths = {
     way-displays = {
-      Unit.Wants = [ "river-init" ];
+      Unit.Wants = [ "river-init.service" ];
       Path.PathModified = "${config.xdg.configHome}/way-displays/cfg.yaml";
       Install.WantedBy = [ "multi-user.target" ];
     };
