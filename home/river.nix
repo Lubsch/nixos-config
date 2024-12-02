@@ -28,6 +28,7 @@
     enable = true;
     extraConfig = # sh
     ''
+
     # NOTE killing all processes with these names
     foot --server & # detects automatically if already running
     (old_pid=$(pidof way-displays) ; kill $old_pid ; ${pkgs.way-displays}/bin/way-displays) &
