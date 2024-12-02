@@ -3,12 +3,13 @@
   home.packages = [ pkgs.way-displays ];
   systemd.user.services.watch-config = {
     Service = {
+      User = config.home.username;
       Restart = "always";
-      ExecStart = "${pkgs.writeShellScript "watch-config" # bash
+      ExecStart = pkgs.writeShellScript "watch-config" # bash
       ''
         echo ${config.xdg.configHome}/{way-displays/cfg.yaml,river/init,waybar/*} \
           | entr -r ${config.xdg.configHome}/.config/river/init
-      ''}";
+      '';
     };
     Install.WantedBy = [ "graphical.target" ];
   };
