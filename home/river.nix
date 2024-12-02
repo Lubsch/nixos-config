@@ -179,11 +179,14 @@
     rivertile -main-location right -view-padding 0 -outer-padding 0 &
   '';
 
-  wayland.windowManager.river = {
+  wayland.windowManager.river =
+  let
+    command = config.xdg.configHome + "/river/start_proper";
+  in {
     enable = true;
-    systemd.extraCommands =
-    [ /* sh */ ''
-      find ${config.xdg.configHome}/{way-displays,river,waybar} | entr -r ${config.xdg.configHome}/river/start_proper
+    extraConfig = command;
+    systemd.extraCommands = [ /* sh */ ''
+      find ${config.xdg.configHome}/{way-displays,river,waybar} | entr -r ${command}
     ''];
   };
 
