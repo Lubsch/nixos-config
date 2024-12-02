@@ -2,7 +2,7 @@ const std = @import("std");
 
 pub fn main() !void {
     const home_path = std.posix.getenv("HOME").?;
-    const home = try std.fs.openDirAbsolute(home_path, .{ .no_follow = true });
+    const home = try std.fs.openDirAbsolute(home_path, .{});
 
     var args = std.process.args();
     _ = args.next(); // discard program path
@@ -22,7 +22,7 @@ pub fn main() !void {
         _ = it.next();
         const relative_path = it.next().?;
 
-        // file exists -> delete it
+        // // file exists -> delete it
         // if (home.access(relative_path, .{})) |_| {
         //     try home.deleteFile(relative_path) catch ;
         // } else |err| {

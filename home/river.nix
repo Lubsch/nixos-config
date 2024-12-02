@@ -1,5 +1,6 @@
 { pkgs, config, ... }:
 {
+  home.packages = [ pkgs.way-displays ];
   xdg.configFile."way-displays/cfg.yaml".text = # yaml
   ''
     ARRANGE: COLUMN
