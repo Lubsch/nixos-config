@@ -33,43 +33,43 @@
             /* box-shadow: inset 0 -3px #ffffff; */
         }
 
-        #workspaces button {
+        #tags button {
             /* margin: 10px; */
             padding: 0 5px;
             /* background-color: #ebdbb2; */
             color: inherit;
         }
 
-        #workspaces button.visible.hosting-monitor {
+        #tags button.visible.hosting-monitor {
             color: #101010;
             background-color: #665c54;
         }
 
-        #workspaces button.active.hosting-monitor {
+        #tags button.active.hosting-monitor {
             color: #101010;
             background-color: #ebdbb2;
         }
 
-        #workspaces button.hosting-monitor {
+        #tags button.hosting-monitor {
             background-color: inherit;
             color: inherit;
         }
 
-        #workspaces button.empty {
+        #tags button.empty {
             color: #101010;
             /* background-color: inherit; */
         }
 
-        #workspaces button {
+        #tags button {
             color: #665c54;
         }
 
-        /* #workspaces button.hosting-monitor { */
+        /* #tags button.hosting-monitor { */
         /*     background-color: #ebdbb2; */
         /*     color: #161616; */
         /* } */
 
-        /* #workspaces button.urgent { */
+        /* #tags button.urgent { */
         /*     background-color: #eb4d4b; */
         /* } */
 
@@ -96,17 +96,17 @@
         }
 
         #window,
-        #workspaces {
+        #tags {
             margin: 0 4pt;
         }
 
-        /* If workspaces is the leftmost module, omit left margin */
-        .modules-left > widget:first-child > #workspaces {
+        /* If tags is the leftmost module, omit left margin */
+        .modules-left > widget:first-child > #tags {
             margin-left: 0;
         }
 
-        /* If workspaces is the rightmost module, omit right margin */
-        .modules-right > widget:last-child > #workspaces {
+        /* If tags is the rightmost module, omit right margin */
+        .modules-right > widget:last-child > #tags {
             margin-right: 0;
         }
 
@@ -187,7 +187,7 @@
               // "custom/power"
           ],
           // Modules configuration
-          "hyprland/workspaces": {
+          "river/tags": {
               // "active-only": true,
               "disable-scroll": true,
               "all-outputs": true,
