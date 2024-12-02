@@ -1,17 +1,16 @@
 { pkgs, config, ... }:
 {
   home.packages = [ pkgs.way-displays ];
-  systemd.user.services.river-init.Service = {
-    Type = "oneshot";
-    ExecStart = "${config.xdg.configHome}/river/init";
-  };
-  systemd.user.paths = {
-    way-displays = {
-      Unit.Wants = [ "river-init.service" ];
-      Unit.BindsTo = [ "river-init.service" ];
-      Path.PathModified = "${config.xdg.configHome}/way-displays/cfg.yaml";
-      Install.WantedBy = [ "multi-user.target" ];
+  systemd.user.services.watch-config = {
+    Service = {
+      Restart = "always";
+      ExecStart = "${pkgs.writeShellScript "watch-config" # bash
+      ''
+        echo ${config.xdg.configHome}/{way-displays/cfg.yaml,river/init,waybar/*} \
+          | entr -r ${config.xdg.configHome}/.config/river/init
+      ''}";
     };
+    Install.WantedBy = [ "multi-user.target" ];
   };
   xdg.configFile."way-displays/cfg.yaml".text = # yaml
   ''
