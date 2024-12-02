@@ -24,6 +24,7 @@
   # TODO
   # hot reload
   # ponder about using shell variables instead
+  xdg.configFile."river/start_proper".executable = true;
   xdg.configFile."river/start_proper".text = # sh
   ''
     #!/bin/sh
