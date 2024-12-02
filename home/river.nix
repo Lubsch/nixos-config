@@ -190,7 +190,7 @@
         riverctl default-layout rivertile
         rivertile -main-location right -view-padding 0 -outer-padding 0 &
 
-        echo ${config.xdg.configHome}/{way-displays/cfg.yaml,river/init,waybar/*} \
+        find ${config.xdg.configHome}/{way-displays,river,waybar} \
           | entr -r exec ${config.xdg.configHome}/.config/river/init
       '';
   };
