@@ -69,10 +69,10 @@
         riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count +1"
 
         # Super+Alt+{H,J,K,L} to move views
-        riverctl map -repeat normal Super+Alt H move left 100
-        riverctl map -repeat normal Super+Alt J move down 100
-        riverctl map -repeat normal Super+Alt K move up 100
-        riverctl map -repeat normal Super+Alt L move right 100
+        riverctl map -repeat normal Super+Alt H move left 50
+        riverctl map -repeat normal Super+Alt J move down 50
+        riverctl map -repeat normal Super+Alt K move up 50
+        riverctl map -repeat normal Super+Alt L move right 50
 
         # Super+Alt+Control+{H,J,K,L} to snap views to screen edges
         riverctl map normal Super+Alt+Control H snap left
@@ -81,10 +81,10 @@
         riverctl map normal Super+Alt+Control L snap right
 
         # Super+Alt+Shift+{H,J,K,L} to resize views
-        riverctl map -repeat normal Super+Alt+Shift H resize horizontal -100
-        riverctl map -repeat normal Super+Alt+Shift J resize vertical 100
-        riverctl map -repeat normal Super+Alt+Shift K resize vertical -100
-        riverctl map -repeat normal Super+Alt+Shift L resize horizontal 100
+        riverctl map -repeat normal Super+Alt+Shift H resize horizontal -50
+        riverctl map -repeat normal Super+Alt+Shift J resize vertical 50
+        riverctl map -repeat normal Super+Alt+Shift K resize vertical -50
+        riverctl map -repeat normal Super+Alt+Shift L resize horizontal 50
 
         # Super + Left Mouse Button to move views
         riverctl map-pointer normal Super BTN_LEFT move-view
@@ -125,10 +125,10 @@
         riverctl map normal Super F toggle-fullscreen
 
         # Super+{Up,Right,Down,Left} to change layout orientation
-        riverctl map -repeat normal Super Up    send-layout-cmd rivertile "main-location top"
-        riverctl map -repeat normal Super Right send-layout-cmd rivertile "main-location right"
-        riverctl map -repeat normal Super Down  send-layout-cmd rivertile "main-location bottom"
-        riverctl map -repeat normal Super Left  send-layout-cmd rivertile "main-location left"
+        riverctl map normal Super Up    send-layout-cmd rivertile "main-location top"
+        riverctl map normal Super Right send-layout-cmd rivertile "main-location right"
+        riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
+        riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
 
 
         # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
