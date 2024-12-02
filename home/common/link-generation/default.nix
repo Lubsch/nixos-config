@@ -20,10 +20,8 @@ in
 
           local newGenFiles
           newGenFiles="$(readlink -e "$newGenPath/home-files")"
-          time {
-          find "$newGenFiles" \( -type f -or -type l \) \
+          time find "$newGenFiles" \( -type f -or -type l \) \
             -exec ${link} "$newGenFiles" {} +
-          }
         }
 
         function cleanOldGen() {
