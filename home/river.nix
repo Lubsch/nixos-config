@@ -29,7 +29,7 @@
 
         # TODO only kill children
         foot --server & # detects automatically if already running
-        (pkill way-displays ; ${pkgs.way-displays}/bin/way-displays) &
+        (old_pid=$(pidof way-displays) ; kill $old_pid ; ${pkgs.way-displays}/bin/way-displays) &
         (old_pid=$(pidof swaybg) ; ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current & sleep 1 ; kill $old_pid) &
         (old_pid=$(pidof waybar) ; waybar & kill $old_pid) &
 
