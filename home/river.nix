@@ -40,7 +40,7 @@
         riverctl map normal Super D close
         riverctl map normal Super V spawn ${config.home.sessionVariables.LAUNCHER}
         riverctl map normal Super W spawn ${config.home.sessionVariables.BROWSER}
-        riverctl map normal Super R spawn 'echo re >> $HISTFILE & ${config.home.sessionVariables.TERMINAL} zsh -ic "re; zsh -i"'
+        riverctl map normal Super R spawn 'echo re >> ${config.programs.zsh.history.path} ; ${config.home.sessionVariables.TERMINAL} zsh -ic "re; zsh -i"'
 
         # cursor and focus
         riverctl hide-cursor timeout 1000
