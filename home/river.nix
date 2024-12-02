@@ -9,7 +9,7 @@
       ''
         (
         echo ${config.xdg.configHome}/{way-displays/cfg.yaml,river/init,waybar/*} \
-          | entr -r ${config.xdg.configHome}/river/init
+          | entr -r ${config.xdg.configHome}/river/start_proper
         ) &
       '';
     };
