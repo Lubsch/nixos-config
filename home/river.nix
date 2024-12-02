@@ -38,6 +38,9 @@
         # Opening, closing
         riverctl map normal Super Return spawn ${config.home.sessionVariables.TERMINAL}
         riverctl map normal Super D close
+        riverctl map normal Super V spawn ${config.home.sessionVariables.LAUNCHER}
+        riverctl map normal Super W spawn ${config.home.sessionVariables.BROWSER}
+        riverctl map normal Super R spawn 'echo re >> $HISTFILE & ${config.home.sessionVariables.TERMINAL} zsh -ic "re; zsh -i"'
 
         # cursor and focus
         riverctl hide-cursor timeout 1000
