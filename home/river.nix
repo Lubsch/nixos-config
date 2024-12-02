@@ -186,10 +186,7 @@
       command = config.xdg.configHome + "/river/start_proper";
     in ''
       ${command} &
-      (
-      find ${config.xdg.configHome}/{way-displays,river,waybar} \
-        | entr -r ${command}
-      ) &
+      find ${config.xdg.configHome}/{way-displays,river,waybar} | entr -r ${command} &
     '';
   };
 
