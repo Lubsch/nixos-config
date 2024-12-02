@@ -6,11 +6,15 @@
       ''
         #!/bin/sh
 
+        # TODO only kill children
         foot --server &
+        (pkill swaybg ; ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current) &
         (pkill waybar ; waybar) &
-        ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current &
 
         riverctl map normal Super+Shift E exit
+
+        riverctl input '*' poiner-accel 0
+        riverctl input '*' accel-profile flat
 
         # Opening, closing
         riverctl map normal Super Return spawn ${config.home.sessionVariables.TERMINAL}
