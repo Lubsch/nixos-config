@@ -10,7 +10,7 @@
           | entr -r ${config.xdg.configHome}/.config/river/init
       ''}";
     };
-    Install.WantedBy = [ "multi-user.target" ];
+    Install.WantedBy = [ "graphical.target" ];
   };
   xdg.configFile."way-displays/cfg.yaml".text = # yaml
   ''
