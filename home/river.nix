@@ -24,9 +24,9 @@
         #!/bin/sh
 
         # TODO only kill children
-        foot --server &
+        foot --server & # detects automatically if already running
         (pkill way-displays ; ${pkgs.way-displays}/bin/way-displays) &
-        (old__pid=$(pidof swaybg) ; ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current ; kill $old_swaybg_pid)
+        (old__pid=$(pidof swaybg) ; ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current ; kill $old_swaybg_pid) &
         (old_pid=$(pidof wayar) ; waybar ; pkill waybar ) &
 
         riverctl map normal Super+Shift E exit
