@@ -4,7 +4,8 @@ import subprocess
 
 # suppress python exception output
 try:
-    os.chdir(os.path.expanduser("~/misc/repos/nixos-config"))
+    # first argument is homedir
+    os.chdir(os.path.expanduser(f"{home_dir}/misc/repos/nixos-config"))
     subprocess.run(["fd", "-e", "nix", "f", "-X", "nixfmt"])
     subprocess.run(["git", "add", "."])
 

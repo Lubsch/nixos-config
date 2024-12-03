@@ -10,11 +10,9 @@
     (pkgs.writeScriptBin "re" # python
       ''
         #!${pkgs.python3}/bin/python
+        home_dir = ${config.home.homeDirectory};
         ${builtins.readFile ./re-script.py}
       ''
     )
   ];
-
-  # shorthand to be used when sudoing
-  home.sessionVariables.REBUILD = "nixos-rebuild switch --flake ${config.home.homeDirectory}/misc/repos/nixos-config";
 }
