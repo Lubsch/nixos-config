@@ -32,7 +32,8 @@
     fd # better find
     lsof # usage of files and ports
     magic-wormhole # send files between computers
-    perf-tools
+    linuxPackages_latest.perf
+    flamegraph
 
     # PROGRAMMING LANGUAGES ETC.
     python3
