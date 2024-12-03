@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   # re script which used to be a shell alias
   # - Regenerates and garbage collects files in generated
@@ -14,4 +14,7 @@
       ''
     )
   ];
+
+  # shorthand to be used when sudoing
+  home.sessionVariables.REBUILD = "nixos-rebuild switch --flake ${config.home.homeDirectory}/misc/repos/nixos-config";
 }
