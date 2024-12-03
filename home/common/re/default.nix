@@ -10,7 +10,6 @@
     (pkgs.writeScriptBin "re" # python
       ''
         #!${pkgs.python3}/bin/python
-        home_dir = "${config.home.homeDirectory}";
         ${builtins.readFile ./re-script.py}
       ''
     )
