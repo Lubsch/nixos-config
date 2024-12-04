@@ -22,7 +22,6 @@
   '';
 
   # TODO
-  # hot reload
   # ponder about using shell variables instead
   wayland.windowManager.river = {
     enable = true;
@@ -33,6 +32,8 @@
     (old_pid=$(pidof way-displays) ; kill $old_pid ; ${pkgs.way-displays}/bin/way-displays) &
     (old_pid=$(pidof swaybg) ; ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current & sleep 1 ; kill $old_pid) &
     (old_pid=$(pidof waybar) ; waybar & kill $old_pid) &
+    # TODO start kp and music on special workspaces
+    # (old_pid=$(pidof waybar) ; waybar & kill $old_pid) &
 
     riverctl map normal Super+Shift E exit
 
