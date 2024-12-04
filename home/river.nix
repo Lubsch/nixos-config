@@ -177,11 +177,11 @@
     riverctl default-layout rivertile
     rivertile -main-location right -view-padding 0 -outer-padding 0 &
 
-    pkill river-hot-reload
-    ${pkgs.writeShellScript "river-hot-reload" ''
+    pkill river-reload
+    ${pkgs.writeShellScript "river-reload" ''
       ${pkgs.inotify-tools}/bin/inotifywait --event modify --event delete --event modify --event create .config/{river,waybar,way-displays}
       ${config.xdg.configHome}/river/init
-    ''}/bin/river-hot-reload &
+    ''} &
     '';
   };
 
