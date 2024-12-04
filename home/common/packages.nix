@@ -1,3 +1,5 @@
+# Universal dev tools are included
+# but should also be added to flakes of projects
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
@@ -32,8 +34,13 @@
     fd # better find
     lsof # usage of files and ports
     magic-wormhole # send files between computers
+
+    # PROFILING
     linuxPackages_latest.perf
-    flamegraph
+    flamegraph cargo-flamegraph
+
+    # DEBUGGING
+    rr
 
     # PROGRAMMING LANGUAGES ETC.
     python3
