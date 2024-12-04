@@ -7,9 +7,9 @@
     ARRANGE: COLUMN # on top of eachother
     ALIGN: MIDDLE
     ORDER:
-      - eDP # embedded dp (laptop) bottom
-      - HDMI
       - DP
+      - HDMI
+      - eDP # embedded dp (laptop) bottom
     SCALING: TRUE
     AUTO_SCALE: TRUE
     AUTO_SCALE_MIN: 1
