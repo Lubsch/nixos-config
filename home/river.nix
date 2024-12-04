@@ -178,10 +178,10 @@
     rivertile -main-location right -view-padding 0 -outer-padding 0 &
 
     pkill river-reload
-    ${pkgs.writeShellScript "river-reload" ''
+    ${pkgs.writeShellScriptBin "river-reload" ''
       ${pkgs.inotify-tools}/bin/inotifywait --event modify --event delete --event modify --event create .config/{river,waybar,way-displays}
       ${config.xdg.configHome}/river/init
-    ''} &
+    ''}/bin/river-reload &
     '';
   };
 
