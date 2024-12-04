@@ -5,6 +5,10 @@ import subprocess
 # suppress python exception output
 try:
     os.chdir(os.path.expanduser("~/misc/repos/nixos-config"))
+    # TODO replace this with git ls-files or similar:
+    # e.g. git ls-files --deleted --others --modified  --exclude-standard | nixfmt
+    # NOTE this will give errors when there are no changes
+    # better switch to a proper programming language and do some checking
     subprocess.run(["fd", "-e", "nix", "f", "-X", "nixfmt"])
     subprocess.run(["git", "add", "."])
 
