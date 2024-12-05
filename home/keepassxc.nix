@@ -21,6 +21,7 @@
     LockDatabaseIdle=true
     LockDatabaseIdleSeconds=30
   '';
+  # TODO this doesnt seem like its wrapping correctly
   home.packages = with pkgs; [
     # same home as browser (librewolf/firefox) for interop
     (symlinkJoin {
