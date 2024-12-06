@@ -194,6 +194,7 @@ vim.diagnostic.config{
   float={border=_border}
 }
 
+-- TODO check https://github.com/zigtools/zls/issues/2101 if it's resolved
 require"lspconfig".zls.setup{
     preferAstCheckAsChildProcess = false,
 }
