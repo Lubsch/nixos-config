@@ -194,6 +194,10 @@ vim.diagnostic.config{
   float={border=_border}
 }
 
+require"lspconfig".zls.setup{
+    preferAstCheckAsChildProcess = false,
+}
+
 
 local cmp = require'cmp'
 cmp.setup{
@@ -239,7 +243,6 @@ vim.keymap.set('n', '<leader>f', ':Telescope find_files<cr>', opts)
 -- CONFLICT breakpoints vim.keymap.set('n', '<leader>b', ':Telescope buffers<cr>', opts) 
 vim.keymap.set('n', '<leader>g', ':Telescope live_grep<cr>', opts)
 vim.keymap.set('n', '<leader>t', ':Telescope<cr>', opts)
-
 
 
 -- colorscheme
