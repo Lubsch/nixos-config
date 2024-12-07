@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+  # home.sessionVariables.XCURSOR_PATH = "${config.xdg.dataHome}/icons";
   home.pointerCursor = {
     name = "Adwaita";
     package = pkgs.adwaita-icon-theme;
@@ -35,8 +36,8 @@
   qt = {
     enable = true;
     style = {
-      name = "adwaita";
-      package = pkgs.adwaita-qt6;
+      name = "adwaita-dark";
+      package = pkgs.adwaita-qt;
     };
   };
 }

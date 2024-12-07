@@ -1,5 +1,10 @@
 { pkgs, ... }:
 {
   home.packages = [ pkgs.tlrc ];
-  persist.directories = [ ".cache/tlrc" ];
+  persist.directories = [
+    {
+      directory = ".cache/tlrc";
+      method = "symlink";
+    }
+  ];
 }

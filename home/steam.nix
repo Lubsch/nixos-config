@@ -25,12 +25,12 @@ in
   persist.directories = [
     {
       directory = lib.removePrefix "${config.home.homeDirectory}/" steamHome;
-      # method = "symlink"; # steam requires symlink (doesn't like fuse)
+      method = "symlink"; # steam requires symlink (doesn't like fuse)
     }
     {
       # ugly but better than nothing
       directory = ".local/share/Paradox Interactive";
-      # method = "symlink"; # steam requires symlink (doesn't like fuse)
+      method = "symlink"; # steam requires symlink (doesn't like fuse)
     }
   ];
 }

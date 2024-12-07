@@ -129,7 +129,13 @@ in
   ];
 
   persist.directories = [
-    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.mozilla/firefox"
-    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.mozilla/native-messaging-hosts"
+    {
+      directory = "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.mozilla/firefox";
+      method = "symlink";
+    }
+    {
+      directory = "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.mozilla/native-messaging-hosts";
+      method = "symlink";
+    }
   ];
 }

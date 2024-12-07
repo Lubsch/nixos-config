@@ -108,7 +108,9 @@ in
   ];
 
   persist.directories = [
-    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.librewolf"
-    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.cache/librewolf" # can be deleted but why not
+    {
+      directory = "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.librewolf";
+      method = "symlink";
+    }
   ];
 }

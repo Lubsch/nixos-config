@@ -70,5 +70,10 @@ in
   };
 
   # persist log, shada, swap and undo (could require manual cleanup)
-  persist.directories = [ ".local/state/nvim" ];
+  persist.directories = [
+    {
+      directory = ".local/state/nvim";
+      method = "symlink";
+    }
+  ];
 }

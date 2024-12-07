@@ -19,5 +19,10 @@
     # matchBlocks."*".identityFile = "%d/.ssh/%n";
   };
 
-  persist.directories = [ ".ssh" ];
+  persist.directories = [
+    {
+      directory = ".ssh";
+      method = "bindfs";
+    }
+  ];
 }

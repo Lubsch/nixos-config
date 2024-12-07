@@ -71,5 +71,10 @@ in
     })
   ];
 
-  persist.directories = [ ".local/share/qutebrowserHome" ];
+  persist.directories = [
+    {
+      directory = ".local/share/qutebrowserHome";
+      method = "symlink";
+    }
+  ];
 }

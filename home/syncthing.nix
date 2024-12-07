@@ -6,6 +6,9 @@
   };
 
   persist.directories = [
-    "${lib.removePrefix "${config.home.homeDirectory}/" config.xdg.stateHome}/syncthing"
+    {
+      directory = "${lib.removePrefix "${config.home.homeDirectory}/" config.xdg.stateHome}/syncthing";
+      method = "symlink";
+    }
   ];
 }
