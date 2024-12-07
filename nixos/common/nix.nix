@@ -1,10 +1,12 @@
 {
   pkgs,
   inputs,
-  config,
   lib,
   ...
 }:
+let
+  package = pkgs.lix; # for features like showing packages as their path and small perf difference
+in
 {
 
   environment.systemPackages = with pkgs; [
@@ -14,14 +16,14 @@
     cntr
   ];
 
-  system.activationScripts.diff = ''
-    if [[ -e /run/current-system ]]; then
-      ${config.nix.package}/bin/nix store diff-closures /run/current-system "$systemConfig"
-    fi
-  '';
+  # system.activationScripts.diff = ''
+  #   if [[ -e /run/current-system ]]; then
+  #     ${package}/bin/nix store diff-closures /run/current-system "$systemConfig"
+  #   fi
+  # '';
 
   nix = {
-    package = pkgs.lix; # for features like showing packages as their path
+    inherit package;
 
     extraOptions = ''
       fallback = true
