@@ -86,6 +86,7 @@ let
     settings = {
       smoothScroll = false;
       keyMappings = ''
+        map w moveTabToNewWindow
         map s passNextKey
         unmap <<
         unmap >>
@@ -130,6 +131,5 @@ in
   persist.directories = [
     "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.mozilla/firefox"
     "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.mozilla/native-messaging-hosts"
-    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.cache/firefox" # can be deleted but why not
   ];
 }
