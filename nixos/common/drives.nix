@@ -23,6 +23,7 @@
     ];
     disko.devices.nodev."/" = {
       fsType = "tmpfs";
+      mountOptions = [ "noatime" ];
     };
     disko.devices.disk.main = {
       type = "disk";
