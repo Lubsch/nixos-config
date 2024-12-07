@@ -48,7 +48,7 @@
             ./nixos/wireless.nix
             ./nixos/desktop.nix
             # ./nixos/wireshark.nix
-            ./nixos/printing.nix
+            # ./nixos/printing.nix
             ./nixos/screenlock.nix
             # ./nixos/fingerprint.nix
             {
