@@ -63,7 +63,7 @@ pub fn main() !void {
     }
 
     // avoid work if nothing's changed at all
-    if (files.items.len > 0) {
+    // if (files.items.len > 0) {
         var git_add_args = std.ArrayList([]const u8).init(allocator);
         try git_add_args.append("git");
         try git_add_args.append("add");
@@ -81,11 +81,11 @@ pub fn main() !void {
             git_commit.stderr_behavior = .Ignore;
             _ = try git_commit.spawnAndWait();
             var git_push = std.process.Child.init(&[_][]const u8{ "git", "push" }, allocator);
-            git_push.stdout_behavior = .Ignore;
-            git_push.stderr_behavior = .Ignore;
+            // git_push.stdout_behavior = .Ignore;
+            // git_push.stderr_behavior = .Ignore;
             _ = try git_push.spawnAndWait(); // there's nothing wrong with waiting so we don't orphan a process
         }
-    } else {
-        std.debug.print("Nothing to do!\n", .{});
-    }
+    // } else {
+    //     std.debug.print("Nothing to do!\n", .{});
+    // }
 }
