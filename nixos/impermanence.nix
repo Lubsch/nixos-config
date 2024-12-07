@@ -7,29 +7,38 @@
 {
   imports = [
     inputs.impermanence.nixosModules.impermanence
-    (lib.mkAliasOptionModule [ "persist" ] [
-      "environment"
-      "persistence"
-      "/persist"
-    ])
-  ];
-
-  home-manager.sharedModules = [
-    (
-      { config, lib, ... }:
-      {
-        imports = [
-          inputs.impermanence.nixosModules.home-manager.impermanence
-          (lib.mkAliasOptionModule [ "persist" ] [
-            "home"
-            "persistence"
-            "/persist${config.home.homeDirectory}"
-          ])
-        ];
-        persist.allowOther = true;
-      }
+    (lib.mkAliasOptionModule
+      [ "persist" ]
+      [
+        "environment"
+        "persistence"
+        "/persist"
+      ]
     )
   ];
+
+  # replace home manager module with this :)
+  persist.users = lib.mapAttrs (_: hm-config: {
+    inherit (hm-config.persist) files;
+    inherit (hm-config.persist) directories;
+  }) config.home-manager.users;
+
+  # home-manager.sharedModules = [
+  #   (
+  #     { config, lib, ... }:
+  #     {
+  #       imports = [
+  #         inputs.impermanence.nixosModules.home-manager.impermanence
+  #         (lib.mkAliasOptionModule [ "persist" ] [
+  #           "home"
+  #           "persistence"
+  #           "/persist${config.home.homeDirectory}"
+  #         ])
+  #       ];
+  #       persist.allowOther = true;
+  #     }
+  #   )
+  # ];
 
   programs.fuse.userAllowOther = true;
 
