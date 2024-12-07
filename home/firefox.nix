@@ -129,7 +129,7 @@ in
   ];
 
   persist.directories = [
-    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.mozilla/firefox"
-    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.mozilla/native-messaging-hosts"
+    ".local/share/firefoxHome/.mozilla/firefox"
+    ".local/share/firefoxHome/.mozilla/native-messaging-hosts"
   ];
 }

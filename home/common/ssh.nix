@@ -20,9 +20,6 @@
   };
 
   persist.directories = [
-    {
-      directory = ".ssh";
-      method = "bindfs";
-    }
+    ".ssh"
   ];
 }

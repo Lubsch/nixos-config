@@ -23,7 +23,7 @@ in
   ];
 
   persist.directories = [
-    (lib.removePrefix "${config.home.homeDirectory}/" steamHome)
+    ".local/share/steamHome"
     ".local/share/Paradox Interactive"
   ];
 }

@@ -5,9 +5,9 @@ in
 {
 
   # Prevents collision with zsh history, hacky but works
-  home.activation.delete-zsh-history = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-    rm -rf --interactive=never ${historyPath}
-  '';
+  # home.activation.delete-zsh-history = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+  #   rm -rf --interactive=never ${historyPath}
+  # '';
 
   programs.zsh = {
     enable = true;
@@ -112,5 +112,5 @@ in
     '';
   };
 
-  persist.files = [ (lib.removePrefix "${config.home.homeDirectory}/" historyPath) ];
+  persist.files = [ ".local/share/zsh/history" ];
 }

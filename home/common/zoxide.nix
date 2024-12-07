@@ -16,6 +16,6 @@
   '';
 
   persist.directories = [
-    "${lib.removePrefix "${config.home.homeDirectory}/" config.xdg.dataHome}/zoxide"
+    ".local/share/zoxide"
   ];
 }
