@@ -9,6 +9,7 @@
 
   # Remove (unnecessary, I hope) delay from waiting for network
   systemd.targets.network-online.enable = false;
+  systemd.targets.network.enable = false;
   networking.dhcpcd.wait = "background";
 
   boot = {
@@ -18,7 +19,10 @@
       systemd.enable = true; # experimental, for concurrent stage 1
       verbose = false;
     };
-    kernelParams = [ "quiet" "i8042.unlock=1" ]; # i8042 option to get rid of harmless keyboard warning that it's locked
+    kernelParams = [
+      "quiet"
+      "i8042.unlock=1"
+    ]; # i8042 option to get rid of harmless keyboard warning that it's locked
     consoleLogLevel = 2;
 
     kernel.sysctl."kernel.perf_event_paranoid" = 1; # for rr debugger
