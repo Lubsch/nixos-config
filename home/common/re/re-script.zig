@@ -42,15 +42,15 @@ pub fn main() !void {
         }
     }
 
-    std.debug.print("Nix files:\n", .{});
-    for (nix_files.items) |file| {
-        std.debug.print("{s}\n", .{file});
-    }
+    // std.debug.print("Nix files:\n", .{});
+    // for (nix_files.items) |file| {
+    //     std.debug.print("{s}\n", .{file});
+    // }
 
-    std.debug.print("All files:\n", .{});
-    for (files.items) |file| {
-        std.debug.print("{s}\n", .{file});
-    }
+    // std.debug.print("All files:\n", .{});
+    // for (files.items) |file| {
+    //     std.debug.print("{s}\n", .{file});
+    // }
 
     // only run nixfmt if nix files have changed
     if (nix_files.items.len > 0) {
