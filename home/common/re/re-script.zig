@@ -17,12 +17,14 @@ pub fn main() !void {
         git_diff.stderr_behavior = .Pipe;
 
         var stdout = std.ArrayList(u8).init(allocator);
-        var stderr = std.ArrayList(u8).init(allocator);
+        var stdout2 = std.ArrayList(u8).init(allocator);
+        var stderr = std.ArrayList(u8).init(allocator); // we basically ignore stderr
 
         try git_ls.spawn();
         try git_diff.spawn();
         try git_ls.collectOutput(&stdout, &stderr, 10000);
-        try git_diff.collectOutput(&stdout, &stderr, 10000);
+        try git_diff.collectOutput(&stdout2, &stderr, 10000);
+        try stdout.appendSlice(stdout2.items);
         break :blk std.mem.splitScalar(u8, stdout.items[0..stdout.items.len], '\n');
     };
 
@@ -40,13 +42,15 @@ pub fn main() !void {
         }
     }
 
-    // for (nix_files.items) |file| {
-    //     std.debug.print("{s}\n", .{file});
-    // }
+    std.debug.print("Nix files:\n", .{});
+    for (nix_files.items) |file| {
+        std.debug.print("{s}\n", .{file});
+    }
 
-    // for (files.items) |file| {
-    //     std.debug.print("{s}\n", .{file});
-    // }
+    std.debug.print("All files:\n", .{});
+    for (files.items) |file| {
+        std.debug.print("{s}\n", .{file});
+    }
 
     // only run nixfmt if nix files have changed
     if (nix_files.items.len > 0) {
