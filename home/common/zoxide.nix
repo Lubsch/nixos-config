@@ -16,9 +16,6 @@
   '';
 
   persist.directories = [
-    {
-      directory = "${lib.removePrefix "${config.home.homeDirectory}/" config.xdg.dataHome}/zoxide";
-      method = "symlink";
-    }
+    "${lib.removePrefix "${config.home.homeDirectory}/" config.xdg.dataHome}/zoxide"
   ];
 }

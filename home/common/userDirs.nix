@@ -18,25 +18,10 @@
     };
 
   persist.directories = [
-    {
-      directory = "documents";
-      method = "symlink";
-    }
-    {
-      directory = "music";
-      method = "symlink";
-    }
-    {
-      directory = "pictures";
-      method = "symlink";
-    }
-    {
-      directory = "videos";
-      method = "symlink";
-    }
-    {
-      directory = "misc";
-      method = "symlink";
-    }
+    "documents"
+    "music"
+    "pictures"
+    "videos"
+    "misc"
   ];
 }

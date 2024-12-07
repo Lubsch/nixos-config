@@ -76,9 +76,9 @@ pub fn main() !void {
 
         // git commit and push if you are child
         if (try std.posix.fork() == 0) {
-            var git_commit = std.process.Child.init(&[_][]const u8{ "git", "commit", "--allow-empty-message", "-m", "\"\"" }, allocator);
-            git_commit.stdout_behavior = .Ignore;
-            git_commit.stderr_behavior = .Ignore;
+            var git_commit = std.process.Child.init(&[_][]const u8{ "git", "commit", "--allow-empty-message", "-m", "" }, allocator);
+            // git_commit.stdout_behavior = .Ignore;
+            // git_commit.stderr_behavior = .Ignore;
             _ = try git_commit.spawnAndWait();
             var git_push = std.process.Child.init(&[_][]const u8{ "git", "push" }, allocator);
             // git_push.stdout_behavior = .Ignore;

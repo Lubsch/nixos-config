@@ -108,9 +108,6 @@ in
   ];
 
   persist.directories = [
-    {
-      directory = "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.librewolf";
-      method = "symlink";
-    }
+    "${lib.removePrefix "${config.home.homeDirectory}/" BROWSERHOME}/.librewolf"
   ];
 }
