@@ -11,7 +11,7 @@
   systemd.targets.network-online.enable = false;
   systemd.sockets.systemd-hostnamed.enable = false;
   systemd.services.systemd-timesyncd.after = [ "default.target" ];
-  systemd.services.systemd-timesyncd.before = lib.mkForce [ ];
+  systemd.services.systemd-timesyncd.before = lib.mkForce [ "shutdown.target" ];
   systemd.services.systemd-journal-flush.after = [ "default.target" ];
   systemd.targets.time-set.enable = false;
   networking.dhcpcd.wait = "background";
