@@ -1,5 +1,5 @@
 { pkgs, ... }:
 {
   home.packages = [ pkgs.moar ];
-  environment.sessionVariables.PAGER = "moar";
+  home.sessionVariables.PAGER = "moar";
 }
