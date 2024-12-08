@@ -71,10 +71,12 @@ pub fn main() !void {
         try git_add_args.appendSlice(files.items);
         var git_add = std.process.Child.init(git_add_args.items, allocator);
         _ = try git_add.spawnAndWait();
+    }
 
-        var rebuild = std.process.Child.init(&[_][]const u8{ "sudo", "nixos-rebuild-ng", "switch", "--flake", "." }, allocator);
-        _ = try rebuild.spawnAndWait();
+    var rebuild = std.process.Child.init(&[_][]const u8{ "sudo", "nixos-rebuild-ng", "switch", "--flake", "." }, allocator);
+    _ = try rebuild.spawnAndWait();
 
+    if (files.items.len > 0) {
         // git commit and push if you are child
         if (try std.posix.fork() == 0) {
             var git_commit = std.process.Child.init(&[_][]const u8{ "git", "commit", "--allow-empty-message", "-m", "" }, allocator);
@@ -86,8 +88,5 @@ pub fn main() !void {
             git_push.stderr_behavior = .Ignore;
             _ = try git_push.spawnAndWait(); // there's nothing wrong with waiting so we don't orphan a process
         }
-    }
-    else {
-        std.debug.print("Nothing to do!\n", .{});
     }
 }
