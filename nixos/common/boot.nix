@@ -13,7 +13,7 @@
   systemd.services.systemd-timesyncd.enable = false;
   # systemd.services.systemd-timesyncd.after = [ "default.target" ];
   # systemd.services.systemd-timesyncd.before = lib.mkForce [ "shutdown.target" ];
-  systemd.services.systemd-journal-flush.after = [ "default.target" ];
+  # systemd.services.systemd-journal-flush.after = [ "default.target" ];
   systemd.targets.time-set.enable = false;
   networking.dhcpcd.wait = "background";
 
