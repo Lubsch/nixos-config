@@ -49,7 +49,7 @@
 
         # cursor and focus
         riverctl hide-cursor timeout 1000
-        riverctl map normal Super C spawn 'if [ $show_cursor ]; then riverctl hide-cursor timeout 100; else show_cursor=1; riverctl hide-cursor timeout 1000; fi'
+        riverctl map normal Super+Shift C spawn 'if [ $show_cursor ]; then riverctl hide-cursor timeout 100; else show_cursor=1; riverctl hide-cursor timeout 1000; fi'
         riverctl set-cursor-warp on-focus-change
         riverctl focus-follows-cursor always
 
