@@ -25,12 +25,16 @@
     };
   };
 
-  dconf.settings."org/gnome/desktop/interface" = {
-    cursor-blink = false;
-    font-antialiasing = "rgba"; # sharper (?)
-    # Some gtk4 applications (e.g. Evince) need "color-scheme"
-    # set here explicitly. "gtk4.extraConfig" doesn't work.
-    color-scheme = "prefer-dark";
+  dconf.settings = {
+    "ca/desrt/dconf-editor".show-warning = false;
+    "org/gnome/desktop/wm/preferences".button-layout = "";
+    "org/gnome/desktop/interface" = {
+      cursor-blink = false;
+      font-antialiasing = "rgba"; # sharper (?)
+      # Some gtk4 applications (e.g. Evince) need "color-scheme"
+      # set here explicitly. "gtk4.extraConfig" doesn't work.
+      color-scheme = "prefer-dark";
+    };
   };
 
   qt = {

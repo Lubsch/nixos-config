@@ -59,6 +59,7 @@ let
     extraPolicies = {
       SearchEngines = {
         Default = "DuckDuckGo";
+        # To remove "This time search with..."
         Remove = [
           "Bing"
           "Google"
