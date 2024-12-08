@@ -39,6 +39,30 @@ let
           "extensions.pictureinpicture.enable_picture_in_picture_overrides" = true;
           "media.videocontrols.picture-in-picture.respect-disablePictureInPicture" = true;
         }
+      // (builtins.listToAttrs (
+        map
+          (x: {
+            name = "browser.urlbar.suggest.${x}";
+            value = false;
+          })
+          [
+            "addons"
+            "calculator"
+            "clipboard"
+            "engines"
+            "fakesport"
+            "mdn"
+            "pocket"
+            "quickactions"
+            "quicksuggest.nonsponsored"
+            "quicksuggest.sponsored"
+            "recentSearches"
+            "searches"
+            "trending"
+            "weather"
+            "yelp"
+          ]
+      ))
     );
 
     extraPolicies = {
@@ -48,15 +72,6 @@ let
       DisableTelemetry = true;
       DisableFirefoxAccounts = true;
       PasswordManagerEnabled = false;
-      FirefoxHome = {
-        Pocket = false;
-        Snippets = false;
-      };
-      FirefoxSuggest = {
-        SponsoredSuggesiostions = false;
-        ImproveSuggest = false;
-        WebSuggestions = false;
-      };
       Homepage.StartPage = "none";
       NewTabPage = false;
       UserMessaging = {
