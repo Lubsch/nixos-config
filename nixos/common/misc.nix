@@ -12,7 +12,7 @@
     networking.nftables.enable = true;
 
     persist.directories = [
-      "/var/lib/systemd/coredump"
+      "/var/lib/systemd" # coredumps, backlidght, timers etc.
       "/var/log"
       "/var/lib/nixos" # preserve uids/guids
     ];
