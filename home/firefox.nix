@@ -57,7 +57,17 @@ let
     );
 
     extraPolicies = {
-      SearchEngines.Default = "DuckDuckGo";
+      SearchEngines = {
+        Default = "DuckDuckGo";
+        Remove = [
+          "Bing"
+          "Google"
+          "Wikipedia"
+          "Bookmars"
+          "Tabs"
+          "History"
+        ];
+      };
       DisableFirefoxStudies = true;
       DisablePocket = true;
       DisableTelemetry = true;
