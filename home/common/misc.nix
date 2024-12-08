@@ -4,7 +4,7 @@
     type = lib.types.attrsOf (lib.types.listOf lib.types.anything);
   };
   config = {
-    home.activation.installPackages.enable = false; # Don't remove home-manager profile which we never generate
+    home.activation.installPackages = false; # Don't remove home-manager profile which we never generate
     systemd.user.startServices = "sd-switch";
     home.homeDirectory = lib.mkForce "/home/lubsch";
     home.username = lib.mkForce "lubsch";
