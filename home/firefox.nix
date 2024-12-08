@@ -55,7 +55,10 @@ let
       FirefoxSuggest = {
         SponsoredSuggesiostions = false;
         ImproveSuggest = false;
+        WebSuggestions = false;
       };
+      Homepage.StartPage = "none";
+      NewTabPage = false;
       UserMessaging = {
         ExtensionRecommendations = false;
         SkipOnboarding = true;

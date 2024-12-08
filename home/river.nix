@@ -49,6 +49,7 @@
 
         # cursor and focus
         riverctl hide-cursor timeout 1000
+        # toggleabble TODO figure out way without a file
         riverctl map normal Super+Shift C spawn '
           if [ -e /tmp/river-show-cursor ]; then
             riverctl hide-cursor timeout 1000
