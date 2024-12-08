@@ -20,7 +20,7 @@ in
 
           local newGenFiles
           newGenFiles="$(readlink -e "$newGenPath/home-files")"
-          time find "$newGenFiles" \( -type f -or -type l \) \
+          find "$newGenFiles" \( -type f -or -type l \) \
             -exec ${link} "$newGenFiles" {} +
         }
 
