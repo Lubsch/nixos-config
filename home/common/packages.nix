@@ -15,6 +15,7 @@
     file # file information
     fq # explore file formats
     jq # json pipes
+    moar # pager - alternative to less
     imagemagick # convert images
     poppler_utils # pdf utils (e.g. pdftotext)
     hyperfine # simple benchmarks
@@ -37,7 +38,8 @@
 
     # PROFILING
     linuxPackages_latest.perf
-    flamegraph cargo-flamegraph
+    flamegraph
+    cargo-flamegraph
 
     # DEBUGGING
     rr

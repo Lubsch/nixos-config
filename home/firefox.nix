@@ -36,8 +36,10 @@ let
           "browser.toolbars.bookmarks.visibility" = "never";
           "browser.tabs.delayHidingAudioPlayingIconMS" = 0; # no delay for "playing" in tabbar (eg. youtube)
           "full-screen-api.warning.timeout" = 0; # no fullscreen warning
+          "full-screen-api.transition.timeout" = 0; # go into fullscreen faster (maybe?)
           "extensions.pictureinpicture.enable_picture_in_picture_overrides" = true;
           "media.videocontrols.picture-in-picture.respect-disablePictureInPicture" = true;
+          # fewer search suggestions
           "browser.urlbar.showSearchSuggestionsFirst" = false;
           "browser.urlbar.suggest.addons" = false;
           "browser.urlbar.suggest.calculator" = false;
