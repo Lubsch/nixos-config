@@ -9,6 +9,7 @@
 
   # Remove (unnecessary, I hope) delay from waiting for network
   systemd.targets.network-online.enable = false;
+  systemd.sockets.systemd-hostnamed.enable = false;
   networking.dhcpcd.wait = "background";
 
   boot = {

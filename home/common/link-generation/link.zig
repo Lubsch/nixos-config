@@ -9,7 +9,7 @@ pub fn main() !void {
     var args = std.process.args();
     _ = args.next(); // discard program path
 
-    // ensure trailing / (without using allocations)
+    // ensure trailing slash (without using allocations)
     var new_gen_path = args.next().?;
     if (new_gen_path[new_gen_path.len - 1] != '/') {
         var buf = std.mem.zeroes([path_max]u8);
