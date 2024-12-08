@@ -24,6 +24,7 @@ let
           pref("${name}", ${builtins.toJSON value});
         '')
         {
+          "browser.fullscreen.autohide" = false; # still show bar when going fullscreen
           "intl.accept_languages" = "en-US, en, de";
           "browser.aboutConfig.showWarning" = false;
           "extensions.activeThemeID" = "default-theme@mozilla.org"; # use gtk theme
