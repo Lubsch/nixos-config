@@ -44,6 +44,8 @@ in
 
         cleanOldGen
 
+        echo genProfilePath: $genProfilePath
+
         if [[ ! -v oldGenPath || "$oldGenPath" != "$newGenPath" ]] ; then
           _i "Creating profile generation %s" $newGenNum
           if [[ -e "$genProfilePath"/manifest.json ]] ; then
