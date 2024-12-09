@@ -2,7 +2,7 @@
 {
   options.colors = lib.mkOption {
     default = {
-      alpha = "0.9";
+      alpha = "0.95";
 
       # Gruvbox
       background = "282828";
