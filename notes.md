@@ -28,6 +28,8 @@ home manager activation
         - maybe store dirs and links to create / modify in extra file
         - consider just reading from $HOME again when doing linkGeneration
         - exactly emulate script behavior (except slowness)
+            - symlink behavior(!)
+            - symlink redirection is not noticeable
 
 
 Investigate evaluating with tvix

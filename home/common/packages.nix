@@ -17,7 +17,8 @@
     jq # json pipes
     imagemagick # convert images
     poppler_utils # pdf utils (e.g. pdftotext)
-    hyperfine # simple benchmarks
+    hyperfine # benchmars
+    poop # "
     libqalculate # terminal calculator
     zip
     unzip
