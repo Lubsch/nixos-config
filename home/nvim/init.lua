@@ -1,3 +1,4 @@
+-- My config...
 vim.loader.enable()
 vim.cmd([[
     " Remap leader key
