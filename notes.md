@@ -23,6 +23,8 @@ home manager activation
         - e.g. sanity checks, nix-build test etc.
         - I think we don't need threads, just spawn multiple commands
         - really understand dependency chains
+    - completely replace modules/files.nix (building, checking, cleaning and linking home-files)
+    - use at least serde and factor out Dir data structure and its functions
     - replace linkGeneration and checkCollision completely
         - split up script to include writeBoundary
         - maybe store dirs and links to create / modify in extra file
@@ -30,6 +32,13 @@ home manager activation
         - exactly emulate script behavior (except slowness)
             - symlink behavior(!)
             - symlink redirection is not noticeable
+    - replace building hm-generation
+        - generate dir data structure, store in extra file in generation (e.g. json)
+        - maybe don't use data structure but just list of paths
+            - generate dir structure from that list
+            - order list by length -> parent dirs come before their children
+            - "diffing" sorted lists could be fast enough
+        - reconstruct dir from home-files if a generation doesn't have the structure generated
 
 
 Investigate evaluating with tvix
