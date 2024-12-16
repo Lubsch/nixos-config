@@ -42,6 +42,7 @@
         {
 
           graf = [
+            ./nixos/displaylink.nix
             ./nixos/bluetooth.nix
             ./nixos/common
             ./nixos/impermanence.nix
