@@ -16,7 +16,6 @@
     "nvme"
     "xhci_pci"
     "thunderbolt"
-    "evdi"
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
