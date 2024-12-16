@@ -59,6 +59,7 @@ in
 
   nixpkgs.config = {
     enableParallelBuilding = true;
-    allowUnfreePredicate = pkg: lib.hasPrefix "steam" (lib.getName pkg);
+    allowUnfreePredicate =
+      pkg: (lib.hasPrefix "steam") || (lib.hasPrefix "displaylink") (lib.getName pkg);
   };
 }
