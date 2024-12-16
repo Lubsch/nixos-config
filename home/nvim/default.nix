@@ -16,7 +16,7 @@ let
     jedi_language_server = python311Packages.jedi-language-server;
     rust_analyzer = rust-analyzer;
     hls = haskell-language-server;
-    typst_lsp = typst-lsp;
+    tinymist = tinymist; # typst
     nixd = nixd;
     clangd = clang-tools;
     jdtls = writeShellScriptBin "jdtls" "${jdt-language-server}/bin/jdt-language-server \"$@\"";
