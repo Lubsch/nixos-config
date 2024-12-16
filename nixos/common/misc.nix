@@ -5,6 +5,9 @@
     system.stateVersion = "23.05";
     time.timeZone = "Europe/Berlin";
 
+    # thunderbolt
+    services.hardware.bolt.enable = true;
+
     # unnecessary large dependency
     services.speechd.enable = false;
 
