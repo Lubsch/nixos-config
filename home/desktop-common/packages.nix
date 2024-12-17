@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    zotero # TODO configure properly
     hyprpicker # color picker
     hyprshot # screenshots
     loupe # gnome image viewer
