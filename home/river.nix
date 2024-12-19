@@ -21,18 +21,18 @@
         - HDMI # no vrr on hdmi (I don't have HDMI 2.1)
     '';
 
-  # TODO
-  # ponder about using shell variables instead
+  # TODO ponder about using shell variables instead
   wayland.windowManager.river = {
     enable = true;
     extraConfig = # sh
       ''
         # NOTE killing all processes with these names
+        # TODO ensure there's only one instance of waybar at once
         foot --server & # detects automatically if already running
         (old_pid=$(pidof way-displays) ; kill $old_pid ; ${pkgs.way-displays}/bin/way-displays) &
         (old_pid=$(pidof swaybg) ; ${pkgs.swaybg}/bin/swaybg -i ~/pictures/wallpapers/current & sleep 1 ; kill $old_pid) &
         (old_pid=$(pidof waybar) ; waybar & kill $old_pid) &
-        # TODO start kp and music on special workspaces
+        # TODO start kp, qalc music on special workspaces
 
         riverctl map normal Super+Shift E exit
 
