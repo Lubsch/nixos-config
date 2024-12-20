@@ -41,6 +41,7 @@ in
 
     # TODO improve git time
     initExtra = ''
+
       git_info() {
         local ref=$(git symbolic-ref --short HEAD 2> /dev/null)
         if [ -n "$ref" ]; then
