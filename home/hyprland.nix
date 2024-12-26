@@ -194,8 +194,8 @@
     '';
   };
 
-  home.sessionVariables.WM = "${pkgs.writeShellScriptBin "wm" ''
-    # to be used by greetd
-       Hyprland > ${config.xdg.dataHome}/hypr.log 2>&1
-  ''}/bin/wm";
+  # home.sessionVariables.WM = "${pkgs.writeShellScriptBin "wm" ''
+  #   # to be used by greetd
+  #      Hyprland > ${config.xdg.dataHome}/hypr.log 2>&1
+  # ''}/bin/wm";
 }
