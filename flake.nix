@@ -88,6 +88,7 @@
                 ./home/common
                 ./home/desktop-common
                 ./home/river.nix
+                ./home/hyprland.nix
                 ./home/nvim
                 ./home/steam.nix
                 ./home/mail.nix
