@@ -57,7 +57,7 @@
               home-manager.users.lubsch.imports = [
                 ./home/common
                 ./home/desktop-common
-                # ./home/hyprland.nix
+                ./home/hyprland.nix
                 ./home/river.nix
                 ./home/nvim
                 ./home/mail.nix
