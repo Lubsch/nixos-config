@@ -82,6 +82,11 @@
             # ./nixos/droidcam.nix
             ./nixos/wireguard.nix
             {
+              fileSystems."/data" = {
+                device = "/dev/sdb1";
+                fsType = "ext4";
+                options = [ "noatime" ];
+              };
               main-disk = "/dev/nvme0n1";
               swap-size = 16;
               home-manager.users."lubsch".imports = [
